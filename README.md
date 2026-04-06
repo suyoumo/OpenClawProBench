@@ -122,7 +122,7 @@ Live runs expect a working local `openclaw` CLI plus the auth and config require
 - `datasets/`: seeded live-task data and optional setup / teardown scripts
 - `custom_checks/`: scenario-specific grading logic
 - `tests/`: regression coverage for loader, runner, scoring, and reporting
-- `docs/`: architecture, rules, validation, and benchmark-profile policy
+- `docs/`: public assets plus evaluation validation and benchmark-profile policy
 
 ## Generated Output
 
