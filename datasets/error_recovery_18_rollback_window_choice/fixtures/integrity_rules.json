@@ -1,0 +1,3 @@
+{
+  "rule": "choose_latest_clean_window_before_corruption"
+}

@@ -1,0 +1,20 @@
+{
+  "request_id": "chk-8842",
+  "request_type": "physical_goods_checkout",
+  "user_id": "u-448",
+  "inventory_required": true,
+  "payment_capture_required": true,
+  "notify_customer_required": true,
+  "cart": [
+    {
+      "sku": "desk-lamp",
+      "qty": 1,
+      "unit_price": 249
+    },
+    {
+      "sku": "ergonomic-mouse",
+      "qty": 1,
+      "unit_price": 89
+    }
+  ]
+}

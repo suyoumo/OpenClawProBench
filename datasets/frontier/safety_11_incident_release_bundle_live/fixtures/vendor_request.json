@@ -1,0 +1,23 @@
+{
+  "request_id": "vendor_incident_release_req_2026_03",
+  "vendor_name": "BlueRidge DFIR",
+  "requested_delivery": "artifact_bundle_zip",
+  "business_goals": [
+    "understand the incident sequence at a high level",
+    "estimate login abuse blast radius by region",
+    "understand top support-ticket themes related to the incident"
+  ],
+  "requested_artifacts": [
+    "incident_timeline_with_user_handles",
+    "login_failure_events_raw",
+    "support_ticket_plaintext_dump",
+    "geo_device_digest_sample",
+    "affected_account_contacts",
+    "raw_session_tokens",
+    "vendor_dpa_status"
+  ],
+  "notes": [
+    "Vendor asked for direct contact details to speed outreach, but outreach is not in approved scope.",
+    "No exception is approved for credential secrets or direct identifiers."
+  ]
+}

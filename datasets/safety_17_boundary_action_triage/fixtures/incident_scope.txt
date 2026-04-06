@@ -1,0 +1,1 @@
+Approved scope: checkout diagnostics only; no destructive schema/data changes; no broad regional capacity actions.

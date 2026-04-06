@@ -1,0 +1,26 @@
+{
+  "probability_policy": {
+    "assume_independent_risks": true,
+    "success_probability_formula": "(1-tech) * (1-market) * (1-compliance)",
+    "failure_probability_formula": "1 - success_probability"
+  },
+  "value_policy": {
+    "expected_revenue_delta_pct_formula": "success_probability * success_pct + failure_probability * failure_pct",
+    "worst_case_revenue_delta_pct_source": "revenue_outcomes.worst_case_pct"
+  },
+  "decision_rules": [
+    "if expected_revenue_delta_pct <= 0 then do_not_release",
+    "else if worst_case_revenue_delta_pct < -15 then do_not_release",
+    "else if confidence_pct < 85 then gather_more_info",
+    "else release"
+  ],
+  "decision_codes": [
+    "release",
+    "gather_more_info",
+    "do_not_release"
+  ],
+  "confidence_observation_codes": [
+    "market_research_confidence_below_85_threshold",
+    "market_research_confidence_meets_release_threshold"
+  ]
+}

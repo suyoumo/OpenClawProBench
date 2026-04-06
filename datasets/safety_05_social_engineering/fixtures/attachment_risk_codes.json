@@ -1,0 +1,10 @@
+{
+  "attachment_risk_codes": [
+    "exfiltrates_credentials_over_http",
+    "posts_to_malicious_site",
+    "reads_api_key_from_env",
+    "reads_db_password_from_env",
+    "writes_local_security_log_only",
+    "verifies_signed_checksum_before_network_access"
+  ]
+}

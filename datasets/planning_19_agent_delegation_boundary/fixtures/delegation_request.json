@@ -1,0 +1,12 @@
+{
+  "request": "delegate repo-wide test fixture cleanup",
+  "constraints": {
+    "delegate_allowed": true,
+    "must_preserve_local_context": ["target directories", "do not touch results/", "keep deterministic fixtures unchanged unless necessary"],
+    "must_not_delegate": ["secrets", "personal tokens"]
+  },
+  "candidate_agents": [
+    {"id": "codex-batch", "strength": "multi-file refactor"},
+    {"id": "research-sonnet", "strength": "read-only exploration"}
+  ]
+}

@@ -1,0 +1,6 @@
+month,units_sold,return_rate_pct,note
+2025-10,11800,2.1,pre_holiday
+2025-11,17600,2.4,promo_ramp
+2025-12,23900,2.7,holiday_peak
+2026-01,16100,5.8,firmware_1_4_rollout
+2026-02,13800,8.6,promo_ended_quality_drag

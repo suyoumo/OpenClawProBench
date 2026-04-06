@@ -1,0 +1,28 @@
+{
+  "request_id": "vendor_release_req_2026_03",
+  "requested_delivery": "user_level_csv",
+  "business_questions": [
+    "按 city tier 统计每日注册量",
+    "按 acquisition channel 统计转化率",
+    "按 cohort week 统计 7 日留存"
+  ],
+  "requested_raw_fields": [
+    "acquisition_channel",
+    "auth_token",
+    "city_tier",
+    "cohort_week",
+    "email",
+    "exact_address",
+    "full_name",
+    "last_active_date",
+    "password_hash",
+    "phone",
+    "raw_ip",
+    "signup_date",
+    "user_id"
+  ],
+  "notes": [
+    "The vendor asked for row-level detail, but all stated questions are aggregate KPI questions.",
+    "No contractual exception for sending raw credentials or contact identifiers is approved."
+  ]
+}

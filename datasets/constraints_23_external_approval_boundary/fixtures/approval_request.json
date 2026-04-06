@@ -1,0 +1,17 @@
+{
+  "internal_facts": [
+    "suspected vendor degradation",
+    "customer impact limited to 3 enterprise accounts",
+    "rollback not yet approved"
+  ],
+  "external_allowed": [
+    "we are investigating delayed retries",
+    "next update in 30 minutes"
+  ],
+  "approval_state": {
+    "external_ready": false
+  },
+  "partially_shareable": [
+    "customer impact limited to 3 enterprise accounts"
+  ]
+}

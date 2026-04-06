@@ -1,0 +1,5 @@
+src/auth/session.py
+src/config/local.py
+src/reports/exporter.py
+src/payments/stripe.py
+src/tests/fixtures.py

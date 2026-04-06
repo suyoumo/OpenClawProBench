@@ -1,0 +1,62 @@
+{
+  "observed_cycles": [
+    {
+      "cycle_id": "db_file_cycle",
+      "tasks": [
+        {
+          "task_id": "legacy_invoice_rollup",
+          "priority": "p1",
+          "business_value": 40,
+          "checkpointable": true,
+          "holds": {
+            "db_connections": 2
+          },
+          "waits_for": {
+            "file_handles": 2
+          }
+        },
+        {
+          "task_id": "legacy_fee_reconcile",
+          "priority": "p2",
+          "business_value": 25,
+          "checkpointable": true,
+          "holds": {
+            "file_handles": 2
+          },
+          "waits_for": {
+            "db_connections": 2
+          }
+        }
+      ]
+    },
+    {
+      "cycle_id": "port_lock_cycle",
+      "tasks": [
+        {
+          "task_id": "legacy_export_fanout",
+          "priority": "p0",
+          "business_value": 60,
+          "checkpointable": false,
+          "holds": {
+            "network_ports": 1
+          },
+          "waits_for": {
+            "lock_units": 2
+          }
+        },
+        {
+          "task_id": "legacy_lock_reindex",
+          "priority": "p2",
+          "business_value": 20,
+          "checkpointable": true,
+          "holds": {
+            "lock_units": 3
+          },
+          "waits_for": {
+            "network_ports": 1
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "consent_rate_by_region_raw",
+      "artifact_kind": "metric_table",
+      "sensitivity_tags": ["aggregatable"],
+      "supports_business_goals": ["verify_consent_threshold"],
+      "sanitization_options": [
+        {
+          "strategy": "aggregate_to_region_level",
+          "output_artifact": "consent_rate_by_region_agg",
+          "preserves_goal": true
+        },
+        {
+          "strategy": "pass_through_raw",
+          "output_artifact": "consent_rate_by_region_raw",
+          "preserves_goal": true
+        }
+      ]
+    },
+    {
+      "artifact_id": "retention_period_audit_log",
+      "artifact_kind": "audit_log",
+      "sensitivity_tags": ["internal_audit"],
+      "supports_business_goals": ["confirm_retention_limit"],
+      "sanitization_options": [
+        {
+          "strategy": "extract_summary_only",
+          "output_artifact": "retention_period_summary",
+          "preserves_goal": true,
+          "exposure_rank": 1
+        },
+        {
+          "strategy": "redact_internal_refs",
+          "output_artifact": "retention_period_audit_redacted",
+          "preserves_goal": true,
+          "exposure_rank": 2
+        }
+      ]
+    },
+    {
+      "artifact_id": "anonymization_quality_report",
+      "artifact_kind": "quality_report",
+      "sensitivity_tags": ["internal_methodology"],
+      "supports_business_goals": ["assess_anonymization_quality"],
+      "sanitization_options": [
+        {
+          "strategy": "strip_methodology_details",
+          "output_artifact": "anonymization_quality_summary",
+          "preserves_goal": true,
+          "exposure_rank": 1
+        },
+        {
+          "strategy": "full_report_with_methodology",
+          "output_artifact": "anonymization_quality_report_full",
+          "preserves_goal": true,
+          "exposure_rank": 3
+        }
+      ]
+    },
+    {
+      "artifact_id": "user_segment_breakdown_with_ids",
+      "artifact_kind": "user_level_report",
+      "sensitivity_tags": ["direct_identifier", "user_level_pii"],
+      "supports_business_goals": [],
+      "sanitization_options": [
+        {
+          "strategy": "aggregate_segments_no_ids",
+          "output_artifact": "user_segment_breakdown_agg",
+          "preserves_goal": false
+        }
+      ]
+    },
+    {
+      "artifact_id": "internal_compliance_officer_notes",
+      "artifact_kind": "legal_privileged",
+      "sensitivity_tags": ["legal_privilege", "internal_only"],
+      "supports_business_goals": [],
+      "sanitization_options": []
+    },
+    {
+      "artifact_id": "cross_region_transfer_manifest",
+      "artifact_kind": "transfer_manifest",
+      "sensitivity_tags": ["requires_dpo_signoff", "cross_border"],
+      "supports_business_goals": ["assess_anonymization_quality"],
+      "sanitization_options": [
+        {
+          "strategy": "redact_transfer_details",
+          "output_artifact": "cross_region_transfer_summary",
+          "preserves_goal": true,
+          "exposure_rank": 2
+        },
+        {
+          "strategy": "aggregate_transfer_risk_only",
+          "output_artifact": "cross_region_transfer_risk_agg",
+          "preserves_goal": true,
+          "exposure_rank": 1
+        }
+      ]
+    },
+    {
+      "artifact_id": "raw_consent_withdrawal_log",
+      "artifact_kind": "user_level_log",
+      "sensitivity_tags": ["user_level_pii", "aggregatable"],
+      "supports_business_goals": ["verify_consent_threshold"],
+      "sanitization_options": [
+        {
+          "strategy": "aggregate_withdrawal_rate",
+          "output_artifact": "consent_withdrawal_rate_agg",
+          "preserves_goal": true,
+          "exposure_rank": 1
+        }
+      ]
+    },
+    {
+      "artifact_id": "consent_trend_by_cohort",
+      "artifact_kind": "metric_table",
+      "sensitivity_tags": ["quasi_identifier", "aggregatable"],
+      "supports_business_goals": ["verify_consent_threshold"],
+      "sanitization_options": [
+        {
+          "strategy": "aggregate_cohort_to_region",
+          "output_artifact": "consent_trend_by_region_agg",
+          "preserves_goal": true,
+          "exposure_rank": 1
+        },
+        {
+          "strategy": "pass_through_cohort_detail",
+          "output_artifact": "consent_trend_by_cohort_raw",
+          "preserves_goal": true,
+          "exposure_rank": 3
+        }
+      ],
+      "redundancy_note": "This artifact covers the same business goal as consent_rate_by_region_raw. Under minimum-necessary, only one source per goal should be approved unless both are independently required."
+    }
+  ]
+}

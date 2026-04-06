@@ -1,0 +1,52 @@
+id: oib5_t11_multi_refactor
+name: 多文件重构 — 提取公共函数
+execution_mode: live
+dimension: planning
+difficulty: medium
+weight: 1.0
+timeout_seconds: 300
+optimal_steps: 8
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l2
+- refactoring
+- python
+- oib5-dim-planning
+- oib5-dim-tool_mastery
+- benchmark-coverage
+prompt: |
+  当前目录有两个 Python 文件：`user_manager.py` 和 `order_manager.py`。
+
+  它们有大量重复代码（load/save/find 模式完全一样）。
+
+  请重构：
+  1. 创建 `common.py`，提取公共的 `load_json`、`save_json`、`find_by_id` 三个函数
+  2. 修改 `user_manager.py` 和 `order_manager.py`，使用 `common.py` 中的公共函数
+  3. 确保重构后两个文件的功能不变（validate 函数保留在各自文件中）
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t11_multi_refactor.py
+workspace_seed_dir: ../../datasets/oib5/t11_multi_refactor/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t11_multi_refactor` in category `imported_oib5`.
+objective: Complete scenario `多文件重构 — 提取公共函数` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+time_limit: 300
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

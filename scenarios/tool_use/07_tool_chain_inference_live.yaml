@@ -1,0 +1,69 @@
+benchmark_core: true
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_07_tool_chain_inference_live.py
+difficulty: hard
+dimension: tool_use
+execution_mode: live
+expected_outcome: "category_chain_report.json exists with the correct net-sales top-3 categories, dropped orders, adjustment summary, summary metrics, and evidence refs.\n"
+id: tool_use_07_tool_chain_inference_live
+name: 工具链推断 — 净销售分类重建
+optimal_steps: 12
+pass_threshold: 0.65
+prompt: |
+  当前工作区中有 `analysis_brief.md`、`sales_data.json`、`adjustments.json` 和 `report_contract.json`。
+
+  请在不联网的情况下，组合使用合适工具重建“按净销售额排序的前 3 个品类报告”。
+
+  输出要求：
+  创建 `category_chain_report.json`，字段必须完整：
+  {
+    "ranking_basis": "...",
+    "top_categories": [
+      {
+        "rank": 1,
+        "category": "...",
+        "net_sales": 0.0,
+        "valid_order_count": 0,
+        "average_order_amount": 0.0,
+        "largest_order": {
+          "order_id": "...",
+          "product": "...",
+          "amount": 0.0
+        }
+      }
+    ],
+    "dropped_orders": ["..."],
+    "adjustment_summary": {
+      "refund_order_ids": ["..."],
+      "cancelled_order_ids": ["..."]
+    },
+    "summary": {
+      "evaluated_categories": 0,
+      "top_category": "...",
+      "winner_margin_vs_runner_up": 0.0
+    },
+    "evidence_refs": ["...", "...", "..."]
+  }
+
+  要求：
+  - 只使用工作区中的输入文件
+  - `top_categories` 必须正好 3 项，并按净销售额从高到低排序
+  - 所有金额字段保留 2 位小数
+  - `largest_order.amount` 使用调整后的订单金额
+  - `dropped_orders` 只列出被完全取消、因此不参与统计的订单
+  - `evidence_refs` 至少 3 条，并指向实际输入文件
+tags:
+- oib5
+- live
+- tool_use
+- tool-chain
+- inference
+- analysis
+- closed-world
+- benchmark-intelligence
+- benchmark-core
+timeout_seconds: 300
+weight: 1.5
+workspace_seed_dir: ../../datasets/frontier/tool_use_07_tool_chain_inference_live/fixtures

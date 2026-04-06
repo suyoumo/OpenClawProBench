@@ -1,0 +1,4 @@
+2026-03-21T14:20:01Z INFO revision=gw-20260321-1420 msg="reloaded upstream configuration"
+2026-03-21T14:20:03Z ERROR upstream=user-service dial_target=10.4.1.18:9091 msg="connect: connection refused"
+2026-03-21T14:20:04Z WARN circuit_breaker=open msg="marking user-service dependency unavailable"
+2026-03-21T14:20:08Z ERROR upstream=user-service dial_target=10.4.1.18:9091 msg="connect: connection refused"

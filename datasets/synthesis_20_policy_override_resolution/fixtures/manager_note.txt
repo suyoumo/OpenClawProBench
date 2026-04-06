@@ -1,0 +1,2 @@
+Manager note:
+A temporary override is approved for exporting sanitized billing samples to the analytics sandbox mirror for incident review tied to fraud-model drift. This note is manager-approved only and is not countersigned by security. No other destination, destination variant, or use case is covered.

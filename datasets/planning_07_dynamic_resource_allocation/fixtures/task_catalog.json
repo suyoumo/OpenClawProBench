@@ -1,0 +1,78 @@
+{
+  "tasks": [
+    {
+      "task_id": "stream_restore",
+      "priority": "p0",
+      "duration_windows": 1,
+      "deadline_minute": 10,
+      "business_value": 90,
+      "cpu": 4,
+      "ram_gb": 8,
+      "depends_on": []
+    },
+    {
+      "task_id": "feature_backfill_a",
+      "priority": "p2",
+      "duration_windows": 1,
+      "deadline_minute": 10,
+      "business_value": 25,
+      "cpu": 3,
+      "ram_gb": 6,
+      "depends_on": []
+    },
+    {
+      "task_id": "feature_backfill_b",
+      "priority": "p2",
+      "duration_windows": 1,
+      "deadline_minute": 10,
+      "business_value": 25,
+      "cpu": 3,
+      "ram_gb": 6,
+      "depends_on": []
+    },
+    {
+      "task_id": "ingestion_repair",
+      "priority": "p2",
+      "duration_windows": 1,
+      "deadline_minute": 15,
+      "business_value": 40,
+      "cpu": 2,
+      "ram_gb": 4,
+      "depends_on": []
+    },
+    {
+      "task_id": "analytics_rollup",
+      "priority": "p1",
+      "duration_windows": 2,
+      "deadline_minute": 20,
+      "business_value": 80,
+      "cpu": 5,
+      "ram_gb": 10,
+      "depends_on": [
+        "ingestion_repair"
+      ]
+    },
+    {
+      "task_id": "model_refresh",
+      "priority": "p1",
+      "duration_windows": 3,
+      "deadline_minute": 20,
+      "business_value": 70,
+      "cpu": 6,
+      "ram_gb": 12,
+      "depends_on": []
+    },
+    {
+      "task_id": "cache_rebuild",
+      "priority": "p3",
+      "duration_windows": 1,
+      "deadline_minute": 20,
+      "business_value": 15,
+      "cpu": 2,
+      "ram_gb": 4,
+      "depends_on": [
+        "analytics_rollup"
+      ]
+    }
+  ]
+}

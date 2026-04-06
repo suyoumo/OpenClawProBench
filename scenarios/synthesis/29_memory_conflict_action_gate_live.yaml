@@ -1,0 +1,28 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_29_memory_conflict_action_gate_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+id: synthesis_29_memory_conflict_action_gate_live
+name: Memory Conflict Action Gate
+openclaw_surfaces:
+- memory
+- message
+optimal_steps: 10
+pass_threshold: 0.62
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `memory_gate.json`
+
+  请创建 `memory_action_gate.json`，字段必须完整：
+  {
+    "current_ops_room": "...",
+    "external_option_blocked": true,
+    "needs_human_confirmation": ["..."],
+    "discarded_entries": ["..."],
+    "reason": "..."
+  }

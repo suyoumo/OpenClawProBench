@@ -1,0 +1,36 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: error_recovery_20_browser_cron_message_orchestration_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+id: error_recovery_20_browser_cron_message_orchestration_live
+name: Browser-Cron-Message 三段编排
+openclaw_surfaces:
+- browser
+- cron
+- message
+optimal_steps: 12
+pass_threshold: 0.62
+timeout_seconds: 360
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `orchestration_request.json`
+
+  你需要先检查 status 页面；如果仍未恢复，则安排一次后续复查 cron，并生成一条极简 user update。把结果写到 `orchestration_plan.json`。
+
+  字段必须完整：
+  {
+    "status_result": "...",
+    "follow_up_cron": "...",
+    "user_update": "...",
+    "decision_chain": "..."
+  }
+
+  规则：
+  - 只有在 status 页面仍未恢复时，才允许写 follow_up_cron
+  - cron 分钟位不能是 0 或 30
+  - user_update 必须简短
+  - decision_chain 必须说明 browser -> cron -> message 的顺序

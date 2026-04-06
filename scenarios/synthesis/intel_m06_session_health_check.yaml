@@ -1,0 +1,35 @@
+id: intel_m06_session_health_check
+name: 会话健康检查
+dimension: synthesis
+difficulty: hard
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 8
+timeout_seconds: 300
+openclaw_surfaces:
+- sessions
+- agents
+tools:
+- exec
+- write
+prompt: |
+  请检查本机 OpenClaw 的 sessions 和 agents 健康状态，创建 `health_report.json`。
+
+  报告字段：
+  - total_sessions: session 总数
+  - over_context_limit: inputTokens 超过 contextTokens 的 session key 列表
+  - largest_session_key: inputTokens 最大的 session key
+  - largest_session_input_tokens: 对应的 inputTokens 值
+  - total_agents: agent 总数
+  - default_agent_model: 默认 agent 的 model 名称
+  - health_summary: 根据以上数据综合判断，取值 "healthy"、"warning" 或 "critical"
+custom_check: intel_m06_session_health_check.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

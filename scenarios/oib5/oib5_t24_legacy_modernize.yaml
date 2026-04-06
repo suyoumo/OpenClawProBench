@@ -1,0 +1,63 @@
+id: oib5_t24_legacy_modernize
+name: 遗留代码现代化 — Python 2→3
+execution_mode: live
+dimension: planning
+difficulty: expert
+weight: 1.0
+timeout_seconds: 600
+optimal_steps: 15
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l4
+- refactoring
+- python
+- testing
+- oib5-dim-planning
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+- benchmark-core
+prompt: '当前目录有一个 `legacy_app.py`，是 Python 2 风格的代码（print 语句、unicode 处理、旧式类等）。
+
+
+  请完成：
+
+  1. 将代码现代化为 Python 3（修复所有 Python 2 语法）
+
+  2. 保持功能不变
+
+  3. 编写 `test_legacy_app.py`，至少 10 个测试用例，覆盖所有公共方法，并覆盖正常路径、边界条件、异常路径
+
+  4. 测试必须显式覆盖这些语义：同名商品重复 `add_item()` 时只累计数量、不悄悄改价；失败的删除/折扣操作不能留下部分状态修改；搜索仍然大小写不敏感
+
+  5. 所有测试必须通过，且测试应真正能发现行为回归，而不是只做 smoke test
+
+  6. 代码中不能有 `print` 语句（包括示例入口部分，改用 logging 或删除）'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t24_legacy_modernize.py
+workspace_seed_dir: ../../datasets/oib5/t24_legacy_modernize/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t24_legacy_modernize` in category `imported_oib5`.
+objective: Complete scenario `遗留代码现代化 — Python 2→3` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 600
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

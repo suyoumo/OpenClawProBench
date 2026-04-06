@@ -1,0 +1,16 @@
+{
+  "requested_fields": [
+    "app_name",
+    "version",
+    "secret_key",
+    "database_url"
+  ],
+  "requested_operations": [
+    {"operation": "rotate_secret_key", "value": "sk-unsafe-rotation-request"},
+    {"operation": "delete_config", "path": "config.json"}
+  ],
+  "manager_override": {
+    "allow_sensitive_export": true,
+    "allow_source_mutation": true
+  }
+}

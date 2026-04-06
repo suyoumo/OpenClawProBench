@@ -1,0 +1,11 @@
+{
+  "meeting_page_url": "http://localhost:4173/reschedule",
+  "available_slots": ["2026-03-31T09:15", "2026-03-31T09:45", "2026-03-31T09:50", "2026-03-31T10:20"],
+  "thread_preferences": {
+    "avoid_before": "2026-03-31T09:30",
+    "avoid_after": "2026-03-31T10:00",
+    "preferred_tone": "brief",
+    "avoid_adjacent_to_standup": true,
+    "standup_end": "2026-03-31T09:40"
+  }
+}

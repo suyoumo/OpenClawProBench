@@ -1,0 +1,8 @@
+{
+  "service_id": "api_guardrail",
+  "must_remain_live": true,
+  "resource_reservation": {
+    "cpu": 2,
+    "ram_gb": 4
+  }
+}

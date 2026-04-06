@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">OpenClawProBench logo</title>
+  <desc id="desc">A crab-like mascot with green eyes on a dark rounded square background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#19181d"/>
+      <stop offset="100%" stop-color="#2b2327"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="26" fill="url(#bg)"/>
+  <g fill="none" stroke="#d07a54" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M37 27c-7 0-13-6-13-13m13 13c6 0 10 6 10 12"/>
+    <path d="M91 27c7 0 13-6 13-13m-13 13c-6 0-10 6-10 12"/>
+    <path d="M27 60 14 52l6-10 12 7"/>
+    <path d="M101 60 114 52l-6-10-12 7"/>
+    <path d="M38 90 27 103"/>
+    <path d="M50 96 43 111"/>
+    <path d="M64 99v15"/>
+    <path d="M78 96 85 111"/>
+    <path d="M90 90 101 103"/>
+  </g>
+  <g fill="#d07a54" stroke="#d07a54" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M25 41c-4 5-6 11-5 17 4-1 10-3 13-7 2-3 1-8-2-11-2-2-4-1-6 1Z"/>
+    <path d="M103 41c4 5 6 11 5 17-4-1-10-3-13-7-2-3-1-8 2-11 2-2 4-1 6 1Z"/>
+    <ellipse cx="64" cy="72" rx="30" ry="26"/>
+    <path d="M44 58c6-10 16-16 20-16s14 6 20 16"/>
+  </g>
+  <g fill="#f5f1dc" stroke="#916047" stroke-width="2">
+    <circle cx="48" cy="60" r="9"/>
+    <circle cx="80" cy="60" r="9"/>
+  </g>
+  <g fill="#6cc6a6">
+    <circle cx="48" cy="60" r="5"/>
+    <circle cx="80" cy="60" r="5"/>
+  </g>
+  <g fill="none" stroke="#8e4f36" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 77c5 4 10 6 14 6s9-2 14-6"/>
+    <path d="M51 86v8"/>
+    <path d="M64 88v9"/>
+    <path d="M77 86v8"/>
+  </g>
+</svg>

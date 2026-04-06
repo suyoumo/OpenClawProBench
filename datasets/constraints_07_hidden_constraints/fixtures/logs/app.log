@@ -1,0 +1,5 @@
+[2026-03-21 14:20:00] INFO: Request processed successfully
+[2026-03-21 14:20:05] ERROR: Connection pool exhausted
+[2026-03-21 14:20:10] WARN: Cache miss rate high (80%)
+[2026-03-21 14:20:15] ERROR: File size exceeds limit
+[2026-03-21 14:20:20] ERROR: Rate limit exceeded

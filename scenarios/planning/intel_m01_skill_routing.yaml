@@ -1,0 +1,36 @@
+id: intel_m01_skill_routing
+name: 技能路由规划
+dimension: planning
+difficulty: medium
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 6
+timeout_seconds: 300
+openclaw_surfaces:
+- skills
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `requests.json`，包含 5 个任务请求，每个请求需要特定的 OpenClaw skill。
+  请查询本机 skills 状态，判断每个请求能否被当前可用的 skill 处理。
+  创建 `routing_plan.json`：
+  {
+    "routable": [
+      {"request_id": "...", "skill": "...", "reason": "..."}
+    ],
+    "blocked": [
+      {"request_id": "...", "required_skill": "...", "block_reason": "..."}
+    ]
+  }
+custom_check: intel_m01_skill_routing.py
+workspace_seed_dir: ../../datasets/intel/m01/fixtures
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

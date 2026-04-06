@@ -1,0 +1,44 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_12_manifest_reconstruction_live.py
+difficulty: hard
+dimension: tool_use
+execution_mode: live
+expected_outcome: "release_manifest.json exists with the correct final services, changed services, removed services, and evidence list.\n"
+id: tool_use_12_manifest_reconstruction_live
+name: 发布清单重建
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  当前工作区中有 `brief.md`、`manifests/`、`patches/`、`hotfixes.txt`、`rollback_notes.md` 等文件。
+
+  请根据这些文件重建“今晚真正会发布的最终 manifest”，不要联网。
+
+  输出要求：
+  创建 `release_manifest.json`，字段必须完整：
+  {
+    "services": [
+      {"name": "...", "version": "...", "source": "..."}
+    ],
+    "changed_services": ["...", "..."],
+    "removed_services": ["..."],
+    "evidence": ["...", "...", "..."]
+  }
+
+  要求：
+  - `services` 必须按服务名字母序排序
+  - `changed_services` 必须只列出相对 base 发生变化的服务
+  - `removed_services` 只列出被明确回滚移除的服务
+  - `evidence` 至少 3 条
+workspace_seed_dir: ../../datasets/frontier/tool_use_12_manifest_reconstruction_live/fixtures
+tags:
+- tool_use
+- workspace
+- manifest
+- reconstruction
+- hard
+- closed-world
+timeout_seconds: 600
+weight: 2.0

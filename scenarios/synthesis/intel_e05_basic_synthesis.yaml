@@ -1,0 +1,32 @@
+id: intel_e05_basic_synthesis
+name: 基础多源合并
+dimension: synthesis
+difficulty: easy
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: incubating
+signal_source: workspace_live
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 5
+timeout_seconds: 300
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `source_a.json` 和 `source_b.json`，分别包含不同服务的状态信息。
+  请读取两个文件，合并信息，创建 `merged_status.json`，包含：
+  {
+    "services": [
+      {"name": "...", "status": "...", "source": "a" 或 "b"},
+      ...
+    ],
+    "total_count": N,
+    "healthy_count": N
+  }
+custom_check: intel_e05_basic_synthesis.py
+workspace_seed_dir: ../../datasets/intel/e05/fixtures
+tags:
+- benchmark-intelligence
+- benchmark-core

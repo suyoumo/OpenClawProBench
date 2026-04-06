@@ -1,0 +1,38 @@
+[
+  {
+    "id": "P001",
+    "name": "Laptop",
+    "category": "Electronics",
+    "price": 999
+  },
+  {
+    "id": "P002",
+    "name": "Mouse",
+    "category": "Electronics",
+    "price": 29
+  },
+  {
+    "id": "P003",
+    "name": "Desk",
+    "category": "Furniture",
+    "price": 450
+  },
+  {
+    "id": "P004",
+    "name": "Chair",
+    "category": "Furniture",
+    "price": 350
+  },
+  {
+    "id": "P005",
+    "name": "Notebook",
+    "category": "Stationery",
+    "price": 12
+  },
+  {
+    "id": "P006",
+    "name": "Pen Set",
+    "category": "Stationery",
+    "price": 25
+  }
+]

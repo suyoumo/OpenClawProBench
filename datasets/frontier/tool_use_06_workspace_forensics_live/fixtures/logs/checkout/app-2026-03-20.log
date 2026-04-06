@@ -1,0 +1,4 @@
+2026-03-20T01:10:00Z service=checkout customer_id=C104 severity=critical status=confirmed error=PAYMENT_TIMEOUT
+2026-03-20T01:12:00Z service=checkout customer_id=C104 severity=critical status=confirmed error=PAYMENT_TIMEOUT
+2026-03-20T01:40:00Z service=checkout customer_id=C208 severity=medium status=confirmed error=SLOW_QUERY
+2026-03-20T02:00:00Z service=checkout customer_id=C220 severity=high status=suspected error=PAYMENT_TIMEOUT

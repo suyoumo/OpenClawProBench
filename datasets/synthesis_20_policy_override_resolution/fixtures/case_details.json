@@ -1,0 +1,11 @@
+{
+  "case_id": "CASE-884",
+  "requested_action": "export customer support bundle",
+  "destination": "analytics sandbox mirror eu",
+  "destination_classification": "external hosted mirror",
+  "contains_customer_data": true,
+  "contains_exported_customer_data": true,
+  "use_case": "vendor escalation",
+  "manager_approval_present": true,
+  "security_countersign_present": false
+}

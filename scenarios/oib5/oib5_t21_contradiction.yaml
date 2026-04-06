@@ -1,0 +1,66 @@
+id: oib5_t21_contradiction
+name: 矛盾信息处理
+execution_mode: live
+dimension: synthesis
+difficulty: hard
+weight: 1.0
+timeout_seconds: 300
+optimal_steps: 6
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l3
+- context
+- contradiction
+- synthesis
+- oib5-dim-context
+- oib5-dim-planning
+- benchmark-coverage
+prompt: |
+  当前目录有三个数据源，关于同一个产品 SmartWatch Pro：
+
+  1. `source_official.json` — 官方产品数据库（更新于 3/10）
+  2. `source_retailer.json` — 零售商数据（更新于 3/14）
+  3. `source_reviews.txt` — 用户评价汇总（抓取于 3/15）
+
+  三个数据源的价格、库存、评分都有冲突。
+
+  请完成：
+  1. 读取所有三个文件
+  2. 分析冲突点（价格、库存、评分各不同）
+  3. 基于数据时效性和可信度，给出最终判断
+  4. 将分析结果保存到 `analysis.json`，格式：
+     ```json
+     {
+       "price": {"value": 最终价格, "source": "来源", "reason": "理由"},
+       "stock": {"value": "有货/无货", "source": "来源", "reason": "理由"},
+       "rating": {"value": 最终评分, "source": "来源", "reason": "理由"},
+       "conflicts_found": ["冲突1", "冲突2", ...]
+     }
+     ```
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t21_contradiction.py
+workspace_seed_dir: ../../datasets/oib5/t21_contradiction/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t21_contradiction` in category `imported_oib5`.
+objective: Complete scenario `矛盾信息处理` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+time_limit: 300
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

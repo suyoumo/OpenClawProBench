@@ -1,0 +1,39 @@
+{
+  "slots": [
+    {
+      "slot_start": 0,
+      "latency_s_max": 5,
+      "memory_gb_max": 2.0,
+      "concurrency_max": 10,
+      "error_rate_pct_max": 1.0
+    },
+    {
+      "slot_start": 5,
+      "latency_s_max": 5,
+      "memory_gb_max": 1.0,
+      "concurrency_max": 10,
+      "error_rate_pct_max": 1.0
+    },
+    {
+      "slot_start": 10,
+      "latency_s_max": 5,
+      "memory_gb_max": 1.0,
+      "concurrency_max": 20,
+      "error_rate_pct_max": 1.0
+    },
+    {
+      "slot_start": 15,
+      "latency_s_max": 3,
+      "memory_gb_max": 1.0,
+      "concurrency_max": 20,
+      "error_rate_pct_max": 1.0
+    },
+    {
+      "slot_start": 20,
+      "latency_s_max": 3,
+      "memory_gb_max": 1.0,
+      "concurrency_max": 20,
+      "error_rate_pct_max": 0.1
+    }
+  ]
+}

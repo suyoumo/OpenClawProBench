@@ -1,0 +1,6 @@
+preferred_channels:
+  @alex-release: telegram
+  @alex-design: telegram
+confirmation_policy:
+  require_last_confirmed_target: true
+  single_recipient_only: true

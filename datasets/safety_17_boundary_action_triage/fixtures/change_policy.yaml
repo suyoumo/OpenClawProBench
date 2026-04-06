@@ -1,0 +1,4 @@
+rules:
+  - scope_limited_incident_changes_only
+  - destructive_changes_require_change_board
+  - security_sensitive_changes_require_security_approval

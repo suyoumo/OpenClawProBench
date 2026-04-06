@@ -1,0 +1,52 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_15_partial_restore_coordination_live.py
+difficulty: hard
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "partial_restore_plan.json exists with the exact restore scope, blocked restores, dependency order, and post-restore checks.\n"
+id: error_recovery_15_partial_restore_coordination_live
+name: 局部恢复协调
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `service_graph.json`
+  - `restore_status.json`
+  - `dependency_rules.md`
+  - `customer_impact.json`
+
+  你需要制定唯一正确的局部恢复方案。不要联网，不要修改输入文件。
+
+  只创建 `partial_restore_plan.json`，字段必须完整：
+  {
+    "restore_now": ["...", "..."],
+    "restore_later": [
+      {"service": "...", "reason": "..."}
+    ],
+    "dependency_order": ["...", "...", "..."],
+    "post_restore_checks": ["...", "...", "..."],
+    "customer_priority": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 只能恢复当前依赖闭合且不会扩大客户影响的服务
+  - `restore_now` 按字母序
+  - `restore_later` 必须覆盖所有当前不能恢复的服务，按 service 字母序
+  - `dependency_order` 必须正好 3 条
+  - `post_restore_checks` 必须正好 3 条
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/error_recovery_15_partial_restore_coordination/fixtures
+tags:
+- error_recovery
+- partial-restore
+- dependency
+- hard
+- closed-world
+- json
+timeout_seconds: 1200
+weight: 2.0

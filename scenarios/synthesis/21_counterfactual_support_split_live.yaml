@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_21_counterfactual_support_split_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "counterfactual_support.json exists with the exact winning hypothesis, rejected hypotheses, conflict chain, and evidence refs.\n"
+id: synthesis_21_counterfactual_support_split_live
+name: 反事实支持拆分
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `evidence_set.json`
+  - `candidate_explanations.md`
+  - `counterfactual_rules.md`
+  - `decision_contract.json`
+
+  你需要在多个互相竞争的事故解释中选出唯一成立的主解释。不要联网，不要修改输入文件。
+
+  只创建 `counterfactual_support.json`，字段必须完整：
+  {
+    "winning_hypothesis": "...",
+    "rejected_hypotheses": [
+      {"hypothesis": "...", "reason": "..."}
+    ],
+    "conflict_chain": ["...", "...", "..."],
+    "negative_evidence": ["...", "..."],
+    "governing_rule": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 只能选择同时满足时间顺序、直接证据和反事实规则的唯一假设
+  - `rejected_hypotheses` 必须覆盖所有未选候选，按 hypothesis 字母序
+  - `conflict_chain` 必须正好 3 条，体现“候选冲突 -> 反事实排除 -> 唯一结论”
+  - `negative_evidence` 必须正好 2 条，且都必须是真正用于排除候选的负证据
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/synthesis_21_counterfactual_support_split/fixtures
+tags:
+- synthesis
+- counterfactual
+- negative-evidence
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

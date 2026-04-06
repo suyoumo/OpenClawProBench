@@ -1,0 +1,14 @@
+{
+  "product": "PulseBand V2",
+  "tickets": [
+    {"ticket_id": "T-201", "date": "2026-01-17", "customer_os": "Android 14", "summary": "升级 1.4 后一天一充", "resolved": false},
+    {"ticket_id": "T-202", "date": "2026-01-19", "customer_os": "Android 14", "summary": "固件 1.4 后续航掉得特别快", "resolved": false},
+    {"ticket_id": "T-203", "date": "2026-01-24", "customer_os": "Android 14", "summary": "配对成功后数小时又断开", "resolved": false},
+    {"ticket_id": "T-204", "date": "2026-01-29", "customer_os": "Android 14", "summary": "夜间待机掉电异常", "resolved": false},
+    {"ticket_id": "T-205", "date": "2026-02-04", "customer_os": "Android 14", "summary": "配对后第二天需要重新绑定", "resolved": false},
+    {"ticket_id": "T-206", "date": "2026-02-09", "customer_os": "Android 14", "summary": "更新后运动模式耗电太快", "resolved": false},
+    {"ticket_id": "T-207", "date": "2026-02-13", "customer_os": "Android 14", "summary": "Android 14 同步经常失败", "resolved": false},
+    {"ticket_id": "T-208", "date": "2026-02-15", "customer_os": "iOS 17", "summary": "表带边缘磨损", "resolved": true},
+    {"ticket_id": "T-209", "date": "2026-02-18", "customer_os": "iOS 17", "summary": "表带掉色", "resolved": true}
+  ]
+}

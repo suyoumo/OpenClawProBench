@@ -1,0 +1,26 @@
+[
+  {
+    "id": "rec_001",
+    "normalized_value": 0.412,
+    "velocity_7d": 1.8,
+    "segment_score": 92
+  },
+  {
+    "id": "rec_002",
+    "normalized_value": 0.287,
+    "velocity_7d": 0.9,
+    "segment_score": 64
+  },
+  {
+    "id": "rec_003",
+    "normalized_value": 0.531,
+    "velocity_7d": 2.1,
+    "segment_score": 95
+  },
+  {
+    "id": "rec_004",
+    "normalized_value": 0.179,
+    "velocity_7d": 0.5,
+    "segment_score": 41
+  }
+]

@@ -1,0 +1,38 @@
+id: intel_m02_multi_surface_probe
+name: 多表面探测
+dimension: tool_use
+difficulty: medium
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 6
+timeout_seconds: 300
+openclaw_surfaces:
+- skills
+- memory
+- browser
+tools:
+- exec
+- write
+prompt: |
+  请依次探测以下 OpenClaw surfaces 的状态：skills、memory、browser。
+  对每个 surface 执行对应的 CLI 命令，判断其是否可用。
+  创建 `surface_status.json`：
+  {
+    "surfaces": {
+      "skills": {"status": "ready" 或 "error", "detail": "..."},
+      "memory": {"status": "...", "detail": "..."},
+      "browser": {"status": "...", "detail": "..."}
+    },
+    "available_count": N,
+    "total_count": 3
+  }
+custom_check: intel_m02_multi_surface_probe.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

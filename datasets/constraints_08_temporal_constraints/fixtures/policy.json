@@ -1,0 +1,21 @@
+{
+  "scheduler": {
+    "capacity_per_second": 1,
+    "transaction_duration_seconds": 1
+  },
+  "hard_rules": {
+    "same_user_order": true,
+    "same_user_opposite_side_gap_seconds": 2,
+    "vip_start_within_seconds": 5,
+    "large_amount_threshold": 10000,
+    "large_before_small_when_simultaneously_eligible": true,
+    "reject_dependency_cycles": true
+  },
+  "tie_breakers": [
+    "vip_first",
+    "earliest_latest_start",
+    "earliest_arrival",
+    "higher_amount",
+    "transaction_id_lexicographical"
+  ]
+}

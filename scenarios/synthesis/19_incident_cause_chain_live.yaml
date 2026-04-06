@@ -1,0 +1,53 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_19_incident_cause_chain_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "incident_cause_chain.json exists with the exact normalized timeline, root cause, ruled-out hypotheses, mitigation, and evidence refs.\n"
+id: synthesis_19_incident_cause_chain_live
+name: 事故因果链归并
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  当前工作区里已经放好了 4 份只读证据：
+  - `incident_ticket.md`
+  - `service_logs.json`
+  - `deploy_history.json`
+  - `runbook_excerpt.txt`
+
+  你需要综合这 4 份证据，输出唯一正确的事故因果链结论。不要联网，不要修改输入文件。
+
+  只创建 `incident_cause_chain.json`，字段必须完整：
+  {
+    "timeline": [
+      {"time": "...", "event": "..."}
+    ],
+    "root_cause": "...",
+    "why_it_happened": ["...", "...", "..."],
+    "ruled_out_hypotheses": ["...", "..."],
+    "immediate_mitigation": "...",
+    "confidence": "high|medium|low",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份证据
+  - `timeline` 必须正好 5 个事件，按时间升序
+  - `why_it_happened` 必须正好 3 条，描述连续因果链
+  - `ruled_out_hypotheses` 必须正好 2 条
+  - `confidence` 只能是 `high`
+  - `root_cause`、`why_it_happened`、`ruled_out_hypotheses`、`immediate_mitigation` 允许语义等价表达，但必须保持与证据和 runbook 一致
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/synthesis_19_incident_cause_chain/fixtures
+tags:
+- synthesis
+- incident
+- causal-chain
+- expert
+- closed-world
+- json
+timeout_seconds: 1200
+weight: 2.0

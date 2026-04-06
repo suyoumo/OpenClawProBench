@@ -1,0 +1,31 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: constraints_22_message_audience_boundary_live.py
+difficulty: hard
+dimension: constraints
+execution_mode: live
+id: constraints_22_message_audience_boundary_live
+name: Message Audience Boundary
+openclaw_surfaces:
+- message
+optimal_steps: 8
+pass_threshold: 0.65
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `audience_request.json`
+
+  请创建 `audience_boundary.json`，字段必须完整：
+  {
+    "internal_draft": "...",
+    "external_draft": "...",
+    "external_update_blocked": true,
+    "blocked_reason": "..."
+  }
+
+  规则：
+  - internal draft 可以包含 internal facts
+  - external draft 只能使用 external_allowed 里的事实
+  - 如果 external_ready=false，则 external_update_blocked 必须为 true

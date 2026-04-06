@@ -1,0 +1,8 @@
+2024-03-15 10:00:05 INFO  Worker pool initialized (4 workers)
+2024-03-15 10:01:00 ERROR Task queue overflow: 1024 pending
+2024-03-15 10:01:30 WARN  Worker 3 slow response (>5s)
+2024-03-15 10:02:00 ERROR Failed to process job #4521
+2024-03-15 10:02:30 ERROR Failed to process job #4522
+2024-03-15 10:03:00 ERROR Deadlock detected in worker 2
+2024-03-15 10:03:30 ERROR Failed to process job #4523
+2024-03-15 10:04:00 INFO  Worker pool restarted

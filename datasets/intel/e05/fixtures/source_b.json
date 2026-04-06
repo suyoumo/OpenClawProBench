@@ -1,0 +1,9 @@
+{
+  "source": "monitoring-beta",
+  "timestamp": "2026-03-23T08:05:00Z",
+  "services": [
+    {"name": "user-service", "status": "healthy", "latency_ms": 30},
+    {"name": "search-service", "status": "down", "latency_ms": -1},
+    {"name": "auth-service", "status": "healthy", "latency_ms": 50}
+  ]
+}

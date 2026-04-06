@@ -1,0 +1,68 @@
+benchmark_core: false
+custom_check: planning_11_dynamic_priority_live.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'priority_plan.json exists with the optimal slot plan and total
+  value.
+
+  '
+id: planning_11_dynamic_priority_live
+name: 动态优先级调整
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  你要在 25 分钟的固定窗口内做动态优先级调度。这个题是离散规划题，不需要联网。
+
+  调度规则：
+  - 总共有 5 个时间槽：`[0,5)`, `[5,10)`, `[10,15)`, `[15,20)`, `[20,25)`
+  - 每个任务都恰好占用 1 个时间槽
+  - 每个时间槽只能执行 1 个任务
+  - 先应用该时间点发生的动态变化，再选择该时间槽执行的任务
+  - 必须优先执行“当前可执行”的最高优先级任务
+  - 在同优先级内，你的目标是最大化总价值
+  - 如果任务已经执行，后续对它的价值或优先级变化不再生效
+
+  初始任务：
+  - X: P0, value=8, 无依赖
+  - Z: P0, value=9, 无依赖
+  - M: P1, value=7, 无依赖
+  - Q: P1, value=5, 无依赖
+  - Y: P1, value=14, 依赖 Q
+  - N: P2, value=4, 无依赖
+
+  动态变化：
+  - T+5: 如果 X 还没执行，X 的价值翻倍为 16
+  - T+10: 新增 A: P0, value=12；B: P0, value=11；C: P0, value=3
+  - T+15: Y 的依赖被取消，变为可执行
+  - T+20: 如果 Z 还没执行，Z 降级为 P2 且价值变为 1
+
+  输出要求：
+  创建 `priority_plan.json`，字段必须完整：
+  {
+    "slot_plan": [
+      {"slot_start": 0, "task": "...", "value_at_execution": 0},
+      {"slot_start": 5, "task": "...", "value_at_execution": 0},
+      {"slot_start": 10, "task": "...", "value_at_execution": 0},
+      {"slot_start": 15, "task": "...", "value_at_execution": 0},
+      {"slot_start": 20, "task": "...", "value_at_execution": 0}
+    ],
+    "total_value": 0,
+    "events_considered": ["...", "..."],
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `slot_plan` 必须正好包含 5 个条目
+  - `events_considered` 至少写 3 条
+  - `notes` 至少写 2 条，说明你为什么这样排
+tags:
+- planning
+- dynamic-priority
+- adjustment
+- expert
+timeout_seconds: 600
+weight: 2.0

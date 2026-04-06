@@ -1,0 +1,15 @@
+{
+  "output_file": "category_chain_report.json",
+  "ranking_basis": "net_sales_after_adjustments",
+  "currency_rounding": "2_decimal_places",
+  "cancelled_order_policy": "exclude_from_net_sales_and_valid_order_count",
+  "partial_refund_policy": "keep_order_but_reduce_its_amount",
+  "required_fields": [
+    "ranking_basis",
+    "top_categories",
+    "dropped_orders",
+    "adjustment_summary",
+    "summary",
+    "evidence_refs"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": [
+    {"id": "E1", "time": "10:02", "fact": "new_parser_enabled_before_error_spike"},
+    {"id": "E2", "time": "10:04", "fact": "rollback_started_and_error_growth_stopped"},
+    {"id": "E3", "time": "10:05", "fact": "no_vendor_degraded_notice_before_10_05"},
+    {"id": "E4", "time": "10:06", "fact": "vendor_notice_posted_after_internal_errors_started"}
+  ]
+}

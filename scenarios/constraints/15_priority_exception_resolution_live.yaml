@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: constraints_15_priority_exception_resolution_live.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+expected_outcome: "priority_exception_resolution.json exists with the exact winning resolution, denied exceptions, and rule chain.\n"
+id: constraints_15_priority_exception_resolution_live
+name: 优先级例外解析
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `request_queue.json`
+  - `exception_policy.md`
+  - `priority_matrix.json`
+  - `resolution_contract.json`
+
+  你需要为当前冲突请求解析唯一正确的优先级决议。不要联网，不要修改输入文件。
+
+  只创建 `priority_exception_resolution.json`，字段必须完整：
+  {
+    "winning_request": "...",
+    "denied_exceptions": [
+      {"request": "...", "reason": "..."}
+    ],
+    "rule_chain": ["...", "...", "..."],
+    "governing_exception": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 先满足基础优先级，再判断是否存在合法例外覆盖；不能把无效例外当成生效
+  - `denied_exceptions` 必须覆盖所有未生效例外，按 request 字母序
+  - `rule_chain` 必须正好 3 条，并按实际生效顺序排列
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/constraints_15_priority_exception_resolution/fixtures
+tags:
+- constraints
+- exception
+- priority
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

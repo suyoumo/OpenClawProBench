@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {"id": "t01", "title": "Fix login bug", "priority": 1, "category": "dev", "owner": "bob"},
+    {"id": "t02", "title": "Update DNS records", "priority": 2, "category": "ops", "owner": "alice"},
+    {"id": "t03", "title": "Refactor auth module", "priority": 3, "category": "dev", "owner": "carol"},
+    {"id": "t04", "title": "Write blog post", "priority": 2, "category": "marketing", "owner": "dave"},
+    {"id": "t05", "title": "Deploy monitoring", "priority": 1, "category": "ops", "owner": "eve"},
+    {"id": "t06", "title": "Database backup script", "priority": 4, "category": "ops", "owner": "bob"},
+    {"id": "t07", "title": "Code review sprint", "priority": 2, "category": "dev", "owner": "alice"},
+    {"id": "t08", "title": "Update CI pipeline", "priority": 3, "category": "dev", "owner": "frank"},
+    {"id": "t09", "title": "Customer survey", "priority": 1, "category": "marketing", "owner": "carol"},
+    {"id": "t10", "title": "Scale API servers", "priority": 2, "category": "ops", "owner": "eve"}
+  ]
+}

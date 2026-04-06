@@ -1,0 +1,9 @@
+{
+  "events": [
+    {
+      "title": "Customer demo",
+      "start": "2026-03-20 14:00",
+      "participants": ["sales", "product", "customer"]
+    }
+  ]
+}

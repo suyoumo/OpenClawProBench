@@ -1,0 +1,11 @@
+{
+  "cluster_id": "billing-contention-cluster-a",
+  "planning_window_hours": 4,
+  "wave_duration_hours": 2,
+  "resources": {
+    "db_connections": 5,
+    "file_handles": 5,
+    "network_ports": 2,
+    "lock_units": 6
+  }
+}

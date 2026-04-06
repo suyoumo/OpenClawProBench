@@ -1,0 +1,17 @@
+[
+  {
+    "message_id": "msg_001",
+    "direction": "incoming",
+    "text": "Bob Li <bob.li@vendor.example> sent the contract update."
+  },
+  {
+    "message_id": "msg_002",
+    "direction": "outgoing",
+    "text": "Please loop in Carol Wang at carol.wang@client.example before Friday."
+  },
+  {
+    "message_id": "msg_003",
+    "direction": "incoming",
+    "text": "Dan Wu says his backup email is dan.wu@partner.example if the main inbox fails."
+  }
+]

@@ -1,0 +1,44 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: constraints_13_exact_extract_no_inference_live.py
+difficulty: hard
+dimension: constraints
+execution_mode: live
+expected_outcome: "recipient_selection.txt exists with the exact selected recipient and evidence refs, with no inference beyond the seeded records.\n"
+id: constraints_13_exact_extract_no_inference_live
+name: 精确抽取且禁止推断
+optimal_steps: 12
+pass_threshold: 0.7
+prompt: |
+  这是一个闭卷精确抽取题，不需要联网。
+
+  当前工作区里已经放好了 3 份只读输入：
+  - `request.txt`
+  - `directory.json`
+  - `selection_rules.md`
+
+  你需要根据请求和目录记录，找出唯一正确的联系人。
+
+  只创建 `recipient_selection.txt`，内容必须严格是下面 4 行，且顺序不能变：
+  RECIPIENT_ID: <...>
+  NAME: <...>
+  EMAIL: <...>
+  EVIDENCE: <...>
+
+  强约束：
+  - 必须同时使用全部 3 份输入
+  - 只能依据 seeded 文本中的明确字段筛选，不能根据相似名字、常识或猜测补全
+  - `EVIDENCE` 必须是 selection_rules 中定义的唯一证据 code
+  - 不要输出任何额外文本、空行或 markdown
+workspace_seed_dir: ../../datasets/constraints_13_exact_extract_no_inference/fixtures
+tags:
+- constraints
+- extraction
+- no-inference
+- hard
+- closed-world
+- txt
+timeout_seconds: 600
+weight: 2.0

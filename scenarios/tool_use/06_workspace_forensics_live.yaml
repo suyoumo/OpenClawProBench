@@ -1,0 +1,45 @@
+id: tool_use_06_workspace_forensics_live
+name: Workspace Forensics Incident Extraction
+execution_mode: live
+dimension: tool_use
+difficulty: hard
+weight: 1.0
+timeout_seconds: 240
+optimal_steps: 7
+pass_threshold: 0.72
+tags:
+- benchmark-intelligence
+- benchmark-core
+- live
+- tool_use
+- workspace
+- logs
+- forensics
+prompt: "请调查当前工作区中的事故工单，并生成两个产物：`incident_summary.json` 和 `evidence.txt`。\n\n要求已经写在 `ticket.md` 中。你需要从工作区里找出符合条件的事件，忽略不在 scope 内的目录和记录。\n\n注意：\n1. 必须严格按照 `ticket.md` 的字段和排序要求输出\n2. `evidence.txt` 每一行都必须是原始事件的结构化摘录\n3. 只统计满足全部过滤条件的事件"
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: tool_use_06_workspace_forensics_live.py
+workspace_seed_dir: ../../datasets/frontier/tool_use_06_workspace_forensics_live/fixtures
+category: frontier_tool_use
+description: High-entropy workspace extraction task with nested logs, noise directories, and strict output requirements.
+objective: Extract the correct incident evidence from the workspace and summarize it deterministically.
+prerequisites:
+- Workspace is writable.
+- Ticket and log files are present.
+steps:
+- Read `ticket.md` and identify all filtering rules.
+- Search the workspace for matching events while ignoring excluded directories.
+- Write `incident_summary.json` and `evidence.txt`.
+expected_outcome: Correct customers, source files, severity, and evidence lines are extracted.
+scoring_criteria:
+- Both output artifacts are created.
+- JSON summary fields are exact.
+- Evidence lines reflect only the allowed records.
+fixtures:
+  path: ../../datasets/frontier/tool_use_06_workspace_forensics_live/fixtures
+time_limit: 240
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

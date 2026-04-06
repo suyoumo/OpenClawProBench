@@ -1,0 +1,41 @@
+id: intel_m07_planning_dependency_chain
+name: 依赖链规划
+dimension: planning
+difficulty: medium
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: workspace_live
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 5
+timeout_seconds: 300
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `tasks.json`，包含 6 个任务，每个有 `id`、`name`、`depends_on`（依赖的任务 id 列表）、`duration_minutes`。请分析依赖关系，计算：
+  1) 拓扑排序后的执行顺序
+  2) 关键路径（最长路径）的总时长
+  3) 是否存在循环依赖
+  创建 `execution_plan.json`：
+  ```json
+  {
+    “execution_order”: [“id1”, “id2”, ...],
+    “critical_path_task_ids”: [“id1”, “id2”, ...],
+    “critical_path_minutes”: N,
+    “has_cycle”: false,
+    “parallel_groups”: [[“id1”, “id2”], [“id3”], ...],
+    “earliest_start_minutes”: {“id1”: 0, “id2”: M, ...}
+  }
+  ```
+  额外要求：
+  - `critical_path_task_ids` 必须给出一条真正的最长依赖链
+  - `parallel_groups` 必须按”最早可执行层级”分组，不要把本可并行的任务拆成更多组
+  - `earliest_start_minutes` 给出每个任务的最早可开始时间（分钟），即所有前置任务完成后的最早时刻
+custom_check: intel_m07_planning_dependency_chain.py
+workspace_seed_dir: ../../datasets/intel/m07/fixtures
+tags:
+- benchmark-intelligence
+- benchmark-core

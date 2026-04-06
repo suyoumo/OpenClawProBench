@@ -1,0 +1,35 @@
+id: intel_m04_error_diagnosis
+name: 错误日志诊断
+dimension: error_recovery
+difficulty: medium
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: incubating
+signal_source: workspace_live
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 5
+timeout_seconds: 300
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `error_log.json`，包含 5 条错误记录，每条有 `timestamp`、`service`、`error_code`、`message`。
+  请分析错误日志，找出：
+  1) 出错最多的服务
+  2) 最常见的错误码
+  3) 是否存在级联故障（同一分钟内 3+ 个不同服务报错）
+  创建 `diagnosis.json`：
+  {
+    "most_failing_service": "...",
+    "most_common_error": "...",
+    "cascade_detected": true 或 false,
+    "cascade_window": "..." 或 null,
+    "total_errors": N
+  }
+custom_check: intel_m04_error_diagnosis.py
+workspace_seed_dir: ../../datasets/intel/m04/fixtures
+tags:
+- benchmark-intelligence
+- benchmark-core

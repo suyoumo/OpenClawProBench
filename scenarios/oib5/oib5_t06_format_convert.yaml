@@ -1,0 +1,57 @@
+id: oib5_t06_format_convert
+name: 数据格式转换 — JSON→CSV
+execution_mode: live
+dimension: tool_use
+difficulty: easy
+weight: 1.0
+timeout_seconds: 120
+optimal_steps: 3
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l1
+- conversion
+- json
+- csv
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+prompt: '当前目录有一个 `data.json` 文件，包含一组产品记录。
+
+
+  请将其转换为 `data.csv`，要求：
+
+  1. CSV 第一行是表头
+
+  2. 列顺序：id, name, category, price, in_stock
+
+  3. price 保留两位小数
+
+  4. in_stock 字段转为 "yes"/"no"（原始数据是 true/false）'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t06_format_convert.py
+workspace_seed_dir: ../../datasets/oib5/t06_format_convert/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t06_format_convert` in category `imported_oib5`.
+objective: Complete scenario `数据格式转换 — JSON→CSV` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 120
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

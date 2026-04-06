@@ -1,0 +1,55 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_14_claim_support_matrix_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+expected_outcome: "claim_matrix.json exists with the correct support status for each claim, the correct primary driver, and a justified recommendation.\n"
+id: synthesis_14_claim_support_matrix_live
+name: 证据支持矩阵
+optimal_steps: 16
+pass_threshold: 0.6
+prompt: |
+  下面有 4 条证据：
+
+  - `E1`: 10:00 开始发布，10:07 首次出现支付超时
+  - `E2`: 整个窗口内 network packet loss 始终 <= 0.1%
+  - `E3`: 10:12 回滚开始后，错误率停止继续上升，并在 10:18 恢复到基线
+  - `E4`: 供应商 `payment-auth` 的状态页在 10:09 才出现 degraded，且影响范围不止 checkout
+
+  需要判断以下 5 个说法：
+  - `C1`: 错误在发布前就已经开始
+  - `C2`: 网络丢包是主要原因
+  - `C3`: 回滚阻止了错误继续恶化
+  - `C4`: 供应商 degraded 只影响 checkout
+  - `C5`: 供应商问题可能放大了事故，但不是事故的起点
+
+  输出要求：
+  创建 `claim_matrix.json`，字段必须完整：
+  {
+    "claim_assessments": [
+      {"claim_id": "C1", "status": "...", "evidence": ["..."]},
+      {"claim_id": "C2", "status": "...", "evidence": ["..."]},
+      {"claim_id": "C3", "status": "...", "evidence": ["..."]},
+      {"claim_id": "C4", "status": "...", "evidence": ["..."]},
+      {"claim_id": "C5", "status": "...", "evidence": ["...", "..."]}
+    ],
+    "primary_incident_driver": "...",
+    "recommended_action": "...",
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `status` 只能是 `supported`、`contradicted`、`ambiguous`
+  - `claim_assessments` 必须正好包含 `C1` 到 `C5`
+  - `notes` 至少 2 条
+tags:
+- synthesis
+- evidence
+- contradiction
+- hard
+- closed-world
+timeout_seconds: 600
+weight: 2.0

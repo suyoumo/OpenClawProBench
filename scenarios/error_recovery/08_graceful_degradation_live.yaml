@@ -1,0 +1,86 @@
+id: error_recovery_08_graceful_degradation_live
+name: 优雅降级决策
+execution_mode: live
+dimension: error_recovery
+difficulty: hard
+benchmark_status: active
+signal_source: workspace_live
+benchmark_group: coverage
+benchmark_core: false
+weight: 1.5
+timeout_seconds: 240
+optimal_steps: 10
+pass_threshold: 0.7
+tags:
+- live
+- coverage
+- error_recovery
+- graceful-degradation
+- closed-world
+- recovery
+prompt: |
+  当前工作区根目录里已经放好了 6 份只读输入：
+  - `service_status.json` - 当前服务健康状态
+  - `checkout_request.json` - 本次结账请求
+  - `degradation_policy.yaml` - 允许与禁止的降级规则
+  - `logs/checkout.log` - 最近结账错误记录
+  - `logs/notification.log` - 通知链路状态
+  - `runbook.md` - 事故期间的运行手册
+
+  你需要为这次 physical checkout 给出唯一的降级决策。
+
+  硬约束：
+  1. 不能让用户同步等待超过 `max_sync_response_seconds`
+  2. 不能接受一个在当前依赖状态下无法履行的 physical checkout
+  3. 不能创建需要后续人工对账的新订单
+  4. 如果同步 API 已返回状态，则允许异步补发通知
+  5. 不要修改任何输入文件
+  6. 只创建 `degradation_decision.json`
+  7. 必须同时使用全部 6 份输入
+
+  输出要求：创建 `degradation_decision.json`，字段必须完整且值必须精确：
+  {
+    "order_mode": "...",
+    "chosen_strategies": ["...", "..."],
+    "rejected_strategies": [
+      {"strategy": "...", "reason": "..."}
+    ],
+    "degraded_flow": ["...", "...", "...", "...", "..."],
+    "consistency_guards": ["...", "...", "...", "..."],
+    "recovery_plan": ["...", "...", "...", "..."],
+    "user_response": {
+      "http_status": 0,
+      "status_code": "...",
+      "must_return_within_seconds": 0
+    },
+    "evidence_refs": [
+      "service_status.json",
+      "checkout_request.json",
+      "degradation_policy.yaml",
+      "logs/checkout.log",
+      "logs/notification.log",
+      "runbook.md"
+    ]
+  }
+
+  不要输出 markdown，不要添加任何多余字段。
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- read
+- read
+- read
+- read
+- write
+workspace_seed_dir: ../../datasets/error_recovery_08_graceful_degradation/fixtures
+custom_check: error_recovery_08_graceful_degradation_live.py
+category: error_recovery
+description: 基于真实故障状态、策略和运行手册，对 checkout 路径给出唯一正确的 graceful degradation 决策。
+objective: 正确识别哪些降级方案被策略禁止，输出唯一一致的拒绝/通知/恢复决策。
+expected_outcome: A correct degradation_decision.json with the exact selected strategy combination, rejected options, flow, consistency guards, response, and evidence.

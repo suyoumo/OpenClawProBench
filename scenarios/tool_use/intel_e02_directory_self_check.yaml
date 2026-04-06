@@ -1,0 +1,32 @@
+id: intel_e02_directory_self_check
+name: 目录自检快照
+dimension: tool_use
+difficulty: easy
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: false
+benchmark_status: incubating
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 4
+timeout_seconds: 300
+openclaw_surfaces:
+- directory
+tools:
+- exec
+- write
+prompt: |
+  查询本机 OpenClaw directory 信息（`openclaw directory self --json`），创建 `self_info.json`，
+  包含你从 CLI 输出中提取的所有关键字段。
+
+  如果该命令返回的是多 channel 歧义、要求显式指定 channel，或其它结构化错误输出，
+  也要把这次 CLI 输出视为有效结果，直接把关键字段（例如 `configured_channels`、`channels`、`error`）写入 `self_info.json`。
+
+  不需要继续探测每个 channel；重点是忠实记录第一次 CLI 结果。
+expected_outcome: 'self_info.json exists and captures either the directory self JSON payload or the current structured ambiguity/error result from `openclaw directory self --json`.'
+custom_check: intel_e02_directory_self_check.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

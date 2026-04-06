@@ -1,0 +1,56 @@
+id: tool_use_02_workspace_extract_live
+name: Workspace Extraction To CSV
+execution_mode: live
+dimension: tool_use
+difficulty: medium
+weight: 1.0
+timeout_seconds: 180
+optimal_steps: 5
+pass_threshold: 0.7
+tags:
+- live
+- benchmark-intelligence
+- benchmark-core
+prompt: '读取 orders.json，创建 vip_orders.csv。
+
+  只保留 tier=vip 且 total >= 100 的订单。
+
+  CSV 必须包含表头 order_id,total，并按 total 降序排序。
+
+  完成后再用一句话告诉我你写了多少行数据（不含表头）。
+
+  '
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+workspace_files:
+- path: orders.json
+  content: "[\n  {\"order_id\": \"A100\", \"tier\": \"vip\", \"total\": 120},\n  {\"\
+    order_id\": \"A101\", \"tier\": \"standard\", \"total\": 210},\n  {\"order_id\"\
+    : \"A102\", \"tier\": \"vip\", \"total\": 80},\n  {\"order_id\": \"A103\", \"\
+    tier\": \"vip\", \"total\": 180},\n  {\"order_id\": \"A104\", \"tier\": \"standard\"\
+    , \"total\": 95}\n]\n"
+custom_check: tool_use_02_workspace_extract_live.py
+category: tool_use
+description: Legacy benchmark scenario `tool_use_02_workspace_extract_live` in category
+  `tool_use`.
+objective: Complete scenario `Workspace Extraction To CSV` and satisfy its scoring
+  checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/tool_use
+time_limit: 180
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: true

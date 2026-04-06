@@ -1,0 +1,4 @@
+{
+  "action": "query_skills",
+  "retry_on_failure": true
+}

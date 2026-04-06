@@ -1,0 +1,77 @@
+id: planning_02_release_handoff_live
+name: Multi File Release Handoff
+execution_mode: live
+dimension: planning
+difficulty: medium
+weight: 1.0
+timeout_seconds: 240
+optimal_steps: 6
+pass_threshold: 0.68
+tags:
+- live
+- benchmark-intelligence
+prompt: '读取 blockers.json 和 team_notes.md，创建 handoff.md。
+
+  handoff.md 必须且只能包含以下 3 个 section：
+
+  ## Critical
+
+  ## Owners
+
+  ## Next Step
+
+
+  规则：
+
+  1. 只列出 status 不是 done 且 severity 为 P0 或 P1 的 blocker。
+
+  2. 如果 owner 为空，写成 Unassigned。
+
+  3. 在 Next Step 里指出最先需要重新分配的 blocker。
+
+  4. 不要把低优先级 blocker 写进去。
+
+  '
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+workspace_files:
+- path: blockers.json
+  content: "[\n  {\"id\": \"B-17\", \"title\": \"payment callback regression\", \"\
+    severity\": \"P0\", \"status\": \"open\", \"owner\": null},\n  {\"id\": \"B-21\"\
+    , \"title\": \"docs typo on billing page\", \"severity\": \"P3\", \"status\":\
+    \ \"open\", \"owner\": \"Nia\"},\n  {\"id\": \"B-33\", \"title\": \"auth refresh\
+    \ flaky in staging\", \"severity\": \"P1\", \"status\": \"investigating\", \"\
+    owner\": \"Mina\"},\n  {\"id\": \"B-40\", \"title\": \"legacy test cleanup\",\
+    \ \"severity\": \"P1\", \"status\": \"done\", \"owner\": \"Leo\"}\n]\n"
+- path: team_notes.md
+  content: 'Payment callback regression should go to platform-oncall first if no owner
+    is assigned.
+
+    Mina is already handling the auth refresh issue.
+
+    '
+custom_check: planning_02_release_handoff_live.py
+category: planning
+description: Legacy benchmark scenario `planning_02_release_handoff_live` in category
+  `planning`.
+objective: Complete scenario `Multi File Release Handoff` and satisfy its scoring
+  checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/planning
+time_limit: 240
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

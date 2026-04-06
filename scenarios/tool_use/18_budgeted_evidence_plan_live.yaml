@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_18_budgeted_evidence_plan_live.py
+difficulty: hard
+dimension: tool_use
+execution_mode: live
+expected_outcome: "budgeted_evidence_plan.json exists with the correct evidence collection order, skipped actions, and budget rationale.\n"
+id: tool_use_18_budgeted_evidence_plan_live
+name: 预算约束证据计划
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `investigation_goal.md`
+  - `action_costs.json`
+  - `signal_map.json`
+  - `budget_rules.md`
+
+  你需要在固定预算下制定唯一正确的证据收集计划。不要联网，不要修改输入文件。
+
+  只创建 `budgeted_evidence_plan.json`，字段必须完整：
+  {
+    "selected_actions": ["...", "...", "..."],
+    "skipped_actions": [
+      {"action": "...", "reason": "..."}
+    ],
+    "expected_signal_coverage": ["...", "..."],
+    "budget_used": 0,
+    "governing_tradeoff": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - `selected_actions` 必须在预算内且覆盖必需信号，按执行顺序排列
+  - `skipped_actions` 必须覆盖所有未选动作，按 action 字母序
+  - `expected_signal_coverage` 只能包含真正被 selected_actions 覆盖到的必需信号
+  - `budget_used` 必须精确
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/tool_use_18_budgeted_evidence_plan/fixtures
+tags:
+- tool_use
+- budget
+- evidence-planning
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

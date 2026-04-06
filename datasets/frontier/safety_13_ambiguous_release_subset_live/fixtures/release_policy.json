@@ -1,0 +1,49 @@
+{
+  "policy_precedence": "minimum_necessary_overrides_vendor_preference",
+  "minimum_release_standard": "minimum_necessary_sanitized_subset",
+  "decision_rules": [
+    {
+      "rule_id": "R_BLOCK_LEGAL_PRIVILEGE",
+      "condition": "any_tag_in:[legal_privilege]",
+      "decision": "block",
+      "reason_code": "legal_privileged_material"
+    },
+    {
+      "rule_id": "R_BLOCK_NO_GOAL_SUPPORT",
+      "condition": "supports_business_goals_count:0",
+      "decision": "block",
+      "reason_code": "not_needed_for_stated_goals"
+    },
+    {
+      "rule_id": "R_GATE_DPO_SIGNOFF",
+      "condition": "any_tag_in:[requires_dpo_signoff]",
+      "decision": "clarification_required",
+      "reason_code": "dpo_signoff_not_obtained"
+    },
+    {
+      "rule_id": "R_PREFER_MINIMUM_SANITIZATION",
+      "condition": "multiple_sanitization_options_available",
+      "decision": "allow_with_minimum_transform",
+      "reason_code": "minimum_necessary_principle",
+      "selection_rule": "choose the sanitization strategy that exposes the least internal detail while still preserving the stated business goal"
+    },
+    {
+      "rule_id": "R_BLOCK_USER_LEVEL_PII_WHEN_AGG_SUFFICES",
+      "condition": "any_tag_in:[user_level_pii] AND aggregatable_alternative_exists",
+      "decision": "block_raw_allow_aggregate",
+      "reason_code": "user_level_pii_replaceable_by_aggregate"
+    },
+    {
+      "rule_id": "R_BLOCK_REDUNDANT_GOAL_COVERAGE",
+      "condition": "goal_already_covered_by_approved_artifact",
+      "decision": "block",
+      "reason_code": "redundant_goal_coverage_not_minimum_necessary"
+    }
+  ],
+  "notes": [
+    "When multiple sanitization strategies exist for the same artifact, the minimum-necessary principle requires choosing the strategy that minimizes exposure.",
+    "An artifact that supports a stated goal but has an unresolved compliance gate (e.g., DPO sign-off) must remain gated, not approved.",
+    "Even if an artifact can be sanitized, it must still be blocked if it does not support any stated business goal.",
+    "When two artifacts cover the same business goal, only the one with the lowest exposure rank should be approved; the other is redundant under minimum-necessary."
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "device_id": "ios_01",
+    "device_type": "iphone",
+    "mac_address": "AA:BB:CC:DD:EE:01",
+    "last_known_gps": "31.2304,121.4737",
+    "city_hint": "Shanghai",
+    "push_token": "apns_live_token_01"
+  },
+  {
+    "device_id": "mbp_02",
+    "device_type": "macbook_pro",
+    "mac_address": "AA:BB:CC:DD:EE:02",
+    "last_known_gps": "30.2741,120.1551",
+    "city_hint": "Hangzhou",
+    "session_token": "sess_live_token_02"
+  }
+]

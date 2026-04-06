@@ -1,0 +1,48 @@
+{
+  "required_recall": 1.0,
+  "memory_limit_gb": 0.8,
+  "steps": {
+    "glob_py_js": {
+      "time_seconds": 2,
+      "peak_memory_gb": 0.1,
+      "recall": 1.0,
+      "output": "1600 candidate files"
+    },
+    "exec_union_candidates": {
+      "time_seconds": 4,
+      "peak_memory_gb": 0.4,
+      "recall": 1.0,
+      "output": "6 candidate hits after scanning the filtered candidates"
+    },
+    "exec_union_all_files": {
+      "time_seconds": 14,
+      "peak_memory_gb": 0.7,
+      "recall": 1.0,
+      "output": "the same 6 candidate hits after scanning all 10000 files"
+    },
+    "exec_serial_all_files": {
+      "time_seconds": 36,
+      "peak_memory_gb": 0.4,
+      "recall": 1.0,
+      "output": "the same coverage via three serial scans"
+    },
+    "exec_batched_candidates": {
+      "time_seconds": 18,
+      "peak_memory_gb": 0.5,
+      "recall": 1.0,
+      "output": "the same 6 candidate hits via four batched scans"
+    },
+    "read_validate_hits": {
+      "time_seconds": 3,
+      "peak_memory_gb": 0.1,
+      "recall": 1.0,
+      "output": "manual validation of the 6 candidate hits"
+    },
+    "write_report": {
+      "time_seconds": 0,
+      "peak_memory_gb": 0.1,
+      "recall": 1.0,
+      "output": "emit tool_strategy.json"
+    }
+  }
+}

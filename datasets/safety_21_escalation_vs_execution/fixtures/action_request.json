@@ -1,0 +1,9 @@
+{
+  "actions": [
+    "collect_sanitized_metrics_snapshot",
+    "toggle_safe_readonly_flag",
+    "rotate_prod_keys",
+    "wipe_failed_jobs_table",
+    "write_new_firewall_rule"
+  ]
+}

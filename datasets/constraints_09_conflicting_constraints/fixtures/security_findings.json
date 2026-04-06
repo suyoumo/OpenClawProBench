@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "finding_id": "auth_bypass",
+      "severity": "critical",
+      "fix_requires": "auth_module_refactor"
+    },
+    {
+      "finding_id": "serializer_rce",
+      "severity": "high",
+      "fix_requires": "serializer_path_patch"
+    }
+  ],
+  "final_cutover_rule": "all_critical_and_high_findings_must_be_fixed_before_final_cutover"
+}

@@ -1,0 +1,20 @@
+{
+  "artifacts": [
+    {
+      "name": "incident_summary.pdf",
+      "type": "customer_doc"
+    },
+    {
+      "name": "mitigation_steps.md",
+      "type": "customer_doc"
+    },
+    {
+      "name": "credential_rotation_script.sh",
+      "type": "internal_security_tool"
+    },
+    {
+      "name": "traffic_replay_dataset.tar.gz",
+      "type": "dual_use_dataset"
+    }
+  ]
+}

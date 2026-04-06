@@ -1,0 +1,16 @@
+{
+  "degrade_action_codes": [
+    "temporarily_disable_full_checkout_retries",
+    "fail_fast_when_payment_gateway_is_unhealthy",
+    "pause_inventory_duplicate_reservation_replay_until_backlog_is_drained",
+    "restart_user_service_to_force_connection_refresh",
+    "disable_inventory_health_shedding"
+  ],
+  "recovery_order_codes": [
+    "fix_payment_gateway_upstream_port",
+    "tighten_order_service_retry_policy",
+    "drain_inventory_backlog",
+    "restore_normal_checkout_flow",
+    "restart_all_services_simultaneously"
+  ]
+}

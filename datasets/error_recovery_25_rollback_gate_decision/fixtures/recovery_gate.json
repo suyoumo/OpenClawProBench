@@ -1,0 +1,8 @@
+{
+  "status": "partial_recovery",
+  "rollback_ready": false,
+  "customer_impact": "ongoing",
+  "existing_follow_up_checks": 1,
+  "external_approval_ready": false,
+  "candidate_actions": ["containment", "rollback", "follow_up_check", "external_update"]
+}

@@ -1,0 +1,84 @@
+benchmark_core: false
+custom_check: error_recovery_11_data_consistency_recovery_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+expected_outcome: 'consistency_recovery.json exists with the correct canonical source,
+  anomaly classification, repair actions, and verification steps.
+
+  '
+id: error_recovery_11_data_consistency_recovery_live
+name: 数据一致性恢复
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  你要处理一个分布式数据库的一致性恢复问题。这个题是闭卷分析题，不需要联网。
+
+  副本状态：
+  - Replica A 是当前 primary
+  - Replica B 一度落后，最近 3 分钟一直有复制延迟
+  - Replica C 在一次隔离维护期间错过了回滚事件
+
+  `orders` 表：
+  - A: [701, 702, 703, 704, 705, 706]
+  - B: [701, 702, 703, 704]
+  - C: [701, 702, 703, 704, 705, 706, 799]
+
+  `inventory.sku_77`：
+  - A: 100
+  - B: 100
+  - C: 112
+
+  复制与操作记录：
+  - `replication_lag`: B 在 10:02 到 10:06 期间 lag=180s，C lag=0s
+  - `operations.log`:
+    - 10:02 primary A 提交订单 705 和 706
+    - 10:03 C 在隔离维护中插入测试订单 799
+    - 10:04 A 和 B 已执行对 799 的回滚；C 因隔离没有收到这次回滚
+    - 10:05 A 对 `inventory.sku_77` 完成盘点修正，正确值是 100
+    - 10:06 C 错误重放了一次 `+12` restock 事件
+
+  判定规则：
+  - `orders` 的权威来源是最新且未隔离的 primary
+  - 如果某副本缺少 primary 已确认提交的数据，原因记为 `replication_lag`
+  - 如果某副本保留了已经在其他副本回滚的数据，原因记为 `missed_rollback`
+  - 如果某副本重放了不应存在的库存事件，原因记为 `duplicate_replay`
+
+  输出要求：
+  创建 `consistency_recovery.json`，字段必须完整：
+  {
+    "canonical_sources": {
+      "orders": "...",
+      "inventory": ["...", "..."]
+    },
+    "orders_missing_in_B": [0, 0],
+    "orders_extra_in_C": [0],
+    "inventory_fix": {
+      "replica": "...",
+      "expected_value": 0
+    },
+    "root_causes": {
+      "B_orders": "...",
+      "C_orders": "...",
+      "C_inventory": "..."
+    },
+    "repair_sequence": ["...", "...", "..."],
+    "verification_steps": ["...", "...", "..."],
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `orders_missing_in_B` 按升序
+  - `orders_extra_in_C` 按升序
+  - `repair_sequence` 需要体现先补缺失、再清污染、再修库存
+  - `verification_steps` 至少 3 条
+tags:
+- error_recovery
+- data-consistency
+- recovery
+- expert
+timeout_seconds: 600
+weight: 2.0

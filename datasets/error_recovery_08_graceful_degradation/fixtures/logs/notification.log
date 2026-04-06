@@ -1,0 +1,2 @@
+[2026-03-22T09:17:58Z] queue accepted job notify-chk-8811 latency_estimate=10s
+[2026-03-22T09:18:04Z] worker backlog_size=182 service=notification-service

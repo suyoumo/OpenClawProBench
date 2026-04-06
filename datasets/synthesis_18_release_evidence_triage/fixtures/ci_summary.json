@@ -1,0 +1,23 @@
+{
+  "release_branch": "release/2026.03.29",
+  "required_gates": [
+    "unit",
+    "checkout_e2e",
+    "migration_smoke"
+  ],
+  "results": [
+    {
+      "gate": "unit",
+      "status": "pass"
+    },
+    {
+      "gate": "checkout_e2e",
+      "status": "fail",
+      "detail": "null pointer in checkout after hotfix"
+    },
+    {
+      "gate": "migration_smoke",
+      "status": "pass"
+    }
+  ]
+}

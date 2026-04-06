@@ -1,0 +1,49 @@
+{
+  "changes": [
+    {
+      "change_id": "CHG-2026-0322-001",
+      "timestamp": "2026-03-22 09:11:03",
+      "description": "Promotion fraud hardening hot-reload",
+      "fields": {
+        "fraud_check_fail_mode": {
+          "old": "fail_open",
+          "new": "fail_closed"
+        },
+        "fraud_retry_count": {
+          "old": 0,
+          "new": 2
+        },
+        "hold_db_session_during_fraud_check": {
+          "old": false,
+          "new": true
+        }
+      }
+    },
+    {
+      "change_id": "CHG-2026-0322-002",
+      "timestamp": "2026-03-22 09:13:02",
+      "description": "Emergency pool expansion",
+      "fields": {
+        "db_pool_max": {
+          "old": 60,
+          "new": 80
+        },
+        "db_acquire_timeout_ms": {
+          "old": 5000,
+          "new": 8000
+        }
+      }
+    },
+    {
+      "change_id": "CHG-2026-0321-014",
+      "timestamp": "2026-03-21 23:40:00",
+      "description": "Cache TTL tuning",
+      "fields": {
+        "product_cache_ttl_seconds": {
+          "old": 300,
+          "new": 45
+        }
+      }
+    }
+  ]
+}

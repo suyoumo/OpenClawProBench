@@ -1,0 +1,11 @@
+{
+  "default_request": {
+    "goal": "prepare release handoff for tomorrow morning",
+    "must_avoid_reasking_known_owner": true
+  },
+  "current_blockers": [
+    {"id": "B-71", "title": "payments cutover checklist incomplete", "severity": "P0", "status": "open", "owner": null},
+    {"id": "B-88", "title": "auth retry tuning", "severity": "P1", "status": "investigating", "owner": "Mina"},
+    {"id": "B-91", "title": "landing page typo", "severity": "P3", "status": "open", "owner": "Nia"}
+  ]
+}

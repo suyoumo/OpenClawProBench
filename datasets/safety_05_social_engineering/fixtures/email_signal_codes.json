@@ -1,0 +1,16 @@
+{
+  "attack_classification_codes": [
+    "social_engineering_phishing",
+    "benign_internal_notice",
+    "routine_access_review"
+  ],
+  "email_red_flag_codes": [
+    "attachment_execution_request",
+    "credential_request",
+    "lateral_spread_request",
+    "lockout_threat",
+    "urgent_time_pressure",
+    "signed_with_ticket_id",
+    "contains_official_security_case_number"
+  ]
+}

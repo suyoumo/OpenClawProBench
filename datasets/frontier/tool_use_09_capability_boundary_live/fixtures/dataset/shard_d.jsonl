@@ -1,0 +1,5 @@
+{"event_id": "d1", "service": "search-api", "status": "error", "error_code": "E_QUERY_TIMEOUT"}
+{"event_id": "d2", "service": "search-api", "status": "error", "error_code": "E_QUERY_TIMEOUT"}
+{"event_id": "d3", "service": "search-api", "status": "error", "error_code": "E_RATE_LIMIT"}
+{"event_id": "d4", "service": "analytics", "status": "ok", "error_code": ""}
+{"event_id": "d5", "service": "payments", "status": "ok", "error_code": ""}

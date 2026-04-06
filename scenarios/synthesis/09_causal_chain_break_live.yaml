@@ -1,0 +1,98 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: synthesis_09_causal_chain_break_live_v2.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "causal_chain_break_report.json exists with exact step verdicts, break summary, contract-break chain, ruled-out causes, impact summary, repair plan, and evidence refs.\n"
+expected_tools:
+- read
+- write
+id: synthesis_09_causal_chain_break_live
+name: 因果链断裂检测
+optimal_steps: 18
+pass_threshold: 0.65
+prompt: |
+  当前工作区里已经放好了 9 份只读输入：
+  - `pipeline_run.log`
+  - `config.yaml`
+  - `dependency_graph.md`
+  - `collected_data.json`
+  - `cleaned_data.json`
+  - `features.json`
+  - `predictions.json`
+  - `final_output.json`
+  - `analysis_rules.yaml`
+
+  任务：诊断为什么流水线五个步骤都显示成功，但 `final_output.json` 仍然为空。不要联网，不要修改任何输入文件。
+
+  你必须创建 `causal_chain_break_report.json`，字段必须完整：
+  {
+    "step_verdicts": [
+      {"step": "data_collection", "status": "raw_schema_published"},
+      {"step": "data_cleaning", "status": "canonical_key_shifted_to_id"},
+      {"step": "feature_extraction", "status": "downstream_contract_preserved"},
+      {"step": "model_prediction", "status": "predictions_nonempty_but_id_only"},
+      {"step": "result_output", "status": "silent_zero_row_failure"}
+    ],
+    "break_summary": {
+      "observed_failure_step": "result_output",
+      "contract_drift_source_step": "data_cleaning",
+      "failure_mode": "hidden_dependency_join_key_mismatch",
+      "hidden_input": "collected_data.json"
+    },
+    "contract_break_chain": [
+      "collection_exposed_record_id_only",
+      "cleaning_shifted_canonical_key_to_id",
+      "prediction_emitted_id_only_records",
+      "result_output_joined_against_hidden_raw_collection_input",
+      "join_dropped_all_rows_but_step_reported_success"
+    ],
+    "ruled_out_causes": [
+      "feature_extraction_empty_batch",
+      "model_prediction_zero_rows",
+      "scheduler_race_before_prediction_write"
+    ],
+    "impact_summary": {
+      "prediction_rows": 4,
+      "final_output_rows": 0,
+      "dropped_rows": 4,
+      "severity": "sev_1_complete_data_loss"
+    },
+    "repair_plan": [
+      "declare_collected_data_as_result_output_extra_input",
+      "add_explicit_id_record_id_alias_mapping_before_join",
+      "raise_error_when_joined_rows_are_zero_with_nonempty_predictions"
+    ],
+    "evidence_refs": [
+      "pipeline_run.log:result_output_join_left_predictions.id",
+      "pipeline_run.log:result_output_zero_matches",
+      "config.yaml:result_output_missing_extra_inputs",
+      "collected_data.json:record_id_only_schema",
+      "predictions.json:id_only_schema",
+      "final_output.json:empty_array"
+    ]
+  }
+
+  强约束：
+  - `analysis_rules.yaml` 中列出的 canonical code 必须被严格使用
+  - `step_verdicts` 必须正好覆盖 5 个步骤，顺序与流水线一致
+  - 必须同时使用全部 9 份输入
+  - 只创建 `causal_chain_break_report.json`
+  - 不要输出任何额外文本
+tags:
+- synthesis
+- causal-reasoning
+- chain-break
+- coverage
+- closed-world
+- json
+- workspace
+timeout_seconds: 600
+tools:
+- read
+- write
+weight: 2.0
+workspace_seed_dir: ../../datasets/synthesis_09_causal_chain_break/fixtures

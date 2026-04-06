@@ -1,0 +1,3 @@
+path: src/config/local.py
+snippet: TOKEN = "dev-token"
+notes: checked-in literal token assignment

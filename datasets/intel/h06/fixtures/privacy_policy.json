@@ -1,0 +1,37 @@
+{
+  "rules": {
+    "drop_fields": [
+      "salary",
+      "personal_email"
+    ],
+    "aggregate_only_fields": [
+      "performance_score"
+    ],
+    "pseudonymize_fields": [
+      "name"
+    ],
+    "retained_fields": [
+      "member_token",
+      "role",
+      "project",
+      "department"
+    ],
+    "member_scope": "request.team_members_only",
+    "policy_precedence": "policy_overrides_request_overrides",
+    "min_disclosure": "Only keep non-sensitive business fields and aggregate performance metrics.",
+    "pseudonymization": {
+      "method": "sha256_name_with_salt_prefix",
+      "input_template": "{name}|{salt}",
+      "salt": "h06-min-disclosure-salt-v2",
+      "prefix": "m_",
+      "hex_chars": 10
+    },
+    "aggregation_precision": {
+      "mean_score_decimals": 4
+    },
+    "score_band_edges": {
+      "lt_4_0": 4.0,
+      "gte_4_0_lt_4_5": 4.5
+    }
+  }
+}

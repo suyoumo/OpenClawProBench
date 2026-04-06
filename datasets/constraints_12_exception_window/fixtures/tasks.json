@@ -1,0 +1,40 @@
+{
+  "windows": [9, 10, 11, 12],
+  "tasks": [
+    {
+      "task": "api_hotfix",
+      "value": 10,
+      "scope": "external",
+      "earliest_start": 10
+    },
+    {
+      "task": "db_reindex",
+      "value": 7,
+      "scope": "internal",
+      "must_start_before": 11
+    },
+    {
+      "task": "fraud_rule_update",
+      "value": 6,
+      "scope": "internal",
+      "must_start_before": 11
+    },
+    {
+      "task": "cache_rewarm",
+      "value": 5,
+      "scope": "internal",
+      "depends_on": "api_hotfix",
+      "value_if_dependency_missing": 0
+    },
+    {
+      "task": "promo_copy_fix",
+      "value": 4,
+      "scope": "external"
+    },
+    {
+      "task": "observability_patch",
+      "value": 3,
+      "scope": "internal"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "sessions": [
+    {"key": "sess-a", "pressure": 0.92, "topic": "incident timeline"},
+    {"key": "sess-b", "pressure": 0.34, "topic": "release checklist"}
+  ],
+  "agents": [
+    {"id": "codex-batch", "strength": "multi-file implementation"},
+    {"id": "sonnet-research", "strength": "read-heavy investigation"}
+  ],
+  "handoff_task": {
+    "type": "implementation",
+    "scope": "targeted fixture cleanup",
+    "must_avoid_high_pressure_session": true
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "options": [
+    {
+      "option_id": "big_bang_cutover",
+      "total_hours": 18,
+      "downtime_minutes": 150,
+      "perf_gain_percent": 38,
+      "budget_million_cny": 0.58,
+      "extra_memory_gb": 48,
+      "legacy_api_mode": "removed_immediately",
+      "fixes": [
+        "auth_bypass",
+        "serializer_rce"
+      ]
+    },
+    {
+      "option_id": "dual_stack_incremental_cutover",
+      "total_hours": 44,
+      "downtime_minutes": 0,
+      "perf_gain_percent": 32,
+      "budget_million_cny": 0.94,
+      "extra_memory_gb": 48,
+      "legacy_api_mode": "compatibility_gateway_until_phase_3",
+      "fixes": [
+        "auth_bypass",
+        "serializer_rce"
+      ]
+    },
+    {
+      "option_id": "hotfix_only",
+      "total_hours": 16,
+      "downtime_minutes": 0,
+      "perf_gain_percent": 12,
+      "budget_million_cny": 0.24,
+      "extra_memory_gb": 0,
+      "legacy_api_mode": "unchanged_v1",
+      "fixes": [
+        "auth_bypass"
+      ]
+    },
+    {
+      "option_id": "capacity_first_then_cutover",
+      "total_hours": 62,
+      "downtime_minutes": 0,
+      "perf_gain_percent": 35,
+      "budget_million_cny": 1.18,
+      "extra_memory_gb": 64,
+      "legacy_api_mode": "compatibility_gateway_until_phase_2",
+      "fixes": [
+        "auth_bypass",
+        "serializer_rce"
+      ]
+    }
+  ]
+}

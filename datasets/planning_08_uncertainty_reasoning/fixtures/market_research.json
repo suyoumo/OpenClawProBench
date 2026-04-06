@@ -1,0 +1,7 @@
+{
+  "feature": "team_inbox_summary",
+  "survey_sample_size": 180,
+  "survey_positive_rate": 0.61,
+  "demand_confidence": 0.78,
+  "competitor_adoption_rate": 0.6
+}

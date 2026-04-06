@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_22_conflict_resolution_chain_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+expected_outcome: "conflict_resolution_chain.json exists with the exact winning claim, invalidated claims, and conflict chain.\n"
+id: synthesis_22_conflict_resolution_chain_live
+name: 冲突结论链
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `claims.json`
+  - `observations.md`
+  - `resolution_policy.md`
+  - `output_spec.json`
+
+  你需要在冲突结论中确定唯一成立的结论链。不要联网，不要修改输入文件。
+
+  只创建 `conflict_resolution_chain.json`，字段必须完整：
+  {
+    "winning_claim": "...",
+    "invalidated_claims": [
+      {"claim": "...", "reason": "..."}
+    ],
+    "conflict_chain": ["...", "...", "..."],
+    "governing_resolution_rule": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - `winning_claim` 必须是唯一与 observations 和 resolution_policy 同时一致的 claim
+  - `invalidated_claims` 必须覆盖所有未选 claim，按 claim 字母序
+  - `conflict_chain` 必须正好 3 条
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/synthesis_22_conflict_resolution_chain/fixtures
+tags:
+- synthesis
+- conflict
+- reasoning-chain
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

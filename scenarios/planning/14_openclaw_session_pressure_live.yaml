@@ -1,0 +1,52 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: openclaw_native
+custom_check: planning_14_openclaw_session_pressure_live.py
+difficulty: medium
+dimension: planning
+execution_mode: live
+expected_outcome: "sessions_pressure_report.json exists and correctly audits the current OpenClaw sessions pressure.\n"
+id: planning_14_openclaw_session_pressure_live
+name: OpenClaw Session Pressure Audit
+openclaw_surfaces:
+- sessions
+optimal_steps: 8
+pass_threshold: 0.6
+prompt: |
+  你需要检查当前这台机器上的 OpenClaw 会话存储，判断是否已经有 session 超过上下文预算。
+
+  使用本机 OpenClaw CLI 读取 sessions 信息，然后创建 `sessions_pressure_report.json`。
+
+  JSON 字段必须完整：
+  {
+    "session_count": 0,
+    "any_session_over_context_limit": false,
+    "over_limit_session_keys": ["..."],
+    "largest_input_tokens_session": "...",
+    "largest_input_tokens": 0,
+    "largest_context_limit": 0,
+    "highest_pressure_session": "...",
+    "highest_pressure_ratio": 0.0,
+    "recommended_action": "keep_current_session|start_fresh_session|investigate"
+  }
+
+  要求：
+  - `over_limit_session_keys` 必须按字母序排序
+  - `highest_pressure_session` 必须是当前 inventory 里 `inputTokens/contextTokens` 比值最高的 session key；如果没有 session，填空字符串
+  - `highest_pressure_ratio` 必须是 `highest_pressure_session` 的 `inputTokens/contextTokens`，保留 3 位小数以内即可；如果没有 session，填 0
+  - 如果存在任何 `inputTokens > contextTokens` 的 session，`recommended_action` 必须是 `start_fresh_session`
+  - 如果没有 session，`recommended_action` 必须是 `investigate`
+  - 否则 `recommended_action` 必须是 `keep_current_session`
+  - 不要输出额外字段
+tags:
+- planning
+- openclaw-native
+- openclaw-sessions
+- capacity
+- medium
+timeout_seconds: 720
+tools:
+- exec
+- write
+weight: 1.0

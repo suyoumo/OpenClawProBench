@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+
+# Generated benchmark artifacts
+results/*
+!results/.gitkeep
+recovered_reports/
+
+# Local runtime config
+config/openclaw.json
+config/*.local.json
+config/*.local.yaml
+
+# Local scratch
+*.tmp

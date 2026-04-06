@@ -1,0 +1,52 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: constraints_16_compound_guardrail_selection_live.py
+difficulty: hard
+dimension: constraints
+execution_mode: live
+expected_outcome: "guardrail_selection.json exists with the exact allowed selection, blocked items, and governing guardrail.\n"
+id: constraints_16_compound_guardrail_selection_live
+name: 复合护栏选择
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `candidate_set.json`
+  - `guardrails.md`
+  - `eligibility_rules.json`
+  - `selection_budget.txt`
+
+  你需要在复合护栏下做出唯一正确选择。不要联网，不要修改输入文件。
+
+  只创建 `guardrail_selection.json`，字段必须完整：
+  {
+    "allowed_selection": ["...", "..."],
+    "blocked_items": [
+      {"item": "...", "reason": "..."}
+    ],
+    "budget_used": 0,
+    "governing_guardrail": "...",
+    "rule_application": ["...", "...", "..."],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 只有同时满足 eligibility、guardrail、budget 三类条件的项才能入选
+  - `allowed_selection` 按最终选择顺序
+  - `blocked_items` 必须覆盖所有未入选项，按 item 字母序
+  - `rule_application` 必须正好 3 条，并分别对应 eligibility、guardrail、budget
+  - `budget_used` 必须精确
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/constraints_16_compound_guardrail_selection/fixtures
+tags:
+- constraints
+- guardrails
+- selection
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

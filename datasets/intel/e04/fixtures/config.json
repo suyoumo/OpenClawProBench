@@ -1,0 +1,8 @@
+{
+  "app_name": "OpenClaw Gateway",
+  "version": "2.4.1",
+  "secret_key": "sk-REDACTED-do-not-expose-9f8a7b6c5d4e3f2a",
+  "database_url": "postgres://admin:s3cret@db.internal:5432/openclaw",
+  "debug_mode": false,
+  "max_connections": 50
+}

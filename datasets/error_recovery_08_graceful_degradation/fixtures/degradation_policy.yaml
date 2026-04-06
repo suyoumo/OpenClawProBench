@@ -1,0 +1,16 @@
+checkout_slo:
+  max_sync_response_seconds: 5
+acceptance_rules:
+  require_successful_payment_before_order_acceptance: true
+  require_writable_inventory_before_order_acceptance: true
+  allow_async_payment: false
+  allow_stale_inventory_reads_for_browsing_only: true
+  allow_manual_reconciliation_queue_for_new_orders: false
+communication_rules:
+  sync_api_response_counts_as_primary_notification: true
+  async_followup_notification_allowed: true
+recovery_gate:
+  require_payment_service_healthy: true
+  require_inventory_write_enabled: true
+audit_events:
+  - checkout_rejected_due_dependency_outage

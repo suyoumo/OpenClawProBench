@@ -1,0 +1,14 @@
+{
+  "status_page_url": "http://localhost:4173/status",
+  "observed_state": "partial_recovery",
+  "stabilization_requirement": "fully_restored_for_15_minutes",
+  "existing_follow_up_checks": 2,
+  "duplicate_follow_up_forbidden": true,
+  "must_do_containment_first": true,
+  "external_approval_ready": false,
+  "allowed_internal_actions": [
+    "pause noisy watch",
+    "record containment state",
+    "schedule one bounded follow-up check"
+  ]
+}

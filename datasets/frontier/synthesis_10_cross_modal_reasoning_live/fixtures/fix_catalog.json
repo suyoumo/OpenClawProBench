@@ -1,0 +1,10 @@
+{
+  "fix_recommendation_codes": [
+    "support_three_part_locales_in_normalize_locale",
+    "add_regression_test_for_zh_Hans_CN",
+    "return_validation_error_instead_of_500_for_bad_locale_shapes",
+    "strip_script_segment_and_force_language_region_only",
+    "disable_profile_locale_edits_for_all_non_en_users",
+    "retry_profile_save_twice_before_showing_any_banner"
+  ]
+}

@@ -1,0 +1,63 @@
+benchmark_core: false
+custom_check: planning_12_resource_dependency_live.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'resource_schedule.json exists with the correct schedule, critical
+  path, parallel groups, and makespan.
+
+  '
+id: planning_12_resource_dependency_live
+name: 资源分配与依赖关系
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  你要在资源上限下做最短工期调度。这个题是闭卷排程题，不需要联网。
+
+  资源上限：
+  - CPU <= 8
+  - Memory <= 16
+
+  任务表：
+  - A: duration=2, cpu=2, mem=4, deps=[]
+  - B: duration=2, cpu=1, mem=2, deps=[]
+  - C: duration=3, cpu=3, mem=4, deps=[A]
+  - D: duration=2, cpu=2, mem=3, deps=[A]
+  - E: duration=4, cpu=4, mem=6, deps=[B, C]
+  - F: duration=3, cpu=3, mem=4, deps=[D]
+  - G: duration=5, cpu=5, mem=8, deps=[E, F]
+  - H: duration=1, cpu=1, mem=2, deps=[E]
+  - I: duration=2, cpu=2, mem=2, deps=[G, H]
+
+  调度规则：
+  - 所有任务都是 non-preemptive
+  - 只要依赖完成且资源足够，任务可以立刻启动
+  - 目标是最小化 makespan
+  - 若出现并列最优，优先让“字母序更小且已就绪”的任务更早启动
+  - `parallel_groups` 必须按“相同 start 时间”分组
+
+  输出要求：
+  创建 `resource_schedule.json`，字段必须完整：
+  {
+    "schedule": [
+      {"task": "A", "start": 0, "end": 2}
+    ],
+    "parallel_groups": [["A", "B"]],
+    "makespan": 0,
+    "critical_path": ["...", "..."],
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `schedule` 必须包含全部 9 个任务，并按 `(start, task)` 排序
+  - `notes` 至少 2 条，说明关键资源或依赖决策
+tags:
+- planning
+- resource-allocation
+- dependency
+- expert
+timeout_seconds: 600
+weight: 2.0

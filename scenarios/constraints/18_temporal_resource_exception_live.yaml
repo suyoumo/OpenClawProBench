@@ -1,0 +1,55 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: constraints_18_temporal_resource_exception_live.py
+difficulty: hard
+dimension: constraints
+execution_mode: live
+expected_outcome: "temporal_resource_exception.json exists with the exact accepted schedule, rejected requests, and governing constraint chain.\n"
+id: constraints_18_temporal_resource_exception_live
+name: 时序资源例外
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `requests.json`
+  - `resource_windows.md`
+  - `exception_rules.json`
+  - `selection_contract.txt`
+
+  你需要在时序资源和例外规则共同作用下生成唯一正确结果。不要联网，不要修改输入文件。
+
+  只创建 `temporal_resource_exception.json`，字段必须完整：
+  {
+    "accepted_schedule": [
+      {"window": "...", "request": "..."}
+    ],
+    "rejected_requests": [
+      {"request": "...", "reason": "..."}
+    ],
+    "constraint_chain": ["...", "...", "..."],
+    "governing_exception": "...",
+    "unused_capacity": [
+      {"window": "...", "remaining": 0}
+    ],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 只有同时满足窗口容量与例外启用条件的请求才能接受
+  - `rejected_requests` 必须覆盖所有未接受请求，按 request 字母序
+  - `constraint_chain` 必须正好 3 条
+  - `unused_capacity` 必须精确反映每个窗口在最终接受方案后的剩余容量
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/constraints_18_temporal_resource_exception/fixtures
+tags:
+- constraints
+- temporal
+- resource
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

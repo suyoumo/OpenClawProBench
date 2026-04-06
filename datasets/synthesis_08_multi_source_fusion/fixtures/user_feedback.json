@@ -1,0 +1,15 @@
+{
+  "product": "PulseBand V2",
+  "reviews": [
+    {"id": "r01", "date": "2025-12-12", "verified": true, "rating": 4, "firmware": "1.3.7", "text": "续航大概两天半，日常够用。"},
+    {"id": "r02", "date": "2026-01-18", "verified": true, "rating": 2, "firmware": "1.4.0", "text": "升级 1.4 后一天一充。"},
+    {"id": "r03", "date": "2026-01-22", "verified": true, "rating": 2, "firmware": "1.4.0", "text": "Android 14 配对后半天就断。"},
+    {"id": "r04", "date": "2026-02-03", "verified": true, "rating": 2, "firmware": "1.4.1", "text": "最近续航明显变差，晚上掉电很快。"},
+    {"id": "r05", "date": "2026-02-10", "verified": false, "rating": 5, "firmware": "1.4.1", "incentive_campaign": "spring_bonus", "text": "续航稳稳 3 天，完全没问题。"},
+    {"id": "r06", "date": "2026-02-10", "verified": false, "rating": 5, "firmware": "1.4.1", "incentive_campaign": "spring_bonus", "text": "续航稳稳 3 天，完全没问题。"},
+    {"id": "r07", "date": "2026-02-10", "verified": false, "rating": 5, "firmware": "1.4.1", "incentive_campaign": "spring_bonus", "text": "续航稳稳 3 天，完全没问题。"},
+    {"id": "r08", "date": "2026-02-14", "verified": true, "rating": 2, "firmware": "1.4.1", "text": "Android 14 还是要重配对。"},
+    {"id": "r09", "date": "2026-02-18", "verified": true, "rating": 3, "firmware": "1.4.1", "text": "功能还行，但升级后电量掉得很快。"},
+    {"id": "r10", "date": "2026-02-20", "verified": true, "rating": 2, "firmware": "1.4.1", "text": "第二天蓝牙又断开，体验一般。"}
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "agents": [
+    {
+      "id": "agent_001",
+      "name": "Alpha",
+      "capabilities": ["data_processing", "validation", "compression"],
+      "current_load": 0,
+      "max_concurrent_tasks": 2,
+      "efficiency": 1.0
+    },
+    {
+      "id": "agent_002",
+      "name": "Beta",
+      "capabilities": ["data_processing", "encryption", "network_io"],
+      "current_load": 0,
+      "max_concurrent_tasks": 3,
+      "efficiency": 0.9
+    },
+    {
+      "id": "agent_003",
+      "name": "Gamma",
+      "capabilities": ["validation", "analysis", "reporting"],
+      "current_load": 0,
+      "max_concurrent_tasks": 2,
+      "efficiency": 1.1
+    },
+    {
+      "id": "agent_004",
+      "name": "Delta",
+      "capabilities": ["encryption", "compression", "archival"],
+      "current_load": 0,
+      "max_concurrent_tasks": 2,
+      "efficiency": 0.95
+    },
+    {
+      "id": "agent_005",
+      "name": "Epsilon",
+      "capabilities": ["network_io", "analysis", "reporting"],
+      "current_load": 0,
+      "max_concurrent_tasks": 3,
+      "efficiency": 1.0
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "recommendation_codes": [
+    "adopt_tdd_before_sequential_integration_rollout",
+    "delay_testing_changes_until_after_release",
+    "increase_team_size_before_fixing_architecture",
+    "prioritize_monolith_first_before_parallel_scaling"
+  ]
+}

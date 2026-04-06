@@ -1,0 +1,54 @@
+{
+  "workloads": [
+    {
+      "workload": "realtime_search",
+      "throughput_units": 12,
+      "latency_s": 2.6,
+      "memory_gb": 0.7,
+      "concurrency": 6,
+      "error_rate_pct": 0.4,
+      "delayable": false,
+      "cancelable": false
+    },
+    {
+      "workload": "billing_sync",
+      "throughput_units": 7,
+      "latency_s": 4.4,
+      "memory_gb": 0.9,
+      "concurrency": 3,
+      "error_rate_pct": 0.6,
+      "delayable": true,
+      "cancelable": false
+    },
+    {
+      "workload": "image_backfill",
+      "throughput_units": 9,
+      "latency_s": 6.0,
+      "memory_gb": 0.8,
+      "concurrency": 5,
+      "error_rate_pct": 0.2,
+      "delayable": true,
+      "cancelable": true
+    },
+    {
+      "workload": "report_export",
+      "throughput_units": 4,
+      "latency_s": 3.2,
+      "memory_gb": 0.6,
+      "concurrency": 2,
+      "error_rate_pct": 1.5,
+      "delayable": true,
+      "cancelable": true
+    },
+    {
+      "workload": "fraud_guard",
+      "throughput_units": 6,
+      "latency_s": 2.1,
+      "memory_gb": 0.5,
+      "concurrency": 4,
+      "error_rate_pct": 0.08,
+      "delayable": false,
+      "cancelable": false
+    }
+  ]
+}

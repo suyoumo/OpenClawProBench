@@ -1,0 +1,9 @@
+[
+  {"id": 1, "name": "Laptop Pro", "category": "Electronics", "price": 1299.99, "in_stock": true},
+  {"id": 2, "name": "Wireless Mouse", "category": "Accessories", "price": 29.5, "in_stock": true},
+  {"id": 3, "name": "USB-C Hub", "category": "Accessories", "price": 49.99, "in_stock": false},
+  {"id": 4, "name": "Monitor 27\"", "category": "Electronics", "price": 399.0, "in_stock": true},
+  {"id": 5, "name": "Keyboard", "category": "Accessories", "price": 79.99, "in_stock": true},
+  {"id": 6, "name": "Webcam HD", "category": "Electronics", "price": 59.99, "in_stock": false},
+  {"id": 7, "name": "Desk Lamp", "category": "Furniture", "price": 34.5, "in_stock": true}
+]

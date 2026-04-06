@@ -1,0 +1,11 @@
+{
+  "clean_now": [
+    "config-service",
+    "status-api"
+  ],
+  "blocked_now": {
+    "payment-adapter": "gateway_state_dirty",
+    "checkout-api": "depends_on_payment-adapter",
+    "receipt-worker": "depends_on_checkout-api"
+  }
+}

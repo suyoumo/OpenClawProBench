@@ -1,0 +1,1 @@
+Apply capacity, then exception enablement, then remaining priority ordering.

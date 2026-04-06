@@ -1,0 +1,33 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_26_memory_staleness_resolution_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+id: synthesis_26_memory_staleness_resolution_live
+name: Memory Staleness Resolution
+openclaw_surfaces:
+- memory
+- message
+optimal_steps: 10
+pass_threshold: 0.62
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `memory_state.json`
+
+  请创建 `memory_staleness_resolution.json`，字段必须完整：
+  {
+    "current_escalation_room": "...",
+    "discarded_entries": ["..."],
+    "active_entries": ["..."],
+    "needs_human_confirmation": ["..."],
+    "reason": "..."
+  }
+
+  规则：
+  - stale entry 必须丢弃
+  - current entry 必须保留
+  - uncertain entry 不能直接当真，必须放入 needs_human_confirmation

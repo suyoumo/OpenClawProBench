@@ -1,0 +1,5 @@
+2024-03-15 10:00:10 INFO  Auth service ready
+2024-03-15 10:01:15 ERROR Invalid token: expired
+2024-03-15 10:02:00 INFO  User login: alice@example.com
+2024-03-15 10:02:30 INFO  User login: bob@example.com
+2024-03-15 10:03:00 WARN  Rate limit approaching for IP 192.168.1.100

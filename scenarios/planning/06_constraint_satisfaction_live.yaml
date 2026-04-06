@@ -1,0 +1,80 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: planning_06_constraint_satisfaction.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+expected_outcome: 'schedule.json exists and contains a valid schedule that satisfies
+  all constraints.
+
+  '
+expected_tools: &id001
+- read
+- write
+- exec
+id: planning_06_constraint_satisfaction_live
+name: 约束满足问题 — 会议调度优化
+optimal_steps: 20
+pass_threshold: 0.65
+prompt: '你需要为一个团队安排 5 个会议，满足以下约束：
+
+
+  **会议列表**（每个会议 1 小时）：
+
+  1. Product Review - 需要 Alice, Bob, Carol
+
+  2. Tech Design - 需要 Bob, David, Eve
+
+  3. Budget Planning - 需要 Alice, Frank, Grace
+
+  4. Team Sync - 需要 Carol, David, Henry
+
+  5. Client Demo - 需要 Eve, Frank, Henry
+
+
+  **约束条件**：
+
+  1. 工作时间：9:00-18:00（共 9 小时）
+
+  2. 每个人同一时间只能参加一个会议
+
+  3. Alice 必须在下午（14:00 后）参加 Product Review
+
+  4. Bob 在 11:00-14:00 之间不可用
+
+  5. Eve 必须在上午（12:00 前）参加 Client Demo
+
+  6. Budget Planning 必须在 Tech Design 之前
+
+  7. 每个会议之间至少间隔 30 分钟
+
+  8. 会议室只有 2 个，不能同时开 3 个会议
+
+
+  **输出要求**：
+
+  创建 `schedule.json`，包含：
+
+  - 每个会议的开始时间和结束时间
+
+  - 每个会议的会议室（A 或 B）
+
+  - 每个会议的参会人员
+
+
+  **注意**：可能存在多个可行方案，只需找到一个满足所有约束的方案即可。
+
+  '
+tags:
+- planning
+- constraints
+- optimization
+- expert
+- benchmark-intelligence
+- benchmark-core
+- new-expert
+timeout_seconds: 600
+tools: *id001
+weight: 2.0

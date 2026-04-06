@@ -1,0 +1,91 @@
+hard_rules:
+  no_downtime_required: true
+  max_completion_hours: 48
+  minimum_perf_gain_percent: 30
+  max_budget_million_cny: 1.0
+  legacy_api_must_remain_until_client_cutover: true
+  all_critical_and_high_findings_fixed_before_final_cutover: true
+
+memory_rule:
+  required_memory_relief_action_ids:
+    - reclaim_search_cache
+    - delay_analytics_batch
+
+canonical_output:
+  selected_option_id: dual_stack_incremental_cutover
+  summary_metrics:
+    total_hours: 44
+    budget_million_cny: 0.94
+    perf_gain_percent: 32
+    legacy_api_mode: compatibility_gateway_until_phase_3
+  conflict_assessment:
+    - conflict_id: memory_vs_perf
+      severity: high
+      resolution_code: reclaim_search_cache_and_delay_analytics_batch
+    - conflict_id: compatibility_vs_data_model
+      severity: high
+      resolution_code: keep_compatibility_gateway_until_phase_3
+    - conflict_id: security_refactor_vs_availability
+      severity: high
+      resolution_code: dual_stack_shadow_cutover_before_final_switch
+    - conflict_id: budget_time_vs_validation
+      severity: medium
+      resolution_code: reuse_existing_nodes_and_front_load_validation
+  memory_relief_actions:
+    - reclaim_search_cache
+    - delay_analytics_batch
+  phase_plan:
+    - phase_id: phase_1_foundation
+      hours: [0, 12]
+      actions:
+        - deploy_compatibility_gateway
+        - enable_dual_write
+        - reclaim_search_cache
+        - delay_analytics_batch
+      primary_risk: gateway_misroute
+      rollback_trigger: gateway_5xx_gt_1pct_15m
+    - phase_id: phase_2_service_cutover
+      hours: [12, 30]
+      actions:
+        - migrate_read_path
+        - refactor_auth_module
+        - patch_serializer_path
+        - run_shadow_validation
+      primary_risk: data_sync_lag
+      rollback_trigger: dual_write_lag_gt_5s_or_auth_error_rate_gt_0.5pct
+    - phase_id: phase_3_client_migration_cleanup
+      hours: [30, 44]
+      actions:
+        - migrate_remaining_legacy_clients
+        - remove_legacy_adapter
+        - apply_perf_tuning
+        - run_final_security_verification
+      primary_risk: late_client_breakage
+      rollback_trigger: legacy_client_failure_rate_gt_0.5pct
+  rejected_options:
+    - option_id: big_bang_cutover
+      reason_codes:
+        - downtime_violation
+        - legacy_api_violation
+    - option_id: hotfix_only
+      reason_codes:
+        - performance_violation
+        - security_incomplete
+    - option_id: capacity_first_then_cutover
+      reason_codes:
+        - deadline_violation
+        - budget_violation
+  rollback_plan:
+    rollback_phase: phase_2_service_cutover
+    rollback_actions:
+      - route_reads_back_to_v1
+      - pause_client_migration
+      - keep_compatibility_gateway_active
+    data_guard: reconcile_dual_write_offsets_before_resume
+  evidence_refs:
+    - upgrade_request.json
+    - current_platform.json
+    - client_compatibility.json
+    - security_findings.json
+    - upgrade_options.json
+    - decision_rules.yaml

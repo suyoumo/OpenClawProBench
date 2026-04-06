@@ -1,0 +1,7 @@
+2024-03-15 10:00:01 INFO  Server started on port 8080
+2024-03-15 10:00:15 ERROR Database connection timeout
+2024-03-15 10:01:02 INFO  Request /api/users 200 45ms
+2024-03-15 10:01:30 ERROR Failed to parse JSON payload
+2024-03-15 10:02:00 WARN  Memory usage above 80%
+2024-03-15 10:02:45 ERROR Redis connection refused
+2024-03-15 10:03:10 INFO  Request /api/health 200 12ms

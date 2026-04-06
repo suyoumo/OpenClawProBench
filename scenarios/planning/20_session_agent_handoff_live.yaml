@@ -1,0 +1,32 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: planning_20_session_agent_handoff_live.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+id: planning_20_session_agent_handoff_live
+name: Session Agent Handoff
+openclaw_surfaces:
+- sessions
+- agents
+optimal_steps: 10
+pass_threshold: 0.62
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `session_agent_state.json`
+
+  请创建 `handoff_plan.json`，字段必须完整：
+  {
+    "selected_session": "...",
+    "selected_agent": "...",
+    "start_fresh_session": true,
+    "handoff_context": ["..."],
+    "reason": "..."
+  }
+
+  规则：
+  - 必须避免使用高 pressure session
+  - implementation 类型任务应优先给适合 multi-file implementation 的 agent

@@ -1,0 +1,3 @@
+path: src/helpers/request.js
+snippet: Authorization: `Bearer ${token}`
+notes: runtime template string, not a hardcoded token

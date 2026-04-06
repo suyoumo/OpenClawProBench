@@ -1,0 +1,53 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: constraints_19_cron_conflict_buffer_live.py
+difficulty: hard
+dimension: constraints
+execution_mode: live
+id: constraints_19_cron_conflict_buffer_live
+name: OpenClaw 一次性 Cron 冲突缓冲
+openclaw_surfaces:
+- cron
+optimal_steps: 8
+pass_threshold: 0.6
+prompt: |
+  当前工作区里已经放好了两份只读输入：
+  - `request.json`
+  - `policy.yaml`
+
+  你要为一次性的 smoke check 提醒生成排程，但不能和已有日程冲突，也不能把时间放在 :00 或 :30。
+
+  请先读取这两份文件，然后使用 OpenClaw 的 cron 能力创建一个 one-shot 提醒，目标内容是：
+  `remind me to run the smoke check`
+
+  然后创建 `cron_decision.json`，字段必须完整：
+  {
+    "cron": "...",
+    "recurring": false,
+    "scheduled_local_time": "YYYY-MM-DDTHH:MM",
+    "reason": "..."
+  }
+
+  规则：
+  - 必须基于真实 cron 创建结果来填写 `cron`
+  - 时间必须落在 request 允许窗口内
+  - 时间必须避开所有已有 calendar event，且至少留出 10 分钟缓冲
+  - 分钟位不能是 0 或 30
+  - 不要修改输入文件，也不要输出额外字段
+expected_outcome: "cron_decision.json exists and records a valid one-shot cron schedule that avoids conflicts and avoids :00/:30."
+tags:
+- constraints
+- openclaw-native
+- openclaw-cron
+- hard
+- scheduling
+- time-window
+timeout_seconds: 2400
+tools:
+- read
+- cron
+- write
+weight: 2.0
+workspace_seed_dir: ../../datasets/constraints_19_cron_conflict_buffer/fixtures

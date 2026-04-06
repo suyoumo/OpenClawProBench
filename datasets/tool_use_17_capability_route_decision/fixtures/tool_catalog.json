@@ -1,0 +1,9 @@
+{
+  "tools": [
+    "Read",
+    "Grep",
+    "Write",
+    "Bash",
+    "WebSearch"
+  ]
+}

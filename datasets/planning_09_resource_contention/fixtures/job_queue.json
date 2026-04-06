@@ -1,0 +1,93 @@
+{
+  "tasks": [
+    {
+      "task_id": "invoice_rebuild",
+      "priority": "p0",
+      "must_finish_in_window": true,
+      "business_value": 90,
+      "duration_hours": 2,
+      "depends_on": [],
+      "requires": {
+        "db_connections": 2,
+        "file_handles": 2,
+        "network_ports": 0,
+        "lock_units": 1
+      }
+    },
+    {
+      "task_id": "export_sync",
+      "priority": "p0",
+      "must_finish_in_window": true,
+      "business_value": 75,
+      "duration_hours": 2,
+      "depends_on": [],
+      "requires": {
+        "db_connections": 1,
+        "file_handles": 3,
+        "network_ports": 1,
+        "lock_units": 0
+      }
+    },
+    {
+      "task_id": "fraud_scan",
+      "priority": "p1",
+      "must_finish_in_window": false,
+      "business_value": 60,
+      "duration_hours": 2,
+      "depends_on": [],
+      "requires": {
+        "db_connections": 2,
+        "file_handles": 1,
+        "network_ports": 1,
+        "lock_units": 2
+      }
+    },
+    {
+      "task_id": "compliance_bundle",
+      "priority": "p1",
+      "must_finish_in_window": false,
+      "business_value": 50,
+      "duration_hours": 2,
+      "depends_on": [
+        "invoice_rebuild",
+        "export_sync"
+      ],
+      "requires": {
+        "db_connections": 1,
+        "file_handles": 1,
+        "network_ports": 1,
+        "lock_units": 1
+      }
+    },
+    {
+      "task_id": "lock_reindex",
+      "priority": "p2",
+      "must_finish_in_window": false,
+      "business_value": 25,
+      "duration_hours": 2,
+      "depends_on": [],
+      "requires": {
+        "db_connections": 0,
+        "file_handles": 1,
+        "network_ports": 1,
+        "lock_units": 3
+      }
+    },
+    {
+      "task_id": "merchant_snapshot",
+      "priority": "p2",
+      "must_finish_in_window": false,
+      "business_value": 20,
+      "duration_hours": 2,
+      "depends_on": [
+        "export_sync"
+      ],
+      "requires": {
+        "db_connections": 0,
+        "file_handles": 2,
+        "network_ports": 0,
+        "lock_units": 1
+      }
+    }
+  ]
+}

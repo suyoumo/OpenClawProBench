@@ -1,0 +1,6 @@
+Profile Preferences page screenshot text:
+- Page header: Preferences
+- Locale dropdown shows: Chinese (Simplified, Hans, China)
+- Inline banner code: PROFILE_SAVE_FAILED
+- Banner copy: We couldn't save your preferences. Try again.
+- Save button is disabled immediately after the failed request finishes.

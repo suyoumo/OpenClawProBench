@@ -1,0 +1,32 @@
+allowed_timeline_events:
+  - config_fail_closed_retry_policy_enabled
+  - fraud_detection_timeouts_started
+  - emergency_db_pool_expansion_applied
+  - db_pool_waiters_spiked
+  - service_oom_killed
+allowed_change_roles:
+  - trigger_change
+  - attempted_mitigation
+  - non_causal_change
+allowed_dependency_roles:
+  - originating_dependency_failure
+  - downstream_symptom
+  - healthy_not_causal
+allowed_root_causes:
+  - fraud_fail_closed_retry_path_held_db_sessions_during_dependency_timeouts
+  - primary_database_slow_queries_exhausted_pool_first
+  - redis_outage_stalled_order_workers
+allowed_causal_chain:
+  - config_enabled_fail_closed_retries_and_session_holding
+  - fraud_detection_timeouts_started
+  - orders_held_db_sessions_while_retrying_fraud_checks
+  - db_pool_waiters_and_heap_pressure_spiked
+  - service_was_oom_killed
+allowed_ruled_out_hypotheses:
+  - primary_database_slow_queries_as_initial_trigger
+  - redis_outage_as_initial_trigger
+  - kubernetes_node_failure_as_initial_trigger
+allowed_verification_steps:
+  - replay_fail_closed_timeout_path_with_session_lifecycle_trace
+  - compare_session_hold_time_before_after_CHG-2026-0322-001
+  - stage_rollback_CHG-2026-0322-001_while_holding_dependency_latency_constant

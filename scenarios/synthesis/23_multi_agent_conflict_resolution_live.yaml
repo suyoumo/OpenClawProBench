@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_23_multi_agent_conflict_resolution_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+id: synthesis_23_multi_agent_conflict_resolution_live
+name: 多 Agent 冲突裁决
+optimal_steps: 10
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 3 份只读输入：
+  - `agent_summaries.json`
+  - `source_of_truth.md`
+  - `output_spec.json`
+
+  两个 agent 给出了互相冲突的 rollout 建议。你需要基于 source-of-truth 选出唯一可采纳的方案，并明确为什么另一个方案无效。
+
+  只创建 `multi_agent_resolution.json`，字段必须完整：
+  {
+    "winning_proposal_id": "...",
+    "selected_agent": "...",
+    "final_owner": "...",
+    "rollback_required": true,
+    "invalidated_proposals": [
+      {"proposal_id": "...", "reason": "..."}
+    ],
+    "decision_reason": "...",
+    "evidence_refs": ["agent_summaries.json", "source_of_truth.md", "output_spec.json"]
+  }
+
+  强约束：
+  - 必须同时使用全部 3 份输入
+  - 不能平均拼接两个 agent 的结论
+  - `invalidated_proposals` 必须覆盖所有未选 proposal，按 proposal_id 字母序
+  - 不要输出额外字段
+expected_outcome: "multi_agent_resolution.json exists with the correct winning proposal, invalidated proposal, and grounded evidence references."
+tags:
+- synthesis
+- multi-agent
+- conflict
+- hard
+- json
+- closed-world
+timeout_seconds: 420
+weight: 2.0
+workspace_seed_dir: ../../datasets/synthesis_23_multi_agent_conflict_resolution/fixtures

@@ -1,0 +1,57 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_12_checkpoint_selection_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "checkpoint_recovery.json exists with the optimal checkpoint choice, rejected checkpoints, recovery cost, and recovery sequence.\n"
+id: error_recovery_12_checkpoint_selection_live
+name: 检查点恢复选择
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  一个错误迁移在 `10:00` 触发事故。你需要从候选检查点中选一个恢复点，目标是最小化总恢复成本。这个题不需要联网。
+
+  成本公式：
+  `total_recovery_cost = restore_minutes + catch_up_minutes + data_loss_minutes + risk_penalty`
+
+  候选检查点：
+  - `C1`: time=`09:20`, status=`clean`, restore=6, catch_up=34, data_loss=40, risk_penalty=0
+  - `C2`: time=`09:35`, status=`clean`, restore=7, catch_up=19, data_loss=25, risk_penalty=0
+  - `C3`: time=`09:42`, status=`suspect_duplicate_write`, restore=5, catch_up=12, data_loss=18, risk_penalty=25
+  - `C4`: time=`09:48`, status=`invalid_missing_index_on_orders`, restore=4, catch_up=6, data_loss=12, risk_penalty=0
+
+  规则：
+  - `status` 以 `invalid_` 开头的检查点不能被选
+  - `suspect_` 检查点必须计入给定的 `risk_penalty`
+  - 需要明确说明为什么其他检查点被拒绝
+
+  输出要求：
+  创建 `checkpoint_recovery.json`，字段必须完整：
+  {
+    "selected_checkpoint": "...",
+    "total_recovery_cost": 0,
+    "rejected_checkpoints": [
+      {"id": "...", "reason": "..."}
+    ],
+    "recovery_sequence": ["...", "...", "...", "..."],
+    "verification_focus": ["...", "..."],
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `selected_checkpoint` 必须是总成本最优且有效的检查点
+  - `rejected_checkpoints` 必须覆盖剩余 3 个候选项
+  - `recovery_sequence` 至少 4 条
+  - `verification_focus` 至少 2 条
+  - `notes` 至少 2 条
+tags:
+- error_recovery
+- checkpoint
+- rollback
+- expert
+- closed-world
+timeout_seconds: 600
+weight: 2.0

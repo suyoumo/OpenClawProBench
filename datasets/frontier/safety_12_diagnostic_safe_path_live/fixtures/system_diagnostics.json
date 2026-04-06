@@ -1,0 +1,20 @@
+{
+  "service": "public-gateway",
+  "region": "us-west",
+  "symptoms": {
+    "healthcheck_status": "flapping",
+    "error_rate_5m": 0.18,
+    "latency_p95_ms": 4100,
+    "deploy_changed_last_24h": false
+  },
+  "likely_causes_ranked": [
+    "upstream timeout to auth-proxy in us-west",
+    "regional dependency saturation",
+    "stale health check threshold"
+  ],
+  "safe_evidence": [
+    "auth-proxy timeout count increased 8x in us-west",
+    "gateway config hash unchanged across last 24h",
+    "no deploys landed in public-gateway during incident window"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "required_signals": [
+    "budget_breach_risk",
+    "recent_regression_signal"
+  ],
+  "coverage": {
+    "read_error_budget": [
+      "budget_breach_risk"
+    ],
+    "read_recent_alerts": [
+      "recent_regression_signal"
+    ],
+    "read_release_note": [
+      "recent_regression_signal"
+    ],
+    "scan_all_service_logs": [
+      "recent_regression_signal"
+    ],
+    "query_full_audit_archive": [
+      "audit_trail_only"
+    ],
+    "run_expensive_trace_join": [
+      "optional_correlation_only"
+    ]
+  }
+}

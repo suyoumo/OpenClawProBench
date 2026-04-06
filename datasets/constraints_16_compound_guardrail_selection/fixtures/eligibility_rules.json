@@ -1,0 +1,11 @@
+{
+  "eligible": [
+    "item_a",
+    "item_b",
+    "item_c",
+    "item_d"
+  ],
+  "ineligible": [
+    "item_e"
+  ]
+}

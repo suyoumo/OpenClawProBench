@@ -1,0 +1,52 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: planning_17_dependency_tradeoff_plan_live.py
+difficulty: hard
+dimension: planning
+execution_mode: live
+expected_outcome: "dependency_tradeoff_plan.json exists with the exact dependency-aware plan, deferred items, and justification.\n"
+id: planning_17_dependency_tradeoff_plan_live
+name: 依赖权衡规划
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `task_graph.json`
+  - `capacity.json`
+  - `priority_rules.md`
+  - `delivery_window.json`
+
+  你需要制定唯一正确的依赖权衡计划。不要联网，不要修改输入文件。
+
+  只创建 `dependency_tradeoff_plan.json`，字段必须完整：
+  {
+    "execute_now": ["...", "..."],
+    "defer": [
+      {"task": "...", "reason": "..."}
+    ],
+    "dependency_order": ["...", "...", "..."],
+    "governing_rule": "...",
+    "justification": ["...", "...", "..."],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 只能安排在当前容量和交付窗口内可完成且依赖闭合的任务
+  - `execute_now` 按执行优先顺序
+  - `defer` 必须覆盖所有当前不执行的任务，按 task 字母序
+  - `dependency_order` 必须正好 3 条
+  - `justification` 必须正好 3 条，覆盖 dependency、capacity、delivery priority
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/planning_17_dependency_tradeoff_plan/fixtures
+tags:
+- planning
+- dependency
+- tradeoff
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

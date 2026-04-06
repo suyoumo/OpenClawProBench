@@ -1,0 +1,13 @@
+2026-03-22 09:10:52 [INFO] order-processing healthy; db_pool_in_use=21/60 fraud_p95_ms=118
+2026-03-22 09:11:03 [INFO] Applied hot-reload change_id=CHG-2026-0322-001 fail_mode=fail_closed retry_count=2 hold_db_session_during_fraud_check=true
+2026-03-22 09:12:18 [WARN] fraud_detection timeout order=o-7711 attempt=1 timeout_ms=2500
+2026-03-22 09:12:18 [INFO] order_context order=o-7711 retained db_session=s-441 for retry path
+2026-03-22 09:12:21 [WARN] fraud_detection timeout order=o-7711 attempt=2 timeout_ms=2500
+2026-03-22 09:12:24 [ERROR] fraud_check exhausted retries order=o-7711 final_policy=fail_closed
+2026-03-22 09:13:02 [INFO] Applied hot-reload change_id=CHG-2026-0322-002 db_pool_max=80 db_acquire_timeout_ms=8000
+2026-03-22 09:14:11 [WARN] db_pool_in_use=58/80 waiting_workers=19 heap_usage_pct=79
+2026-03-22 09:15:06 [WARN] db_pool_in_use=79/80 waiting_workers=61 heap_usage_pct=87
+2026-03-22 09:15:08 [ERROR] db acquire timeout order=o-8122 timeout_ms=8000
+2026-03-22 09:16:11 [WARN] fraud_detection circuit_state=open but fail_closed policy still queues orders
+2026-03-22 09:16:38 [WARN] waiting_workers=104 heap_usage_pct=96
+2026-03-22 09:17:44 [FATAL] oom_kill_by_cgroup service=order-processing

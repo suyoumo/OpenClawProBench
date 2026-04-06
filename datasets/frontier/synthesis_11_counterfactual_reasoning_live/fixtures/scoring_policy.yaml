@@ -1,0 +1,15 @@
+score_formula:
+  performance_multiplier_weight: 10
+  budget_overrun_divisor: 10
+  schedule_delay_month_weight: 5
+  risk_point_weight: 3
+
+combination_rules:
+  choose_exactly: 3
+  delta_application: linear_addition
+  tie_break: alphabetically_smallest_sorted_decision_ids
+
+output_rules:
+  rank_count: 3
+  recommendation_count: 2
+  recommendation_sort: alphabetic

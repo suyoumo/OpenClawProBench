@@ -1,0 +1,13 @@
+{
+  "total_files": 10000,
+  "candidate_extensions": [
+    ".py",
+    ".js"
+  ],
+  "candidate_file_count_after_glob": 1600,
+  "non_candidate_file_count": 8400,
+  "notes": [
+    "Only .py and .js files can contain real credential-style vulnerabilities.",
+    "The remaining files are docs, images, and config snapshots that do not create true hits."
+  ]
+}

@@ -1,0 +1,109 @@
+id: constraints_09_conflicting_constraints_live
+name: 冲突约束升级决策
+execution_mode: live
+dimension: constraints
+difficulty: expert
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_group: coverage
+benchmark_core: false
+weight: 2.0
+timeout_seconds: 240
+optimal_steps: 10
+pass_threshold: 0.7
+tags:
+- live
+- coverage
+- constraints
+- conflict-resolution
+- trade-offs
+- migration
+- closed-world
+prompt: |
+  当前工作区根目录里已经放好了 6 份只读输入：
+  - `upgrade_request.json`
+  - `current_platform.json`
+  - `client_compatibility.json`
+  - `security_findings.json`
+  - `upgrade_options.json`
+  - `decision_rules.yaml`
+
+  你需要为支付平台从 `v1.4.8` 升级到 `v2.0.0` 生成唯一正确的冲突约束升级策略。
+
+  固定规则：
+  1. 先用 `upgrade_request.json` 和 `upgrade_options.json` 过滤不满足硬约束的 option：
+     - `downtime_minutes` 必须为 0
+     - `total_hours` 必须不超过 48
+     - `perf_gain_percent` 必须至少为 30
+     - `budget_million_cny` 必须不超过 1.0
+  2. `client_compatibility.json` 说明仍有旧客户端依赖 legacy API，因此最终策略必须保持 legacy API 直到所有 `requires_legacy_api=true` 的客户端迁移完成。
+  3. `security_findings.json` 说明 final cutover 前必须修复全部 critical/high finding。
+  4. `current_platform.json` 说明 v2 额外需要 48GB 内存，而当前空闲内存为 0；如果选中的 option 需要额外内存，必须包含 `decision_rules.yaml.memory_rule.required_memory_relief_action_ids` 中的全部 action。
+  5. 输出中的官方 code、phase_id、actions、reason_codes、rollback 字段必须严格使用 `decision_rules.yaml.canonical_output` 里的定义，不允许自造同义词。
+
+  强约束：
+  - 不要修改任何输入文件
+  - 只创建 `upgrade_strategy.json`
+  - 必须同时使用全部 6 份输入
+
+  输出要求：创建 `upgrade_strategy.json`，字段必须完整且值必须精确：
+  {
+    "selected_option_id": "...",
+    "summary_metrics": {
+      "total_hours": 0,
+      "budget_million_cny": 0.0,
+      "perf_gain_percent": 0,
+      "legacy_api_mode": "..."
+    },
+    "conflict_assessment": [
+      {"conflict_id": "...", "severity": "...", "resolution_code": "..."}
+    ],
+    "memory_relief_actions": ["...", "..."],
+    "phase_plan": [
+      {
+        "phase_id": "...",
+        "hours": [0, 0],
+        "actions": ["...", "..."],
+        "primary_risk": "...",
+        "rollback_trigger": "..."
+      }
+    ],
+    "rejected_options": [
+      {"option_id": "...", "reason_codes": ["...", "..."]}
+    ],
+    "rollback_plan": {
+      "rollback_phase": "...",
+      "rollback_actions": ["...", "..."],
+      "data_guard": "..."
+    },
+    "evidence_refs": [
+      "upgrade_request.json",
+      "current_platform.json",
+      "client_compatibility.json",
+      "security_findings.json",
+      "upgrade_options.json",
+      "decision_rules.yaml"
+    ]
+  }
+
+  不要输出 markdown，不要添加任何多余字段。
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- read
+- read
+- read
+- read
+- write
+workspace_seed_dir: ../../datasets/constraints_09_conflicting_constraints/fixtures
+custom_check: constraints_09_conflicting_constraints_live_v2.py
+category: constraints
+description: 基于 seeded 升级请求、平台资源、客户端兼容性、安全修复要求和选项清单，生成唯一正确的 phased upgrade strategy。
+objective: 正确识别内存、兼容性、安全、预算和时限之间的冲突，选择唯一满足全部硬约束的 option，并输出 exact phased plan。
+expected_outcome: A correct upgrade_strategy.json with the exact selected option, summary metrics, conflict assessment, memory relief actions, phase plan, rejected options, rollback plan, and evidence refs.

@@ -1,0 +1,78 @@
+{
+  "events": [
+    {
+      "type": "user_message",
+      "text": "查询项目发布窗口并写入 release_note.txt，如果遇到临时错误请重试。"
+    },
+    {
+      "type": "tool_call",
+      "tool": "calendar_lookup",
+      "args": {
+        "query": "release window"
+      }
+    },
+    {
+      "type": "tool_result",
+      "tool": "calendar_lookup",
+      "status": 503,
+      "result": "temporary upstream error"
+    },
+    {
+      "type": "assistant_message",
+      "text": "第一次查询失败，我重试一次。"
+    },
+    {
+      "type": "tool_call",
+      "tool": "calendar_lookup",
+      "args": {
+        "query": "release window"
+      }
+    },
+    {
+      "type": "tool_result",
+      "tool": "calendar_lookup",
+      "status": 200,
+      "result": {
+        "slot": "2026-03-25 14:00 CST"
+      }
+    },
+    {
+      "type": "tool_call",
+      "tool": "write",
+      "args": {
+        "path": "release_note.txt",
+        "content": "Release window: 2026-03-25 14:00 CST"
+      }
+    },
+    {
+      "type": "tool_result",
+      "tool": "write",
+      "status": 200,
+      "result": "saved release_note.txt"
+    },
+    {
+      "type": "assistant_message",
+      "text": "已写入 release_note.txt，发布窗口是 2026-03-25 14:00 CST。"
+    }
+  ],
+  "metrics": {
+    "assistant_turns": 2,
+    "tool_calls": 3,
+    "input_tokens": 1320,
+    "output_tokens": 220,
+    "total_tokens": 1540,
+    "wall_time_s": 4.8,
+    "first_token_ms": 460
+  },
+  "audit_state": {
+    "files": {
+      "created": [
+        {
+          "path": "release_note.txt"
+        }
+      ],
+      "modified": [],
+      "deleted": []
+    }
+  }
+}

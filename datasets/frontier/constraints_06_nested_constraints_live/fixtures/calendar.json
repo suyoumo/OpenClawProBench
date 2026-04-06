@@ -1,0 +1,27 @@
+{
+  "freeze_windows": [
+    {
+      "id": "FW-2026-Q1",
+      "name": "Q1 End of Quarter Freeze",
+      "start": "2026-03-25T00:00:00Z",
+      "end": "2026-03-31T23:59:59Z",
+      "reason": "Quarter-end financial processing",
+      "exceptions_allowed": true,
+      "exception_types": ["security_hotfix", "critical_bugfix"]
+    },
+    {
+      "id": "FW-2026-Holiday",
+      "name": "Spring Holiday",
+      "start": "2026-04-04T00:00:00Z",
+      "end": "2026-04-06T23:59:59Z",
+      "reason": "Public holiday",
+      "exceptions_allowed": false
+    }
+  ],
+  "blackout_dates": [
+    {
+      "date": "2026-03-20",
+      "reason": "System maintenance"
+    }
+  ]
+}

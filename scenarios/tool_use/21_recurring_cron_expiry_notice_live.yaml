@@ -1,0 +1,56 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: tool_use_21_recurring_cron_expiry_notice_live.py
+difficulty: hard
+dimension: tool_use
+execution_mode: live
+id: tool_use_21_recurring_cron_expiry_notice_live
+name: OpenClaw 周期 Cron 过期意识
+openclaw_surfaces:
+- cron
+- message
+optimal_steps: 7
+pass_threshold: 0.6
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `request.json`
+
+  你需要根据请求创建一个 recurring cron，用于“每小时检查 deploy 状态”。
+
+  要求：
+  - 选择一个不是 :00 或 :30 的分钟位
+  - 频率必须是 hourly
+  - 分钟位必须来自 `suggested_minutes`
+  - 不能只说“hourly”，必须解释为什么不选 :00/:30，且为什么当前分钟位更合适
+  - 创建后写出 `cron_monitor_plan.json`，字段必须完整：
+    {
+      "cron": "...",
+      "recurring": true,
+      "selected_minute": 0,
+      "rejected_minutes": [0, 30],
+      "explanation": "...",
+      "mentions_auto_expire_days": 7
+    }
+  - `rejected_minutes` 必须正好是 `[0, 30]`
+  - `explanation` 必须同时提到：
+    1. recurring 任务 7 天后会自动过期
+    2. 为什么不能选 :00/:30
+    3. 为什么选中的分钟位符合 request.json 里的建议
+  - 不要输出额外字段
+expected_outcome: "cron_monitor_plan.json exists and captures a valid hourly recurring cron with explicit rejection of :00/:30 and the required 7-day auto-expire notice."
+tags:
+- tool_use
+- openclaw-native
+- openclaw-cron
+- openclaw-message
+- hard
+- scheduling
+timeout_seconds: 420
+tools:
+- read
+- cron
+- write
+weight: 2.0
+workspace_seed_dir: ../../datasets/tool_use_21_recurring_cron_expiry_notice/fixtures

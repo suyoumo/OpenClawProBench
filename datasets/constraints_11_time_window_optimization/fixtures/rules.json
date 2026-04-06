@@ -1,0 +1,14 @@
+{
+  "worker_count": 1,
+  "discrete_hours": [9, 10, 11, 12, 13, 14, 15, 16, 17],
+  "objective": {
+    "primary": "maximize_completion_count",
+    "secondary": "maximize_higher_priority_completions",
+    "tertiary": "lexicographically_smaller_tasks_earlier"
+  },
+  "constraint_summary": [
+    "Tasks must fit entirely within their own windows.",
+    "Dependencies must complete before the dependent task starts.",
+    "Tasks sharing the same resource cannot overlap."
+  ]
+}

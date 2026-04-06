@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_20_strategy_proof_live.py
+difficulty: expert
+dimension: tool_use
+execution_mode: live
+expected_outcome: "strategy_proof.json exists with the exact chosen strategy, dominated strategies, and optimality proof skeleton.\n"
+id: tool_use_20_strategy_proof_live
+name: 工具策略最优性证明
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `goal.md`
+  - `strategy_candidates.json`
+  - `tool_constraints.md`
+  - `proof_rules.json`
+
+  你需要从多个工具策略中选出唯一正确策略，并说明其为何优于其他策略。不要联网，不要修改输入文件。
+
+  只创建 `strategy_proof.json`，字段必须完整：
+  {
+    "chosen_strategy": "...",
+    "dominated_strategies": [
+      {"strategy": "...", "reason": "..."}
+    ],
+    "proof_skeleton": ["...", "...", "..."],
+    "governing_constraint": "...",
+    "required_preconditions": ["...", "..."],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - `chosen_strategy` 必须是满足 goal 且在 tool_constraints 下最优的唯一策略
+  - 必须区分“可行但次优”和“不可行”两类未选策略，不能只按成本排序
+  - `dominated_strategies` 必须覆盖所有未选策略，按 strategy 字母序
+  - `proof_skeleton` 必须正好 3 条，覆盖 feasibility、cost、sufficiency
+  - `required_preconditions` 必须正好 2 条，且都来自 tool_constraints 中实际约束
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/tool_use_20_strategy_proof/fixtures
+tags:
+- tool_use
+- strategy-proof
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

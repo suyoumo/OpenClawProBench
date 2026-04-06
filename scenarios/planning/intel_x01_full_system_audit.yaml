@@ -1,0 +1,56 @@
+id: intel_x01_full_system_audit
+name: 全系统审计
+dimension: planning
+difficulty: expert
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 14
+timeout_seconds: 300
+openclaw_surfaces:
+- skills
+- memory
+- browser
+- cron
+- directory
+- agents
+- sessions
+tools:
+- exec
+- write
+prompt: |
+  请对本机 OpenClaw 系统进行完整审计。你需要：
+  1. 查询所有 surfaces 状态（skills, memory, browser, cron, directory, agents, sessions）
+  2. 分析每个 surface 的健康状况
+  3. 识别潜在风险（如 session 超出 context limit、skill 缺失关键依赖、gateway 不可达）
+  4. 生成优先级排序的修复建议
+
+  创建 `audit_report.json`：
+  ```json
+  {
+    "surfaces_probed": 7,
+    "surface_status": {
+      "skills": {"status": "...", "ready_count": N, "missing_count": N},
+      "memory": {"status": "...", "failure_mode": "..."},
+      "browser": {"status": "..."},
+      "cron": {"status": "..."},
+      "directory": {"status": "...", "channels": [...]},
+      "agents": {"status": "...", "count": N, "default_model": "..."},
+      "sessions": {"status": "...", "count": N, "over_limit": [...]}
+    },
+    "risks": [
+      {"severity": "high"|"medium"|"low", "surface": "...", "description": "...", "remediation": "..."}
+    ],
+    "overall_health": "healthy"|"degraded"|"critical",
+    "health_score": 0.0-1.0
+  }
+  ```
+custom_check: intel_x01_full_system_audit.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

@@ -1,0 +1,26 @@
+{
+  "payment_cluster": {
+    "node_count": 4,
+    "current_free_memory_gb": 0,
+    "required_extra_memory_for_v2_gb": 48
+  },
+  "allowed_memory_relief_actions": [
+    {
+      "action_id": "reclaim_search_cache",
+      "adds_memory_gb": 32,
+      "status": "allowed"
+    },
+    {
+      "action_id": "delay_analytics_batch",
+      "adds_memory_gb": 16,
+      "status": "allowed"
+    }
+  ],
+  "disallowed_memory_relief_actions": [
+    {
+      "action_id": "disable_fraud_shadow_copy",
+      "adds_memory_gb": 12,
+      "status": "forbidden_by_risk_policy"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "service": "calendar_sync",
+    "status": "active",
+    "expires_at": "2026-12-31",
+    "access_token": "cal_live_123",
+    "scopes": [
+      "calendar.read",
+      "calendar.write"
+    ]
+  },
+  {
+    "service": "crm_export",
+    "status": "expired",
+    "expires_at": "2024-05-01",
+    "access_token": "crm_expired_456",
+    "scopes": [
+      "contacts.read"
+    ]
+  }
+]

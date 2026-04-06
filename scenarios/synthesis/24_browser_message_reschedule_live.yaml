@@ -1,0 +1,36 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_24_browser_message_reschedule_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+id: synthesis_24_browser_message_reschedule_live
+name: Browser-Message 改约确认
+openclaw_surfaces:
+- browser
+- message
+optimal_steps: 10
+pass_threshold: 0.7
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `reschedule_context.json`
+
+  你需要先用 browser 确认可选时间，再根据 thread 偏好选择唯一满足条件的时间，最后创建 `reschedule_decision.json`。
+
+  字段必须完整：
+  {
+    "selected_slot": "...",
+    "rejected_slots": ["..."],
+    "confirmation_message": "...",
+    "reason": "..."
+  }
+
+  规则：
+  - 只能选择一个 slot
+  - 必须拒绝所有不满足偏好的 slot
+  - `confirmation_message` 必须是 brief 风格
+  - `reason` 必须同时说明为什么选中该 slot、为什么拒绝其他 slot
+  - 如果两个 slot 都落在主要时间窗内，必须进一步考虑 `avoid_adjacent_to_standup`

@@ -1,0 +1,12 @@
+{
+  "memory_entries": [
+    {"date": "2026-03-18", "fact": "use #ops-legacy for escalations", "status": "stale"},
+    {"date": "2026-03-27", "fact": "use #release-ops for escalations", "status": "current"},
+    {"date": "2026-03-29", "fact": "external updates require director approval", "status": "current"},
+    {"date": "2026-03-30", "fact": "VIP alias may have rotated", "status": "uncertain"}
+  ],
+  "current_task": {
+    "goal": "produce current escalation action gate",
+    "needs_external_option": true
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Alice",
+    "email": "alice@example.com",
+    "signup_date": "2024-01-15"
+  },
+  {
+    "id": 2,
+    "name": "Bob",
+    "email": "bob@example.com",
+    "signup_date": "2024-02-20"
+  },
+  {
+    "id": 3,
+    "name": "Carol",
+    "email": "carol@example.com",
+    "signup_date": "2024-01-10"
+  },
+  {
+    "id": 4,
+    "name": "David",
+    "email": "david@example.com",
+    "signup_date": "2024-03-05"
+  },
+  {
+    "id": 5,
+    "name": "Eva",
+    "email": "eva@example.com",
+    "signup_date": "2024-02-28"
+  }
+]

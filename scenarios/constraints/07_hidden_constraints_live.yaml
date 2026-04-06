@@ -1,0 +1,99 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: constraints_07_hidden_constraints_live_v2.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+expected_outcome: 'constraint_discovery.md exists with all hidden constraints identified
+  and optimization plan.
+
+  '
+expected_tools:
+- read
+- write
+id: constraints_07_hidden_constraints_live
+name: 隐藏约束发现
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: '你需要优化一个系统的性能，但没有明确的约束文档。
+
+
+  **任务**：
+
+  阅读系统代码（system_code/）和日志（logs/），发现隐藏的性能约束。
+
+
+  **可见信息**：
+
+  - 系统处理 HTTP 请求
+
+  - 使用 PostgreSQL 数据库
+
+  - 有缓存层（Redis）
+
+  - 处理用户上传的文件
+
+
+  **隐藏约束**（需要你发现）：
+
+  1. 数据库连接池限制（最大 10 个连接）
+
+  2. Redis 缓存 TTL 只有 60 秒
+
+  3. 文件上传大小限制 5MB
+
+  4. API rate limit 是 100 req/min
+
+  5. 单个查询不能返回超过 1000 行
+
+
+  **任务**：
+
+  1. 阅读代码，找到所有隐藏约束
+
+  2. 识别哪些约束会限制性能
+
+  3. 设计优化方案（在不破坏约束的情况下提升性能）
+
+  4. 创建优化配置文件（optimized_config.json）
+
+
+  **输出要求**：
+
+  创建 `constraint_discovery.md`，包含：
+
+  - 所有发现的隐藏约束（至少 5 个）
+
+  - 每个约束的来源（代码文件 + 行号）
+
+  - 每个约束对性能的影响
+
+  - 优化建议（如何绕过或缓解）
+
+  - 最终的优化配置
+
+
+  **注意**：
+
+  - 所有约束都必须有证据（代码或日志）
+
+  - 优化不能破坏约束（除非通过合法方式）
+
+  - 需要权衡不同约束的影响
+
+  '
+tags:
+- constraints
+- hidden-constraints
+- discovery
+- expert
+- benchmark-intelligence
+- benchmark-core
+- new-expert
+timeout_seconds: 900
+tools:
+- read
+- write
+weight: 2.0

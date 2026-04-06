@@ -1,0 +1,109 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_09_capability_boundary_live_v2.py
+difficulty: expert
+dimension: tool_use
+execution_mode: live
+expected_outcome: 'capability_report.json exists with the inferred optimal safe
+  bundle and analysis_result.json records the exact optimal-bundle aggregation.
+
+  '
+expected_tools:
+- read
+- write
+- exec
+- glob
+id: tool_use_09_capability_boundary_live
+name: 工具能力边界探测
+optimal_steps: 18
+pass_threshold: 0.42
+prompt: |
+  当前工作区中已有以下只读输入：
+  - `boundary_observations.json`
+  - `dataset_manifest.json`
+  - `dataset/`
+
+  你的任务是在**不越过工具安全边界**的前提下，完成一次“最优安全 sample bundle”分析。
+
+  关键约束：
+  - `dataset/` 里的文件只是 tiny placeholder；逻辑大小必须以 `dataset_manifest.json` 为准
+  - 不要修改任何 seeded 输入文件
+  - 只允许创建 `capability_report.json` 和 `analysis_result.json`
+  - 不要尝试读取 `dataset/archive_full_export.bin`
+  - 不要读取逻辑大小达到或超过你推断出的 `read_failure_starts_at_mb` 的 shard
+  - 只能根据你实际安全读取到的 sample bundle 输出统计结果，不能臆测未读取数据
+  - `recommended_sample_shards` 必须是“总逻辑体积最大”的安全 bundle：
+    1. 每个 shard 单独可读
+    2. bundle 的总 `logical_size_mb` 不得超过 `safe_exec_batch_mb`
+    3. 若总 `logical_size_mb` 并列，选择按路径字母序更小的 bundle
+
+  任务要求：
+  1. 先用 `glob` 列出 `dataset/` 内候选文件
+  2. 根据 `boundary_observations.json` 推断 `read` / `exec` 的安全边界
+  3. 结合 `dataset_manifest.json` 选择“最优安全 sample bundle”
+  4. 只基于这个 bundle 统计 `error` 行数、错误码分布、top error code、top failing service
+  5. 估算如果处理完整逻辑数据集，按安全 exec batch 需要多少批；这里必须向上取整
+
+  输出 1：创建 `capability_report.json`
+  字段必须完整：
+  {
+    "read_limit_mb": 0,
+    "read_failure_starts_at_mb": 0,
+    "safe_exec_batch_mb": 0,
+    "exec_failure_starts_at_mb": 0,
+    "memory_limit_gb": 0.0,
+    "recommended_sample_shards": ["dataset/shard_x.jsonl", "..."],
+    "sample_bundle_logical_size_mb": 0,
+    "rejected_candidates": {
+      "dataset/shard_y.jsonl": "safe_but_suboptimal_bundle",
+      "dataset/shard_z.jsonl": "read_limit_exceeded",
+      "dataset/archive_full_export.bin": "archive_placeholder_unsafe"
+    },
+    "estimated_batches_for_full_run": 0
+  }
+
+  输出 2：创建 `analysis_result.json`
+  字段必须完整：
+  {
+    "sampled_shards": ["dataset/shard_x.jsonl", "..."],
+    "sampled_logical_size_mb": 0,
+    "total_error_rows": 0,
+    "error_code_counts": {
+      "E_SOMETHING": 0
+    },
+    "top_error_code": "...",
+    "top_error_code_count": 0,
+    "top_service": "...",
+    "top_service_error_count": 0,
+    "logical_dataset_size_mb": 0,
+    "analysis_scope": "optimal_safe_bundle_only"
+  }
+
+  额外要求：
+  - `recommended_sample_shards` 与 `sampled_shards` 都必须按路径字母序
+  - `recommended_sample_shards` 与 `sampled_shards` 必须完全一致
+  - `rejected_candidates` 必须覆盖全部未入选候选文件，原因标签只能使用：
+    - `safe_but_suboptimal_bundle`
+    - `read_limit_exceeded`
+    - `archive_placeholder_unsafe`
+  - `estimated_batches_for_full_run` 必须按向上取整计算
+  - `analysis_scope` 只能写 `optimal_safe_bundle_only`
+tags:
+- tool_use
+- capability-boundary
+- discovery
+- expert
+- benchmark-intelligence
+- benchmark-extended
+- tool-use-distinctive-pack
+- new-expert
+timeout_seconds: 600
+tools:
+- read
+- write
+- exec
+- glob
+workspace_seed_dir: ../../datasets/frontier/tool_use_09_capability_boundary_live/fixtures
+weight: 2.0

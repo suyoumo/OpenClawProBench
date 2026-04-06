@@ -1,0 +1,11 @@
+{
+  "budget": 9,
+  "actions": {
+    "read_error_budget": 2,
+    "read_recent_alerts": 3,
+    "read_release_note": 4,
+    "scan_all_service_logs": 5,
+    "query_full_audit_archive": 6,
+    "run_expensive_trace_join": 7
+  }
+}

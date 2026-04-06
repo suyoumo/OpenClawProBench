@@ -1,0 +1,26 @@
+{
+  "incident_id": "INC-2026-03-21-1420",
+  "window_utc": "2026-03-21T14:20:00Z/2026-03-21T14:21:00Z",
+  "services": {
+    "order-service": {
+      "status": "timeout",
+      "depends_on": ["inventory-service", "payment-gateway"],
+      "symptom": "checkout request timed out after repeated retries"
+    },
+    "inventory-service": {
+      "status": "error_503",
+      "depends_on": [],
+      "symptom": "reservation queue overflow returned 503"
+    },
+    "payment-gateway": {
+      "status": "connection_refused",
+      "depends_on": ["user-service"],
+      "symptom": "cannot reach user-service upstream"
+    },
+    "user-service": {
+      "status": "healthy",
+      "depends_on": [],
+      "symptom": "health checks normal on port 8081"
+    }
+  }
+}

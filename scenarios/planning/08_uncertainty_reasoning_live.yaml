@@ -1,0 +1,104 @@
+id: planning_08_uncertainty_reasoning_live
+name: 不确定性发布决策
+execution_mode: live
+dimension: planning
+difficulty: hard
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_group: coverage
+benchmark_core: false
+weight: 1.5
+timeout_seconds: 240
+optimal_steps: 10
+pass_threshold: 0.7
+tags:
+- live
+- coverage
+- planning
+- uncertainty
+- launch
+- closed-world
+prompt: |
+  当前工作区根目录里已经放好了 5 份只读输入：
+  - `market_research.json`
+  - `engineering_readiness.json`
+  - `finance_bounds.json`
+  - `decision_rules.yaml`
+  - `support_readiness.json`
+
+  你需要为 `team_inbox_summary` 功能给出 Q4 决策。
+
+  固定规则：
+  1. 先按 `decision_rules.yaml.uncertainty_level_bands` 给 4 个 uncertainty factor 打标签：
+     - `market_demand_confidence`
+     - `engineering_on_time_probability`
+     - `finance_forecast_confidence`
+     - `support_readiness_score`
+  2. `net_usd = revenue_usd - cost_usd`
+  3. `full_launch_q4` 被阻塞，只要以下任一条件成立：
+     - `full_scale_ready = false`
+     - `market_demand_confidence < full_launch_min_confidence`
+     - `finance_forecast_confidence < full_launch_min_confidence`
+     - `active_high_risk_projects` 数量已经达到 `max_parallel_high_risk_launches`
+  4. `pilot_launch_q4` 允许的条件：
+     - `pilot_toggle_ready = true`
+     - `pilot_launch_cost_usd <= budget_ceiling_usd`
+     - `enterprise_beta_customers_available >= min_pilot_customers`
+     - `customer_success_can_staff_pilot = true`
+  5. `defer_to_q1` 一定可执行，但如果 `q4_release_required = true`，它必须被列为 blocked option，原因是 `violates_q4_release_requirement`
+  6. 决策规则：
+     - 如果 `full_launch_q4` 未被阻塞，且 `base_case_net_usd(full) > base_case_net_usd(pilot)`，推荐 `full_launch_q4`
+     - 否则如果 `pilot_launch_q4` 允许，推荐 `pilot_launch_q4`
+     - 否则推荐 `defer_to_q1`
+  7. `blocked_options[].reason_codes` 必须使用 `decision_rules.yaml.block_reason_codes` 中的官方 code
+  8. `next_actions` 必须严格使用 `decision_rules.yaml.next_action_codes` 中定义的 3 个 code，且顺序不能改
+
+  强约束：
+  - 不要修改任何输入文件
+  - 只创建 `launch_decision.json`
+  - 必须同时使用全部 5 份输入
+
+  输出要求：创建 `launch_decision.json`，字段必须完整且值必须精确：
+  {
+    "recommendation": "...",
+    "blocked_options": [
+      {"option": "...", "reason_codes": ["...", "..."]}
+    ],
+    "uncertainty_register": [
+      {"factor": "...", "value": 0.0, "level": "..."}
+    ],
+    "scenario_estimates": {
+      "full_launch_q4": {"best_case_net_usd": 0, "base_case_net_usd": 0, "worst_case_net_usd": 0},
+      "pilot_launch_q4": {"best_case_net_usd": 0, "base_case_net_usd": 0, "worst_case_net_usd": 0},
+      "defer_to_q1": {"best_case_net_usd": 0, "base_case_net_usd": 0, "worst_case_net_usd": 0}
+    },
+    "next_actions": ["...", "...", "..."],
+    "evidence_refs": [
+      "market_research.json",
+      "engineering_readiness.json",
+      "finance_bounds.json",
+      "decision_rules.yaml",
+      "support_readiness.json"
+    ]
+  }
+
+  不要输出 markdown，不要添加任何多余字段。
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- read
+- read
+- read
+- write
+workspace_seed_dir: ../../datasets/planning_08_uncertainty_reasoning/fixtures
+custom_check: planning_08_uncertainty_reasoning_live.py
+category: planning
+description: 基于市场、工程、财务、组合约束和支持 readiness 的 seeded 信息做不确定性发布决策。
+objective: 正确识别 full launch block 条件、pilot launch allow 条件、不确定性等级和净收益估算，给出唯一正确的 Q4 推荐。
+expected_outcome: A correct launch_decision.json with the exact recommendation, blocked options, uncertainty register, scenario estimates, next actions, and evidence refs.

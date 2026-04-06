@@ -1,0 +1,12 @@
+{
+  "max_cpu": 100,
+  "max_memory": 100,
+  "max_bandwidth": 100,
+  "time_limit": 20,
+  "notes": [
+    "CPU: Total CPU percentage available at any time (0-100)",
+    "Memory: Total memory percentage available (0-100)",
+    "Bandwidth: Total network bandwidth percentage (0-100)",
+    "Time limit: Maximum allowed completion time"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "tasks": [
+    {
+      "task": "F",
+      "duration": 1,
+      "window_start": 9,
+      "window_end": 10,
+      "priority": "P2",
+      "deps": []
+    },
+    {
+      "task": "A",
+      "duration": 1,
+      "window_start": 11,
+      "window_end": 12,
+      "priority": "P0",
+      "deps": []
+    },
+    {
+      "task": "B",
+      "duration": 1,
+      "window_start": 11,
+      "window_end": 12,
+      "priority": "P0",
+      "deps": []
+    },
+    {
+      "task": "C",
+      "duration": 1,
+      "window_start": 12,
+      "window_end": 13,
+      "priority": "P1",
+      "deps": ["A", "B"]
+    },
+    {
+      "task": "E",
+      "duration": 1,
+      "window_start": 13,
+      "window_end": 15,
+      "priority": "P1",
+      "deps": [],
+      "resource": "db"
+    },
+    {
+      "task": "D",
+      "duration": 2,
+      "window_start": 13,
+      "window_end": 16,
+      "priority": "P1",
+      "deps": [],
+      "resource": "db"
+    },
+    {
+      "task": "G",
+      "duration": 1,
+      "window_start": 16,
+      "window_end": 18,
+      "priority": "P2",
+      "deps": ["D"]
+    }
+  ]
+}

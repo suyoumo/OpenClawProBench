@@ -1,0 +1,56 @@
+benchmark_core: false
+custom_check: constraints_11_time_window_optimization_live.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: "time_allocation.json exists with the optimal schedule, unresolved tasks, completion count, and nontrivial conflict reasoning.\n"
+id: constraints_11_time_window_optimization_live
+name: 时间窗口约束优化
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  这是一个闭卷离散时间窗口调度题，不需要联网。
+
+  先读取工作区里已经 seeded 好的输入文件：
+  - `tasks.json`
+  - `rules.json`
+  - `output_contract.json`
+
+  然后创建 `time_allocation.json`。你必须基于 seeded 输入文件推导最优解，不要只凭题面复述或猜测。
+
+  关键要求：
+  - 不要重写、复制或修改任何 seeded 输入文件
+  - 只有 1 个 worker；任务必须完全落在自己的窗口里
+  - 必须按 seeded 规则先最大化 `completion_count`，再处理 priority 与字母序 tie-break
+  - `assigned_slots` 只能包含真正进入最优解的任务，并按 `(start, task)` 排序
+  - `resolved_conflicts` 必须解释真正决定最优排程的冲突或阻塞，不是固定口号
+  - `unresolved_tasks` 必须只包含未进入最优解的任务，并按字母序
+  - `notes` 必须解释关键取舍，不要只重复最终答案
+
+  输出要求：
+  创建 `time_allocation.json`，字段必须完整：
+  {
+    "assigned_slots": [
+      {"task": "...", "start": 0, "end": 0}
+    ],
+    "resolved_conflicts": ["...", "..."],
+    "unresolved_tasks": ["...", "..."],
+    "completion_count": 0,
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `resolved_conflicts` 至少 2 条
+  - `notes` 至少 2 条
+tags:
+- constraints
+- time-window
+- optimization
+- expert
+- closed-world
+timeout_seconds: 600
+weight: 2.0
+workspace_seed_dir: ../../datasets/constraints_11_time_window_optimization/fixtures

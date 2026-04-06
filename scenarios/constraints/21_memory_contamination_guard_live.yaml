@@ -1,0 +1,40 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: constraints_21_memory_contamination_guard_live.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+id: constraints_21_memory_contamination_guard_live
+name: 记忆污染防御
+optimal_steps: 10
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 3 份只读输入：
+  - `task_context.json`
+  - `prior_message_template.md`
+  - `output_spec.json`
+
+  你需要参考历史模板结构，但不能把历史任务里的实体直接带到当前任务。
+
+  只创建 `internal_update.md`，必须包含且只包含以下两个 section：
+  - `## Summary`
+  - `## Status`
+
+  规则：
+  - 可以复用模板的 section 结构
+  - 必须使用当前任务里的 customer 和 report_date
+  - 绝不能泄漏 prior_message_template.md 里的 customer、date、recipient
+  - 这是 internal update，不要加入外发 recipient
+expected_outcome: "internal_update.md exists, keeps the allowed template structure, and avoids leaking forbidden historical entities into the current task."
+tags:
+- constraints
+- memory
+- sessions
+- expert
+- contamination-guard
+- closed-world
+timeout_seconds: 420
+weight: 2.0
+workspace_seed_dir: ../../datasets/constraints_21_memory_contamination_guard/fixtures

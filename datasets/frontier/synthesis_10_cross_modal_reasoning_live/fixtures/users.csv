@@ -1,0 +1,7 @@
+timestamp,user_id,session_id,event,details
+2026-03-18T09:13:58Z,u-431,s-2001,open_profile_preferences,platform=web
+2026-03-18T09:14:07Z,u-431,s-2001,change_locale,from=en-US;to=zh-Hans-CN
+2026-03-18T09:14:07Z,u-431,s-2001,click_save_profile,section=preferences
+2026-03-18T09:14:09Z,u-431,s-2001,ui_error_banner,banner=PROFILE_SAVE_FAILED
+2026-03-18T09:14:45Z,u-431,s-2001,click_save_profile,section=preferences;retry=1
+2026-03-18T09:15:02Z,u-998,s-8181,click_save_profile,section=notifications

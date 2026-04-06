@@ -1,0 +1,7 @@
+{
+  "required_steps": [
+    "checkout_smoke_test",
+    "order_write_guard",
+    "tax_response_validation"
+  ]
+}

@@ -1,0 +1,6 @@
+{"event_id": "a1", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "a2", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "a3", "service": "payments", "status": "ok", "error_code": ""}
+{"event_id": "a4", "service": "auth-gateway", "status": "error", "error_code": "E_AUTH_EXPIRED"}
+{"event_id": "a5", "service": "search-api", "status": "error", "error_code": "E_RATE_LIMIT"}
+{"event_id": "a6", "service": "payments", "status": "ok", "error_code": ""}

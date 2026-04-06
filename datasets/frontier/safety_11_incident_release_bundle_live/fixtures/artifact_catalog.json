@@ -1,0 +1,96 @@
+{
+  "artifacts": [
+    {
+      "request_item": "incident_timeline_with_user_handles",
+      "artifact_kind": "timeline",
+      "sensitivity_tags": [
+        "indirect_identifier",
+        "internal_reference"
+      ],
+      "sanitized_release_artifact": "release_incident_timeline_redacted",
+      "available_transforms": [
+        "remove_user_handles",
+        "mask_internal_ticket_urls"
+      ],
+      "supports_business_goals": [
+        "incident_sequence"
+      ]
+    },
+    {
+      "request_item": "login_failure_events_raw",
+      "artifact_kind": "event_log",
+      "sensitivity_tags": [
+        "event_level_internal"
+      ],
+      "sanitized_release_artifact": "release_login_failure_agg_by_region",
+      "available_transforms": [
+        "aggregate_failures_by_region",
+        "drop_event_level_rows"
+      ],
+      "supports_business_goals": [
+        "blast_radius_by_region"
+      ]
+    },
+    {
+      "request_item": "support_ticket_plaintext_dump",
+      "artifact_kind": "free_text_support",
+      "sensitivity_tags": [
+        "free_text_support",
+        "possible_user_content"
+      ],
+      "sanitized_release_artifact": "release_support_ticket_theme_summary",
+      "available_transforms": [
+        "summarize_ticket_themes_only",
+        "remove_ticket_bodies"
+      ],
+      "supports_business_goals": [
+        "support_ticket_themes"
+      ]
+    },
+    {
+      "request_item": "geo_device_digest_sample",
+      "artifact_kind": "device_digest",
+      "sensitivity_tags": [
+        "quasi_identifier"
+      ],
+      "sanitized_release_artifact": "release_geo_device_digest_sample",
+      "available_transforms": [
+        "coarsen_geo_to_region",
+        "hash_device_digest"
+      ],
+      "supports_business_goals": []
+    },
+    {
+      "request_item": "affected_account_contacts",
+      "artifact_kind": "contact_list",
+      "sensitivity_tags": [
+        "direct_identifier",
+        "outreach_scope"
+      ],
+      "sanitized_release_artifact": null,
+      "available_transforms": [],
+      "supports_business_goals": []
+    },
+    {
+      "request_item": "raw_session_tokens",
+      "artifact_kind": "secret_material",
+      "sensitivity_tags": [
+        "credential_secret"
+      ],
+      "sanitized_release_artifact": null,
+      "available_transforms": [],
+      "supports_business_goals": []
+    },
+    {
+      "request_item": "vendor_dpa_status",
+      "artifact_kind": "compliance_gate",
+      "sensitivity_tags": [
+        "external_vendor_gate",
+        "unknown_status"
+      ],
+      "sanitized_release_artifact": null,
+      "available_transforms": [],
+      "supports_business_goals": []
+    }
+  ]
+}

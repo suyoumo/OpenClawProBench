@@ -1,0 +1,31 @@
+{
+  "required_top_level_keys": [
+    "assigned_slots",
+    "resolved_conflicts",
+    "unresolved_tasks",
+    "completion_count",
+    "notes"
+  ],
+  "assigned_slots_contract": {
+    "required_fields": ["task", "start", "end"],
+    "sort_order": "(start, task)"
+  },
+  "resolved_conflict_requirements": {
+    "min_items": 2,
+    "min_topic_hits": 2,
+    "required_topic_groups": [
+      [["A"], ["B"], ["11", "window", "slot"], ["choose", "keep", "select", "tie", "alphabet", "字母"]],
+      [["C"], ["A", "B"], ["dependency", "dependencies", "依赖", "blocked", "无法"]],
+      [["D"], ["E"], ["G"], ["16", "window", "db", "fit", "before", "顺延"]]
+    ]
+  },
+  "notes_requirements": {
+    "min_items": 2,
+    "min_topic_hits": 2,
+    "required_topic_groups": [
+      [["A"], ["B"], ["11", "window", "slot"], ["choose", "tie", "alphabet", "字母"]],
+      [["C"], ["dependency", "dependencies", "依赖", "blocked", "无法"]],
+      [["D"], ["E"], ["G"], ["16", "window", "db", "fit", "before", "顺延"]]
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: openclaw_native
+custom_check: planning_15_openclaw_release_reminder_readiness_live.py
+difficulty: hard
+dimension: planning
+execution_mode: live
+expected_outcome: "release_reminder_readiness.json exists and correctly audits whether the local OpenClaw setup is ready for a no-mutation release reminder automation handoff.\n"
+id: planning_15_openclaw_release_reminder_readiness_live
+name: OpenClaw Release Reminder Readiness
+openclaw_surfaces:
+- agents
+- skills
+- message
+optimal_steps: 10
+pass_threshold: 0.6
+prompt: |
+  明早发布经理要接手一次“版本提醒自动化”的准备检查，但这次 benchmark 不允许你真的创建 agent、安装 skill、加 cron，或者发送真实消息。
+
+  你只能做只读 / dry-run 审计，然后告诉我：当前这台机器是否已经具备“默认 agent + 日历能力 + Telegram 提醒路由”这三个前提。
+
+  请直接使用本机 OpenClaw CLI 检查真实状态，至少覆盖：
+  - `openclaw agents list --json`
+  - `openclaw skills list --json`
+  - `openclaw message send --dry-run --json --channel telegram --target @benchmark_target --message 'hello from benchmark'`
+
+  然后创建 `release_reminder_readiness.json`，字段必须完整：
+  {
+    "default_agent_id": "...",
+    "default_agent_model": "...",
+    "default_agent_workspace": "...",
+    "calendar_skill_status": "ready_bundled|ready_external|blocked_bins|blocked_anyBins|blocked_env|blocked_config|blocked_os|blocked_unknown|not_found",
+    "telegram_delivery_route": "...",
+    "telegram_handled_by": "...",
+    "telegram_via": "...",
+    "safe_to_stage_release_reminder": true,
+    "blocking_reasons": ["..."]
+  }
+
+  规则：
+  - `default_agent_workspace` 必须是默认 agent 在当前 inventory 里的真实 workspace 路径；如果没有默认 agent，填空字符串
+  - 如果没有默认 agent，`default_agent_id`、`default_agent_model`、`default_agent_workspace` 都填空字符串
+  - `blocking_reasons` 只能从 `missing_default_agent`、`calendar_skill_not_ready`、`telegram_dry_run_unavailable` 中选择，并按字母序排序
+  - 不要输出额外字段
+tags:
+- planning
+- automation
+- business-context
+- openclaw-native
+- openclaw-agents
+- openclaw-skills
+- openclaw-message
+- hard
+timeout_seconds: 720
+tools:
+- exec
+- write
+weight: 1.0

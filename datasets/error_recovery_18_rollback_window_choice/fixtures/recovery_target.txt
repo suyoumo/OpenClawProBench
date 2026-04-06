@@ -1,0 +1,1 @@
+Restore service while minimizing recovery gap and preserving integrity.

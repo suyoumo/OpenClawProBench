@@ -1,0 +1,48 @@
+{
+  "read_observations": [
+    {
+      "size_mb": 2,
+      "status": "pass"
+    },
+    {
+      "size_mb": 5,
+      "status": "pass"
+    },
+    {
+      "size_mb": 7,
+      "status": "pass"
+    },
+    {
+      "size_mb": 9,
+      "status": "pass"
+    },
+    {
+      "size_mb": 10,
+      "status": "fail"
+    }
+  ],
+  "exec_observations": [
+    {
+      "operation": "wc -l single safe shard",
+      "batch_mb": 9,
+      "status": "pass"
+    },
+    {
+      "operation": "python summarize two medium shards",
+      "batch_mb": 14,
+      "status": "pass"
+    },
+    {
+      "operation": "python aggregate best safe bundle",
+      "batch_mb": 18,
+      "status": "pass"
+    },
+    {
+      "operation": "rg ERROR on oversized bundle",
+      "batch_mb": 20,
+      "status": "fail"
+    }
+  ],
+  "memory_limit_gb": 0.75,
+  "safe_exec_batch_mb": 18
+}

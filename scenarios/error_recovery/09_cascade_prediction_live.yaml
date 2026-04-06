@@ -1,0 +1,64 @@
+benchmark_core: false
+custom_check: error_recovery_09_cascade_prediction_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'cascade_prediction.json exists with the correct direct impacts,
+  indirect impacts, risk levels, and recovery priority.
+
+  '
+id: error_recovery_09_cascade_prediction_live
+name: 级联故障预测
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  你要为一次维护窗口做级联故障预测。
+
+  依赖方向说明：`X -> Y` 表示“X 依赖 Y”；如果 `Y` 不可用或降级，`X` 会受影响。
+
+  已知依赖关系：
+  - A -> B
+  - A -> C
+  - B -> D
+  - C -> E
+  - F -> D
+  - G -> E
+  - H -> E
+
+  维护计划：
+  - D：完全停机 2 小时
+  - E：降级到 50% 性能
+
+  影响判定规则：
+  - 直接影响：直接依赖 `D` 或 `E` 的服务
+  - 间接影响：依赖“已受影响服务”的服务
+  - 风险等级：
+    - `high`：依赖停机服务，或同时依赖两个已受影响上游
+    - `medium`：只依赖降级服务
+    - `low`：只通过单条间接链路受到影响
+  - 恢复优先级：
+    - 先恢复造成影响范围更大的根因服务
+    - 再恢复直接受影响服务
+    - 最后恢复间接受影响服务
+
+  输出要求：
+  创建 `cascade_prediction.json`，字段必须完整：
+  {
+    "direct_impacts": ["..."],        // 按字母排序
+    "indirect_impacts": ["..."],      // 按字母排序
+    "risk_levels": {"A":"...", "...":"..."},
+    "recovery_priority": ["..."],     // 按恢复顺序
+    "notes": ["...", "..."]           // 至少 2 条，说明关键传播链路或缓解思路
+  }
+
+  不要添加未给出的依赖关系，也不要联网。
+tags:
+- error_recovery
+- cascade-prediction
+- dependency-analysis
+- expert
+timeout_seconds: 600
+weight: 2.0

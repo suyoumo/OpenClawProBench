@@ -1,0 +1,27 @@
+allowed_step_statuses:
+  - raw_schema_published
+  - canonical_key_shifted_to_id
+  - downstream_contract_preserved
+  - predictions_nonempty_but_id_only
+  - silent_zero_row_failure
+allowed_failure_modes:
+  - hidden_dependency_join_key_mismatch
+  - prediction_threshold_filtered_everything
+  - scheduler_race_before_prediction_write
+allowed_contract_break_chain:
+  - collection_exposed_record_id_only
+  - cleaning_shifted_canonical_key_to_id
+  - prediction_emitted_id_only_records
+  - result_output_joined_against_hidden_raw_collection_input
+  - join_dropped_all_rows_but_step_reported_success
+allowed_ruled_out_causes:
+  - feature_extraction_empty_batch
+  - model_prediction_zero_rows
+  - scheduler_race_before_prediction_write
+allowed_severity_codes:
+  - sev_1_complete_data_loss
+  - sev_2_partial_output_corruption
+allowed_repair_actions:
+  - declare_collected_data_as_result_output_extra_input
+  - add_explicit_id_record_id_alias_mapping_before_join
+  - raise_error_when_joined_rows_are_zero_with_nonempty_predictions

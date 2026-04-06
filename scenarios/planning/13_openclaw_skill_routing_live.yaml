@@ -1,0 +1,55 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: planning_13_openclaw_skill_routing_live.py
+difficulty: medium
+dimension: planning
+execution_mode: live
+expected_outcome: "skill_routing_report.json exists and correctly routes current requests against the live OpenClaw skill inventory.\n"
+id: planning_13_openclaw_skill_routing_live
+name: OpenClaw Skill Routing Matrix
+openclaw_surfaces:
+- skills
+optimal_steps: 8
+pass_threshold: 0.6
+prompt: |
+  你需要基于当前这台机器的 OpenClaw skill inventory，判断下面三个请求哪些“现在就能做”，哪些“还不能做”。
+
+  请求列表：
+  - `feishu_calendar_event`: 创建飞书日历事件
+  - `weather_lookup`: 查询天气
+  - `slack_messaging`: 管理 Slack 消息
+
+  使用本机 OpenClaw CLI 检查真实 skills 状态，然后创建 `skill_routing_report.json`。
+
+  JSON 字段必须完整：
+  {
+    "skill_by_request": {
+      "feishu_calendar_event": "...",
+      "weather_lookup": "...",
+      "slack_messaging": "..."
+    },
+    "supported_now": ["..."],
+    "blocked_now": ["..."],
+    "blocked_reasons": {
+      "some_blocked_request": "bins|anyBins|env|config|os|not_found|unknown"
+    }
+  }
+
+  要求：
+  - `skill_by_request` 必须给出每个请求对应的 skill 名
+  - `supported_now` 和 `blocked_now` 必须按字母序排序
+  - `blocked_reasons` 只为 blocked 的请求填写
+  - 不要输出额外字段
+tags:
+- planning
+- openclaw-native
+- openclaw-skills
+- routing
+- medium
+timeout_seconds: 300
+tools:
+- exec
+- write
+weight: 1.0

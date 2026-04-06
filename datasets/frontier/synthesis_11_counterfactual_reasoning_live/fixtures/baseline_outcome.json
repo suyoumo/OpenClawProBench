@@ -1,0 +1,6 @@
+{
+  "performance_multiplier": 1.2,
+  "budget_overrun_pct": 200,
+  "schedule_delay_months": 6,
+  "risk_points": 9
+}

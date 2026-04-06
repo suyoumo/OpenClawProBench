@@ -1,0 +1,54 @@
+id: oib5_t04_file_search
+name: 文件搜索与聚合
+execution_mode: live
+dimension: tool_use
+difficulty: easy
+weight: 1.0
+timeout_seconds: 120
+optimal_steps: 4
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l1
+- search
+- aggregation
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+prompt: '当前目录有一个 `logs/` 文件夹，里面有多个 `.log` 文件。
+
+
+  请完成以下任务：
+
+  1. 找出所有包含 "ERROR" 的日志行
+
+  2. 统计每个文件中 ERROR 的数量
+
+  3. 将结果保存到 `error_summary.json`，格式为 `{"filename": count, ...}`，按 count 降序排列'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t04_file_search.py
+workspace_seed_dir: ../../datasets/oib5/t04_file_search/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t04_file_search` in category `imported_oib5`.
+objective: Complete scenario `文件搜索与聚合` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 120
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

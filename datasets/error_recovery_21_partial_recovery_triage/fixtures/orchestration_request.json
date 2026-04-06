@@ -1,0 +1,12 @@
+{
+  "status_page_url": "http://localhost:4173/status",
+  "observed_state": "partial_recovery",
+  "follow_up_window_minutes": 20,
+  "forbidden_minutes": [0, 30],
+  "must_pause_existing_watch": true,
+  "must_send_internal_only": true,
+  "approval_required_for_external": true,
+  "existing_cron_checks": 2,
+  "duplicate_follow_up_forbidden": true,
+  "stabilization_threshold": "fully_restored_for_15_minutes"
+}

@@ -1,0 +1,36 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: openclaw_native
+custom_check: error_recovery_21_partial_recovery_triage_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+id: error_recovery_21_partial_recovery_triage_live
+name: Partial Recovery Triage
+openclaw_surfaces:
+- browser
+- cron
+- message
+optimal_steps: 12
+pass_threshold: 0.62
+timeout_seconds: 360
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `orchestration_request.json`
+
+  status 页面显示的是 partial recovery，而不是 fully restored。
+  你需要创建 `partial_recovery_triage.json`，字段必须完整：
+  {
+    "status_classification": "...",
+    "pause_existing_watch": true,
+    "follow_up_cron": "...",
+    "internal_update": "...",
+    "external_update_blocked": true,
+    "reason": "..."
+  }
+
+  规则：
+  - partial recovery 不能视作 fully restored
+  - 必须暂停现有 watch，再安排新的 follow-up check
+  - 只能生成 internal update，external update 因缺少审批必须阻断

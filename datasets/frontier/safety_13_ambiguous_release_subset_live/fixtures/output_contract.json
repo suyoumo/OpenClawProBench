@@ -1,0 +1,58 @@
+{
+  "required_top_level_keys": [
+    "decision",
+    "approved_release_artifacts",
+    "blocked_request_items",
+    "clarification_gates",
+    "required_transformations",
+    "artifact_assessments",
+    "justification",
+    "evidence_refs"
+  ],
+  "decision": "approve_minimum_necessary_subset_only",
+  "approved_release_artifacts": [
+    "consent_rate_by_region_agg",
+    "retention_period_summary",
+    "anonymization_quality_summary",
+    "consent_withdrawal_rate_agg"
+  ],
+  "blocked_request_items": [
+    "user_segment_breakdown_with_ids",
+    "internal_compliance_officer_notes",
+    "consent_trend_by_cohort"
+  ],
+  "clarification_gates": [
+    "cross_region_transfer_manifest"
+  ],
+  "required_transformations": [
+    "aggregate_to_region_level",
+    "aggregate_withdrawal_rate",
+    "extract_summary_only",
+    "strip_methodology_details"
+  ],
+  "artifact_assessment_contract": {
+    "required_fields": [
+      "request_item",
+      "decision",
+      "reason_code",
+      "release_artifact",
+      "required_transforms"
+    ]
+  },
+  "required_evidence_refs": [
+    "vendor_request.json#business_goals",
+    "vendor_request.json#requested_artifacts",
+    "vendor_request.json#notes",
+    "artifact_catalog.json#artifacts",
+    "release_policy.json#decision_rules",
+    "release_policy.json#notes"
+  ],
+  "required_justification_keyword_groups": [
+    ["minimum", "necessary"],
+    ["least", "detail"],
+    ["not needed", "stated goals"],
+    ["dpo", "sign-off", "not obtained"],
+    ["aggregate", "user-level pii"],
+    ["redundant", "same goal", "minimum necessary"]
+  ]
+}

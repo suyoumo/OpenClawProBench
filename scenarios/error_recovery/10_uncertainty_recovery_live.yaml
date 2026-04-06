@@ -1,0 +1,79 @@
+benchmark_core: false
+custom_check: error_recovery_10_uncertainty_recovery_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'uncertainty_recovery.json exists with the correct pattern classification,
+  severity, hypotheses, validation plan, and mixed recovery strategy.
+
+  '
+id: error_recovery_10_uncertainty_recovery_live
+name: 不确定性错误恢复
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  你要为一个“错误信息模糊”的系统故障做闭卷恢复分析，不需要联网。
+
+  错误时间线：
+  - 10:00:00 `Unknown error in module A`
+  - 10:00:02 `Connection timeout to profile-db`
+  - 10:05:00 `Unknown error in module B`
+  - 10:05:03 `Connection timeout to profile-db`
+  - 10:10:00 `Unknown error in module C`
+  - 10:10:02 `Connection timeout to profile-db`
+
+  系统指标：
+  - CPU: 42% 到 47%，稳定
+  - Memory: 58% 到 61%，稳定
+  - Network packet loss: 0.1%，稳定
+  - App thread pool queue: 12 到 15，轻微波动
+  - DB connection pool usage: 在每次错误前 30 秒升到 98% 到 99%
+
+  依赖状态：
+  - `profile-db`: 在 10:00, 10:05, 10:10 三个窗口都显示 `degraded`
+  - `session-cache`: healthy
+  - `auth-service`: healthy
+
+  配置片段：
+  - `db_pool_size = 20`
+  - `request_timeout_seconds = 2`
+  - `retry_backoff_ms = 50`
+
+  判定规则：
+  - 如果错误以固定间隔重复，模式记为 `periodic_burst`
+  - 如果 CPU/Memory/Network 都稳定，优先排除“机器资源耗尽”
+  - 如果 `profile-db` 同步 degraded 且连接池接近打满，主假设应为 `db_connection_pool_exhaustion`
+  - 恢复策略如果同时包含自动缓解和人工介入，则记为 `mixed`
+
+  输出要求：
+  创建 `uncertainty_recovery.json`，字段必须完整：
+  {
+    "pattern": "...",
+    "severity": "...",
+    "hypotheses": ["...", "...", "..."],
+    "primary_hypothesis": "...",
+    "validation_plan": {
+      "db_connection_pool_exhaustion": "...",
+      "intermittent_network_fault": "...",
+      "application_regression": "..."
+    },
+    "recovery_mode": "...",
+    "immediate_actions": ["...", "..."],
+    "preventive_actions": ["...", "..."]
+  }
+
+  要求：
+  - `hypotheses` 至少包含以上三个候选项
+  - `severity` 只能是 `high`、`medium`、`low`
+  - `immediate_actions` 至少 2 条
+  - `preventive_actions` 至少 2 条
+tags:
+- error_recovery
+- uncertainty
+- probabilistic
+- expert
+timeout_seconds: 600
+weight: 2.0

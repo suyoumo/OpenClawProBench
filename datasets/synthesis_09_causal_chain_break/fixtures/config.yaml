@@ -1,0 +1,33 @@
+pipeline:
+  - name: data_collection
+    output: collected_data.json
+    primary_key: record_id
+  - name: data_cleaning
+    depends_on:
+      - data_collection
+    input: collected_data.json
+    output: cleaned_data.json
+    primary_key: id
+    notes: normalize partner field record_id into canonical id for model-facing stages
+  - name: feature_extraction
+    depends_on:
+      - data_cleaning
+    input: cleaned_data.json
+    output: features.json
+    primary_key: id
+  - name: model_prediction
+    depends_on:
+      - feature_extraction
+    input: features.json
+    output: predictions.json
+    primary_key: id
+  - name: result_output
+    depends_on:
+      - model_prediction
+    input: predictions.json
+    output: final_output.json
+    primary_key: id
+    notes: export enriched predictions for downstream review
+operating_rules:
+  - every dependency consumed by a stage must be declared in config
+  - any stage that writes zero rows from a nonempty upstream batch must fail hard

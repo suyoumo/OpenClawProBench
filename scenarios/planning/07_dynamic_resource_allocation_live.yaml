@@ -1,0 +1,99 @@
+id: planning_07_dynamic_resource_allocation_live
+name: 动态资源时间窗分配
+execution_mode: live
+dimension: planning
+difficulty: expert
+benchmark_status: active
+signal_source: workspace_live
+benchmark_group: coverage
+benchmark_core: false
+weight: 2.0
+timeout_seconds: 240
+optimal_steps: 10
+pass_threshold: 0.7
+tags:
+- live
+- coverage
+- planning
+- resource-allocation
+- time-slice
+- closed-world
+prompt: |
+  当前工作区根目录里已经放好了 5 份只读输入：
+  - `resource_windows.json`
+  - `task_catalog.json`
+  - `baseline_service.json`
+  - `scheduler_objectives.json`
+  - `allocation_rules.yaml`
+
+  你需要为实时调度集群生成唯一正确的动态资源分配计划。
+
+  固定规则：
+  1. 每个 window 的可用资源以 `resource_windows.json` 为准，`baseline_service.json` 中的 `api_guardrail` 保留资源必须在所有 window 中持续占用。
+  2. `scheduler_objectives.json` 指定的 `objective_priority` 必须严格执行，且 `stream_restore` 必须在 `window_1` 启动。
+  3. 多 window task 必须占用连续 window，不允许只跑一部分；并且所有 task 都必须在扣除 baseline reservation 后完整 fit 才能启动。
+  4. `analytics_rollup` 只有在 `ingestion_repair` 完成后才能启动；`cache_rebuild` 只有在 `analytics_rollup` 完成后才能启动。
+  5. `scheduler_objectives.json.earliest_feasible_start_required = true`，所以被选中的 task 必须在依赖满足后的最早可行 window 启动。
+  6. `window_allocations[].tasks` 顺序必须遵守 `allocation_rules.yaml.hard_rules.task_order_rule`。
+  7. `baseline_service`、`reallocation_events[].action_code`、`deferred_tasks[].reason_code` 必须严格使用 `allocation_rules.yaml` 中的官方定义。
+  8. `resource_totals` 必须包含 baseline service 的资源占用。
+
+  强约束：
+  - 不要修改任何输入文件
+  - 只创建 `dynamic_allocation_plan.json`
+  - 必须同时使用全部 5 份输入
+
+  输出要求：创建 `dynamic_allocation_plan.json`，字段必须完整且值必须精确：
+  {
+    "baseline_service": {
+      "service_id": "...",
+      "resource_reservation": {"cpu": 0, "ram_gb": 0}
+    },
+    "window_allocations": [
+      {
+        "window_id": "...",
+        "minutes": [0, 0],
+        "tasks": ["...", "..."],
+        "resource_totals": {"cpu": 0, "ram_gb": 0}
+      }
+    ],
+    "reallocation_events": [
+      {"at_minute": 0, "action_code": "..."}
+    ],
+    "deferred_tasks": [
+      {"task_id": "...", "reason_code": "..."}
+    ],
+    "completion_summary": {
+      "deadline_met_task_ids": ["...", "..."],
+      "completed_task_count": 0,
+      "total_business_value": 0
+    },
+    "evidence_refs": [
+      "resource_windows.json",
+      "task_catalog.json",
+      "baseline_service.json",
+      "scheduler_objectives.json",
+      "allocation_rules.yaml"
+    ]
+  }
+
+  不要输出 markdown，不要添加任何多余字段。
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- read
+- read
+- read
+- write
+workspace_seed_dir: ../../datasets/planning_07_dynamic_resource_allocation/fixtures
+custom_check: planning_07_dynamic_resource_allocation_live_v2.py
+category: planning
+description: 基于 seeded 时间窗容量、任务目录、baseline service 和调度规则包，生成唯一正确的动态资源分配计划。
+objective: 正确处理 baseline reservation、容量波动、依赖解锁和最早可行启动规则，在固定 20 分钟窗口内最大化按时完成任务数。
+expected_outcome: A correct dynamic_allocation_plan.json with the exact baseline service, window allocations, reallocation events, deferred task, completion summary, and evidence refs.

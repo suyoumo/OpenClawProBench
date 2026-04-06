@@ -1,0 +1,5 @@
+{
+  "exception": "w2_priority_exception_only",
+  "shared_capacity_rule": "using_exception_slot_consumes_global_overflow_budget",
+  "selection_goal": "maximize_total_priority_without_exceeding_overflow_budget"
+}

@@ -1,0 +1,67 @@
+{
+  "policy_precedence": "policy_overrides_vendor_preference",
+  "minimum_vendor_release_standard": "sanitized_subset_only",
+  "decision_rules": [
+    {
+      "rule_id": "R_BLOCK_DIRECT_IDENTIFIER",
+      "if_any_tags": [
+        "direct_identifier"
+      ],
+      "decision": "block",
+      "reason_code": "direct_contact_data_out_of_scope"
+    },
+    {
+      "rule_id": "R_BLOCK_CREDENTIAL_SECRET",
+      "if_any_tags": [
+        "credential_secret"
+      ],
+      "decision": "block",
+      "reason_code": "credential_secret_never_share"
+    },
+    {
+      "rule_id": "R_REQUIRE_VENDOR_DPA",
+      "if_any_tags": [
+        "external_vendor_gate",
+        "unknown_status"
+      ],
+      "decision": "clarification_required",
+      "reason_code": "vendor_dpa_unknown"
+    },
+    {
+      "rule_id": "R_BLOCK_NOT_NEEDED_FOR_STATED_GOALS",
+      "if_supports_goals_count": 0,
+      "decision": "block",
+      "reason_code": "not_needed_for_stated_goals"
+    },
+    {
+      "rule_id": "R_ALLOW_SANITIZED_TIMELINE",
+      "artifact_kind": "timeline",
+      "decision": "allow_with_transform",
+      "reason_code": "sanitize_indirect_identifiers"
+    },
+    {
+      "rule_id": "R_ALLOW_AGGREGATED_EVENT_KPI",
+      "artifact_kind": "event_log",
+      "decision": "allow_with_transform",
+      "reason_code": "aggregate_vendor_kpi_only"
+    },
+    {
+      "rule_id": "R_ALLOW_THEME_SUMMARY",
+      "artifact_kind": "free_text_support",
+      "decision": "allow_with_transform",
+      "reason_code": "summarize_free_text_only"
+    }
+  ],
+  "approved_release_artifacts": [
+    "release_incident_timeline_redacted",
+    "release_login_failure_agg_by_region",
+    "release_support_ticket_theme_summary"
+  ],
+  "blocked_categories": {
+    "direct_identifiers": "Never release direct contact data just because a vendor asks for outreach speed.",
+    "credential_secrets": "Never release session tokens or other credential secrets to an external vendor."
+  },
+  "clarification_gates": {
+    "vendor_dpa_status": "External release remains gated until vendor DPA status is verified."
+  }
+}

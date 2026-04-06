@@ -1,0 +1,17 @@
+{
+  "one_task_per_window": true,
+  "external_freeze_windows": [11, 12],
+  "optimization_goal": "maximize_total_value",
+  "dependency_rules": [
+    {
+      "task": "cache_rewarm",
+      "requires_completed_task": "api_hotfix",
+      "value_if_dependency_missing": 0
+    }
+  ],
+  "notes": [
+    "external tasks cannot start in freeze windows",
+    "api_hotfix cannot start before security signoff is available",
+    "cache_rewarm only has value after api_hotfix completes"
+  ]
+}

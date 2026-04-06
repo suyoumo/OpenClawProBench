@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "time": "09:16",
+      "service": "checkout",
+      "message": "tax service request failed: region mismatch for eu-order"
+    },
+    {
+      "time": "09:17",
+      "service": "checkout",
+      "message": "retry failed: tax endpoint us-east cannot serve eu tax quote"
+    },
+    {
+      "time": "09:20",
+      "service": "payments",
+      "message": "gateway healthy"
+    }
+  ]
+}

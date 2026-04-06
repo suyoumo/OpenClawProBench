@@ -1,0 +1,33 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: tool_use_22_browser_dom_console_triage_live.py
+difficulty: hard
+dimension: tool_use
+execution_mode: live
+id: tool_use_22_browser_dom_console_triage_live
+name: Browser DOM 与 Console 诊断
+openclaw_surfaces:
+- browser
+optimal_steps: 9
+pass_threshold: 0.6
+timeout_seconds: 720
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `browser_brief.json`
+
+  你需要使用 browser surface 打开给定页面，结合页面现象和 console error，创建 `browser_triage.json`，字段必须完整：
+  {
+    "page_issue": "...",
+    "console_error": "...",
+    "root_cause": "...",
+    "minimal_fix": "..."
+  }
+
+  规则：
+  - 必须同时基于页面现象和 console error 作答
+  - `root_cause` 必须指出为什么 `status` 读取会失败
+  - `minimal_fix` 必须是最小修复，不要写大改方案
+  - 只需要完成一次页面检查和一次结论输出，不需要反复尝试修复
+  - 不要输出额外字段

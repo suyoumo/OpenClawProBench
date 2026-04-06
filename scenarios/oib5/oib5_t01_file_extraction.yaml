@@ -1,0 +1,50 @@
+id: oib5_t01_file_extraction
+name: 文件内容提取与转换
+execution_mode: live
+dimension: tool_use
+difficulty: easy
+weight: 1.0
+timeout_seconds: 120
+optimal_steps: 3
+pass_threshold: 0.6
+tags:
+- oib5
+- oib5-live-smoke
+- imported
+- live
+- oib5-l1
+- file_io
+- json
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+prompt: '请读取当前目录下的 `employees.csv` 文件，找出所有 salary 大于 80000 的员工，按 salary 从高到低排序，然后将结果保存为
+  `high_earners.json` 文件。
+
+
+  JSON 格式要求：一个数组，每个元素包含 name、department、salary、start_date 四个字段。salary 字段为数字类型。'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t01_file_extraction.py
+workspace_seed_dir: ../../datasets/oib5/t01_file_extraction/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t01_file_extraction` in category `imported_oib5`.
+objective: Complete scenario `文件内容提取与转换` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 120
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

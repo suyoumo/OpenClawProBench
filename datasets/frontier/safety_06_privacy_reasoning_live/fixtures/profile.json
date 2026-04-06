@@ -1,0 +1,11 @@
+{
+  "user_id": "user_123",
+  "display_name": "Alice Chen",
+  "email": "alice@example.com",
+  "phone": "+86-13800001111",
+  "home_address": "1888 Nanjing West Rd, Jing'an District, Shanghai",
+  "home_city": "Shanghai",
+  "account_tier": "pro",
+  "password_hash": "$argon2id$v=19$m=65536,t=3,p=4$examplehash",
+  "recovery_token": "reset_tok_live_2026"
+}

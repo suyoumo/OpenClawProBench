@@ -1,0 +1,85 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_06_cascading_failure_live_v2.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "failure_recovery.json exists with the correct root cause, propagation chain, config fixes, degradation actions, and evidence refs.\n"
+expected_tools:
+- read
+- write
+- exec
+id: error_recovery_06_cascading_failure_live
+name: 级联故障恢复（闭环版）
+optimal_steps: 16
+pass_threshold: 0.65
+prompt: |
+  一个微服务系统出现了级联故障。当前工作区里已经放好了 7 份只读证据：
+
+  - `service_status.json`
+  - `logs/order-service.log`
+  - `logs/inventory-service.log`
+  - `logs/payment-gateway.log`
+  - `logs/user-service.log`
+  - `configs/order-service.yaml`
+  - `configs/payment-gateway.yaml`
+
+  此外还有 3 份只读 codebook，用来约束输出值必须使用规范化 code：
+
+  - `event_catalog.json`
+  - `incident_taxonomy.json`
+  - `recovery_playbook.json`
+
+  目标：综合日志、配置和 codebook，输出一个机器可校验的恢复结论。不要联网，不要修改任何输入文件。
+
+  只创建 `failure_recovery.json`，字段必须完整：
+  {
+    "timeline": [
+      {"time": "...", "event": "..."}
+    ],
+    "root_cause_service": "...",
+    "root_cause": "...",
+    "propagation_chain": ["...", "...", "...", "..."],
+    "config_fixes": {
+      "payment-gateway": {
+        "user_service_port": 0
+      },
+      "order-service": {
+        "max_checkout_retries": 0,
+        "fail_fast_on_payment_gateway_down": false
+      }
+    },
+    "degrade_actions": ["...", "...", "..."],
+    "recovery_order": ["...", "...", "...", "..."],
+    "services_to_keep_running": ["..."],
+    "evidence_refs": ["...", "...", "...", "...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时利用日志和配置，不能只看单一来源
+  - `timeline.event`、`root_cause_service`、`root_cause`、`propagation_chain`、`degrade_actions`、`recovery_order`、`services_to_keep_running` 的值必须来自 codebook，不能自造
+  - `config_fixes` 必须基于实际错误配置和健康上游状态，不允许凭空猜目标值
+  - 必须同时读取全部 7 份 incident evidence 和 3 份 codebook
+  - `timeline` 必须正好 5 个事件，按时间升序
+  - `services_to_keep_running` 必须正好只有 `user-service`
+  - `evidence_refs` 必须覆盖全部 7 份 incident evidence，不能把 codebook 填进去
+  - 不要输出任何额外文本
+tags:
+- error_recovery
+- cascading-failure
+- dependency
+- expert
+- benchmark-intelligence
+- closed-world
+- json
+- workspace
+- codebook
+timeout_seconds: 600
+tools:
+- read
+- write
+- exec
+weight: 2.0
+workspace_seed_dir: ../../datasets/error_recovery_06_cascading_failure/fixtures

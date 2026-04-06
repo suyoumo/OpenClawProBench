@@ -1,0 +1,6 @@
+{
+  "base_url": "http://127.0.0.1:18790",
+  "model": "anthropic/claude-sonnet-4",
+  "timeout_seconds": 300,
+  "workspace_root": "/tmp/openclawprobench"
+}

@@ -1,0 +1,1021 @@
+2026-03-21T14:00:00Z INFO file_0001.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:05Z INFO file_0002.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:10Z INFO file_0003.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:15Z INFO file_0004.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:20Z INFO file_0005.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:25Z INFO file_0006.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:30Z INFO file_0007.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:35Z INFO file_0008.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:40Z INFO file_0009.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:45Z INFO file_0010.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:50Z INFO file_0011.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:00:55Z INFO file_0012.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:00Z INFO file_0013.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:05Z INFO file_0014.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:10Z INFO file_0015.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:15Z INFO file_0016.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:20Z INFO file_0017.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:25Z INFO file_0018.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:30Z INFO file_0019.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:35Z INFO file_0020.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:40Z INFO file_0021.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:45Z INFO file_0022.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:50Z INFO file_0023.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:01:55Z INFO file_0024.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:00Z INFO file_0025.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:05Z INFO file_0026.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:10Z INFO file_0027.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:15Z INFO file_0028.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:20Z INFO file_0029.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:25Z INFO file_0030.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:30Z INFO file_0031.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:35Z INFO file_0032.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:40Z INFO file_0033.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:45Z INFO file_0034.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:50Z INFO file_0035.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:02:55Z INFO file_0036.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:00Z INFO file_0037.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:05Z INFO file_0038.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:10Z INFO file_0039.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:15Z INFO file_0040.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:20Z INFO file_0041.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:25Z INFO file_0042.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:30Z INFO file_0043.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:35Z INFO file_0044.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:40Z INFO file_0045.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:45Z INFO file_0046.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:50Z INFO file_0047.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:03:55Z INFO file_0048.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:00Z INFO file_0049.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:05Z INFO file_0050.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:10Z INFO file_0051.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:15Z INFO file_0052.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:20Z INFO file_0053.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:25Z INFO file_0054.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:30Z INFO file_0055.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:35Z INFO file_0056.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:40Z INFO file_0057.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:45Z INFO file_0058.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:50Z INFO file_0059.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:04:55Z INFO file_0060.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:00Z INFO file_0061.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:05Z INFO file_0062.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:10Z INFO file_0063.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:15Z INFO file_0064.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:20Z INFO file_0065.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:25Z INFO file_0066.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:30Z INFO file_0067.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:35Z INFO file_0068.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:40Z INFO file_0069.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:45Z INFO file_0070.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:50Z INFO file_0071.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:05:55Z INFO file_0072.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:00Z INFO file_0073.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:05Z INFO file_0074.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:10Z INFO file_0075.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:15Z INFO file_0076.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:20Z INFO file_0077.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:25Z INFO file_0078.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:30Z INFO file_0079.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:35Z INFO file_0080.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:40Z INFO file_0081.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:45Z INFO file_0082.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:50Z INFO file_0083.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:06:55Z INFO file_0084.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:00Z INFO file_0085.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:05Z INFO file_0086.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:10Z INFO file_0087.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:15Z INFO file_0088.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:20Z INFO file_0089.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:25Z INFO file_0090.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:30Z INFO file_0091.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:35Z INFO file_0092.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:40Z INFO file_0093.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:45Z INFO file_0094.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:50Z INFO file_0095.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:07:55Z INFO file_0096.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:00Z INFO file_0097.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:05Z INFO file_0098.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:10Z INFO file_0099.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:15Z INFO file_0100.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:20Z INFO file_0101.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:25Z INFO file_0102.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:30Z INFO file_0103.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:35Z INFO file_0104.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:40Z INFO file_0105.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:45Z INFO file_0106.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:50Z INFO file_0107.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:08:55Z INFO file_0108.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:00Z INFO file_0109.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:05Z INFO file_0110.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:10Z INFO file_0111.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:15Z INFO file_0112.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:20Z INFO file_0113.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:25Z INFO file_0114.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:30Z INFO file_0115.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:35Z INFO file_0116.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:40Z INFO file_0117.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:45Z INFO file_0118.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:50Z INFO file_0119.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:09:55Z INFO file_0120.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:00Z INFO file_0121.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:05Z INFO file_0122.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:10Z INFO file_0123.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:15Z INFO file_0124.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:20Z INFO file_0125.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:25Z INFO file_0126.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:30Z INFO file_0127.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:35Z INFO file_0128.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:40Z INFO file_0129.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:45Z INFO file_0130.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:50Z INFO file_0131.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:10:55Z INFO file_0132.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:00Z INFO file_0133.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:05Z INFO file_0134.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:10Z INFO file_0135.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:15Z INFO file_0136.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:20Z INFO file_0137.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:25Z INFO file_0138.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:30Z INFO file_0139.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:35Z INFO file_0140.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:40Z INFO file_0141.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:45Z INFO file_0142.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:50Z INFO file_0143.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:11:55Z INFO file_0144.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:00Z INFO file_0145.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:05Z INFO file_0146.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:10Z INFO file_0147.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:15Z INFO file_0148.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:20Z INFO file_0149.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:25Z INFO file_0150.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:30Z INFO file_0151.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:35Z INFO file_0152.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:40Z INFO file_0153.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:45Z INFO file_0154.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:50Z INFO file_0155.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:12:55Z INFO file_0156.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:00Z INFO file_0157.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:05Z INFO file_0158.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:10Z INFO file_0159.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:15Z INFO file_0160.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:20Z INFO file_0161.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:25Z INFO file_0162.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:30Z INFO file_0163.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:35Z INFO file_0164.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:40Z INFO file_0165.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:45Z INFO file_0166.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:50Z INFO file_0167.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:13:55Z INFO file_0168.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:00Z INFO file_0169.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:05Z INFO file_0170.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:10Z INFO file_0171.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:15Z INFO file_0172.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:20Z INFO file_0173.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:25Z INFO file_0174.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:30Z INFO file_0175.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:35Z INFO file_0176.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:40Z INFO file_0177.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:45Z INFO file_0178.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:50Z INFO file_0179.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:14:55Z INFO file_0180.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:00Z INFO file_0181.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:05Z INFO file_0182.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:10Z INFO file_0183.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:15Z INFO file_0184.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:20Z INFO file_0185.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:25Z INFO file_0186.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:30Z INFO file_0187.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:35Z INFO file_0188.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:40Z INFO file_0189.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:45Z INFO file_0190.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:50Z INFO file_0191.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:15:55Z INFO file_0192.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:00Z INFO file_0193.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:05Z INFO file_0194.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:10Z INFO file_0195.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:15Z INFO file_0196.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:20Z INFO file_0197.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:25Z INFO file_0198.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:30Z INFO file_0199.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:35Z INFO file_0200.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:40Z INFO file_0201.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:45Z INFO file_0202.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:50Z INFO file_0203.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:16:55Z INFO file_0204.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:00Z INFO file_0205.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:05Z INFO file_0206.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:10Z INFO file_0207.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:15Z INFO file_0208.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:20Z INFO file_0209.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:25Z INFO file_0210.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:30Z INFO file_0211.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:35Z INFO file_0212.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:40Z INFO file_0213.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:45Z INFO file_0214.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:50Z INFO file_0215.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:17:55Z INFO file_0216.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:00Z INFO file_0217.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:05Z INFO file_0218.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:10Z INFO file_0219.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:15Z INFO file_0220.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:20Z INFO file_0221.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:25Z INFO file_0222.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:30Z INFO file_0223.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:35Z INFO file_0224.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:40Z INFO file_0225.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:45Z INFO file_0226.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:50Z INFO file_0227.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:18:55Z INFO file_0228.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:00Z INFO file_0229.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:05Z INFO file_0230.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:10Z INFO file_0231.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:15Z INFO file_0232.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:20Z INFO file_0233.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:25Z INFO file_0234.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:30Z INFO file_0235.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:35Z INFO file_0236.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:40Z INFO file_0237.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:45Z INFO file_0238.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:50Z INFO file_0239.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:19:55Z INFO file_0240.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:00Z INFO file_0241.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:05Z INFO file_0242.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:10Z INFO file_0243.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:15Z INFO file_0244.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:20Z INFO file_0245.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:25Z INFO file_0246.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:30Z INFO file_0247.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:35Z INFO file_0248.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:40Z INFO file_0249.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:45Z INFO file_0250.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:50Z INFO file_0251.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:20:55Z INFO file_0252.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:00Z INFO file_0253.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:05Z INFO file_0254.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:10Z INFO file_0255.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:15Z INFO file_0256.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:20Z INFO file_0257.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:25Z INFO file_0258.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:30Z INFO file_0259.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:35Z INFO file_0260.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:40Z INFO file_0261.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:45Z INFO file_0262.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:50Z INFO file_0263.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:21:55Z INFO file_0264.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:00Z INFO file_0265.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:05Z INFO file_0266.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:10Z INFO file_0267.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:15Z INFO file_0268.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:20Z INFO file_0269.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:25Z INFO file_0270.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:30Z INFO file_0271.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:35Z INFO file_0272.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:40Z INFO file_0273.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:45Z INFO file_0274.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:50Z INFO file_0275.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:22:55Z INFO file_0276.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:00Z INFO file_0277.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:05Z INFO file_0278.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:10Z INFO file_0279.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:15Z INFO file_0280.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:20Z INFO file_0281.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:25Z INFO file_0282.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:30Z INFO file_0283.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:35Z INFO file_0284.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:40Z INFO file_0285.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:45Z INFO file_0286.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:50Z INFO file_0287.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:23:55Z INFO file_0288.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:00Z INFO file_0289.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:05Z INFO file_0290.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:10Z INFO file_0291.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:15Z INFO file_0292.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:20Z INFO file_0293.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:25Z INFO file_0294.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:30Z INFO file_0295.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:35Z INFO file_0296.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:40Z INFO file_0297.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:45Z INFO file_0298.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:50Z INFO file_0299.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:24:55Z INFO file_0300.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:00Z INFO file_0301.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:05Z INFO file_0302.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:10Z INFO file_0303.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:15Z INFO file_0304.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:20Z INFO file_0305.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:25Z INFO file_0306.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:30Z INFO file_0307.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:35Z INFO file_0308.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:40Z INFO file_0309.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:45Z INFO file_0310.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:50Z INFO file_0311.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:25:55Z INFO file_0312.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:00Z INFO file_0313.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:05Z INFO file_0314.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:10Z INFO file_0315.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:15Z INFO file_0316.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:20Z INFO file_0317.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:25Z INFO file_0318.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:30Z INFO file_0319.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:35Z INFO file_0320.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:40Z INFO file_0321.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:45Z INFO file_0322.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:50Z INFO file_0323.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:26:55Z INFO file_0324.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:00Z INFO file_0325.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:05Z INFO file_0326.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:10Z INFO file_0327.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:15Z INFO file_0328.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:20Z INFO file_0329.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:25Z INFO file_0330.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:30Z INFO file_0331.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:35Z INFO file_0332.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:40Z INFO file_0333.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:45Z INFO file_0334.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:50Z INFO file_0335.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:27:55Z INFO file_0336.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:00Z INFO file_0337.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:05Z INFO file_0338.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:10Z INFO file_0339.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:15Z INFO file_0340.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:20Z INFO file_0341.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:25Z INFO file_0342.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:30Z INFO file_0343.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:35Z INFO file_0344.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:40Z INFO file_0345.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:45Z INFO file_0346.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:50Z INFO file_0347.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:28:55Z INFO file_0348.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:00Z INFO file_0349.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:05Z INFO file_0350.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:10Z INFO file_0351.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:15Z INFO file_0352.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:20Z INFO file_0353.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:25Z INFO file_0354.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:30Z INFO file_0355.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:35Z INFO file_0356.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:40Z INFO file_0357.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:45Z INFO file_0358.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:50Z INFO file_0359.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:29:55Z INFO file_0360.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:00Z INFO file_0361.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:05Z INFO file_0362.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:10Z INFO file_0363.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:15Z INFO file_0364.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:20Z INFO file_0365.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:25Z INFO file_0366.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:30Z INFO file_0367.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:35Z INFO file_0368.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:40Z INFO file_0369.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:45Z INFO file_0370.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:50Z INFO file_0371.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:30:55Z INFO file_0372.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:00Z INFO file_0373.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:05Z INFO file_0374.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:10Z INFO file_0375.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:15Z INFO file_0376.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:20Z INFO file_0377.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:25Z INFO file_0378.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:30Z INFO file_0379.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:35Z INFO file_0380.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:40Z INFO file_0381.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:45Z INFO file_0382.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:50Z INFO file_0383.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:31:55Z INFO file_0384.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:00Z INFO file_0385.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:05Z INFO file_0386.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:10Z INFO file_0387.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:15Z INFO file_0388.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:20Z INFO file_0389.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:25Z INFO file_0390.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:30Z INFO file_0391.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:35Z INFO file_0392.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:40Z INFO file_0393.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:45Z INFO file_0394.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:50Z INFO file_0395.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:32:55Z INFO file_0396.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:00Z INFO file_0397.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:05Z INFO file_0398.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:10Z INFO file_0399.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:15Z INFO file_0400.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:20Z INFO file_0401.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:25Z INFO file_0402.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:30Z INFO file_0403.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:35Z INFO file_0404.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:40Z INFO file_0405.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:45Z INFO file_0406.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:50Z INFO file_0407.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:33:55Z INFO file_0408.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:00Z INFO file_0409.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:05Z INFO file_0410.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:10Z INFO file_0411.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:15Z INFO file_0412.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:20Z INFO file_0413.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:25Z INFO file_0414.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:30Z INFO file_0415.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:35Z INFO file_0416.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:40Z INFO file_0417.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:45Z INFO file_0418.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:50Z INFO file_0419.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:34:55Z INFO file_0420.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:00Z INFO file_0421.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:05Z INFO file_0422.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:10Z INFO file_0423.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:15Z INFO file_0424.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:20Z INFO file_0425.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:25Z INFO file_0426.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:30Z INFO file_0427.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:35Z INFO file_0428.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:40Z INFO file_0429.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:45Z INFO file_0430.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:50Z INFO file_0431.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:35:55Z INFO file_0432.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:00Z INFO file_0433.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:05Z INFO file_0434.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:10Z INFO file_0435.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:15Z INFO file_0436.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:20Z INFO file_0437.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:25Z INFO file_0438.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:30Z INFO file_0439.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:35Z INFO file_0440.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:40Z INFO file_0441.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:45Z INFO file_0442.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:50Z INFO file_0443.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:36:55Z INFO file_0444.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:00Z INFO file_0445.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:05Z INFO file_0446.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:10Z INFO file_0447.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:15Z INFO file_0448.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:20Z INFO file_0449.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:25Z INFO file_0450.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:30Z INFO file_0451.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:35Z INFO file_0452.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:40Z INFO file_0453.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:45Z INFO file_0454.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:50Z INFO file_0455.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:37:55Z INFO file_0456.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:00Z INFO file_0457.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:05Z INFO file_0458.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:10Z INFO file_0459.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:15Z INFO file_0460.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:20Z INFO file_0461.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:25Z INFO file_0462.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:30Z INFO file_0463.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:35Z INFO file_0464.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:40Z INFO file_0465.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:45Z INFO file_0466.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:50Z INFO file_0467.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:38:55Z INFO file_0468.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:00Z INFO file_0469.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:05Z INFO file_0470.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:10Z INFO file_0471.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:15Z INFO file_0472.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:20Z INFO file_0473.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:25Z INFO file_0474.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:30Z INFO file_0475.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:35Z INFO file_0476.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:40Z INFO file_0477.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:45Z INFO file_0478.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:50Z INFO file_0479.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:39:55Z INFO file_0480.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:00Z INFO file_0481.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:05Z INFO file_0482.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:10Z INFO file_0483.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:15Z INFO file_0484.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:20Z INFO file_0485.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:25Z INFO file_0486.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:30Z INFO file_0487.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:35Z INFO file_0488.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:40Z INFO file_0489.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:45Z INFO file_0490.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:50Z INFO file_0491.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:40:55Z INFO file_0492.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:00Z INFO file_0493.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:05Z INFO file_0494.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:10Z INFO file_0495.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:15Z INFO file_0496.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:20Z INFO file_0497.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:25Z INFO file_0498.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:30Z INFO file_0499.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:35Z INFO file_0500.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:40Z INFO file_0501.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:45Z INFO file_0502.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:50Z INFO file_0503.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:41:55Z INFO file_0504.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:00Z INFO file_0505.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:05Z INFO file_0506.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:10Z INFO file_0507.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:15Z INFO file_0508.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:20Z INFO file_0509.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:25Z INFO file_0510.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:30Z INFO file_0511.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:35Z INFO file_0512.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:40Z INFO file_0513.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:45Z INFO file_0514.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:50Z INFO file_0515.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:42:55Z INFO file_0516.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:00Z INFO file_0517.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:05Z INFO file_0518.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:10Z INFO file_0519.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:15Z INFO file_0520.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:20Z INFO file_0521.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:25Z INFO file_0522.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:30Z INFO file_0523.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:35Z INFO file_0524.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:40Z INFO file_0525.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:45Z INFO file_0526.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:50Z INFO file_0527.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:43:55Z INFO file_0528.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:00Z INFO file_0529.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:05Z INFO file_0530.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:10Z INFO file_0531.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:15Z INFO file_0532.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:20Z INFO file_0533.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:25Z INFO file_0534.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:30Z INFO file_0535.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:35Z INFO file_0536.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:40Z INFO file_0537.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:45Z INFO file_0538.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:50Z INFO file_0539.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:44:55Z INFO file_0540.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:00Z INFO file_0541.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:05Z INFO file_0542.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:10Z INFO file_0543.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:15Z INFO file_0544.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:20Z INFO file_0545.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:25Z INFO file_0546.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:30Z INFO file_0547.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:35Z INFO file_0548.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:40Z INFO file_0549.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:45Z INFO file_0550.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:50Z INFO file_0551.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:45:55Z INFO file_0552.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:00Z INFO file_0553.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:05Z INFO file_0554.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:10Z INFO file_0555.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:15Z INFO file_0556.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:20Z INFO file_0557.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:25Z INFO file_0558.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:30Z INFO file_0559.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:35Z INFO file_0560.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:40Z INFO file_0561.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:45Z INFO file_0562.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:50Z INFO file_0563.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:46:55Z INFO file_0564.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:00Z INFO file_0565.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:05Z INFO file_0566.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:10Z INFO file_0567.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:15Z INFO file_0568.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:20Z INFO file_0569.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:25Z INFO file_0570.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:30Z INFO file_0571.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:35Z INFO file_0572.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:40Z INFO file_0573.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:45Z INFO file_0574.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:50Z INFO file_0575.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:47:55Z INFO file_0576.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:00Z INFO file_0577.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:05Z INFO file_0578.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:10Z INFO file_0579.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:15Z INFO file_0580.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:20Z INFO file_0581.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:25Z INFO file_0582.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:30Z INFO file_0583.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:35Z INFO file_0584.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:40Z INFO file_0585.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:45Z INFO file_0586.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:50Z INFO file_0587.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:48:55Z INFO file_0588.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:00Z INFO file_0589.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:05Z INFO file_0590.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:10Z INFO file_0591.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:15Z INFO file_0592.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:20Z INFO file_0593.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:25Z INFO file_0594.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:30Z INFO file_0595.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:35Z INFO file_0596.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:40Z INFO file_0597.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:45Z INFO file_0598.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:50Z INFO file_0599.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:49:55Z INFO file_0600.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:00Z INFO file_0601.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:05Z INFO file_0602.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:10Z INFO file_0603.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:15Z INFO file_0604.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:20Z INFO file_0605.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:25Z INFO file_0606.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:30Z INFO file_0607.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:35Z INFO file_0608.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:40Z INFO file_0609.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:45Z INFO file_0610.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:50Z INFO file_0611.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:50:55Z INFO file_0612.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:00Z INFO file_0613.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:05Z INFO file_0614.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:10Z INFO file_0615.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:15Z INFO file_0616.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:20Z INFO file_0617.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:25Z INFO file_0618.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:30Z INFO file_0619.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:35Z INFO file_0620.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:40Z INFO file_0621.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:45Z INFO file_0622.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:50Z INFO file_0623.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:51:55Z INFO file_0624.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:00Z INFO file_0625.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:05Z INFO file_0626.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:10Z INFO file_0627.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:15Z INFO file_0628.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:20Z INFO file_0629.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:25Z INFO file_0630.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:30Z INFO file_0631.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:35Z INFO file_0632.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:40Z INFO file_0633.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:45Z INFO file_0634.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:50Z INFO file_0635.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:52:55Z INFO file_0636.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:00Z INFO file_0637.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:05Z INFO file_0638.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:10Z INFO file_0639.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:15Z INFO file_0640.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:20Z INFO file_0641.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:25Z INFO file_0642.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:30Z INFO file_0643.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:35Z INFO file_0644.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:40Z INFO file_0645.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:45Z INFO file_0646.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:50Z INFO file_0647.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:53:55Z INFO file_0648.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:00Z INFO file_0649.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:05Z INFO file_0650.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:10Z INFO file_0651.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:15Z INFO file_0652.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:20Z INFO file_0653.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:25Z INFO file_0654.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:30Z INFO file_0655.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:35Z INFO file_0656.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:40Z INFO file_0657.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:45Z INFO file_0658.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:50Z INFO file_0659.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:54:55Z INFO file_0660.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:00Z INFO file_0661.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:05Z INFO file_0662.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:10Z INFO file_0663.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:15Z INFO file_0664.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:20Z INFO file_0665.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:25Z INFO file_0666.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:30Z INFO file_0667.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:35Z INFO file_0668.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:40Z INFO file_0669.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:45Z INFO file_0670.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:50Z INFO file_0671.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:55:55Z INFO file_0672.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:00Z INFO file_0673.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:05Z INFO file_0674.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:10Z INFO file_0675.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:15Z INFO file_0676.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:20Z INFO file_0677.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:25Z INFO file_0678.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:30Z INFO file_0679.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:35Z INFO file_0680.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:40Z INFO file_0681.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:45Z INFO file_0682.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:50Z INFO file_0683.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:56:55Z INFO file_0684.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:00Z INFO file_0685.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:05Z INFO file_0686.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:10Z INFO file_0687.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:15Z INFO file_0688.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:20Z INFO file_0689.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:25Z INFO file_0690.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:30Z INFO file_0691.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:35Z INFO file_0692.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:40Z INFO file_0693.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:45Z INFO file_0694.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:50Z INFO file_0695.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:57:55Z INFO file_0696.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:58:00Z INFO file_0697.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:58:05Z INFO file_0698.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:58:10Z INFO file_0699.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:58:15Z INFO file_0700.dat SUCCESS rows=100 db_ms=18 pool_in_use=11/32
+2026-03-21T14:58:16Z WARN db_pool waiters=9 active=32 limit=32
+2026-03-21T14:58:17Z WARN db_pool waiters=17 active=32 limit=32
+2026-03-21T14:58:18Z ERROR db_connection_timeout active=32 limit=32 wait_ms=30000
+2026-03-21T14:58:20Z INFO file_0701.dat START batch=late_window
+2026-03-21T14:58:20Z WARN file_0701.dat PARTIAL rows_written=37 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:21Z INFO file_0702.dat START batch=late_window
+2026-03-21T14:58:21Z WARN file_0702.dat PARTIAL rows_written=41 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:22Z INFO file_0703.dat START batch=late_window
+2026-03-21T14:58:22Z WARN file_0703.dat PARTIAL rows_written=58 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:23Z INFO file_0704.dat START batch=late_window
+2026-03-21T14:58:23Z WARN file_0704.dat PARTIAL rows_written=62 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:24Z INFO file_0705.dat START batch=late_window
+2026-03-21T14:58:24Z WARN file_0705.dat PARTIAL rows_written=19 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:25Z INFO file_0706.dat START batch=late_window
+2026-03-21T14:58:25Z WARN file_0706.dat PARTIAL rows_written=73 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:26Z INFO file_0707.dat START batch=late_window
+2026-03-21T14:58:26Z WARN file_0707.dat PARTIAL rows_written=44 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:27Z INFO file_0708.dat START batch=late_window
+2026-03-21T14:58:27Z WARN file_0708.dat PARTIAL rows_written=52 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:28Z INFO file_0709.dat START batch=late_window
+2026-03-21T14:58:28Z WARN file_0709.dat PARTIAL rows_written=67 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:29Z INFO file_0710.dat START batch=late_window
+2026-03-21T14:58:29Z WARN file_0710.dat PARTIAL rows_written=28 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:30Z INFO file_0711.dat START batch=late_window
+2026-03-21T14:58:30Z WARN file_0711.dat PARTIAL rows_written=34 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:31Z INFO file_0712.dat START batch=late_window
+2026-03-21T14:58:31Z WARN file_0712.dat PARTIAL rows_written=76 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:32Z INFO file_0713.dat START batch=late_window
+2026-03-21T14:58:32Z WARN file_0713.dat PARTIAL rows_written=83 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:33Z INFO file_0714.dat START batch=late_window
+2026-03-21T14:58:33Z WARN file_0714.dat PARTIAL rows_written=47 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:34Z INFO file_0715.dat START batch=late_window
+2026-03-21T14:58:34Z WARN file_0715.dat PARTIAL rows_written=55 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:35Z INFO file_0716.dat START batch=late_window
+2026-03-21T14:58:35Z WARN file_0716.dat PARTIAL rows_written=61 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:36Z INFO file_0717.dat START batch=late_window
+2026-03-21T14:58:36Z WARN file_0717.dat PARTIAL rows_written=24 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:58:37Z INFO file_0718.dat START batch=late_window
+2026-03-21T14:58:37Z WARN file_0718.dat PARTIAL rows_written=39 error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:00Z ERROR file_0719.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:03Z ERROR file_0720.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:06Z ERROR file_0721.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:09Z ERROR file_0722.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:12Z ERROR file_0723.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:15Z ERROR file_0724.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:18Z ERROR file_0725.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:21Z ERROR file_0726.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:24Z ERROR file_0727.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:27Z ERROR file_0728.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:30Z ERROR file_0729.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:33Z ERROR file_0730.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:36Z ERROR file_0731.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:39Z ERROR file_0732.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:42Z ERROR file_0733.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:45Z ERROR file_0734.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:48Z ERROR file_0735.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:51Z ERROR file_0736.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:54Z ERROR file_0737.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T14:59:57Z ERROR file_0738.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:00Z ERROR file_0739.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:03Z ERROR file_0740.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:06Z ERROR file_0741.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:09Z ERROR file_0742.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:12Z ERROR file_0743.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:15Z ERROR file_0744.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:18Z ERROR file_0745.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:21Z ERROR file_0746.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:24Z ERROR file_0747.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:27Z ERROR file_0748.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:30Z ERROR file_0749.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:33Z ERROR file_0750.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:36Z ERROR file_0751.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:39Z ERROR file_0752.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:42Z ERROR file_0753.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:45Z ERROR file_0754.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:48Z ERROR file_0755.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:51Z ERROR file_0756.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:54Z ERROR file_0757.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:00:57Z ERROR file_0758.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:00Z ERROR file_0759.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:03Z ERROR file_0760.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:06Z ERROR file_0761.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:09Z ERROR file_0762.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:12Z ERROR file_0763.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:15Z ERROR file_0764.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:18Z ERROR file_0765.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:21Z ERROR file_0766.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:24Z ERROR file_0767.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:27Z ERROR file_0768.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:30Z ERROR file_0769.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:33Z ERROR file_0770.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:36Z ERROR file_0771.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:39Z ERROR file_0772.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:42Z ERROR file_0773.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:45Z ERROR file_0774.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:48Z ERROR file_0775.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:51Z ERROR file_0776.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:54Z ERROR file_0777.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:01:57Z ERROR file_0778.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:00Z ERROR file_0779.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:03Z ERROR file_0780.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:06Z ERROR file_0781.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:09Z ERROR file_0782.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:12Z ERROR file_0783.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:15Z ERROR file_0784.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:18Z ERROR file_0785.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:21Z ERROR file_0786.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:24Z ERROR file_0787.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:27Z ERROR file_0788.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:30Z ERROR file_0789.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:33Z ERROR file_0790.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:36Z ERROR file_0791.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:39Z ERROR file_0792.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:42Z ERROR file_0793.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:45Z ERROR file_0794.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:48Z ERROR file_0795.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:51Z ERROR file_0796.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:54Z ERROR file_0797.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:02:57Z ERROR file_0798.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:00Z ERROR file_0799.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:03Z ERROR file_0800.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:06Z ERROR file_0801.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:09Z ERROR file_0802.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:12Z ERROR file_0803.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:15Z ERROR file_0804.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:18Z ERROR file_0805.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:21Z ERROR file_0806.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:24Z ERROR file_0807.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:27Z ERROR file_0808.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:30Z ERROR file_0809.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:33Z ERROR file_0810.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:36Z ERROR file_0811.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:39Z ERROR file_0812.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:42Z ERROR file_0813.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:45Z ERROR file_0814.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:48Z ERROR file_0815.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:51Z ERROR file_0816.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:54Z ERROR file_0817.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:03:57Z ERROR file_0818.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:00Z ERROR file_0819.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:03Z ERROR file_0820.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:06Z ERROR file_0821.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:09Z ERROR file_0822.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:12Z ERROR file_0823.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:15Z ERROR file_0824.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:18Z ERROR file_0825.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:21Z ERROR file_0826.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:24Z ERROR file_0827.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:27Z ERROR file_0828.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:30Z ERROR file_0829.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:33Z ERROR file_0830.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:36Z ERROR file_0831.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:39Z ERROR file_0832.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:42Z ERROR file_0833.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:45Z ERROR file_0834.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:48Z ERROR file_0835.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:51Z ERROR file_0836.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:54Z ERROR file_0837.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:04:57Z ERROR file_0838.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:00Z ERROR file_0839.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:03Z ERROR file_0840.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:06Z ERROR file_0841.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:09Z ERROR file_0842.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:12Z ERROR file_0843.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:15Z ERROR file_0844.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:18Z ERROR file_0845.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:21Z ERROR file_0846.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:24Z ERROR file_0847.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:27Z ERROR file_0848.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:30Z ERROR file_0849.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:33Z ERROR file_0850.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:36Z ERROR file_0851.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:39Z ERROR file_0852.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:42Z ERROR file_0853.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:45Z ERROR file_0854.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:48Z ERROR file_0855.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:51Z ERROR file_0856.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:54Z ERROR file_0857.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:05:57Z ERROR file_0858.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:00Z ERROR file_0859.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:03Z ERROR file_0860.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:06Z ERROR file_0861.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:09Z ERROR file_0862.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:12Z ERROR file_0863.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:15Z ERROR file_0864.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:18Z ERROR file_0865.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:21Z ERROR file_0866.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:24Z ERROR file_0867.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:27Z ERROR file_0868.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:30Z ERROR file_0869.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:33Z ERROR file_0870.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:36Z ERROR file_0871.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:39Z ERROR file_0872.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:42Z ERROR file_0873.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:45Z ERROR file_0874.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:48Z ERROR file_0875.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:51Z ERROR file_0876.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:54Z ERROR file_0877.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:06:57Z ERROR file_0878.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:00Z ERROR file_0879.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:03Z ERROR file_0880.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:06Z ERROR file_0881.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:09Z ERROR file_0882.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:12Z ERROR file_0883.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:15Z ERROR file_0884.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:18Z ERROR file_0885.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:21Z ERROR file_0886.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:24Z ERROR file_0887.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:27Z ERROR file_0888.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:30Z ERROR file_0889.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:33Z ERROR file_0890.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:36Z ERROR file_0891.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:39Z ERROR file_0892.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:42Z ERROR file_0893.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:45Z ERROR file_0894.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:48Z ERROR file_0895.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:51Z ERROR file_0896.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:54Z ERROR file_0897.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:07:57Z ERROR file_0898.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:00Z ERROR file_0899.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:03Z ERROR file_0900.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:06Z ERROR file_0901.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:09Z ERROR file_0902.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:12Z ERROR file_0903.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:15Z ERROR file_0904.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:18Z ERROR file_0905.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:21Z ERROR file_0906.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:24Z ERROR file_0907.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:27Z ERROR file_0908.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:30Z ERROR file_0909.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:33Z ERROR file_0910.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:36Z ERROR file_0911.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:39Z ERROR file_0912.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:42Z ERROR file_0913.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:45Z ERROR file_0914.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:48Z ERROR file_0915.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:51Z ERROR file_0916.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:54Z ERROR file_0917.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:08:57Z ERROR file_0918.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:00Z ERROR file_0919.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:03Z ERROR file_0920.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:06Z ERROR file_0921.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:09Z ERROR file_0922.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:12Z ERROR file_0923.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:15Z ERROR file_0924.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:18Z ERROR file_0925.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:21Z ERROR file_0926.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:24Z ERROR file_0927.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:27Z ERROR file_0928.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:30Z ERROR file_0929.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:33Z ERROR file_0930.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:36Z ERROR file_0931.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:39Z ERROR file_0932.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:42Z ERROR file_0933.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:45Z ERROR file_0934.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:48Z ERROR file_0935.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:51Z ERROR file_0936.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:54Z ERROR file_0937.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:09:57Z ERROR file_0938.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:00Z ERROR file_0939.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:03Z ERROR file_0940.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:06Z ERROR file_0941.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:09Z ERROR file_0942.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:12Z ERROR file_0943.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:15Z ERROR file_0944.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:18Z ERROR file_0945.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:21Z ERROR file_0946.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:24Z ERROR file_0947.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:27Z ERROR file_0948.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:30Z ERROR file_0949.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:33Z ERROR file_0950.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:36Z ERROR file_0951.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:39Z ERROR file_0952.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:42Z ERROR file_0953.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:45Z ERROR file_0954.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:48Z ERROR file_0955.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:51Z ERROR file_0956.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:54Z ERROR file_0957.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:10:57Z ERROR file_0958.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:00Z ERROR file_0959.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:03Z ERROR file_0960.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:06Z ERROR file_0961.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:09Z ERROR file_0962.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:12Z ERROR file_0963.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:15Z ERROR file_0964.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:18Z ERROR file_0965.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:21Z ERROR file_0966.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:24Z ERROR file_0967.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:27Z ERROR file_0968.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:30Z ERROR file_0969.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:33Z ERROR file_0970.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:36Z ERROR file_0971.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:39Z ERROR file_0972.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:42Z ERROR file_0973.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:45Z ERROR file_0974.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:48Z ERROR file_0975.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:51Z ERROR file_0976.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:54Z ERROR file_0977.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:11:57Z ERROR file_0978.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:00Z ERROR file_0979.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:03Z ERROR file_0980.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:06Z ERROR file_0981.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:09Z ERROR file_0982.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:12Z ERROR file_0983.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:15Z ERROR file_0984.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:18Z ERROR file_0985.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:21Z ERROR file_0986.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:24Z ERROR file_0987.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:27Z ERROR file_0988.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:30Z ERROR file_0989.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:33Z ERROR file_0990.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:36Z ERROR file_0991.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:39Z ERROR file_0992.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:42Z ERROR file_0993.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:45Z ERROR file_0994.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:48Z ERROR file_0995.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:51Z ERROR file_0996.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:54Z ERROR file_0997.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:12:57Z ERROR file_0998.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:13:00Z ERROR file_0999.dat FAILED before_commit error=db_connection_timeout active=32 limit=32
+2026-03-21T15:13:03Z ERROR file_1000.dat FAILED before_commit error=db_connection_timeout active=32 limit=32

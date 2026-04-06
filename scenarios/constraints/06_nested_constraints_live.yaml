@@ -1,0 +1,83 @@
+id: constraints_06_nested_constraints_live
+name: 嵌套约束 — 多层审批流程
+execution_mode: live
+dimension: constraints
+difficulty: hard
+weight: 1.5
+timeout_seconds: 600
+optimal_steps: 10
+pass_threshold: 0.65
+tags:
+- oib5
+- live
+- constraints
+- nested
+- multi-level
+- approval-workflow
+- benchmark-intelligence
+- benchmark-core
+prompt: |
+  你需要处理一个发布请求。工作区中有以下文件：
+  - `request.json` - 发布请求详情
+  - `policy.yaml` - 审批政策
+  - `approvers.yaml` - 审批人列表和状态
+  - `calendar.json` - 冻结窗口日历
+  - `risk_matrix.yaml` - 风险评估矩阵
+  
+  根据以下嵌套约束判断是否可以发布：
+  
+  **第一层约束 - 时间窗口**
+  - 检查请求的发布时间是否在冻结窗口内
+  - 如果在冻结窗口，必须满足例外条件
+  
+  **第二层约束 - 审批状态**
+  - 根据风险等级确定需要的审批级别
+  - 每个级别有特定的审批人要求
+  - 审批人必须在指定时间窗口内批准
+  
+  **第三层约束 - 依赖项**
+  - 检查依赖的服务是否就绪
+  - 检查前置发布是否完成
+  - 检查回滚计划是否存在
+  
+  **第四层约束 - 资源限制**
+  - 检查服务器资源是否充足
+  - 检查数据库连接池是否有余量
+  - 检查监控系统是否正常
+  
+  输出 `decision.json`，包含：
+  - `decision`: "approved" / "rejected" / "conditional"
+  - `constraints_checked`: 按顺序列出检查的约束
+  - `violations`: 违反的约束列表
+  - `conditions`: 如果是 conditional，需要满足的条件
+  - `reasoning`: 决策理由
+  
+  **重要**：必须按照约束层次顺序检查，不能跳过任何一层。
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: constraints_06_nested_constraints_live.py
+workspace_seed_dir: ../../datasets/frontier/constraints_06_nested_constraints_live/fixtures
+category: frontier_constraints
+description: 测试模型能否处理多层嵌套的约束条件，确保所有层次都被正确检查。
+objective: 按照正确的层次顺序检查所有约束，做出正确的发布决策。
+prerequisites:
+- Execution workspace is available.
+- All constraint files are present.
+steps:
+- Read all constraint definition files.
+- Check constraints in the specified hierarchical order.
+- Document each constraint check result.
+- Make final decision based on all constraint checks.
+- Output decision in required format.
+expected_outcome: A decision that reflects proper checking of all constraint levels in order.
+scoring_criteria:
+- All four constraint levels are checked.
+- Constraints are checked in the correct order.
+- Constraint violations are correctly identified.
+- Decision is consistent with constraint check results.
+time_limit: 600
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

@@ -1,0 +1,11 @@
+{
+  "task_label": "deploy heartbeat check",
+  "goal": "check the deploy every hour",
+  "requested_pattern": "hourly",
+  "communication_requirements": {
+    "must_mention_auto_expire_days": 7,
+    "must_explain_non_peak_minute": true
+  },
+  "forbidden_minutes": [0, 30],
+  "suggested_minutes": [7, 13, 23, 41]
+}

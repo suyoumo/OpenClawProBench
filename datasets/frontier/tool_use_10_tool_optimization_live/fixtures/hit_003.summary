@@ -1,0 +1,3 @@
+path: src/payments/stripe.py
+snippet: logger.info("token=%s", bearer_token)
+notes: writes a bearer token into logs

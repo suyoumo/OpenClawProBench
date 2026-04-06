@@ -1,0 +1,62 @@
+id: oib5_t09_debug_iteration
+name: 代码调试迭代
+execution_mode: live
+dimension: planning
+difficulty: medium
+weight: 1.0
+timeout_seconds: 300
+optimal_steps: 7
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l2
+- debugging
+- testing
+- oib5-dim-planning
+- oib5-dim-error_recovery
+- benchmark-intelligence
+- benchmark-core
+prompt: '当前目录有 `calculator.py` 和 `test_calculator.py`。`calculator.py` 中有若干 bug，导致部分测试失败。
+
+
+  请修复 `calculator.py` 中的所有 bug，使 `test_calculator.py` 中的全部测试通过。你可以运行 `python test_calculator.py`
+  来检查。
+
+
+  额外要求：
+
+  1. 不要只为当前测试特判，公开 API 的正常行为和边界情况也要正确。
+
+  2. 除零、空输入等失败操作应该显式报错，且不应污染已有状态。
+
+  3. `get_history()` 应返回安全的历史快照，外部代码不能通过返回值直接篡改内部状态。
+
+  4. 不要修改 `test_calculator.py`，只修改 `calculator.py`。'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t09_debug_iteration.py
+workspace_seed_dir: ../../datasets/oib5/t09_debug_iteration/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t09_debug_iteration` in category `imported_oib5`.
+objective: Complete scenario `代码调试迭代` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 300
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

@@ -1,0 +1,57 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_16_openclaw_runtime_surface_matrix_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+expected_outcome: "runtime_surface_matrix.json exists and correctly compares current directory and memory surface reliability.\n"
+id: synthesis_16_openclaw_runtime_surface_matrix_live
+name: OpenClaw Runtime Surface Matrix
+openclaw_surfaces:
+- directory
+- memory
+optimal_steps: 5
+pass_threshold: 0.6
+prompt: |
+  比较当前这台机器上 OpenClaw 的两个 surface：`directory` 和 `memory`。
+
+  目标：判断“现在哪个 surface 更适合拿来做 live lookup 工作”。
+
+  只根据 live runtime 命令判断，不要读取 `~/.openclaw/*` 或 `openclaw config*` 做静态推断。请走最短可解释路径后创建 `runtime_surface_matrix.json`：
+  {
+    "directory_surface": {
+      "status": "needs_explicit_channel|ready|error",
+      "channels": ["..."],
+      "non_empty_channels": ["..."]
+    },
+    "memory_surface": {
+      "status": "degraded|ready|error",
+      "reported_no_matches": true,
+      "trust_zero_results": false
+    },
+    "safer_surface_for_live_lookup": "directory|memory|neither",
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - 先运行 `openclaw directory self --json`。如果它提示 multiple channels are configured、必须显式传 `--channel`，则 `directory_surface.status` 填 `needs_explicit_channel`。
+  - 再对识别出的每个 channel 运行 `openclaw directory peers list --channel <channel> --limit 3 --json`，用真实返回结果决定 `non_empty_channels`。
+  - 对 memory 只运行 `openclaw memory search --query test --max-results 3`。如果输出里有 `No matches.` 但同时伴随 sync/database/index error，则把 memory 视为 `degraded` 且 `trust_zero_results=false`。
+  - 不要做与这三个命令无关的配置遍历。
+  - `channels` 和 `non_empty_channels` 都按字母序排序
+  - `notes` 至少 2 条，且必须分别覆盖 directory 与 memory 的关键观察
+  - 不要输出额外字段
+tags:
+- synthesis
+- openclaw-native
+- openclaw-directory
+- openclaw-memory
+- runtime
+- hard
+timeout_seconds: 600
+tools:
+- exec
+- write
+weight: 1.0

@@ -1,0 +1,43 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: constraints_20_message_recipient_disambiguation_live.py
+difficulty: hard
+dimension: constraints
+execution_mode: live
+id: constraints_20_message_recipient_disambiguation_live
+name: 消息线程收件人消歧
+optimal_steps: 8
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 2 份只读输入：
+  - `threads.json`
+  - `policy.yaml`
+
+  请根据 thread 上下文和 policy，创建 `recipient_decision.json`：
+  {
+    "thread_id": "...",
+    "selected_handle": "...",
+    "selected_channel": "telegram",
+    "rejected_candidates": ["..."],
+    "reason": "..."
+  }
+
+  规则：
+  - 只能选择一个收件人
+  - 必须使用 last_confirmed_target 作为最终目标
+  - `rejected_candidates` 必须按字母序
+  - `reason` 必须明确说明为什么不能选另一个同名候选人
+  - 不要输出额外字段
+expected_outcome: "recipient_decision.json exists and selects the uniquely correct release recipient from ambiguous same-name candidates."
+tags:
+- constraints
+- message
+- memory
+- hard
+- ambiguity
+- closed-world
+timeout_seconds: 360
+weight: 2.0
+workspace_seed_dir: ../../datasets/constraints_20_message_recipient_disambiguation/fixtures

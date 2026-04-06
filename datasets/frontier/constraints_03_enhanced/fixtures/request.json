@@ -1,0 +1,25 @@
+{
+  "release_id": "REL-2026-03-21-001",
+  "service": "payment-gateway",
+  "version": "2.3.1",
+  "release_time": "2026-03-21T14:00:00Z",
+  "test_coverage": 0.92,
+  "bug_count": 2,
+  "impact_scope": "major",
+  "requested_by": "team-payment",
+  "changes": [
+    "优化支付流程",
+    "增加风控规则",
+    "修复已知问题"
+  ],
+  "dependencies": {
+    "services": ["user-service", "order-service"],
+    "databases": ["payment-db", "audit-db"]
+  },
+  "rollback_plan": "rollback_payment_v2.2.5.sh",
+  "team_availability": {
+    "tech_lead": "available",
+    "product_manager": "available",
+    "security_officer": "available"
+  }
+}

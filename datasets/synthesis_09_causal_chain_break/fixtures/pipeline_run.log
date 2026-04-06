@@ -1,0 +1,10 @@
+2026-03-22 20:00:01 [INFO] data_collection wrote collected_data.json rows=4 primary_key=record_id
+2026-03-22 20:00:05 [INFO] data_cleaning wrote cleaned_data.json rows=4 key_rename=record_id->id dropped_rows=0
+2026-03-22 20:00:09 [INFO] feature_extraction wrote features.json rows=4 primary_key=id
+2026-03-22 20:00:14 [INFO] model_prediction wrote predictions.json rows=4 primary_key=id threshold=0.42
+2026-03-22 20:00:16 [INFO] scheduler barrier_satisfied=model_prediction->result_output
+2026-03-22 20:00:18 [INFO] result_output declared_inputs=predictions.json
+2026-03-22 20:00:18 [INFO] result_output enrichment_source=collected_data.json join_left=predictions.id join_right=collected_data.record_id alias_mapping=disabled
+2026-03-22 20:00:19 [WARN] result_output matched_rows=0 unmatched_predictions=4
+2026-03-22 20:00:19 [WARN] final_output.json rows=0
+2026-03-22 20:00:19 [INFO] result_output exit_code=0 status=success

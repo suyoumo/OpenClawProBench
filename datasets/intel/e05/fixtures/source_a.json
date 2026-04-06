@@ -1,0 +1,9 @@
+{
+  "source": "monitoring-alpha",
+  "timestamp": "2026-03-23T08:00:00Z",
+  "services": [
+    {"name": "auth-service", "status": "healthy", "latency_ms": 45},
+    {"name": "payment-service", "status": "degraded", "latency_ms": 1200},
+    {"name": "notification-service", "status": "healthy", "latency_ms": 80}
+  ]
+}

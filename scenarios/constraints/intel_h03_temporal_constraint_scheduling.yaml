@@ -1,0 +1,52 @@
+id: intel_h03_temporal_constraint_scheduling
+name: 时间约束调度
+dimension: constraints
+difficulty: hard
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 10
+timeout_seconds: 1200
+openclaw_surfaces:
+- skills
+tools:
+- read
+- exec
+- write
+prompt: |
+  工作区有 `schedule_input.json`，包含 8 个任务和约束条件：
+  - 每个任务有 `id`、`duration_hours`、`earliest_start`（ISO 时间）、`deadline`（ISO 时间）、`requires_skill`（OpenClaw skill 名称）
+  - 约束：任务只能在其 earliest_start 和 deadline 之间执行
+  - 约束：同一时间只能执行一个任务
+  - 约束：如果 requires_skill 对应的 skill 当前不可用，该任务标记为 "blocked"
+
+  请查询 skills 状态，然后为可执行的任务安排时间表。目标不是“随便排一部分”，而是：
+  - 先正确区分 `blocked` 与可执行任务
+  - 在可执行任务中，找出 **`total_scheduled_hours` 最大** 的可行时间表
+  - 没有被 `blocked`、但又无法放进这个最优时间表的任务，必须放入 `unschedulable`
+
+  创建 `schedule.json`：
+  ```json
+  {
+    "scheduled": [{"task_id": "...", "start": "ISO", "end": "ISO"}],
+    "blocked": [{"task_id": "...", "reason": "skill_unavailable", "required_skill": "..."}],
+    "unschedulable": [{"task_id": "...", "reason": "time_conflict"|"deadline_exceeded"}],
+    "total_scheduled_hours": N
+  }
+  ```
+
+  额外要求：
+  - `scheduled` 必须按 `start` 升序
+  - `blocked` 与 `unschedulable` 必须按 `task_id` 升序
+  - `total_scheduled_hours` 必须等于 `scheduled` 中所有任务 `duration_hours` 之和
+expected_outcome: schedule.json exists with the exact blocked set plus an optimal feasible schedule that maximizes total_scheduled_hours.
+custom_check: intel_h03_temporal_constraint_scheduling.py
+workspace_seed_dir: ../../datasets/intel/h03/fixtures
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

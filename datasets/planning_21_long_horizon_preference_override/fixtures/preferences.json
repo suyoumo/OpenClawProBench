@@ -1,0 +1,10 @@
+{
+  "historical_preferences": [
+    {"date": "2026-03-10", "rule": "prefer email updates", "status": "stale"},
+    {"date": "2026-03-25", "rule": "prefer internal chat for ops updates", "status": "current"},
+    {"date": "2026-03-30", "rule": "customer-facing updates require human review", "status": "current"}
+  ],
+  "current_request": {
+    "goal": "prepare current comms routing plan"
+  }
+}

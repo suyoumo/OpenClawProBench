@@ -1,0 +1,3 @@
+{"event_id": "f1", "service": "analytics", "status": "error", "error_code": "E_DISK_PRESSURE"}
+{"event_id": "f2", "service": "analytics", "status": "error", "error_code": "E_DISK_PRESSURE"}
+{"event_id": "f3", "service": "analytics", "status": "ok", "error_code": ""}

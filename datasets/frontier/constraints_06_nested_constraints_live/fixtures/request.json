@@ -1,0 +1,13 @@
+{
+  "request_id": "REL-2026-03-21-001",
+  "service": "payment-gateway",
+  "version": "2.3.1",
+  "requested_time": "2026-03-25T14:00:00Z",
+  "risk_level": "high",
+  "dependencies": {
+    "services": ["user-service", "order-service", "notification-service"],
+    "databases": ["payment-db", "audit-db"]
+  },
+  "rollback_plan": "rollback_payment_v2.2.5.sh",
+  "requested_by": "team-payment"
+}

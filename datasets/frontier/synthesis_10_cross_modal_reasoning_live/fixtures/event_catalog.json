@@ -1,0 +1,36 @@
+{
+  "timeline_event_codes": [
+    {
+      "code": "u431_opened_profile_preferences",
+      "meaning": "user u-431 opened the profile preferences page"
+    },
+    {
+      "code": "u431_submitted_locale_zh-Hans-CN",
+      "meaning": "user u-431 submitted a profile save with locale zh-Hans-CN"
+    },
+    {
+      "code": "profile_api_failed_in_normalize_locale",
+      "meaning": "profile save request failed inside normalize_locale"
+    },
+    {
+      "code": "ui_banner_profile_save_failed_rendered",
+      "meaning": "client rendered PROFILE_SAVE_FAILED banner"
+    },
+    {
+      "code": "profile_save_error_rate_spike_confirmed",
+      "meaning": "profile save error rate spike was visible in metrics"
+    },
+    {
+      "code": "auth_token_refresh_failed",
+      "meaning": "auth token refresh failed during session renewal"
+    },
+    {
+      "code": "checkout_request_timeout_spike_confirmed",
+      "meaning": "checkout timeout spike was visible in metrics"
+    },
+    {
+      "code": "u998_preferences_saved_successfully",
+      "meaning": "another user completed a successful preferences save"
+    }
+  ]
+}

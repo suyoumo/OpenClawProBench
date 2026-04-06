@@ -1,0 +1,6 @@
+{
+  "on_time_probability": 0.72,
+  "full_scale_ready": false,
+  "pilot_toggle_ready": true,
+  "sev1_regression_probability": 0.18
+}

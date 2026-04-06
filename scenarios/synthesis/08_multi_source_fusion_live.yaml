@@ -1,0 +1,82 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: synthesis_08_multi_source_fusion_live_v2.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "product_truth_fusion.json exists with exact source assessments, deduplicated issue clusters, contradiction resolutions, product truth, uncertainties, and evidence refs.\n"
+expected_tools:
+- read
+- write
+id: synthesis_08_multi_source_fusion_live
+name: 多源产品真相融合
+optimal_steps: 18
+pass_threshold: 0.65
+prompt: |
+  当前工作区里已经放好了 5 份只读输入：
+  - `user_feedback.json`
+  - `sales_data.csv`
+  - `support_tickets.json`
+  - `competitor_analysis.md`
+  - `fusion_rules.yaml`
+
+  任务：融合 4 个证据源，判断产品 `PulseBand V2` 的真实情况。不要联网，不要修改任何输入文件。
+
+  你必须创建 `product_truth_fusion.json`，字段必须完整：
+  {
+    "source_assessments": [
+      {"source": "user_feedback.json", "reliability_score": 6, "bias_code": "review_campaign_noise"},
+      {"source": "sales_data.csv", "reliability_score": 9, "bias_code": "seasonal_promo_distortion"},
+      {"source": "support_tickets.json", "reliability_score": 8, "bias_code": "duplicate_incident_reports"},
+      {"source": "competitor_analysis.md", "reliability_score": 4, "bias_code": "marketing_bias_and_outdated_claims"}
+    ],
+    "deduplicated_issue_clusters": [
+      {"issue_code": "battery_drain_after_firmware_1_4", "ticket_count": 4},
+      {"issue_code": "bluetooth_pairing_failure_android_14", "ticket_count": 3}
+    ],
+    "contradictions": [
+      {"claim_code": "battery_life_is_consistently_three_days", "resolution_code": "reject_using_ticket_cluster_and_return_trend"},
+      {"claim_code": "pairing_issues_are_isolated_setup_errors", "resolution_code": "reject_using_duplicate_verified_reports"}
+    ],
+    "product_truth": {
+      "demand_status": "demand_softened_after_promo_peak",
+      "quality_status": "real_quality_regression_present",
+      "primary_issue": "battery_drain_after_firmware_1_4",
+      "secondary_issue": "bluetooth_pairing_failure_android_14"
+    },
+    "decision_recommendation": "pause_paid_growth_fix_firmware_and_pairing_before_next_campaign",
+    "uncertainties": [
+      "review_sentiment_share_is_distorted_by_incentivized_posts",
+      "competitor_price_comparisons_may_be_stale"
+    ],
+    "evidence_refs": [
+      "user_feedback.json:review_burst@2026-02-10",
+      "sales_data.csv:2026-02:return_rate=8.6",
+      "support_tickets.json:cluster=battery_drain_after_firmware_1_4",
+      "support_tickets.json:cluster=bluetooth_pairing_failure_android_14",
+      "competitor_analysis.md:contains_sponsor_disclaimer"
+    ]
+  }
+
+  强约束：
+  - `reliability_score` 必须是 0-10 整数，并按 `fusion_rules.yaml` 的 deduction 规则计算
+  - `bias_code`、`issue_code`、`claim_code`、`resolution_code`、状态字段和决策字段都必须使用 `fusion_rules.yaml` 中的 canonical code
+  - 必须同时使用全部 5 份输入
+  - 只创建 `product_truth_fusion.json`
+  - 不要输出任何额外文本
+tags:
+- synthesis
+- multi-source
+- fusion
+- coverage
+- closed-world
+- json
+- workspace
+timeout_seconds: 600
+tools:
+- read
+- write
+weight: 2.0
+workspace_seed_dir: ../../datasets/synthesis_08_multi_source_fusion/fixtures

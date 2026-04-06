@@ -1,0 +1,29 @@
+{
+  "trigger_action_codes": [
+    "save_profile_with_locale_zh-Hans-CN",
+    "save_profile_with_locale_en-US",
+    "open_profile_preferences_only",
+    "retry_profile_save_after_banner"
+  ],
+  "ui_symptom_codes": [
+    "PROFILE_SAVE_FAILED",
+    "AUTH_SESSION_EXPIRED",
+    "CHECKOUT_RETRY_REQUIRED"
+  ],
+  "root_cause_codes": [
+    "normalize_locale_unpacked_three_part_locale_into_two_variables",
+    "normalize_locale_dropped_script_segment_but_recovered",
+    "profile_controller_rejected_all_non_en_locales",
+    "metrics_pipeline_double_counted_profile_errors"
+  ],
+  "causal_step_codes": [
+    "user_selected_three_part_locale",
+    "backend_replaced_hyphen_with_underscore",
+    "normalize_locale_raised_value_error",
+    "profile_save_returned_500",
+    "client_rendered_PROFILE_SAVE_FAILED_banner",
+    "locale_validation_rejected_before_normalization",
+    "fallback_locale_saved_successfully",
+    "metrics_pipeline_backfilled_profile_errors"
+  ]
+}

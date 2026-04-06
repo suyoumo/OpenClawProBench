@@ -1,0 +1,30 @@
+id: intel_m03_constraint_task_filter
+name: 约束任务过滤
+dimension: constraints
+difficulty: medium
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: workspace_live
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 5
+timeout_seconds: 300
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `tasks.json`（10 个任务）和 `rules.json`（过滤规则）。
+
+  请先读取两个文件，理解过滤规则，然后按规则过滤任务。
+
+  创建 `filtered_tasks.json`，包含：
+  - `filtered`: 符合所有规则的任务列表，按 priority 升序排列
+  - `rejected`: 被过滤掉的任务列表，每个包含 `id` 和 `reason`（说明被哪条规则过滤）
+  - `summary`: `{"total": N, "passed": N, "rejected": N}`
+custom_check: intel_m03_constraint_task_filter.py
+workspace_seed_dir: ../../datasets/intel/m03/fixtures
+tags:
+- benchmark-intelligence
+- benchmark-core

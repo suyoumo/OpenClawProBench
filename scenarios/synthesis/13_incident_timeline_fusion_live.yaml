@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_13_incident_timeline_fusion_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "incident_fusion.json exists with the correct fused timeline, root cause, ruled-out hypotheses, confidence, and evidence refs.\n"
+id: synthesis_13_incident_timeline_fusion_live
+name: 事故时间线融合
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  当前工作区里有 3 份证据文件：`alerts.log`、`db_metrics.json`、`chat_notes.md`。
+
+  请综合这三份证据，重建事故时间线并写出结论。不要联网。
+
+  输出要求：
+  创建 `incident_fusion.json`，字段必须完整：
+  {
+    "timeline": [
+      {"time": "01:02", "event": "..."},
+      {"time": "01:03", "event": "..."},
+      {"time": "01:04", "event": "..."},
+      {"time": "01:08", "event": "..."},
+      {"time": "01:10", "event": "..."}
+    ],
+    "root_cause": "...",
+    "ruled_out": ["...", "..."],
+    "confidence": "...",
+    "evidence_refs": ["...", "...", "..."]
+  }
+
+  要求：
+  - `timeline` 必须正好 5 个事件，按时间升序
+  - `confidence` 只能是 `high`、`medium`、`low`
+  - `evidence_refs` 至少 3 条
+  - 结论必须同时利用 3 份证据，不能只看单一来源
+workspace_seed_dir: ../../datasets/frontier/synthesis_13_incident_timeline_fusion_live/fixtures
+tags:
+- synthesis
+- cross-source
+- incident
+- workspace
+- expert
+- closed-world
+timeout_seconds: 600
+weight: 2.0

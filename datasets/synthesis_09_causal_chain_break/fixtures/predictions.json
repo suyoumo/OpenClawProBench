@@ -1,0 +1,22 @@
+[
+  {
+    "id": "rec_001",
+    "risk_score": 0.83,
+    "risk_band": "review"
+  },
+  {
+    "id": "rec_002",
+    "risk_score": 0.34,
+    "risk_band": "approve"
+  },
+  {
+    "id": "rec_003",
+    "risk_score": 0.91,
+    "risk_band": "review"
+  },
+  {
+    "id": "rec_004",
+    "risk_score": 0.21,
+    "risk_band": "approve"
+  }
+]

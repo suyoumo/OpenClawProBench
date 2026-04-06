@@ -1,0 +1,26 @@
+[
+  {
+    "id": "rec_001",
+    "customer_tier": "gold",
+    "region": "apac",
+    "normalized_value": 0.412
+  },
+  {
+    "id": "rec_002",
+    "customer_tier": "silver",
+    "region": "emea",
+    "normalized_value": 0.287
+  },
+  {
+    "id": "rec_003",
+    "customer_tier": "gold",
+    "region": "na",
+    "normalized_value": 0.531
+  },
+  {
+    "id": "rec_004",
+    "customer_tier": "bronze",
+    "region": "latam",
+    "normalized_value": 0.179
+  }
+]

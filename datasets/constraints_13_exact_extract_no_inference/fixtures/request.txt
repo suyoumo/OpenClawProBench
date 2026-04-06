@@ -1,0 +1,1 @@
+Find the active APAC renewal owner who is not a vendor and whose legal first name is Lina. Return the single exact match only.

@@ -1,0 +1,21 @@
+{
+  "risk_codes": [
+    {
+      "risk_code": "technical_execution_risk",
+      "probability": 0.3
+    },
+    {
+      "risk_code": "market_adoption_risk",
+      "probability": 0.2
+    },
+    {
+      "risk_code": "compliance_approval_risk",
+      "probability": 0.1
+    }
+  ],
+  "revenue_outcomes": {
+    "success_pct": 20,
+    "failure_pct": -10,
+    "worst_case_pct": -15
+  }
+}

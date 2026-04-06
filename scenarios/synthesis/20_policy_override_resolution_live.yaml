@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_20_policy_override_resolution_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "policy_override_decision.json exists with the correct decision, governing rule, conflicting signals, override usage, and evidence refs.\n"
+id: synthesis_20_policy_override_resolution_live
+name: 策略覆盖冲突决议
+optimal_steps: 18
+pass_threshold: 0.68
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `policy_v1.md`
+  - `policy_v2.md`
+  - `manager_note.txt`
+  - `case_details.json`
+
+  你需要判断当前 case 的唯一正确处理结论。不要联网，不要修改输入文件。
+
+  只创建 `policy_override_decision.json`，字段必须完整：
+  {
+    "decision": "approve|deny|escalate",
+    "applied_policy_version": "v1|v2",
+    "governing_rule": "...",
+    "manager_note_used": true,
+    "conflicting_signals": ["...", "...", "..."],
+    "reason": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 需要先识别 case 中看似支持放行的信号，再判断哪些更高优先级规则会覆盖这些信号
+  - `conflicting_signals` 必须正好 3 条，且要同时覆盖：旧 policy 或 manager 支持信号、v2 安全限制信号、审批链限制信号
+  - `governing_rule` 必须写出最终真正决定结果的唯一规则
+  - `manager_note_used` 必须表示该 note 是否真正改变了最终决策，而不是是否被阅读
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/synthesis_20_policy_override_resolution/fixtures
+tags:
+- synthesis
+- policy
+- override
+- conflict
+- expert
+- closed-world
+- json
+timeout_seconds: 1200
+weight: 2.0

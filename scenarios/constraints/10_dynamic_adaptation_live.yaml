@@ -1,0 +1,60 @@
+benchmark_core: false
+custom_check: constraints_10_dynamic_adaptation_live.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+expected_outcome: "adaptation_plan.json exists with the optimal slot decisions, explicit delayed/canceled workload classification, and total completed units.\n"
+id: constraints_10_dynamic_adaptation_live
+name: 动态约束适应
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  这是一个闭卷动态约束适应题，不需要联网。
+
+  先读取工作区里已经 seeded 好的输入文件：
+  - `slot_constraints.json`
+  - `workloads.json`
+  - `output_contract.json`
+
+  然后创建 `adaptation_plan.json`。你必须基于 seeded 输入文件推导最优解，不要只凭题面复述或猜测。
+
+  关键要求：
+  - 不要重写、复制或修改任何 seeded 输入文件
+  - 每个时间槽只能基于该槽的当前约束选择 active workloads
+  - `memory_gb` 与 `concurrency` 在同一槽内求和；`latency_s` 与 `error_rate_pct` 必须逐 workload 满足
+  - 必须最大化所有时间槽累计完成的 `throughput_units`
+  - `final_delayed_workloads` 与 `final_canceled_workloads` 必须按 seeded 定义输出，不要自己发明语义
+  - `notes` 必须解释真正的适应原因，不要只重复最终答案
+
+  输出要求：
+  创建 `adaptation_plan.json`，字段必须完整：
+  {
+    "slot_decisions": [
+      {
+        "slot_start": 0,
+        "active_workloads": ["..."],
+        "throughput_units": 0
+      }
+    ],
+    "final_delayed_workloads": ["..."],
+    "final_canceled_workloads": ["..."],
+    "total_completed_units": 0,
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `slot_decisions` 必须包含 seeded 定义的全部时间槽，按时间升序
+  - `active_workloads` 按字母序
+  - `notes` 至少 2 条
+tags:
+- constraints
+- dynamic
+- adaptation
+- expert
+- closed-world
+timeout_seconds: 600
+weight: 2.0
+workspace_seed_dir: ../../datasets/constraints_10_dynamic_adaptation/fixtures

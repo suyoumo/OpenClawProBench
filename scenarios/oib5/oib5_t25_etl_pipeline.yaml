@@ -1,0 +1,59 @@
+id: oib5_t25_etl_pipeline
+name: 数据工程管道 — ETL + 质量检查
+execution_mode: live
+dimension: planning
+difficulty: expert
+weight: 1.0
+timeout_seconds: 600
+optimal_steps: 12
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l4
+- data
+- etl
+- testing
+- oib5-dim-planning
+- oib5-dim-tool_mastery
+- oib5-dim-context
+- benchmark-intelligence
+- benchmark-core
+prompt: "当前目录有三个原始数据文件：\n\n1. `raw_sales.csv` — 销售记录（有脏数据：重复行、空值、格式不一致）\n2. `raw_products.csv`\
+  \ — 产品信息\n3. `raw_regions.json` — 区域映射\n\n请构建一个完整的、可重复运行的 ETL 管道：\n\n1. **Extract**: 读取所有三个文件\n\
+  2. **Transform**:\n   - 去除 raw_sales.csv 中的重复行（按 sale_id 去重）\n   - 处理空值（amount 为空、全空白的行跳过）\n\
+  \   - 将 date 字段统一为 YYYY-MM-DD 格式\n   - 关联 product_id → product_name（从 raw_products.csv）\n\
+  \   - 关联 region_code → region_name（从 raw_regions.json）\n3. **Load**: 输出到 `output/clean_sales.csv`\n\
+  4. **Quality Check**: 生成 `output/quality_report.json`，包含：\n   - total_raw_rows:\
+  \ 原始行数\n   - total_clean_rows: 清洗后行数\n   - duplicates_removed: 去重数量\n   - nulls_removed:\
+  \ 空值行数\n   - date_format_fixed: 日期格式修复数量\n\n额外要求：\n- 这必须是数据驱动的实现，不能把当前 fixture 的答案硬编码到输出中。\n\
+  - 如果同一 `sale_id` 先出现空/无效 amount、后出现有效记录，应保留有效记录，不能因为更早的无效占位行丢掉后续有效数据。\n\
+  - 替换成同结构但不同内容的原始数据后，脚本也应继续工作。\n\
+  - 在已有 `output/` 目录存在时也应可重复运行。\n\n将 ETL 脚本保存为 `etl.py`。"
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t25_etl_pipeline.py
+workspace_seed_dir: ../../datasets/oib5/t25_etl_pipeline/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t25_etl_pipeline` in category `imported_oib5`.
+objective: Complete scenario `数据工程管道 — ETL + 质量检查` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 600
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

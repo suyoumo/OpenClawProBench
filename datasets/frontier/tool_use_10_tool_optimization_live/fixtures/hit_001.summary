@@ -1,0 +1,3 @@
+path: src/auth/session.py
+snippet: HARDCODED_PASSWORD = "hunter2"
+notes: direct literal assignment in repository code

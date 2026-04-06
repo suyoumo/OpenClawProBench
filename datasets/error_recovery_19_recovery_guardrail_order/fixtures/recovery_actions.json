@@ -1,0 +1,10 @@
+{
+  "actions": [
+    "freeze_writes",
+    "restore_last_clean_config",
+    "reopen_safe_traffic",
+    "replay_backlog_immediately",
+    "reopen_all_traffic",
+    "skip_write_freeze"
+  ]
+}

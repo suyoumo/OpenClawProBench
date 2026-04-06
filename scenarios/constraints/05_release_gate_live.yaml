@@ -1,0 +1,44 @@
+id: constraints_05_release_gate_live
+name: Release Gate With Approval Matrix
+execution_mode: live
+dimension: constraints
+difficulty: hard
+weight: 1.0
+timeout_seconds: 480
+optimal_steps: 6
+pass_threshold: 0.7
+tags:
+- benchmark-intelligence
+- benchmark-core
+- live
+- constraints
+- release
+- approvals
+prompt: "当前目录是一份生产发布评审工作区。请阅读现有文件，判断这个发布请求现在是否可以执行。\n\n输出 `release_decision.json`，必须包含以下字段：\n- decision: `go` 或 `no_go`\n- requested_window\n- recommended_window\n- blocking_constraints\n- missing_approvals\n- justification\n\n要求：\n1. 必须同时考虑审批、冻结窗口和 DBA 值班约束\n2. 如果当前请求不能执行，要给出下一个有效窗口\n3. 这是评审任务，不要运行 `deploy.sh`\n4. 输出必须是有效 JSON"
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: constraints_05_release_gate_live.py
+workspace_seed_dir: ../../datasets/frontier/constraints_05_release_gate_live/fixtures
+category: frontier_constraints
+description: Evaluate release readiness under interacting approval, freeze-window, and staffing constraints.
+objective: Produce a correct go/no-go decision with the next valid window.
+prerequisites:
+- Workspace is writable.
+- All referenced policy files are present.
+steps:
+- Inspect the request, approvals, change calendar, and risk assessment.
+- Determine whether the requested release window is currently valid.
+- Write `release_decision.json` with the required schema.
+expected_outcome: A deterministic no-go decision with the correct fallback window and blockers.
+scoring_criteria:
+- The JSON decision matches the valid release constraints.
+- Missing approvals and blockers are identified explicitly.
+- No deployment command is executed.
+fixtures:
+  path: ../../datasets/frontier/constraints_05_release_gate_live/fixtures
+time_limit: 480
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

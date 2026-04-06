@@ -1,0 +1,49 @@
+{
+  "meetings": [
+    {
+      "name": "Product Review",
+      "duration": 60,
+      "attendees": ["Alice", "Bob", "Carol"],
+      "priority": "P0"
+    },
+    {
+      "name": "Tech Design",
+      "duration": 60,
+      "attendees": ["Bob", "David", "Eve"],
+      "priority": "P1"
+    },
+    {
+      "name": "Budget Planning",
+      "duration": 60,
+      "attendees": ["Alice", "Frank", "Grace"],
+      "priority": "P2"
+    },
+    {
+      "name": "Team Sync",
+      "duration": 60,
+      "attendees": ["Carol", "David", "Henry"],
+      "priority": "P3"
+    },
+    {
+      "name": "Client Demo",
+      "duration": 60,
+      "attendees": ["Eve", "Frank", "Henry"],
+      "priority": "P1"
+    }
+  ],
+  "people": {
+    "Alice": {"unavailable": [[11, 14]]},
+    "Bob": {"unavailable": [[11, 14]]},
+    "Carol": {},
+    "David": {},
+    "Eve": {},
+    "Frank": {},
+    "Grace": {},
+    "Henry": {}
+  },
+  "constraints": {
+    "work_hours": [9, 18],
+    "min_meeting_gap": 30,
+    "max_rooms": 2
+  }
+}

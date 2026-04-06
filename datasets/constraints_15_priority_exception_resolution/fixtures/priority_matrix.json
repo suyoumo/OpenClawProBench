@@ -1,0 +1,5 @@
+{
+  "base_winner": "req_a",
+  "req_b_exception_security_approved": false,
+  "req_c_exception_strength": "lower_than_req_a"
+}

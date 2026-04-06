@@ -1,0 +1,19 @@
+{
+  "request_label": "database cutover smoke check",
+  "requested_time_text": "tomorrow morning",
+  "current_local_date": "2026-03-30",
+  "allowed_window": {
+    "start": "2026-03-31T08:30:00",
+    "end": "2026-03-31T12:00:00"
+  },
+  "existing_calendar_events": [
+    {"title": "release standup", "start": "2026-03-31T08:45:00", "end": "2026-03-31T09:20:00"},
+    {"title": "incident review", "start": "2026-03-31T10:55:00", "end": "2026-03-31T11:40:00"}
+  ],
+  "task": {
+    "mode": "one_shot",
+    "goal": "remind me to run the smoke check",
+    "target_window_preference": "mid_morning",
+    "avoid_exact_minutes": [0, 30]
+  }
+}

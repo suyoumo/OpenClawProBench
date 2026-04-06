@@ -1,0 +1,16 @@
+{
+  "prior_task": {
+    "customer": "Acme Retail",
+    "report_date": "2026-03-29",
+    "draft_status": "sent"
+  },
+  "current_task": {
+    "customer": "Acme Robotics",
+    "report_date": "2026-03-30",
+    "goal": "prepare internal update only"
+  },
+  "memory_rules": {
+    "reuse_allowed": ["format", "section_structure"],
+    "reuse_forbidden": ["customer", "report_date", "recipient"]
+  }
+}

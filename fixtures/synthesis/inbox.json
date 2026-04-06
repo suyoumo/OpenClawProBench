@@ -1,0 +1,10 @@
+{
+  "messages": [
+    {
+      "id": "mail-330",
+      "from": "sales@example.com",
+      "subject": "Demo readiness risk",
+      "body": "Customer is open to moving the demo if approval is not complete."
+    }
+  ]
+}

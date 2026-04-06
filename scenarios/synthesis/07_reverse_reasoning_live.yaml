@@ -1,0 +1,91 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: synthesis_07_reverse_reasoning_live_v2.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+expected_outcome: "incident_reverse_report.json exists with the correct reverse timeline, suspicious changes, dependency roles, root cause, ruled-out hypotheses, verification steps, and evidence refs.\n"
+expected_tools:
+- read
+- write
+id: synthesis_07_reverse_reasoning_live
+name: 逆向推理根因回溯
+optimal_steps: 18
+pass_threshold: 0.65
+prompt: |
+  当前工作区里已经放好了 5 份只读输入：
+  - `crash_report.md`
+  - `system.log`
+  - `config_changes.json`
+  - `dependencies.json`
+  - `analysis_rules.yaml`
+
+  任务：从崩溃结果反向推理出唯一最可能的根因。不要联网，不要修改任何输入文件。
+
+  你必须创建 `incident_reverse_report.json`，字段必须完整：
+  {
+    "timeline": [
+      {"time": "09:11:03", "event": "config_fail_closed_retry_policy_enabled"},
+      {"time": "09:12:18", "event": "fraud_detection_timeouts_started"},
+      {"time": "09:13:02", "event": "emergency_db_pool_expansion_applied"},
+      {"time": "09:15:06", "event": "db_pool_waiters_spiked"},
+      {"time": "09:17:44", "event": "service_oom_killed"}
+    ],
+    "suspicious_changes": [
+      {"change_id": "CHG-2026-0322-001", "role": "trigger_change"},
+      {"change_id": "CHG-2026-0322-002", "role": "attempted_mitigation"}
+    ],
+    "dependency_findings": [
+      {"service": "fraud_detection", "role": "originating_dependency_failure"},
+      {"service": "primary_database", "role": "downstream_symptom"},
+      {"service": "redis_cache", "role": "healthy_not_causal"}
+    ],
+    "primary_root_cause": "fraud_fail_closed_retry_path_held_db_sessions_during_dependency_timeouts",
+    "causal_chain": [
+      "config_enabled_fail_closed_retries_and_session_holding",
+      "fraud_detection_timeouts_started",
+      "orders_held_db_sessions_while_retrying_fraud_checks",
+      "db_pool_waiters_and_heap_pressure_spiked",
+      "service_was_oom_killed"
+    ],
+    "ruled_out_hypotheses": [
+      "primary_database_slow_queries_as_initial_trigger",
+      "redis_outage_as_initial_trigger",
+      "kubernetes_node_failure_as_initial_trigger"
+    ],
+    "verification_steps": [
+      "replay_fail_closed_timeout_path_with_session_lifecycle_trace",
+      "compare_session_hold_time_before_after_CHG-2026-0322-001",
+      "stage_rollback_CHG-2026-0322-001_while_holding_dependency_latency_constant"
+    ],
+    "evidence_refs": [
+      "crash_report.md:oom_kill@09:17:44",
+      "system.log:fraud_timeout@09:12:18",
+      "system.log:db_pool_waiters@09:15:06",
+      "config_changes.json:CHG-2026-0322-001",
+      "dependencies.json:fraud_detection"
+    ]
+  }
+
+  强约束：
+  - `timeline` 必须正好 5 个事件，且按时间升序
+  - `analysis_rules.yaml` 中列出的 canonical code 必须被严格使用
+  - 必须同时使用全部 5 份输入
+  - 只创建 `incident_reverse_report.json`
+  - 不要输出任何额外文本
+tags:
+- synthesis
+- reverse-reasoning
+- incident
+- coverage
+- closed-world
+- json
+- workspace
+timeout_seconds: 600
+tools:
+- read
+- write
+weight: 2.0
+workspace_seed_dir: ../../datasets/synthesis_07_reverse_reasoning/fixtures

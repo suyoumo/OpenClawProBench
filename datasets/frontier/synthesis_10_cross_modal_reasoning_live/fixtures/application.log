@@ -1,0 +1,5 @@
+2026-03-18T09:13:58Z INFO request_id=req-8812 user=u-431 route=/settings/profile action=open_preferences
+2026-03-18T09:14:07Z INFO request_id=req-8813 user=u-431 route=/api/profile/save payload.locale=zh-Hans-CN msg="save_profile started"
+2026-03-18T09:14:08Z ERROR request_id=req-8813 user=u-431 module=profile_locale normalized_locale=zh_Hans_CN msg="ValueError: too many values to unpack (expected 2)"
+2026-03-18T09:14:09Z WARN request_id=req-8813 user=u-431 ui_banner=PROFILE_SAVE_FAILED status=500 msg="profile save failed"
+2026-03-18T09:14:45Z INFO request_id=req-8814 user=u-431 route=/api/profile/save payload.locale=zh-Hans-CN msg="retry started"

@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "action": "login",
+      "timestamp": "2026-03-21T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "action": "purchase",
+      "timestamp": "2026-03-21T10:05:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Charlie",
+      "action": "logout",
+      "timestamp": "2026-03-21T10:10:00Z"
+    }
+  ]
+}

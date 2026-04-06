@@ -1,0 +1,48 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: constraints_17_multi_layer_exception_stack_live.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+expected_outcome: "exception_stack_resolution.json exists with the exact surviving exception path, denied paths, and rule stack.\n"
+id: constraints_17_multi_layer_exception_stack_live
+name: 多层例外栈解析
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `base_rules.json`
+  - `exception_stack.md`
+  - `request_case.json`
+  - `resolution_rules.txt`
+
+  你需要解析多层例外覆盖，找出唯一有效结果。不要联网，不要修改输入文件。
+
+  只创建 `exception_stack_resolution.json`，字段必须完整：
+  {
+    "surviving_path": "...",
+    "denied_paths": [
+      {"path": "...", "reason": "..."}
+    ],
+    "rule_stack": ["...", "...", "..."],
+    "governing_result": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 只有完整满足 base rule 与例外链前提的路径才能生效
+  - `denied_paths` 必须覆盖所有未生效路径，按 path 字母序
+  - `rule_stack` 必须正好 3 条，按实际生效顺序
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/constraints_17_multi_layer_exception_stack/fixtures
+tags:
+- constraints
+- exception-stack
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

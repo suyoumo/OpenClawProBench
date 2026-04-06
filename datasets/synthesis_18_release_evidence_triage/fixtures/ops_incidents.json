@@ -1,0 +1,11 @@
+{
+  "active_incidents": [
+    {
+      "id": "INC-771",
+      "severity": "SEV3",
+      "status": "monitoring",
+      "note": "cdn image cache warmup still stabilizing"
+    }
+  ],
+  "release_freeze": false
+}

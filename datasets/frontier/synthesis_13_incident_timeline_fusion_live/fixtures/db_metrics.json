@@ -1,0 +1,14 @@
+{
+  "profile-db": {
+    "01:01_pool_pct": 72,
+    "01:03_pool_pct": 99,
+    "01:05_pool_pct": 99
+  },
+  "network": {
+    "packet_loss_pct": 0.1,
+    "latency_ms": 12
+  },
+  "payment-gateway": {
+    "status": "healthy"
+  }
+}

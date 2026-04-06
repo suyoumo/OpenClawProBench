@@ -1,0 +1,47 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_15_openclaw_skill_source_audit_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+expected_outcome: "skill_source_audit.json exists and correctly audits bundled, external, and missing-binary slices of the live OpenClaw skill inventory.\n"
+id: synthesis_15_openclaw_skill_source_audit_live
+name: OpenClaw Skill Source Audit
+openclaw_surfaces:
+- skills
+optimal_steps: 10
+pass_threshold: 0.6
+prompt: |
+  你需要审计当前这台机器上的 OpenClaw skill inventory，区分 ready 的 bundled / external skills，并统计 missing-by-bins 的规模。
+
+  使用本机 OpenClaw CLI 检查真实状态，然后创建 `skill_source_audit.json`。
+
+  JSON 字段必须完整：
+  {
+    "ready_bundled_count": 0,
+    "ready_external_count": 0,
+    "missing_due_to_bins_count": 0,
+    "ready_bundled_examples": ["...", "..."],
+    "ready_external_examples": ["...", "..."],
+    "missing_due_to_bins_examples": ["...", "...", "..."]
+  }
+
+  要求：
+  - 所有 example 列表都必须按字母序排序
+  - `ready_bundled_examples` 取前 2 个
+  - `ready_external_examples` 取前 2 个
+  - `missing_due_to_bins_examples` 取前 3 个
+  - 不要输出额外字段
+tags:
+- synthesis
+- openclaw-native
+- openclaw-skills
+- audit
+- hard
+timeout_seconds: 1440
+tools:
+- exec
+- write
+weight: 1.0

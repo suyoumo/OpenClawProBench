@@ -1,0 +1,67 @@
+id: oib5_t02_shell_execution
+name: Shell 命令执行与输出解析
+execution_mode: live
+dimension: tool_use
+difficulty: easy
+weight: 1.0
+timeout_seconds: 120
+optimal_steps: 4
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l1
+- shell
+- parsing
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+prompt: '当前目录下有一个 `myproject/` 文件夹，里面包含若干 `.py` 文件。请统计以下信息并写入 `stats.txt`：
+
+
+  1. 所有 `.py` 文件的总行数
+
+  2. 行数最多的文件名及其行数
+
+  3. 包含 `import` 语句的文件数量
+
+
+  `stats.txt` 格式要求（严格遵守）：
+
+  ```
+
+  total_lines: <数字>
+
+  largest_file: <文件名>
+
+  largest_file_lines: <数字>
+
+  files_with_imports: <数字>
+
+  ```'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t02_shell_execution.py
+workspace_seed_dir: ../../datasets/oib5/t02_shell_execution/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t02_shell_execution` in category `imported_oib5`.
+objective: Complete scenario `Shell 命令执行与输出解析` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 120
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

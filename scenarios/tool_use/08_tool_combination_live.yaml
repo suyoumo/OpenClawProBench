@@ -1,0 +1,65 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: tool_use_08_tool_combination_live_v2.py
+difficulty: hard
+dimension: tool_use
+execution_mode: live
+expected_outcome: 'analysis_result.json exists with grounded action counts and active user summary.
+
+  '
+expected_tools:
+- read
+- write
+- exec
+- glob
+id: tool_use_08_tool_combination_live
+name: 工具组合创新
+optimal_steps: 8
+pass_threshold: 0.5
+prompt: |
+  当前工作区中已经 seeded 好本题全部输入，核心输入是 `sample_data.json`。
+
+  你需要在不联网的情况下，组合使用合适工具完成一次小型用户行为分析。
+
+  任务要求：
+  1. 读取 `sample_data.json`
+  2. 统计每种 `action` 的出现次数
+  3. 找出按时间排序的全部用户名字
+  4. 生成结构化结果文件
+
+  输出要求：
+  创建 `analysis_result.json`，字段必须完整：
+  {
+    "total_users": 0,
+    "action_counts": {
+      "login": 0,
+      "purchase": 0,
+      "logout": 0
+    },
+    "users_in_time_order": ["...", "...", "..."],
+    "analysis_method": ["...", "..."]
+  }
+
+  额外要求：
+  - 必须基于工作区中的真实输入，不要虚构不存在的数据规模
+  - `users_in_time_order` 必须按 timestamp 升序
+  - `analysis_method` 至少 2 条，说明你如何组合工具完成分析
+tags:
+- tool_use
+- innovation
+- grounded
+- hard
+- benchmark-intelligence
+- benchmark-extended
+- tool-use-distinctive-pack
+- new-expert
+timeout_seconds: 300
+tools:
+- read
+- write
+- exec
+- glob
+weight: 1.5
+workspace_seed_dir: ../../datasets/tool_use_08_tool_combination/fixtures

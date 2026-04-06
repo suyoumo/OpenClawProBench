@@ -1,0 +1,15 @@
+{
+  "must_start": [
+    {
+      "task_id": "stream_restore",
+      "no_later_than_window_id": "window_1"
+    }
+  ],
+  "objective_priority": [
+    "maximize_deadline_met_task_count",
+    "maximize_completed_task_count",
+    "maximize_total_business_value"
+  ],
+  "earliest_feasible_start_required": true,
+  "counts_include_baseline_service": false
+}

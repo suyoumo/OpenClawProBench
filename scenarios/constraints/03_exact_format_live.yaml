@@ -1,0 +1,77 @@
+id: constraints_03_exact_format_live
+name: 精确格式发布状态（重构版）
+execution_mode: live
+dimension: constraints
+difficulty: medium
+benchmark_status: incubating
+signal_source: workspace_live
+weight: 1.0
+timeout_seconds: 180
+optimal_steps: 6
+pass_threshold: 0.70
+tags:
+- live
+- benchmark-intelligence
+- benchmark-core
+- json
+- release
+- closed-world
+prompt: |
+  当前工作区根目录里已经放好了 2 份只读输入：
+  - `request.json` - 发布请求详情
+  - `config.yaml` - 系统配置（包含发布策略和风险策略）
+
+  你需要同时读取这两个文件，然后根据 `config.yaml` 里定义的策略判断这次发布是否可以通过。
+
+  强约束：
+  - 不要修改任何输入文件
+  - 只创建 `release_status.txt`
+  - 必须同时使用 `request.json` 和 `config.yaml`
+
+  输出要求：创建 `release_status.txt`，必须严格只有 3 行：
+  ```
+  STATUS: <GO 或 HOLD>
+  RISK: <low 或 medium 或 high>
+  REASON: <不超过 80 个字符，必须提到至少 2 个具体判断依据及其数值>
+  ```
+
+  额外要求：
+  - 如果任一发布约束失败，`STATUS = HOLD`
+  - `REASON` 必须包含具体数值（如日期、百分比、计数），不能只写泛泛描述
+  - 不要输出任何多余文本
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- write
+workspace_files: []
+custom_check: constraints_03_exact_format_live.py
+workspace_seed_dir: ../../datasets/frontier/constraints_03_enhanced/fixtures
+category: constraints
+description: 精确格式约束验证 - 重构版。使用 request.json 和 config.yaml 的闭环策略做出精确发布决策。
+objective: 正确解析请求和配置，应用时间窗口、覆盖率、bug 和风险规则，生成精确格式的发布结论。
+prerequisites:
+- Execution workspace is available.
+- Request and configuration files are present.
+steps:
+- Read request.json to get release details.
+- Read config.yaml to get system configuration.
+- Check all release constraints (time, coverage, bugs).
+- Calculate RISK level from config-driven impact multipliers.
+- Make final decision and write output.
+expected_outcome: A correctly formatted release_status.txt with accurate STATUS, RISK, and REASON based on request.json plus config.yaml.
+scoring_criteria:
+- Output file exists and has correct format.
+- Request.json and config.yaml are read.
+- All constraints are checked correctly.
+- Decision is consistent with constraints.
+- RISK level is calculated correctly.
+- Reasoning includes specific data points.
+time_limit: 180
+benchmark_group: intelligence
+benchmark_core: true

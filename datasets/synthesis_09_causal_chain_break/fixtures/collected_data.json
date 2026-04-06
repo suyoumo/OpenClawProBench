@@ -1,0 +1,30 @@
+[
+  {
+    "record_id": "rec_001",
+    "customer_tier": "gold",
+    "region": "apac",
+    "channel": "partner_sync",
+    "raw_value": 41.2
+  },
+  {
+    "record_id": "rec_002",
+    "customer_tier": "silver",
+    "region": "emea",
+    "channel": "partner_sync",
+    "raw_value": 28.7
+  },
+  {
+    "record_id": "rec_003",
+    "customer_tier": "gold",
+    "region": "na",
+    "channel": "partner_sync",
+    "raw_value": 53.1
+  },
+  {
+    "record_id": "rec_004",
+    "customer_tier": "bronze",
+    "region": "latam",
+    "channel": "partner_sync",
+    "raw_value": 17.9
+  }
+]

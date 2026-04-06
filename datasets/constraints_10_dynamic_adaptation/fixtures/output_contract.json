@@ -1,0 +1,28 @@
+{
+  "required_top_level_keys": [
+    "slot_decisions",
+    "final_delayed_workloads",
+    "final_canceled_workloads",
+    "total_completed_units",
+    "notes"
+  ],
+  "slot_decisions_contract": {
+    "required_fields": ["slot_start", "active_workloads", "throughput_units"],
+    "slot_order": "ascending slot_start",
+    "active_workload_order": "alphabetical"
+  },
+  "final_workload_status_contract": {
+    "delayed_definition": "delayable=true and cancelable=false workloads that are absent from the final slot decision",
+    "canceled_definition": "cancelable=true workloads that never appear in any chosen slot decision",
+    "sort_order": "alphabetical"
+  },
+  "notes_requirements": {
+    "min_items": 2,
+    "min_topic_hits": 2,
+    "required_topic_groups": [
+      [["billing_sync"], ["memory", "内存"], ["slot 5", "5", "1.0"]],
+      [["image_backfill", "report_export"], ["latency", "error", "延迟", "错误"]],
+      [["fraud_guard"], ["slot 20", "20", "0.1"], ["error", "错误"]]
+    ]
+  }
+}

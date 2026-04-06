@@ -1,0 +1,20 @@
+[
+  {
+    "search_id": "search_001",
+    "query_topic": "coffee",
+    "precise_gps": "31.2304,121.4737",
+    "city_hint": "Shanghai"
+  },
+  {
+    "search_id": "search_002",
+    "query_topic": "parking",
+    "precise_gps": "30.2741,120.1551",
+    "city_hint": "Hangzhou"
+  },
+  {
+    "search_id": "search_003",
+    "query_topic": "coworking",
+    "precise_gps": "39.9042,116.4074",
+    "city_hint": "Beijing"
+  }
+]

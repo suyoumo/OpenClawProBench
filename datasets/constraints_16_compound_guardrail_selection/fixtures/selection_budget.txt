@@ -1,0 +1,1 @@
+Budget limit: 9. item_a=4, item_b=4, item_c=5, item_d=5. item_b is region-blocked.

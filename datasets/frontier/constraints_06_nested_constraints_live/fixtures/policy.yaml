@@ -1,0 +1,42 @@
+approval_policy:
+  risk_levels:
+    low:
+      required_approvers: 1
+      approver_types: ["tech_lead"]
+      time_limit_hours: 24
+    
+    medium:
+      required_approvers: 2
+      approver_types: ["tech_lead", "product_manager"]
+      time_limit_hours: 48
+    
+    high:
+      required_approvers: 3
+      approver_types: ["tech_lead", "product_manager", "security_officer"]
+      time_limit_hours: 72
+    
+    critical:
+      required_approvers: 4
+      approver_types: ["tech_lead", "product_manager", "security_officer", "cto"]
+      time_limit_hours: 168
+  
+  freeze_window_policy:
+    description: "No releases during freeze windows unless emergency exception is granted"
+    exceptions:
+      - type: "security_hotfix"
+        requires: ["security_officer", "cto"]
+      - type: "critical_bugfix"
+        requires: ["tech_lead", "product_manager", "cto"]
+  
+  dependency_policy:
+    description: "All dependencies must be ready before release"
+    checks:
+      - service_health: "all dependent services must be healthy"
+      - db_migrations: "all database migrations must be completed"
+      - rollback_plan: "rollback plan must exist and be tested"
+  
+  resource_policy:
+    min_free_cpu_percent: 30
+    min_free_memory_percent: 25
+    max_db_connection_usage_percent: 70
+    monitoring_required: true

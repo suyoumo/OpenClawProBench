@@ -1,0 +1,59 @@
+id: oib5_t05_config_modify
+name: 配置文件精确修改
+execution_mode: live
+dimension: tool_use
+difficulty: easy
+weight: 1.0
+timeout_seconds: 120
+optimal_steps: 3
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l1
+- config
+- yaml
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+prompt: '当前目录有一个 `config.yaml` 配置文件。
+
+
+  请完成以下修改：
+
+  1. 将 `server.port` 从 8080 改为 9090
+
+  2. 将 `database.max_connections` 从 10 改为 50
+
+  3. 在 `logging` 下新增 `file: "/var/log/app.log"`
+
+  4. 不要改动其他任何配置项
+
+
+  修改后保存到原文件。'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t05_config_modify.py
+workspace_seed_dir: ../../datasets/oib5/t05_config_modify/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t05_config_modify` in category `imported_oib5`.
+objective: Complete scenario `配置文件精确修改` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 120
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

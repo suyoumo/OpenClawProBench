@@ -1,0 +1,3 @@
+path: src/api/client.js
+snippet: const api_key = process.env.API_KEY
+notes: reads a credential from environment variables

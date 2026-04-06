@@ -1,0 +1,10 @@
+{
+  "messages": [
+    {
+      "id": "mail-201",
+      "from": "pm@example.com",
+      "subject": "Payment API blocker",
+      "body": "Regression found in payment callback. Owner is still missing."
+    }
+  ]
+}

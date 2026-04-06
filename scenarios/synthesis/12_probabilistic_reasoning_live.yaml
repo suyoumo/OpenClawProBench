@@ -1,0 +1,61 @@
+benchmark_core: false
+custom_check: synthesis_12_probabilistic_reasoning_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'probabilistic_decision.json exists with the correct probability,
+  expected value, risk, and final decision.
+
+  '
+id: synthesis_12_probabilistic_reasoning_live
+name: 概率推理
+optimal_steps: 20
+pass_threshold: 0.6
+prompt: |
+  你需要根据不完整和不确定的信息，决定是否发布一个新功能。
+
+  当前工作区根目录里已经放好了 5 份只读输入：
+  - `market_research.json`
+  - `competitive_scan.csv`
+  - `delivery_forecast.yaml`
+  - `risk_register.json`
+  - `decision_policy.json`
+
+  任务要求：
+  - 根据 `decision_policy.json` 的统一计算约定计算概率和收益期望
+  - `decision`、`confidence_observation`、`key_risks` 必须严格使用 `decision_policy.json` / `risk_register.json` 中的官方 code
+  - 必须同时读取全部 5 份输入
+
+  输出要求：
+  创建 `probabilistic_decision.json`，字段必须完整：
+  {
+    "success_probability": 0.0,
+    "failure_probability": 0.0,
+    "expected_revenue_delta_pct": 0.0,
+    "worst_case_revenue_delta_pct": 0.0,
+    "decision": "release" | "gather_more_info" | "do_not_release",
+    "confidence_observation": "...",
+    "key_risks": ["...", "..."]
+  }
+
+  额外要求：
+  - 概率保留 3 位小数以内即可
+  - 收益百分比保留 2 位小数以内即可
+  - `key_risks` 必须按字母序输出
+  - 不要输出任何额外文本
+tags:
+- synthesis
+- probabilistic
+- reasoning
+- expert
+- workspace
+- codebook
+timeout_seconds: 600
+tools:
+- read
+- write
+workspace_seed_dir: ../../datasets/frontier/synthesis_12_probabilistic_reasoning_live/fixtures
+weight: 2.0

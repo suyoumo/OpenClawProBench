@@ -1,0 +1,33 @@
+id: intel_e03_simple_error_retry
+name: 简单错误重试
+dimension: error_recovery
+difficulty: easy
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: incubating
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 5
+timeout_seconds: 300
+openclaw_surfaces:
+- skills
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `task.json`，内容是 `{"action": "query_skills", "retry_on_failure": true}`。
+  请读取任务，执行 `openclaw skills list --json`，如果成功则将结果写入 `result.json`。
+  如果失败，请重试一次。最终在 `result.json` 中包含：
+  {
+    "status": "success" 或 "failed",
+    "attempts": N,
+    "data": {...}
+  }
+custom_check: intel_e03_simple_error_retry.py
+workspace_seed_dir: ../../datasets/intel/e03/fixtures
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

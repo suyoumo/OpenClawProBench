@@ -1,0 +1,65 @@
+{
+  "events": [
+    {
+      "type": "user_message",
+      "text": "查找 OpenClaw 的 health 检查命令，并把答案保存到 answer.txt，最后用一句中文回复。"
+    },
+    {
+      "type": "assistant_message",
+      "text": "我先检索官方命令，再写入文件。"
+    },
+    {
+      "type": "tool_call",
+      "tool": "web_search",
+      "args": {
+        "query": "openclaw health command"
+      }
+    },
+    {
+      "type": "tool_result",
+      "tool": "web_search",
+      "status": 200,
+      "result": {
+        "snippet": "Use `openclaw health` to check gateway health."
+      }
+    },
+    {
+      "type": "tool_call",
+      "tool": "write",
+      "args": {
+        "path": "answer.txt",
+        "content": "OpenClaw 的健康检查命令是 `openclaw health`。"
+      }
+    },
+    {
+      "type": "tool_result",
+      "tool": "write",
+      "status": 200,
+      "result": "saved answer.txt"
+    },
+    {
+      "type": "assistant_message",
+      "text": "已保存到 answer.txt，命令是 `openclaw health`。"
+    }
+  ],
+  "metrics": {
+    "assistant_turns": 2,
+    "tool_calls": 2,
+    "input_tokens": 1200,
+    "output_tokens": 180,
+    "total_tokens": 1380,
+    "wall_time_s": 3.2,
+    "first_token_ms": 420
+  },
+  "audit_state": {
+    "files": {
+      "created": [
+        {
+          "path": "answer.txt"
+        }
+      ],
+      "modified": [],
+      "deleted": []
+    }
+  }
+}

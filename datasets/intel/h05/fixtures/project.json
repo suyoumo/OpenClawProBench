@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {"id": "p01", "name": "安全审计扫描", "effort_hours": 8, "assignee": "alice", "depends_on": [], "category": "security"},
+    {"id": "p02", "name": "合规文档编写", "effort_hours": 6, "assignee": "bob", "depends_on": ["p01"], "category": "compliance"},
+    {"id": "p03", "name": "API 重构", "effort_hours": 12, "assignee": "charlie", "depends_on": [], "category": "engineering"},
+    {"id": "p04", "name": "数据加密升级", "effort_hours": 5, "assignee": "alice", "depends_on": ["p01"], "category": "security"},
+    {"id": "p05", "name": "性能测试", "effort_hours": 4, "assignee": "dave", "depends_on": ["p03"], "category": "engineering"},
+    {"id": "p06", "name": "权限模型重设计", "effort_hours": 10, "assignee": "bob", "depends_on": [], "category": "security"},
+    {"id": "p07", "name": "UI 改版", "effort_hours": 15, "assignee": "eve", "depends_on": [], "category": "design"},
+    {"id": "p08", "name": "合规报告生成", "effort_hours": 3, "assignee": "charlie", "depends_on": ["p02"], "category": "compliance"},
+    {"id": "p09", "name": "日志聚合优化", "effort_hours": 6, "assignee": "dave", "depends_on": [], "category": "engineering"},
+    {"id": "p10", "name": "密钥轮换自动化", "effort_hours": 7, "assignee": "alice", "depends_on": ["p04"], "category": "security"},
+    {"id": "p11", "name": "营销页面更新", "effort_hours": 4, "assignee": "eve", "depends_on": ["p07"], "category": "design"},
+    {"id": "p12", "name": "数据库迁移", "effort_hours": 9, "assignee": "charlie", "depends_on": ["p03"], "category": "engineering"}
+  ]
+}

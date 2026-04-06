@@ -1,0 +1,15 @@
+{
+  "browser_page_url": "http://localhost:4173/incident",
+  "internal_facts": [
+    "vendor degradation suspected",
+    "3 enterprise accounts impacted",
+    "rollback not approved"
+  ],
+  "external_safe_facts": [
+    "we are investigating the incident",
+    "next update in 30 minutes"
+  ],
+  "approval_state": {
+    "external_ready": false
+  }
+}

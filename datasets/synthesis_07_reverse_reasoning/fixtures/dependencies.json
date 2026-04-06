@@ -1,0 +1,33 @@
+{
+  "services": {
+    "fraud_detection": {
+      "status": "degraded",
+      "first_error_time": "09:12:10",
+      "p95_latency_ms": 2600,
+      "baseline_p95_latency_ms": 120,
+      "error_rate_pct": 18,
+      "note": "model-refresh lock caused timeout spikes during the promotion warmup"
+    },
+    "primary_database": {
+      "status": "healthy_then_saturated",
+      "query_p95_ms_at_09_12": 48,
+      "query_p95_ms_at_09_15": 95,
+      "connection_count_at_09_12": 37,
+      "connection_count_at_09_16": 80,
+      "note": "query latency stayed near baseline until application-side session pile-up consumed the pool"
+    },
+    "redis_cache": {
+      "status": "healthy",
+      "evictions": 0,
+      "p95_latency_ms": 4,
+      "note": "no evidence of cache-side pressure during the incident window"
+    }
+  },
+  "infrastructure": {
+    "kubernetes": {
+      "status": "healthy",
+      "node_pressure": "none",
+      "note": "OOM kills were isolated to the order-processing containers"
+    }
+  }
+}

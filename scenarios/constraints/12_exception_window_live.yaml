@@ -1,0 +1,59 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: constraints_12_exception_window_live.py
+difficulty: expert
+dimension: constraints
+execution_mode: live
+expected_outcome: "change_schedule.json exists with the optimal slot plan, deferred tasks, total value, and triggered rules.\n"
+id: constraints_12_exception_window_live
+name: 例外窗口约束调度
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  这是一个闭卷约束调度题，不需要联网。
+
+  先读取工作区里已经 seeded 好的输入文件：
+  - `tasks.json`
+  - `rules.json`
+  - `output_contract.json`
+
+  然后创建 `change_schedule.json`。你必须基于 seeded 输入文件推导最优解，不要只凭题面复述或猜测。
+
+  关键要求：
+  - 不要重写、复制或修改任何 seeded 输入文件
+  - `slot_plan` 必须覆盖 `09/10/11/12` 四个窗口
+  - 只能基于 seeded 任务与规则求最大化总收益的方案
+  - 如果某任务因约束不该进入最优解，就必须进入 `deferred_tasks`
+  - `triggered_rules` 必须反映真正触发的约束，不是泛化口号
+  - `notes` 必须解释关键取舍，而不是只重复最终答案
+
+  输出要求：
+  创建 `change_schedule.json`，字段必须完整：
+  {
+    "slot_plan": [
+      {"hour": 9, "task": "...", "value_at_execution": 0},
+      {"hour": 10, "task": "...", "value_at_execution": 0},
+      {"hour": 11, "task": "...", "value_at_execution": 0},
+      {"hour": 12, "task": "...", "value_at_execution": 0}
+    ],
+    "deferred_tasks": ["...", "..."],
+    "total_value": 0,
+    "triggered_rules": ["...", "...", "..."],
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - `slot_plan` 必须正好 4 条
+  - `triggered_rules` 至少 3 条
+  - `notes` 至少 2 条
+tags:
+- constraints
+- scheduling
+- time-window
+- expert
+- closed-world
+timeout_seconds: 600
+weight: 2.0
+workspace_seed_dir: ../../datasets/constraints_12_exception_window/fixtures

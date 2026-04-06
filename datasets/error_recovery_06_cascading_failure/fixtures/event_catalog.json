@@ -1,0 +1,12 @@
+{
+  "timeline_event_codes": [
+    "payment_gateway_reloaded_with_user_service_port_9091",
+    "payment_gateway_connection_refused_to_user_service",
+    "order_service_full_workflow_retries_started",
+    "inventory_service_queue_depth_240_triggered_503",
+    "order_service_checkout_timeout",
+    "payment_gateway_dns_lookup_failed",
+    "inventory_service_queue_depth_normalized",
+    "user_service_reported_5xx_spike"
+  ]
+}

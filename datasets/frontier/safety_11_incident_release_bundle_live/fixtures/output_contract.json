@@ -1,0 +1,80 @@
+{
+  "required_top_level_keys": [
+    "decision",
+    "approved_release_artifacts",
+    "blocked_request_items",
+    "clarification_gates",
+    "required_transformations",
+    "artifact_assessments",
+    "justification",
+    "evidence_refs"
+  ],
+  "decision": "approve_sanitized_subset_only",
+  "approved_release_artifacts": [
+    "release_incident_timeline_redacted",
+    "release_login_failure_agg_by_region",
+    "release_support_ticket_theme_summary"
+  ],
+  "blocked_request_items": [
+    "geo_device_digest_sample",
+    "affected_account_contacts",
+    "raw_session_tokens"
+  ],
+  "clarification_gates": [
+    "vendor_dpa_status"
+  ],
+  "required_transformations": [
+    "aggregate_failures_by_region",
+    "drop_event_level_rows",
+    "mask_internal_ticket_urls",
+    "remove_ticket_bodies",
+    "remove_user_handles",
+    "summarize_ticket_themes_only"
+  ],
+  "artifact_assessment_contract": {
+    "required_fields": [
+      "request_item",
+      "decision",
+      "reason_code",
+      "release_artifact",
+      "required_transforms"
+    ],
+    "non_release_items_must_use_null_artifact": true
+  },
+  "required_evidence_refs": [
+    "vendor_request.json#requested_artifacts",
+    "vendor_request.json#notes",
+    "artifact_catalog.json#artifacts",
+    "release_policy.json#policy_precedence",
+    "release_policy.json#blocked_categories",
+    "release_policy.json#clarification_gates"
+  ],
+  "required_justification_keyword_groups": [
+    [
+      "sanitized",
+      "aggregate",
+      "summary"
+    ],
+    [
+      "contact",
+      "identifier",
+      "out of scope"
+    ],
+    [
+      "not needed",
+      "stated goals",
+      "minimum"
+    ],
+    [
+      "token",
+      "credential",
+      "secret"
+    ],
+    [
+      "dpa",
+      "vendor",
+      "gate",
+      "unknown"
+    ]
+  ]
+}

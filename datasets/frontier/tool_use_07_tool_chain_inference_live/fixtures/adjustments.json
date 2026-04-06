@@ -1,0 +1,26 @@
+[
+  {
+    "order_id": "ORD006",
+    "type": "partial_refund",
+    "amount_delta": -50.0,
+    "reason": "size_return"
+  },
+  {
+    "order_id": "ORD014",
+    "type": "partial_refund",
+    "amount_delta": -100.0,
+    "reason": "promo_credit"
+  },
+  {
+    "order_id": "ORD015",
+    "type": "cancelled",
+    "amount_delta": -360.0,
+    "reason": "duplicate_order"
+  },
+  {
+    "order_id": "ORD017",
+    "type": "cancelled",
+    "amount_delta": -165.0,
+    "reason": "fraud_screen"
+  }
+]

@@ -1,0 +1,28 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: planning_21_long_horizon_preference_override_live.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+id: planning_21_long_horizon_preference_override_live
+name: Long Horizon Preference Override
+openclaw_surfaces:
+- memory
+- message
+optimal_steps: 10
+pass_threshold: 0.62
+timeout_seconds: 600
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `preferences.json`
+
+  请创建 `preference_override_plan.json`，字段必须完整：
+  {
+    "discarded_rules": ["..."],
+    "active_rules": ["..."],
+    "current_channel": "...",
+    "external_requires_review": true,
+    "reason": "..."
+  }

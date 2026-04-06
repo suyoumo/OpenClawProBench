@@ -1,0 +1,82 @@
+[
+  {
+    "decision_id": "stack",
+    "alternative": "monolith_first",
+    "delta": {
+      "performance_multiplier": 0.6,
+      "budget_overrun_pct": -80,
+      "schedule_delay_months": -2,
+      "risk_points": -2
+    }
+  },
+  {
+    "decision_id": "delivery",
+    "alternative": "sequential_integration",
+    "delta": {
+      "performance_multiplier": 0.2,
+      "budget_overrun_pct": -40,
+      "schedule_delay_months": -1,
+      "risk_points": -2
+    }
+  },
+  {
+    "decision_id": "testing",
+    "alternative": "tdd",
+    "delta": {
+      "performance_multiplier": 0.4,
+      "budget_overrun_pct": -30,
+      "schedule_delay_months": -2,
+      "risk_points": -2
+    }
+  },
+  {
+    "decision_id": "team",
+    "alternative": "team_of_10",
+    "delta": {
+      "performance_multiplier": 0.3,
+      "budget_overrun_pct": -20,
+      "schedule_delay_months": -1,
+      "risk_points": -1
+    }
+  },
+  {
+    "decision_id": "release",
+    "alternative": "canary_release",
+    "delta": {
+      "performance_multiplier": 0.1,
+      "budget_overrun_pct": -10,
+      "schedule_delay_months": -1,
+      "risk_points": -2
+    }
+  },
+  {
+    "decision_id": "ops",
+    "alternative": "scope_gate",
+    "delta": {
+      "performance_multiplier": 0.05,
+      "budget_overrun_pct": -35,
+      "schedule_delay_months": -1,
+      "risk_points": -1
+    }
+  },
+  {
+    "decision_id": "governance",
+    "alternative": "design_reviews",
+    "delta": {
+      "performance_multiplier": 0.15,
+      "budget_overrun_pct": -25,
+      "schedule_delay_months": -1,
+      "risk_points": -1
+    }
+  },
+  {
+    "decision_id": "staffing",
+    "alternative": "specialist_pod",
+    "delta": {
+      "performance_multiplier": 0.25,
+      "budget_overrun_pct": -15,
+      "schedule_delay_months": 0,
+      "risk_points": -1
+    }
+  }
+]

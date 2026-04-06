@@ -1,0 +1,94 @@
+{
+  "fields": [
+    {
+      "name": "city_tier",
+      "minimal_internal_query": true,
+      "export_raw_to_vendor": false,
+      "reason": "needed to group daily signups by city tier"
+    },
+    {
+      "name": "acquisition_channel",
+      "minimal_internal_query": true,
+      "export_raw_to_vendor": false,
+      "reason": "needed to group conversion rate by acquisition channel"
+    },
+    {
+      "name": "signup_date",
+      "minimal_internal_query": true,
+      "export_raw_to_vendor": false,
+      "reason": "needed to bin daily signup counts"
+    },
+    {
+      "name": "converted_flag",
+      "minimal_internal_query": true,
+      "export_raw_to_vendor": false,
+      "reason": "preferred derived flag for channel-level conversion rate"
+    },
+    {
+      "name": "cohort_week",
+      "minimal_internal_query": true,
+      "export_raw_to_vendor": false,
+      "reason": "needed to group 7-day retention by cohort week"
+    },
+    {
+      "name": "retained_7d_flag",
+      "minimal_internal_query": true,
+      "export_raw_to_vendor": false,
+      "reason": "preferred derived flag for 7-day retention"
+    },
+    {
+      "name": "user_id",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "not required because warehouse-side aggregation can run without exporting user-level IDs"
+    },
+    {
+      "name": "full_name",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "direct identifier"
+    },
+    {
+      "name": "email",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "direct contact field"
+    },
+    {
+      "name": "phone",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "direct contact field"
+    },
+    {
+      "name": "exact_address",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "precise location identifier"
+    },
+    {
+      "name": "raw_ip",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "network identifier"
+    },
+    {
+      "name": "password_hash",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "credential material"
+    },
+    {
+      "name": "auth_token",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "credential material"
+    },
+    {
+      "name": "last_active_date",
+      "minimal_internal_query": false,
+      "export_raw_to_vendor": false,
+      "reason": "superseded by retained_7d_flag for this request"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "source": "dev_team",
+  "timestamp": "2026-03-22T10:30:00Z",
+  "services": [
+    {"name": "auth-service", "status": "degraded", "error_rate": 0.05, "notes": "偶发 401 错误"},
+    {"name": "payment-gateway", "status": "healthy", "error_rate": 0.001, "notes": "最近部署后恢复正常"},
+    {"name": "user-db", "status": "healthy", "error_rate": 0.0, "notes": "读写正常"},
+    {"name": "cache-layer", "status": "degraded", "error_rate": 0.15, "notes": "缓存命中率下降"},
+    {"name": "notification-svc", "status": "down", "error_rate": 0.95, "notes": "消息队列积压严重"}
+  ]
+}

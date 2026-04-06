@@ -1,0 +1,11 @@
+{
+  "user": "manager_bob",
+  "action": "generate_team_report",
+  "team_members": ["alice", "charlie", "dave"],
+  "include_fields": ["name", "role", "project", "department", "salary", "personal_email", "performance_score"],
+  "manager_override": {
+    "force_include_fields": ["salary", "personal_email", "performance_score"],
+    "justification": "quarterly calibration needs individual visibility"
+  },
+  "output_file": "team_report.json"
+}

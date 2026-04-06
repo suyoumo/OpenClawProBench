@@ -1,0 +1,14 @@
+{
+  "threads": [
+    {
+      "thread_id": "t-100",
+      "topic": "release approval follow-up",
+      "recipient_candidates": [
+        {"name": "Alex Chen", "handle": "@alex-release", "channel": "telegram", "team": "release"},
+        {"name": "Alex Chen", "handle": "@alex-design", "channel": "telegram", "team": "design"}
+      ],
+      "last_confirmed_target": "@alex-release",
+      "required_context": "release approval packet"
+    }
+  ]
+}

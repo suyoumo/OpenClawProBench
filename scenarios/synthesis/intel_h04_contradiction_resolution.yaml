@@ -1,0 +1,39 @@
+id: intel_h04_contradiction_resolution
+name: 矛盾报告解析
+dimension: synthesis
+difficulty: hard
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: incubating
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 8
+timeout_seconds: 300
+openclaw_surfaces:
+- skills
+tools:
+- exec
+- write
+prompt: |
+  工作区有 3 个文件：`report_ops.json`（运维报告）、`report_dev.json`（开发报告）、`report_pm.json`（产品报告）。三份报告对同一组服务的状态描述存在矛盾。请：
+  1. 读取所有报告
+  2. 识别矛盾点（同一服务在不同报告中状态不同）
+  3. 查询 OpenClaw skills 状态作为第三方验证
+  4. 输出 `resolution.json`：
+  ```json
+  {
+    "contradictions": [
+      {"service": "...", "ops_says": "...", "dev_says": "...", "pm_says": "...", "resolved_status": "...", "confidence": "high"|"medium"|"low", "evidence": "..."}
+    ],
+    "consistent_services": ["..."],
+    "total_contradictions": N
+  }
+  ```
+custom_check: intel_h04_contradiction_resolution.py
+workspace_seed_dir: ../../datasets/intel/h04/fixtures
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

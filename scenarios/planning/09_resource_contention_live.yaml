@@ -1,0 +1,106 @@
+id: planning_09_resource_contention_live
+name: 资源竞争与死锁恢复排程
+execution_mode: live
+dimension: planning
+difficulty: expert
+benchmark_status: active
+signal_source: workspace_live
+benchmark_group: coverage
+benchmark_core: false
+weight: 2.0
+timeout_seconds: 960
+optimal_steps: 10
+pass_threshold: 0.7
+tags:
+- live
+- coverage
+- planning
+- resource-contention
+- deadlock
+- closed-world
+prompt: |
+  当前工作区根目录里已经放好了 5 份只读输入：
+  - `resource_pool.json`
+  - `contention_snapshot.json`
+  - `job_queue.json`
+  - `sla_targets.json`
+  - `scheduling_rules.yaml`
+
+  你需要为账务集群生成唯一正确的 contention recovery plan。
+
+  固定规则：
+  1. 先根据 `contention_snapshot.json` 识别 2 个 deadlock cycle，并按 `scheduling_rules.yaml.hard_rules.deadlock_break_policy` 选择要 checkpoint 的 task。
+  2. `allocation_policy` 必须严格使用 `scheduling_rules.yaml.allocation_policy_codes` 中定义的官方值，`resource_order` 也必须完全一致。
+  3. 执行计划只允许 2 个 wave，时间窗口和每个 wave 时长以 `resource_pool.json` 为准。
+  4. 每个 wave 中的 task 必须一次性拿到全部资源后才能启动，不允许 partial holds。
+  5. `job_queue.json` 中的 dependency 必须满足后，task 才能进入后续 wave。
+  6. 选择 wave 方案时，目标优先级严格按 `sla_targets.json.objective_priority` 执行。
+  7. `deferred_tasks[].reason_code` 必须严格使用 `scheduling_rules.yaml.defer_reason_codes` 中定义的官方 code。
+  8. `execution_waves[].tasks` 的顺序必须遵守 `scheduling_rules.yaml.hard_rules.output_task_order`。
+
+  强约束：
+  - 不要修改任何输入文件
+  - 只创建 `resource_contention_plan.json`
+  - 必须同时使用全部 5 份输入
+
+  输出要求：创建 `resource_contention_plan.json`，字段必须完整且值必须精确：
+  {
+    "deadlock_cycles": [
+      {"cycle_id": "...", "checkpoint_task_id": "...", "resolution_code": "..."}
+    ],
+    "allocation_policy": {
+      "allocation_mode": "...",
+      "admission_rule": "...",
+      "resource_order": ["...", "...", "...", "..."]
+    },
+    "execution_waves": [
+      {
+        "wave_id": "...",
+        "hours": [0, 0],
+        "tasks": ["...", "..."],
+        "resource_totals": {
+          "db_connections": 0,
+          "file_handles": 0,
+          "network_ports": 0,
+          "lock_units": 0
+        }
+      }
+    ],
+    "deferred_tasks": [
+      {"task_id": "...", "reason_code": "..."}
+    ],
+    "completion_summary": {
+      "completed_task_count": 0,
+      "must_finish_completed": ["...", "..."],
+      "total_business_value": 0,
+      "window_hours": 0
+    },
+    "evidence_refs": [
+      "resource_pool.json",
+      "contention_snapshot.json",
+      "job_queue.json",
+      "sla_targets.json",
+      "scheduling_rules.yaml"
+    ]
+  }
+
+  不要输出 markdown，不要添加任何多余字段。
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- read
+- read
+- read
+- write
+workspace_seed_dir: ../../datasets/planning_09_resource_contention/fixtures
+custom_check: planning_09_resource_contention_live_v2.py
+category: planning
+description: 基于 seeded 的 contention snapshot、资源池、任务队列和规则包，生成唯一正确的 deadlock recovery 与 wave scheduling 方案。
+objective: 正确断开 deadlock cycle、遵守全资源准入和依赖约束，并在固定窗口内给出唯一最优的 wave plan 与 deferred task。
+expected_outcome: A correct resource_contention_plan.json with the exact deadlock resolutions, allocation policy, execution waves, deferred task, completion summary, and evidence refs.

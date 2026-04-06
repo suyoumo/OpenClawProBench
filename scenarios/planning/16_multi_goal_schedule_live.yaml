@@ -1,0 +1,53 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: planning_16_multi_goal_schedule_live.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+expected_outcome: "multi_goal_schedule.json exists with the exact selected plan, rejected alternatives, and objective rationale.\n"
+id: planning_16_multi_goal_schedule_live
+name: 多目标调度规划
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `work_items.json`
+  - `resource_limits.json`
+  - `business_objectives.md`
+  - `planning_contract.json`
+
+  你需要制定唯一正确的多目标调度方案。不要联网，不要修改输入文件。
+
+  只创建 `multi_goal_schedule.json`，字段必须完整：
+  {
+    "selected_plan": ["...", "...", "..."],
+    "rejected_plans": [
+      {"plan": "...", "reason": "..."}
+    ],
+    "resource_allocation": [
+      {"window": "...", "task": "..."}
+    ],
+    "governing_objective": "...",
+    "rationale": ["...", "...", "..."],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 需要先满足最高优先级业务目标，再在资源限制内优化次级目标
+  - `selected_plan` 必须是唯一最优方案
+  - `rejected_plans` 必须覆盖所有其他候选方案，按 plan 字母序
+  - `rationale` 必须正好 3 条，并覆盖 objective priority、resource fit、tradeoff
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/planning_16_multi_goal_schedule/fixtures
+tags:
+- planning
+- multi-objective
+- scheduling
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

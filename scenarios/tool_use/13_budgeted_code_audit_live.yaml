@@ -1,0 +1,46 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_13_budgeted_code_audit_live.py
+difficulty: expert
+dimension: tool_use
+execution_mode: live
+expected_outcome: "audit_report.json exists with the correct confirmed findings, rejected suspects, and budget-aware inspection plan.\n"
+id: tool_use_13_budgeted_code_audit_live
+name: 预算受限代码审计
+optimal_steps: 20
+pass_threshold: 0.6
+prompt: |
+  当前工作区中有 `audit_brief.md`、`suspects.txt` 和 `src/` 目录。
+
+  你需要在严格读文件预算下确认“哪些才是真实安全问题”，不要联网。
+
+  输出要求：
+  创建 `audit_report.json`，字段必须完整：
+  {
+    "inspection_plan": ["...", "...", "...", "..."],
+    "confirmed_findings": [
+      {"path": "...", "issue": "..."}
+    ],
+    "rejected_suspects": ["...", "..."],
+    "read_budget_used": 0,
+    "notes": ["...", "..."]
+  }
+
+  要求：
+  - 只把“硬编码 live key”或“将 bearer/auth token 写入日志”视为真实问题
+  - `confirmed_findings` 必须只包含真实问题
+  - `rejected_suspects` 必须只包含被误报的可疑文件
+  - `read_budget_used` 不能超过 `5`
+  - `inspection_plan` 必须体现预算约束
+workspace_seed_dir: ../../datasets/frontier/tool_use_13_budgeted_code_audit_live/fixtures
+tags:
+- tool_use
+- workspace
+- audit
+- budget
+- expert
+- closed-world
+timeout_seconds: 600
+weight: 2.0

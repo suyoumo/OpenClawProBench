@@ -1,0 +1,42 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: planning_18_session_memory_release_handoff_live.py
+difficulty: hard
+dimension: planning
+execution_mode: live
+id: planning_18_session_memory_release_handoff_live
+name: 跨会话记忆回填发布交接
+optimal_steps: 8
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 3 份只读输入：
+  - `blockers.json`
+  - `prior_session_summary.md`
+  - `current_request.md`
+
+  你需要创建 `handoff.md`，必须且只能包含以下 3 个 section：
+
+  ## Critical
+
+  ## Owners
+
+  ## Next Step
+
+  规则：
+  - 只列出 status 不是 done 且 severity 为 P0 或 P1 的 blocker
+  - 如果 prior_session_summary.md 里已经确认了 owner，就直接沿用，不要重新写成 Unassigned
+  - 不要把低优先级 blocker 写进去
+  - Next Step 必须指出最先需要处理的 blocker，且不要要求重新确认已知 owner
+expected_outcome: "handoff.md exists and correctly uses prior session memory to fill the known owner while preserving the required handoff structure."
+tags:
+- planning
+- memory
+- sessions
+- hard
+- release-handoff
+- closed-world
+timeout_seconds: 600
+weight: 2.0
+workspace_seed_dir: ../../datasets/planning_18_session_memory_release_handoff/fixtures

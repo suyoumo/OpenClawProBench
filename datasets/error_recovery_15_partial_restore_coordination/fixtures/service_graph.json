@@ -1,0 +1,21 @@
+{
+  "services": [
+    "config-service",
+    "status-api",
+    "checkout-api",
+    "payment-adapter",
+    "receipt-worker"
+  ],
+  "deps": {
+    "status-api": [
+      "config-service"
+    ],
+    "checkout-api": [
+      "config-service",
+      "payment-adapter"
+    ],
+    "receipt-worker": [
+      "checkout-api"
+    ]
+  }
+}

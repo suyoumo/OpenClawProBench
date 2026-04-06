@@ -1,0 +1,22 @@
+[
+  {"order_id": "ORD001", "category": "Electronics", "product": "Laptop Pro", "quantity": 2, "unit_price": 1200.00, "order_date": "2026-03-01"},
+  {"order_id": "ORD002", "category": "Clothing", "product": "Winter Jacket", "quantity": 1, "unit_price": 150.00, "order_date": "2026-03-02"},
+  {"order_id": "ORD003", "category": "Electronics", "product": "Wireless Mouse", "quantity": 5, "unit_price": 45.00, "order_date": "2026-03-02"},
+  {"order_id": "ORD004", "category": "Home", "product": "Table Lamp", "quantity": 3, "unit_price": 35.00, "order_date": "2026-03-03"},
+  {"order_id": "ORD005", "category": "Electronics", "product": "Keyboard", "quantity": 4, "unit_price": 80.00, "order_date": "2026-03-03"},
+  {"order_id": "ORD006", "category": "Clothing", "product": "T-Shirt", "quantity": 10, "unit_price": 25.00, "order_date": "2026-03-04"},
+  {"order_id": "ORD007", "category": "Electronics", "product": "Monitor 27\"", "quantity": 2, "unit_price": 350.00, "order_date": "2026-03-04"},
+  {"order_id": "ORD008", "category": "Home", "product": "Coffee Maker", "quantity": 1, "unit_price": 120.00, "order_date": "2026-03-05"},
+  {"order_id": "ORD009", "category": "Electronics", "product": "USB Hub", "quantity": 8, "unit_price": 30.00, "order_date": "2026-03-05"},
+  {"order_id": "ORD010", "category": "Clothing", "product": "Jeans", "quantity": 3, "unit_price": 75.00, "order_date": "2026-03-06"},
+  {"order_id": "ORD011", "category": "Home", "product": "Desk Chair", "quantity": 1, "unit_price": 250.00, "order_date": "2026-03-06"},
+  {"order_id": "ORD012", "category": "Electronics", "product": "Webcam", "quantity": 6, "unit_price": 60.00, "order_date": "2026-03-07"},
+  {"order_id": "ORD013", "category": "Books", "product": "Python Programming", "quantity": 5, "unit_price": 40.00, "order_date": "2026-03-07"},
+  {"order_id": "ORD014", "category": "Electronics", "product": "Power Bank", "quantity": 10, "unit_price": 50.00, "order_date": "2026-03-08"},
+  {"order_id": "ORD015", "category": "Home", "product": "Vacuum Cleaner", "quantity": 2, "unit_price": 180.00, "order_date": "2026-03-08"},
+  {"order_id": "ORD016", "category": "Clothing", "product": "Sneakers", "quantity": 2, "unit_price": 95.00, "order_date": "2026-03-09"},
+  {"order_id": "ORD017", "category": "Books", "product": "Data Science Handbook", "quantity": 3, "unit_price": 55.00, "order_date": "2026-03-09"},
+  {"order_id": "ORD018", "category": "Electronics", "product": "Tablet", "quantity": 1, "unit_price": 450.00, "order_date": "2026-03-10"},
+  {"order_id": "ORD019", "category": "Home", "product": "Blender", "quantity": 4, "unit_price": 75.00, "order_date": "2026-03-10"},
+  {"order_id": "ORD020", "category": "Clothing", "product": "Scarf", "quantity": 6, "unit_price": 35.00, "order_date": "2026-03-11"}
+]

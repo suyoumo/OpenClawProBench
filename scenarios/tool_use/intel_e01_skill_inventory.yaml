@@ -1,0 +1,40 @@
+id: intel_e01_skill_inventory
+name: 技能清单快照
+dimension: tool_use
+difficulty: easy
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 4
+timeout_seconds: 600
+openclaw_surfaces:
+- skills
+tools:
+- exec
+- write
+prompt: |
+  使用 `openclaw skills list --json` 查询本机 OpenClaw skills 状态，并以该 CLI 输出作为唯一事实来源。
+  不要通过扫描目录、猜测安装路径或复用上下文里的技能列表来推断结果。
+
+  规则：
+  - 将 CLI 输出里 `eligible=true` 的 skill 记入 `ready_list`
+  - 将 CLI 输出里 `eligible=false` 的 skill 记入 `missing_list`
+  - `ready_list` 和 `missing_list` 都按字母序排列
+
+  创建 `skill_report.json`，包含：
+  {
+    "total_skills": N,
+    "ready_count": N,
+    "missing_count": N,
+    "ready_list": ["..."],
+    "missing_list": ["..."]
+  }
+custom_check: intel_e01_skill_inventory.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

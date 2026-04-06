@@ -1,0 +1,7 @@
+{
+  "max_parallel": 3,
+  "budget_hours": 40,
+  "deadline": "2026-04-01",
+  "blocked_assignees": ["charlie"],
+  "priority_categories": ["security", "compliance"]
+}

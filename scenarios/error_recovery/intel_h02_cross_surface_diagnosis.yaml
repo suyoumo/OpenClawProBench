@@ -1,0 +1,45 @@
+id: intel_h02_cross_surface_diagnosis
+name: 跨 Surface 诊断
+dimension: error_recovery
+difficulty: hard
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 10
+timeout_seconds: 600
+openclaw_surfaces:
+- skills
+- memory
+- browser
+- cron
+- directory
+tools:
+- exec
+- write
+prompt: |
+  请对本机 OpenClaw 进行全面诊断。依次检查以下 5 个 surfaces：skills、memory、browser、cron、directory。对每个 surface 执行对应的 CLI 命令，判断状态。然后分析：如果多个 surface 同时不可用，判断是否可能是 gateway 问题（如果 3+ 个 surface 都报 gateway 相关错误）。创建 `diagnosis.json`：
+  ```json
+  {
+    "surfaces": {
+      "skills": {"status": "ready"|"error", "detail": "..."},
+      "memory": {"status": "...", "detail": "...", "failure_mode": "..."},
+      "browser": {"status": "...", "detail": "..."},
+      "cron": {"status": "...", "detail": "..."},
+      "directory": {"status": "...", "detail": "..."}
+    },
+    "available_count": N,
+    "total_count": 5,
+    "gateway_issue_suspected": true|false,
+    "gateway_target": "..."|null,
+    "root_cause_hypothesis": "..."
+  }
+  ```
+custom_check: intel_h02_cross_surface_diagnosis.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

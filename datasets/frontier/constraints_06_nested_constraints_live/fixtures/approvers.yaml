@@ -1,0 +1,35 @@
+approvers:
+  tech_lead:
+    - name: "Alice Chen"
+      email: "alice.chen@company.com"
+      status: "approved"
+      approval_time: "2026-03-21T10:30:00Z"
+    
+    - name: "Bob Wang"
+      email: "bob.wang@company.com"
+      status: "pending"
+      approval_time: null
+  
+  product_manager:
+    - name: "Carol Liu"
+      email: "carol.liu@company.com"
+      status: "approved"
+      approval_time: "2026-03-21T11:15:00Z"
+  
+  security_officer:
+    - name: "David Zhang"
+      email: "david.zhang@company.com"
+      status: "approved"
+      approval_time: "2026-03-21T14:00:00Z"
+  
+  cto:
+    - name: "Eve Wu"
+      email: "eve.wu@company.com"
+      status: "pending"
+      approval_time: null
+
+approval_status:
+  request_id: "REL-2026-03-21-001"
+  current_approvers: 3
+  required_approvers: 3
+  deadline: "2026-03-24T14:00:00Z"

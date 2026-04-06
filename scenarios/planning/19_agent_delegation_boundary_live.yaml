@@ -1,0 +1,20 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: planning_19_agent_delegation_boundary_live.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+id: planning_19_agent_delegation_boundary_live
+name: Agent 委派边界判断
+openclaw_surfaces:
+- agents
+- message
+optimal_steps: 9
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `delegation_request.json`
+
+  你需要判断这个任务是否适合委派、应委派给哪个 agent、以及必须保留哪些本地上下文，创建 `delegation_plan.json`。

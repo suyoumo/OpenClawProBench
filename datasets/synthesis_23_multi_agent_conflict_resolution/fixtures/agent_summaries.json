@@ -1,0 +1,28 @@
+{
+  "agent_results": [
+    {
+      "agent": "agent_alpha",
+      "proposal_id": "alpha-plan",
+      "recommended_owner": "platform-oncall",
+      "estimated_minutes": 25,
+      "rollback_required": false,
+      "confidence": 0.64,
+      "claims": [
+        "service is healthy enough to continue rollout",
+        "no rollback is required"
+      ]
+    },
+    {
+      "agent": "agent_beta",
+      "proposal_id": "beta-plan",
+      "recommended_owner": "release-manager",
+      "estimated_minutes": 40,
+      "rollback_required": true,
+      "confidence": 0.72,
+      "claims": [
+        "error budget breach blocks rollout",
+        "rollback is required before next step"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+hard_rules:
+  partial_holds_allowed: false
+  acquire_all_resources_before_start: true
+  resource_order:
+    - db_connections
+    - file_handles
+    - network_ports
+    - lock_units
+  wave_ids:
+    - wave_1
+    - wave_2
+  output_task_order: priority_then_business_value_desc_then_task_id
+  deadlock_break_policy:
+    - if_all_tasks_checkpointable_checkpoint_lower_priority_then_lower_value
+    - if_any_task_non_checkpointable_checkpoint_checkpointable_peer
+allocation_policy_codes:
+  allocation_mode: full_batch_wave_launch
+  admission_rule: launch_only_when_all_selected_tasks_fit
+recovery_action_codes:
+  db_file_cycle: checkpoint_legacy_fee_reconcile
+  port_lock_cycle: checkpoint_legacy_lock_reindex
+defer_reason_codes:
+  lock_reindex: lower_value_than_other_feasible_wave_2_tasks

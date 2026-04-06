@@ -1,0 +1,41 @@
+id: intel_h01_skill_gap_remediation
+name: 技能缺口修复分析
+dimension: tool_use
+difficulty: hard
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 3
+timeout_seconds: 900
+openclaw_surfaces:
+- skills
+tools:
+- exec
+- write
+prompt: |
+  只使用本机 `openclaw skills list --json` 返回的 inventory 作为事实来源，分析当前不可用的 OpenClaw skills。命令输出里可能夹带 plugin log；请从输出中提取 JSON payload，不要去扫描 skill 目录、不要读取单个 `SKILL.md`、不要生成额外摘要文件。创建 `gap_analysis.json`：
+  ```json
+  {
+    "total_missing": N,
+    "by_family": {"bins": N, "env": N, "config": N, ...},
+    "most_common_family": "...",
+    "skills_missing_bins": ["skill1", "skill2", ...],
+    "skills_missing_env": ["skill1", ...],
+    "remediation_priority": [
+      {"family": "...", "count": N, "affected_skills": ["..."], "fix_suggestion": "..."}
+    ]
+  }
+  ```
+  规则：
+  - `by_family` 统计的是每个 family 下 `missing[family]` 非空的 skill 数；同一个 skill 可以同时计入多个 family。
+  - `skills_missing_bins` 和 `skills_missing_env` 都是“该 family 非空”的 skill 名单，按字母序排序。
+  remediation_priority 按 count 降序排列。fix_suggestion 应该是合理的修复建议（如安装缺失的二进制、设置环境变量等）。
+custom_check: intel_h01_skill_gap_remediation.py
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

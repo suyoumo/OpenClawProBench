@@ -1,0 +1,21 @@
+release_policy:
+  timezone: UTC
+  allowed_weekdays:
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+  business_hours_utc:
+    start_hour: 9
+    end_hour_exclusive: 18
+  minimum_test_coverage: 0.90
+  maximum_open_bugs: 0
+
+risk_policy:
+  impact_multipliers:
+    minor: 1
+    moderate: 1
+    major: 2
+    critical: 3
+  medium_max: 4

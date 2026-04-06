@@ -1,0 +1,10 @@
+{
+  "probes": [
+    "check_cached_manifest",
+    "read_local_status_page",
+    "probe_single_health_endpoint",
+    "full_cluster_scan",
+    "dump_all_env",
+    "remote_packet_capture"
+  ]
+}

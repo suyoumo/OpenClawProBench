@@ -1,0 +1,15 @@
+{
+  "required_fields": [
+    "winning_proposal_id",
+    "selected_agent",
+    "final_owner",
+    "rollback_required",
+    "invalidated_proposals",
+    "decision_reason",
+    "evidence_refs"
+  ],
+  "invalidated_proposal_shape": {
+    "proposal_id": "string",
+    "reason": "string"
+  }
+}

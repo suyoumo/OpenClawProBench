@@ -1,0 +1,147 @@
+id: oib5_t27_cross_project_synthesis_live
+name: 跨项目信息综合 — 架构决策（闭环版）
+execution_mode: live
+dimension: synthesis
+difficulty: hard
+weight: 1.5
+timeout_seconds: 300
+optimal_steps: 10
+pass_threshold: 0.72
+tags:
+- oib5
+- live
+- synthesis
+- cross-project
+- architecture
+- decision-making
+- benchmark-intelligence
+- benchmark-core
+- closed-world
+- json
+prompt: |
+  你需要为一个新的金融交易系统选择数据库方案。当前工作区里已经放好了 3 个历史项目的只读资料：
+
+  - `project_alpha/README.md`
+  - `project_alpha/performance_report.md`
+  - `project_beta/README.md`
+  - `project_beta/issues.md`
+  - `project_gamma/README.md`
+  - `project_gamma/migration_lessons.md`
+
+  新系统约束：
+  - 高并发
+  - 强一致性
+  - 金融交易核心链路
+
+  任务：
+  读取全部 6 份资料，综合三个项目的真实经验，输出一个机器可校验的数据库决策结论。不要联网，不要修改任何输入文件。
+
+  只创建 `database_recommendation.json`，字段必须完整并使用下面的规范化结论：
+  {
+    "recommended_database": "PostgreSQL",
+    "recommended_version": "14.2",
+    "primary_rationale": "postgresql_best_matches_financial_acid_workload_with_proven_transaction_performance",
+    "project_findings": {
+      "project_alpha": {
+        "database": "PostgreSQL 14.2",
+        "peak_tps": 12500,
+        "pooled_stable_tps": 8000,
+        "direct_connection_limit": 500
+      },
+      "project_beta": {
+        "database": "MongoDB 6.0",
+        "inconsistent_records": 3420,
+        "transaction_latency_penalty": "3-5x",
+        "decision": "reject_for_financial_core"
+      },
+      "project_gamma": {
+        "database": "MySQL 8.0",
+        "concurrent_sessions": 200000,
+        "write_contention_threshold": 6000,
+        "decision": "secondary_option_not_primary"
+      }
+    },
+    "risks": [
+      {
+        "risk": "connection_pooling_required",
+        "mitigation": "pgbouncer_and_limit_direct_connections_to_500"
+      },
+      {
+        "risk": "large_table_maintenance",
+        "mitigation": "partition_large_tables_early_and_monitor_vacuum"
+      },
+      {
+        "risk": "future_write_scale_beyond_single_node",
+        "mitigation": "vertical_scale_first_then_plan_sharding"
+      }
+    ],
+    "performance_expectation": {
+      "steady_state_tps": 4800,
+      "pooled_peak_tps": 8000,
+      "p99_latency_ms": 50
+    },
+    "rejected_options": [
+      {
+        "database": "MongoDB 6.0",
+        "reason": "network_partition_inconsistency_and_3_to_5x_transaction_latency_penalty"
+      },
+      {
+        "database": "MySQL 8.0",
+        "reason": "row_level_lock_contention_above_6000_concurrent_writes"
+      }
+    ],
+    "evidence_refs": [
+      "project_alpha/README.md",
+      "project_alpha/performance_report.md",
+      "project_beta/README.md",
+      "project_beta/issues.md",
+      "project_gamma/README.md",
+      "project_gamma/migration_lessons.md"
+    ]
+  }
+
+  强约束：
+  - 必须同时使用三个项目的资料，不能只看单一项目
+  - `evidence_refs` 必须覆盖全部 6 份输入文件
+  - `rejected_options` 必须正好 2 项
+  - 不要输出任何额外文本
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- read
+- read
+- read
+- read
+- write
+custom_check: oib5/t27_cross_project_synthesis_live_v2.py
+workspace_seed_dir: ../../datasets/oib5/t27_cross_project_synthesis_live/fixtures
+category: synthesis
+description: 读取三个项目的 6 份历史资料，输出一个结构化、可核验的金融数据库选型结论。
+objective: 基于跨项目性能、事故、迁移经验与并发限制，做出强一致性金融场景下的数据库推荐，并给出明确排除理由、风险和性能预期。
+prerequisites:
+- Execution workspace is available.
+- Six project reference files are present.
+- Model can inspect workspace files and write one JSON result.
+steps:
+- Read all six project documents.
+- Extract the exact performance, incident, and concurrency facts required for the decision.
+- Compare PostgreSQL, MongoDB, and MySQL against the financial consistency requirements.
+- Write the exact structured decision JSON.
+expected_outcome: A fully correct `database_recommendation.json` grounded in all six seeded project documents.
+scoring_criteria:
+- All six seeded inputs are read and remain unchanged.
+- Project findings are extracted exactly from the correct source documents.
+- Recommendation and rejection reasons are grounded in the seeded evidence.
+- Risks and mitigations are concrete and operationally plausible.
+- Performance expectation is derived from the project data instead of generic claims.
+time_limit: 300
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: true

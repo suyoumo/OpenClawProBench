@@ -1,0 +1,92 @@
+id: constraints_08_temporal_constraints_live
+name: 时序约束调度
+execution_mode: live
+dimension: constraints
+difficulty: hard
+benchmark_status: active
+signal_source: workspace_live
+benchmark_group: coverage
+benchmark_core: false
+weight: 1.5
+timeout_seconds: 1440
+optimal_steps: 10
+pass_threshold: 0.7
+tags:
+- live
+- coverage
+- constraints
+- scheduling
+- closed-world
+- temporal
+prompt: |
+  当前工作区根目录里已经放好了 2 份只读输入：
+  - `transactions.json` - 8 笔交易及其 arrival、VIP、金额、依赖关系
+  - `policy.json` - 调度硬约束和 tie-breaker 规则
+
+  你需要为一个单线程撮合器生成最终执行顺序。
+
+  固定规则：
+  1. 每个时间槽只能启动 1 笔交易，每笔交易执行耗时固定为 1 秒。
+  2. 交易只有在以下条件全部满足时才算 eligible：
+     - 已经到达
+     - 依赖交易已完成
+     - 同一用户的上一笔交易已经完成
+     - 如果同一用户上一笔交易与当前交易方向相反，则两者开始时间至少间隔 `same_user_opposite_side_gap_seconds`
+  3. `vip=true` 的交易必须在 `vip_start_within_seconds` 内启动。
+  4. 当同一时间槽同时存在 eligible 的大额和小额交易时，必须先排大额交易。
+  5. 如果发现依赖环，环中的交易必须全部拒绝，原因写 `dependency_cycle`。
+  6. 其余 eligible 交易按 `policy.json.tie_breakers` 依次打破平局。
+
+  强约束：
+  - 不要修改任何输入文件
+  - 只创建 `execution_schedule.json`
+  - 必须同时使用 `transactions.json` 和 `policy.json`
+
+  输出要求：创建 `execution_schedule.json`，字段必须完整且值必须精确：
+  {
+    "scheduled_order": [
+      {"slot": 0, "transaction_id": "..."}
+    ],
+    "rejected_transactions": [
+      {"transaction_id": "...", "reason": "..."}
+    ],
+    "total_completion_seconds": 0,
+    "resolution_notes": [
+      "tx103_before_tx100_due_large_before_small_rule",
+      "tx102_waited_until_slot_2_due_same_user_order_and_side_gap_after_tx101",
+      "tx105_took_slot_3_due_earliest_latest_start",
+      "tx104_before_tx106_due_dependency",
+      "tx107_and_tx108_rejected_due_dependency_cycle"
+    ],
+    "evidence_refs": [
+      "transactions.json:tx101",
+      "transactions.json:tx102",
+      "transactions.json:tx104",
+      "transactions.json:tx105",
+      "transactions.json:tx106",
+      "transactions.json:tx107",
+      "transactions.json:tx108",
+      "policy.json:hard_rules"
+    ]
+  }
+
+  额外要求：
+  - `scheduled_order` 必须只包含被接受的交易，且每个 slot 从 0 开始连续编号
+  - `rejected_transactions` 只包含无法调度的交易
+  - 不要输出 markdown，不要添加任何多余字段
+tools:
+- read
+- write
+expected_tools:
+- read
+- write
+ideal_tool_sequence:
+- read
+- read
+- write
+workspace_seed_dir: ../../datasets/constraints_08_temporal_constraints/fixtures
+custom_check: constraints_08_temporal_constraints_live.py
+category: constraints
+description: 基于 seeded 交易和调度策略，精确求解时序约束下的执行顺序与拒绝列表。
+objective: 正确应用 arrival、VIP、同用户顺序、反向交易间隔、大额优先、依赖和依赖环规则，生成唯一正确的调度结果。
+expected_outcome: A correct execution_schedule.json with the exact accepted order, rejected cycle items, completion time, and grounded conflict notes.

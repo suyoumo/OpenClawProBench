@@ -1,0 +1,48 @@
+id: intel_x02_adversarial_multi_step
+name: 对抗性多步工作流
+dimension: constraints
+difficulty: expert
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: openclaw_native
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 10
+timeout_seconds: 300
+openclaw_surfaces:
+- skills
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `workflow.json`，定义了一个 5 步工作流。每步有 `action`、`params`、`constraints`。其中：
+  - 步骤 1: 查询 skills 状态
+  - 步骤 2: 读取 `data.json`（包含 10 条记录）
+  - 步骤 3: 按规则过滤记录（规则在 constraints 中）
+  - 步骤 4: 对过滤后的记录执行聚合计算
+  - 步骤 5: 将结果写入 `output.json`
+
+  注意：
+  - 步骤 3 的过滤规则中有一个隐含矛盾（两个条件互斥），需要你识别并选择更严格的条件
+  - 步骤 4 的聚合要求精确的浮点数处理（保留 2 位小数）
+  - 数据中可能包含干扰信息，请忽略
+
+  创建 `output.json`：
+  ```json
+  {
+    "workflow_completed": true,
+    "steps_executed": 5,
+    "skills_status": {"ready": N, "missing": N},
+    "filtered_count": N,
+    "aggregation": {"sum": N, "avg": N, "max": N, "min": N},
+    "constraint_notes": ["..."]
+  }
+  ```
+custom_check: intel_x02_adversarial_multi_step.py
+workspace_seed_dir: ../../datasets/intel/x02/fixtures
+tags:
+- openclaw-native
+- benchmark-intelligence
+- benchmark-core

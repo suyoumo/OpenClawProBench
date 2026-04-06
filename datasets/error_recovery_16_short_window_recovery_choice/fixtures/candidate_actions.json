@@ -1,0 +1,24 @@
+{
+  "actions": [
+    {
+      "name": "rollback_last_config_and_replay_safe_queue",
+      "minutes": 12,
+      "data_risk": "low"
+    },
+    {
+      "name": "full_rebuild",
+      "minutes": 35,
+      "data_risk": "low"
+    },
+    {
+      "name": "manual_row_repair",
+      "minutes": 10,
+      "data_risk": "high"
+    },
+    {
+      "name": "traffic_drain_then_investigate",
+      "minutes": 20,
+      "data_risk": "medium"
+    }
+  ]
+}

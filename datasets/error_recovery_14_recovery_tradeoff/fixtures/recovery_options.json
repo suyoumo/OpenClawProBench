@@ -1,0 +1,32 @@
+{
+  "options": [
+    {
+      "name": "checkpoint_restore_with_verified_replay",
+      "recovery_minutes": 18,
+      "data_risk": "low",
+      "priority_customer_window_ok": true,
+      "verification_cost": "medium"
+    },
+    {
+      "name": "full_restore_from_09_00",
+      "recovery_minutes": 40,
+      "data_risk": "high",
+      "priority_customer_window_ok": false,
+      "verification_cost": "low"
+    },
+    {
+      "name": "hot_patch_in_place",
+      "recovery_minutes": 8,
+      "data_risk": "high",
+      "priority_customer_window_ok": true,
+      "verification_cost": "high"
+    },
+    {
+      "name": "traffic_shift_then_restore",
+      "recovery_minutes": 22,
+      "data_risk": "medium",
+      "priority_customer_window_ok": false,
+      "verification_cost": "medium"
+    }
+  ]
+}

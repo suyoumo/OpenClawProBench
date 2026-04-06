@@ -1,0 +1,4 @@
+2026-03-21T14:20:10Z WARN source=order-service order_id=ORD-10017 duplicate_reservation_attempt=true msg="duplicate reservation request enqueued"
+2026-03-21T14:20:14Z WARN queue_depth=180 threshold=200 msg="reservation queue approaching limit"
+2026-03-21T14:20:18Z ERROR queue_depth=240 threshold=200 status=503 msg="reservation queue overflow; shedding load"
+2026-03-21T14:20:20Z WARN auto_recovery=false msg="waiting for upstream retry storm to stop before draining queue"

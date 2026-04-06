@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: openclaw_native
+custom_check: tool_use_15_openclaw_directory_probe_live.py
+difficulty: medium
+dimension: tool_use
+execution_mode: live
+expected_outcome: "directory_probe.json exists and reflects the current live OpenClaw directory ambiguity and per-channel peer probe results.\n"
+id: tool_use_15_openclaw_directory_probe_live
+name: OpenClaw Directory Ambiguity Probe
+openclaw_surfaces:
+- directory
+optimal_steps: 8
+pass_threshold: 0.6
+prompt: |
+  直接检查当前这台机器上的 OpenClaw directory 状态，不要猜。
+
+  先运行 `openclaw directory self --json`。
+  如果它要求显式指定 channel，就根据它列出的 channel 再继续探测：
+  `openclaw directory peers list --channel <name> --limit 3 --json`
+
+  最终创建 `directory_probe.json`，字段必须完整：
+  {
+    "ambiguous_self_lookup": true,
+    "channels_requiring_explicit_selection": ["..."],
+    "peer_counts": {
+      "channel_name": 0
+    },
+    "non_empty_channels": ["..."],
+    "first_non_empty_channel": "..."
+  }
+
+  要求：
+  - `channels_requiring_explicit_selection` 按字母序排序
+  - `non_empty_channels` 按字母序排序
+  - 如果没有 non-empty channel，`first_non_empty_channel` 写空字符串
+  - 不要输出额外字段
+tags:
+- tool_use
+- openclaw-native
+- openclaw-directory
+- ambiguity
+- medium
+timeout_seconds: 300
+tools:
+- exec
+- write
+weight: 1.0

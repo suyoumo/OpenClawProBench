@@ -1,0 +1,94 @@
+{
+  "transactions": [
+    {
+      "id": "tx100",
+      "user_id": "user-a",
+      "type": "sell",
+      "amount": 4000,
+      "arrival_second": 0,
+      "max_start_delay_seconds": 8,
+      "vip": false,
+      "dependency_ids": []
+    },
+    {
+      "id": "tx101",
+      "user_id": "vip-01",
+      "type": "buy",
+      "amount": 15000,
+      "arrival_second": 0,
+      "max_start_delay_seconds": 5,
+      "vip": true,
+      "dependency_ids": []
+    },
+    {
+      "id": "tx102",
+      "user_id": "vip-01",
+      "type": "sell",
+      "amount": 2000,
+      "arrival_second": 1,
+      "max_start_delay_seconds": 5,
+      "vip": true,
+      "dependency_ids": []
+    },
+    {
+      "id": "tx103",
+      "user_id": "user-b",
+      "type": "buy",
+      "amount": 12000,
+      "arrival_second": 1,
+      "max_start_delay_seconds": 6,
+      "vip": false,
+      "dependency_ids": []
+    },
+    {
+      "id": "tx104",
+      "user_id": "user-c",
+      "type": "sell",
+      "amount": 9000,
+      "arrival_second": 2,
+      "max_start_delay_seconds": 4,
+      "vip": false,
+      "dependency_ids": []
+    },
+    {
+      "id": "tx105",
+      "user_id": "user-d",
+      "type": "buy",
+      "amount": 3000,
+      "arrival_second": 2,
+      "max_start_delay_seconds": 1,
+      "vip": false,
+      "dependency_ids": []
+    },
+    {
+      "id": "tx106",
+      "user_id": "user-e",
+      "type": "sell",
+      "amount": 18000,
+      "arrival_second": 3,
+      "max_start_delay_seconds": 6,
+      "vip": false,
+      "dependency_ids": ["tx104"]
+    },
+    {
+      "id": "tx107",
+      "user_id": "user-f",
+      "type": "buy",
+      "amount": 13000,
+      "arrival_second": 1,
+      "max_start_delay_seconds": 5,
+      "vip": false,
+      "dependency_ids": ["tx108"]
+    },
+    {
+      "id": "tx108",
+      "user_id": "user-g",
+      "type": "sell",
+      "amount": 11000,
+      "arrival_second": 1,
+      "max_start_delay_seconds": 5,
+      "vip": false,
+      "dependency_ids": ["tx107"]
+    }
+  ]
+}

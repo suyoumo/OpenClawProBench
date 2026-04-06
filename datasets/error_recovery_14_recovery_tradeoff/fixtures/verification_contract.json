@@ -1,0 +1,7 @@
+{
+  "required_checks": [
+    "order_integrity",
+    "priority_customer_checkout_path",
+    "tax_calculation_contract"
+  ]
+}

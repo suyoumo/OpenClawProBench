@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_16_short_window_recovery_choice_live.py
+difficulty: hard
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "short_window_recovery.json exists with the correct short-window recovery decision, rejected options, and verification steps.\n"
+id: error_recovery_16_short_window_recovery_choice_live
+name: 短窗口恢复选择
+optimal_steps: 14
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `incident_snapshot.json`
+  - `candidate_actions.json`
+  - `sla_constraints.md`
+  - `validation_rules.json`
+
+  你需要在很短恢复窗口内做出唯一正确的恢复选择。不要联网，不要修改输入文件。
+
+  只创建 `short_window_recovery.json`，字段必须完整：
+  {
+    "selected_action": "...",
+    "rejected_actions": [
+      {"action": "...", "reason": "..."}
+    ],
+    "verification_steps": ["...", "...", "..."],
+    "governing_constraint": "...",
+    "expected_restore_minutes": 0,
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 必须在 SLA 窗口内恢复关键路径，且不能选择会扩大数据风险的动作
+  - `rejected_actions` 必须覆盖所有未选动作，按 action 字母序
+  - `verification_steps` 必须正好 3 条
+  - `expected_restore_minutes` 必须精确
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/error_recovery_16_short_window_recovery_choice/fixtures
+tags:
+- error_recovery
+- short-window
+- sla
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

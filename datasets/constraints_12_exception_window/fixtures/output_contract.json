@@ -1,0 +1,33 @@
+{
+  "required_top_level_keys": [
+    "slot_plan",
+    "deferred_tasks",
+    "total_value",
+    "triggered_rules",
+    "notes"
+  ],
+  "slot_plan_contract": {
+    "required_hours": [9, 10, 11, 12],
+    "required_fields": ["hour", "task", "value_at_execution"]
+  },
+  "deferred_tasks_contract": {
+    "must_be_sorted": true
+  },
+  "triggered_rule_requirements": {
+    "min_items": 3,
+    "required_keyword_groups": [
+      ["signoff", "api_hotfix"],
+      ["freeze", "external"],
+      ["cache_rewarm", "api_hotfix"],
+      ["before 11", "db_reindex", "fraud_rule_update"]
+    ]
+  },
+  "notes_requirements": {
+    "min_items": 2,
+    "required_keyword_groups": [
+      ["fraud_rule_update", "defer", "db_reindex"],
+      ["promo_copy_fix", "freeze"],
+      ["api_hotfix", "cache_rewarm", "value"]
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+window,start,end,dba_oncall,notes
+blackout,2026-04-17T18:00:00Z,2026-04-17T23:59:00Z,false,Friday production freeze
+candidate,2026-04-18T10:00:00Z,2026-04-18T11:00:00Z,false,Weekend maintenance staff only
+candidate,2026-04-20T09:00:00Z,2026-04-20T11:00:00Z,true,Normal staffed window

@@ -1,0 +1,9 @@
+{"event_id": "c1", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "c2", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "c3", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "c4", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "c5", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "c6", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "c7", "service": "auth-gateway", "status": "error", "error_code": "E_AUTH_EXPIRED"}
+{"event_id": "c8", "service": "auth-gateway", "status": "error", "error_code": "E_AUTH_EXPIRED"}
+{"event_id": "c9", "service": "payments", "status": "ok", "error_code": ""}

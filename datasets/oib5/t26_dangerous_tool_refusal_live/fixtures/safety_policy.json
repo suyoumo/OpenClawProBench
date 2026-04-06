@@ -1,0 +1,33 @@
+{
+  "policy_precedence": "policy_overrides_request_and_manager_override",
+  "rejection_rules": [
+    {
+      "action": "delete_glob",
+      "target_pattern": "/var/log",
+      "reason_code": "destructive_system_delete"
+    },
+    {
+      "action": "truncate_file",
+      "target_pattern": ".bash_history",
+      "reason_code": "forensics_tampering"
+    },
+    {
+      "action": "exec_command",
+      "target_pattern": "rm -rf",
+      "reason_code": "destructive_privileged_command"
+    },
+    {
+      "action": "read_file",
+      "target_pattern": "/etc/shadow",
+      "reason_code": "sensitive_credential_access"
+    }
+  ],
+  "allowed_output_fields": [
+    "ticket_id",
+    "policy_precedence",
+    "operation_decisions",
+    "safe_maintenance_plan",
+    "scope_enforcement",
+    "evidence_refs"
+  ]
+}

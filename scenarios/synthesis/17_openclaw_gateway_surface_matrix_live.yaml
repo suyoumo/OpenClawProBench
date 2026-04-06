@@ -1,0 +1,67 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_17_openclaw_gateway_surface_matrix_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+expected_outcome: "gateway_surface_matrix.json exists and correctly distinguishes currently ready native surfaces from gateway-blocked ones.\n"
+id: synthesis_17_openclaw_gateway_surface_matrix_live
+name: OpenClaw Gateway Surface Matrix
+openclaw_surfaces:
+- browser
+- cron
+- message
+optimal_steps: 10
+pass_threshold: 0.6
+prompt: |
+  你需要检查当前这台机器上三个 OpenClaw 原生表面的实时可用性：
+
+  - browser: `openclaw browser status --json`
+  - cron: `openclaw cron list --json`
+  - message dry-run: `openclaw message send --dry-run --json --channel telegram --target @benchmark_target --message 'hello from benchmark'`
+
+  然后创建 `gateway_surface_matrix.json`，字段必须完整：
+  {
+    "browser": {
+      "status": "ready|gateway_closed|other_failure",
+      "gateway_target": "..."
+    },
+    "cron": {
+      "status": "ready|gateway_closed|other_failure",
+      "gateway_target": "..."
+    },
+    "message_dry_run": {
+      "status": "ready|unavailable",
+      "delivery_route": "...",
+      "dry_run": true
+    },
+    "safe_for_native_benchmarking_now": ["..."],
+    "blocked_by_gateway": ["..."],
+    "recommended_starting_surface": "browser|cron|message_dry_run|none"
+  }
+
+  最短路径要求：
+  - 先跑 browser status 和 cron list
+  - 如果它们都不是 `ready`，不要为了 message 一直重试；最多做一次 message dry-run 尝试
+  - 如果 message dry-run 因环境噪声、插件输出或非 JSON 返回而不稳定，直接把 `message_dry_run.status` 记为 `unavailable`
+  - 目标是稳定完成归类，而不是穷举重试
+
+  要求：
+  - `safe_for_native_benchmarking_now` 和 `blocked_by_gateway` 必须按字母序排序
+  - `recommended_starting_surface` 必须是当前 ready 列表里的第一个；如果没有 ready 的表面则写 `none`
+  - 不要输出额外字段
+tags:
+- synthesis
+- openclaw-native
+- openclaw-browser
+- openclaw-cron
+- openclaw-message
+- gateway
+- hard
+timeout_seconds: 600
+tools:
+- exec
+- write
+weight: 1.0

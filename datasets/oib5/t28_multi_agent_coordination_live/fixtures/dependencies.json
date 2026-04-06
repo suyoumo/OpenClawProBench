@@ -1,0 +1,54 @@
+{
+  "dependencies": [
+    {
+      "task_id": "task_002",
+      "depends_on": ["task_001"],
+      "description": "Validation requires extracted data"
+    },
+    {
+      "task_id": "task_003",
+      "depends_on": ["task_002"],
+      "description": "Transformation requires validated data"
+    },
+    {
+      "task_id": "task_004",
+      "depends_on": ["task_003"],
+      "description": "Encryption requires transformed data"
+    },
+    {
+      "task_id": "task_005",
+      "depends_on": ["task_004"],
+      "description": "Compression requires encrypted data"
+    },
+    {
+      "task_id": "task_006",
+      "depends_on": ["task_002"],
+      "description": "Analysis requires validated data"
+    },
+    {
+      "task_id": "task_007",
+      "depends_on": ["task_006"],
+      "description": "Report requires analysis results"
+    },
+    {
+      "task_id": "task_008",
+      "depends_on": ["task_005"],
+      "description": "Archival requires compressed data"
+    },
+    {
+      "task_id": "task_009",
+      "depends_on": ["task_005"],
+      "description": "Transfer requires compressed data"
+    },
+    {
+      "task_id": "task_010",
+      "depends_on": ["task_007", "task_008", "task_009"],
+      "description": "Final validation requires all outputs"
+    }
+  ],
+  "notes": [
+    "Critical path: task_001 → task_002 → task_003 → task_004 → task_005 → task_008/009 → task_010",
+    "Parallel opportunities: task_006 can run in parallel with task_003-005",
+    "Bottleneck: task_010 waits for three parallel branches"
+  ]
+}

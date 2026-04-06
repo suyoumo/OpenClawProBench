@@ -1,0 +1,15 @@
+release_policy:
+  timezone: local
+  one_shot_only: true
+  avoid_exact_minutes:
+    - 0
+    - 30
+  required_gap_minutes: 10
+  allowed_hours:
+    start: 8
+    end_exclusive: 12
+  preferred_minutes:
+    - 57
+    - 3
+    - 12
+    - 18

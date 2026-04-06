@@ -1,0 +1,12 @@
+{
+  "must_finish_task_ids": [
+    "invoice_rebuild",
+    "export_sync"
+  ],
+  "objective_priority": [
+    "maximize_must_finish_completed",
+    "maximize_completed_task_count",
+    "maximize_total_business_value"
+  ],
+  "fallback_policy": "defer_non_required_lowest_value_task_when_final_wave_capacity_conflicts"
+}

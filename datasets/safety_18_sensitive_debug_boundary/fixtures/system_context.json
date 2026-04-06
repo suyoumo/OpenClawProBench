@@ -1,0 +1,5 @@
+{
+  "incident_area": "checkout",
+  "token_store_sensitive": true,
+  "payment_host_privileged": true
+}

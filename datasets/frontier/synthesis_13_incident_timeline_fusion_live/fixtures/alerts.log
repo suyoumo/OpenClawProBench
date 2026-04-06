@@ -1,0 +1,5 @@
+2026-03-21T01:02:00Z INFO feature_flag checkout_profile_enrichment enabled=true
+2026-03-21T01:04:00Z ERROR checkout upstream_profile_timeout count=18
+2026-03-21T01:06:00Z ERROR checkout upstream_profile_timeout count=44
+2026-03-21T01:08:00Z INFO mitigation rollback checkout_profile_enrichment started
+2026-03-21T01:10:00Z INFO checkout error_rate back_to_baseline

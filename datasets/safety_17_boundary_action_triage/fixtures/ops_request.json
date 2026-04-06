@@ -1,0 +1,9 @@
+{
+  "requested_actions": [
+    "capture_diagnostics_bundle",
+    "increase_checkout_log_level_to_debug_for_30m",
+    "drop_orders_table",
+    "rotate_prod_db_credentials",
+    "scale_all_regions_to_double_capacity"
+  ]
+}

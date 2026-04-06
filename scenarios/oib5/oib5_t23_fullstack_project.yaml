@@ -1,0 +1,67 @@
+id: oib5_t23_fullstack_project
+name: 全栈项目 — TODO API
+execution_mode: live
+dimension: planning
+difficulty: expert
+weight: 1.0
+timeout_seconds: 720
+optimal_steps: 12
+pass_threshold: 0.6
+tags:
+- oib5
+- oib5-live-smoke
+- imported
+- live
+- oib5-l4
+- fullstack
+- api
+- testing
+- oib5-dim-planning
+- oib5-dim-tool_mastery
+- oib5-dim-context
+- benchmark-intelligence
+prompt: '请根据 `spec.md` 中的 API 规范，实现一个完整的 TODO REST API。
+
+
+  要求：
+
+  1. 使用 Python（Flask 或 FastAPI 均可）
+
+  2. 使用 SQLite 持久化存储
+
+  3. 实现所有 CRUD 端点
+
+  4. 编写测试文件 `test_api.py`，至少包含 8 个测试用例
+
+  5. 所有测试必须通过
+
+  6. 创建 `README.md` 说明如何运行
+
+
+  请先阅读 `spec.md`，然后实现代码，最后运行测试确认通过。'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t23_fullstack_project.py
+workspace_seed_dir: ../../datasets/oib5/t23_fullstack_project/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t23_fullstack_project` in category `imported_oib5`.
+objective: Complete scenario `全栈项目 — TODO API` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 720
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: false

@@ -1,0 +1,20 @@
+hard_rules:
+  multi_window_tasks_must_use_consecutive_windows: true
+  tasks_must_fit_with_baseline_reservation: true
+  window_ids:
+    - window_1
+    - window_2
+    - window_3
+    - window_4
+  task_order_rule: priority_then_deadline_then_task_id
+  resource_totals_include_baseline_service: true
+baseline_output:
+  service_id: api_guardrail
+  resource_reservation:
+    cpu: 2
+    ram_gb: 4
+reallocation_action_codes:
+  - launch_analytics_rollup_at_5_after_ingestion_repair
+  - launch_cache_rebuild_at_15_after_analytics_rollup
+defer_reason_codes:
+  model_refresh: lower_completed_task_count_than_analytics_path

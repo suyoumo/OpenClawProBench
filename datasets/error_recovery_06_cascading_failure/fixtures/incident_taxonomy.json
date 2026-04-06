@@ -1,0 +1,27 @@
+{
+  "root_cause_service_codes": [
+    "payment-gateway",
+    "order-service",
+    "inventory-service",
+    "user-service"
+  ],
+  "root_cause_codes": [
+    "user_service_port_misconfigured_to_9091_after_reload",
+    "user_service_dns_record_missing_after_reload",
+    "order_service_retry_budget_exhausted_before_gateway_recovery",
+    "inventory_service_local_queue_corrupted_before_incident"
+  ],
+  "propagation_chain_codes": [
+    "payment-gateway_cannot_reach_user-service",
+    "order-service_retries_full_checkout_workflow",
+    "inventory-service_duplicate_reservation_queue_overflows",
+    "order-service_times_out",
+    "payment-gateway_opens_circuit_but_order-service_recovers_cleanly",
+    "inventory-service_stalls_without_duplicate_reservations"
+  ],
+  "service_continuity_codes": [
+    "user-service",
+    "payment-gateway",
+    "inventory-service"
+  ]
+}

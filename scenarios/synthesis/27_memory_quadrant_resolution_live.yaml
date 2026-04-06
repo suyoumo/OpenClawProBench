@@ -1,0 +1,33 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: synthesis_27_memory_quadrant_resolution_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+id: synthesis_27_memory_quadrant_resolution_live
+name: Memory Quadrant Resolution
+openclaw_surfaces:
+- memory
+- message
+optimal_steps: 10
+pass_threshold: 0.62
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `memory_state.json`
+
+  请创建 `memory_quadrant_resolution.json`，字段必须完整：
+  {
+    "discarded_entries": ["..."],
+    "active_entries": ["..."],
+    "needs_human_confirmation": ["..."],
+    "current_ops_room": "...",
+    "reason": "..."
+  }
+
+  规则：
+  - stale 必须进 discarded_entries
+  - current 必须进 active_entries
+  - uncertain 必须进 needs_human_confirmation

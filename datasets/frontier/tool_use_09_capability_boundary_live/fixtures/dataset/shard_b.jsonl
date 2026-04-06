@@ -1,0 +1,6 @@
+{"event_id": "b1", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "b2", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}
+{"event_id": "b3", "service": "export-worker", "status": "error", "error_code": "E_PAYLOAD_TOO_LARGE"}
+{"event_id": "b4", "service": "payments", "status": "ok", "error_code": ""}
+{"event_id": "b5", "service": "export-worker", "status": "error", "error_code": "E_QUEUE_STALL"}
+{"event_id": "b6", "service": "auth-gateway", "status": "ok", "error_code": ""}

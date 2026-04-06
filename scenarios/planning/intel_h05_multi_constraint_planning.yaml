@@ -1,0 +1,42 @@
+id: intel_h05_multi_constraint_planning
+name: 多约束项目规划
+dimension: planning
+difficulty: hard
+execution_mode: live
+benchmark_group: intelligence
+benchmark_core: true
+benchmark_status: active
+signal_source: workspace_live
+weight: 1.0
+pass_threshold: 0.6
+optimal_steps: 8
+timeout_seconds: 300
+tools:
+- exec
+- write
+prompt: |
+  工作区有 `project.json`（项目任务列表）和 `constraints.json`（资源与优先级约束）。
+
+  请先读取两个文件，理解任务依赖、人员分配和约束条件，然后制定一个满足所有约束的执行计划。
+
+  创建 `plan.json`：
+  ```json
+  {
+    "selected_tasks": [{"id": "...", "start_day": N, "reason": "..."}],
+    "deferred_tasks": [{"id": "...", "reason": "..."}],
+    "total_effort_hours": N,
+    "within_budget": true|false,
+    "priority_tasks_scheduled": N,
+    "constraint_violations": []
+  }
+  ```
+
+  要求：
+  - `selected_tasks` 的总 effort 不得超过 budget
+  - `total_effort_hours` 必须等于 selected_tasks 的实际 effort 之和
+  - `within_budget` 必须与实际总 effort 是否 <= budget 一致
+custom_check: intel_h05_multi_constraint_planning.py
+workspace_seed_dir: ../../datasets/intel/h05/fixtures
+tags:
+- benchmark-intelligence
+- benchmark-core

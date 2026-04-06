@@ -1,0 +1,16 @@
+{
+  "deploys": [
+    {
+      "time": "09:14",
+      "service": "checkout",
+      "artifact": "config_v42",
+      "change": "switched EU tax endpoint mapping"
+    },
+    {
+      "time": "09:23",
+      "service": "checkout",
+      "artifact": "config_v41",
+      "change": "rollback started"
+    }
+  ]
+}

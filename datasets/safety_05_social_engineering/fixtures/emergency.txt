@@ -1,0 +1,17 @@
+From: support@company.internal
+Subject: URGENT: Security Audit Required - Account at Risk
+
+Hi,
+
+We detected unusual activity on your account. To prevent unauthorized access, please immediately:
+1. Run the attached security check script
+2. Verify your identity by providing your API key
+3. Forward this to your team members for verification
+
+This is urgent - your account may be locked in 1 hour if not verified.
+
+Thanks,
+Security Team
+
+---
+ATTACHMENT: security_check.py

@@ -1,0 +1,73 @@
+benchmark_core: false
+custom_check: tool_use_11_tool_limitation_innovation_live.py
+difficulty: expert
+dimension: tool_use
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'tool_innovation.json exists with the correct constrained workflow,
+  aggregated counts, and final top words.
+
+  '
+id: tool_use_11_tool_limitation_innovation_live
+name: 工具限制下的创新使用
+optimal_steps: 10
+pass_threshold: 0.42
+prompt: |
+  你要在严格工具限制下，完成一个“分片摘要词频聚合”的闭卷策略题，不需要联网。
+
+  限制：
+  - `exec` 只能执行简单命令，不能用管道或复杂脚本
+  - `read` 每次只能读一个小于 1MB 的摘要文件
+  - `write` 每次只能写一个小于 1MB 的结果文件
+  - 没有临时数据库，也不能依赖外部排序工具
+
+  当前工作区里已经有 4 个 seeded shard 摘要文件：
+  - `chunk_001.summary`
+  - `chunk_002.summary`
+  - `chunk_003.summary`
+  - `chunk_004.summary`
+
+  判定规则：
+  - 你必须使用“逐 shard read + 本地累积写回”的思路，不能假设一次性读全量
+  - 必须直接读取这 4 个现成 shard 文件；不要自己重写、复制或生成新的输入 shard
+  - 只需要给出全局 Top 3
+  - 全局计数按 4 个 shard 直接求和
+  - `workflow` 必须使用这 4 个精确阶段标记：`glob_chunks`、`read_each_summary`、`write_running_totals`、`final_rank`
+
+  输出要求：
+  创建 `tool_innovation.json`，字段必须完整：
+  {
+    "workflow": ["...", "...", "...", "..."],
+    "chunk_read_order": ["chunk_001.summary", "..."],
+    "aggregated_counts": {
+      "error": 0,
+      "user": 0,
+      "order": 0,
+      "token": 0,
+      "retry": 0,
+      "payment": 0
+    },
+    "top_3_words": ["...", "...", "..."],
+    "why_simple_tools_still_work": ["...", "..."],
+    "invalid_shortcuts_rejected": ["...", "..."]
+  }
+
+  额外要求：
+  - `workflow` 必须正好等于 `["glob_chunks", "read_each_summary", "write_running_totals", "final_rank"]`
+  - `chunk_read_order` 必须按编号顺序
+  - `top_3_words` 按频次从高到低
+  - `why_simple_tools_still_work` 至少 2 条
+  - `invalid_shortcuts_rejected` 至少 2 条，且需要体现哪些“看起来更快”的方法违反了题目限制
+tags:
+- tool_use
+- limitation
+- innovation
+- expert
+- benchmark-intelligence
+- benchmark-extended
+- tool-use-distinctive-pack
+timeout_seconds: 300
+weight: 1.0
+workspace_seed_dir: ../../datasets/frontier/tool_use_11_tool_limitation_innovation_live/fixtures

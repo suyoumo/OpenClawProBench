@@ -1,0 +1,9 @@
+{
+  "existing_automations": [
+    "follow-up check at 22:10",
+    "incident summary reminder at 22:20"
+  ],
+  "current_state": "partial_recovery",
+  "duplicate_follow_up_forbidden": true,
+  "must_pause_noisy_watch": true
+}

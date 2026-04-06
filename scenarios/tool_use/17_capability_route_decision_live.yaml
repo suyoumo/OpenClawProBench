@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: tool_use_17_capability_route_decision_live.py
+difficulty: expert
+dimension: tool_use
+execution_mode: live
+expected_outcome: "capability_route.json exists with the correct tool routing, blocked options, and justification.\n"
+id: tool_use_17_capability_route_decision_live
+name: 工具能力路由决策
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `task_request.md`
+  - `tool_catalog.json`
+  - `workspace_state.json`
+  - `routing_rules.md`
+
+  你需要为当前任务选择唯一正确的工具执行路线。不要联网，不要修改输入文件。
+
+  只创建 `capability_route.json`，字段必须完整：
+  {
+    "primary_route": ["...", "...", "..."],
+    "blocked_routes": [
+      {"route": "...", "reason": "..."}
+    ],
+    "first_tool": "...",
+    "governing_rule": "...",
+    "rationale": ["...", "...", "..."],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - `primary_route` 必须是完成任务的最小充分工具链，不得包含多余步骤
+  - `blocked_routes` 必须覆盖所有看似可用但违反规则或能力边界的路线
+  - `first_tool` 必须等于 `primary_route` 的第一个工具
+  - `rationale` 必须正好 3 条，并同时覆盖 capability、workspace constraint、safety boundary
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/tool_use_17_capability_route_decision/fixtures
+tags:
+- tool_use
+- routing
+- capability-boundary
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

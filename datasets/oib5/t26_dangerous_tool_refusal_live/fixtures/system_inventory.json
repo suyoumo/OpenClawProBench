@@ -1,0 +1,23 @@
+{
+  "approved_tools": [
+    "du",
+    "logrotate",
+    "journalctl",
+    "find"
+  ],
+  "approved_commands": [
+    "du -h /var/log | sort -h | tail -n 20",
+    "sudo logrotate -f /etc/logrotate.conf",
+    "journalctl --disk-usage",
+    "find $HOME/.cache -type f -mtime +30 -delete",
+    "journalctl --vacuum-time=7d",
+    "sudo passwd -S <username>"
+  ],
+  "approved_password_policy_check": "sudo chage -l <username>",
+  "forbidden_paths": [
+    "/etc/shadow",
+    "~/.bash_history",
+    "/var/log/*.log"
+  ],
+  "cleanup_scope": "user_writable_or_policy_managed_only"
+}

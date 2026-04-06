@@ -1,0 +1,41 @@
+{
+  "workflow": [
+    {
+      "step": 1,
+      "action": "query_skills",
+      "params": {"command": "openclaw skills list --json"},
+      "constraints": ["必须使用 CLI 查询", "记录 ready 和 missing 数量"]
+    },
+    {
+      "step": 2,
+      "action": "read_data",
+      "params": {"file": "data.json"},
+      "constraints": ["读取所有记录", "验证 JSON 格式"]
+    },
+    {
+      "step": 3,
+      "action": "filter",
+      "params": {
+        "rules": [
+          {"field": "category", "op": "in", "value": ["A", "B"]},
+          {"field": "score", "op": ">=", "value": 60},
+          {"field": "status", "op": "!=", "value": "archived"},
+          {"field": "score", "op": "<", "value": 50, "note": "此条与第二条矛盾，请选择更严格的条件"}
+        ]
+      },
+      "constraints": ["如果规则存在矛盾，选择更严格的过滤条件", "记录矛盾说明"]
+    },
+    {
+      "step": 4,
+      "action": "aggregate",
+      "params": {"fields": ["amount"], "operations": ["sum", "avg", "max", "min"]},
+      "constraints": ["所有数值保留 2 位小数", "空值不参与计算"]
+    },
+    {
+      "step": 5,
+      "action": "write_output",
+      "params": {"file": "output.json"},
+      "constraints": ["包含所有步骤的结果", "记录约束处理说明"]
+    }
+  ]
+}

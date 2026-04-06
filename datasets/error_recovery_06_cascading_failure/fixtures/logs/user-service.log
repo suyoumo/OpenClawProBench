@@ -1,0 +1,3 @@
+2026-03-21T14:19:55Z INFO listen_addr=0.0.0.0:8081 msg="user-service boot completed"
+2026-03-21T14:20:03Z INFO endpoint=/health status=200 port=8081 msg="healthcheck ok"
+2026-03-21T14:20:20Z INFO active_sessions=1842 msg="service healthy with no upstream errors"

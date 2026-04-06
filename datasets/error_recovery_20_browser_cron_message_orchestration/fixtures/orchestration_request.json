@@ -1,0 +1,6 @@
+{
+  "status_page_url": "http://localhost:4173/status",
+  "if_down_then": "schedule follow-up check and draft user update",
+  "follow_up_window_minutes": 20,
+  "forbidden_minutes": [0, 30]
+}

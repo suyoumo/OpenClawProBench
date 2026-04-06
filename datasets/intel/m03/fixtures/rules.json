@@ -1,0 +1,5 @@
+{
+  "max_priority": 3,
+  "allowed_categories": ["ops", "dev"],
+  "blocked_owners": ["alice"]
+}

@@ -1,0 +1,31 @@
+{
+  "service": "profile-api",
+  "window_utc": "2026-03-18T09:10:00Z/2026-03-18T09:16:00Z",
+  "series": [
+    {
+      "minute": "09:13",
+      "profile_save_error_rate": 0.01,
+      "profile_save_p95_ms": 210,
+      "auth_error_rate": 0.00,
+      "checkout_error_rate": 0.00
+    },
+    {
+      "minute": "09:14",
+      "profile_save_error_rate": 0.27,
+      "profile_save_p95_ms": 840,
+      "auth_error_rate": 0.00,
+      "checkout_error_rate": 0.00
+    },
+    {
+      "minute": "09:15",
+      "profile_save_error_rate": 0.32,
+      "profile_save_p95_ms": 910,
+      "auth_error_rate": 0.00,
+      "checkout_error_rate": 0.00
+    }
+  ],
+  "notes": [
+    "Spike isolated to profile_save; auth and checkout stayed flat.",
+    "The highest profile_save error rate appears in the 09:15 minute bucket."
+  ]
+}

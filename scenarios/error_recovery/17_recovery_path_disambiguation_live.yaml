@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_17_recovery_path_disambiguation_live.py
+difficulty: hard
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "recovery_path_decision.json exists with the exact chosen path, ruled-out paths, and verification order.\n"
+id: error_recovery_17_recovery_path_disambiguation_live
+name: 恢复路径判歧
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `incident_paths.json`
+  - `system_signals.md`
+  - `risk_rules.json`
+  - `recovery_goal.txt`
+
+  你需要在多个看似可行的恢复路径中选出唯一正确路径。不要联网，不要修改输入文件。
+
+  只创建 `recovery_path_decision.json`，字段必须完整：
+  {
+    "chosen_path": "...",
+    "ruled_out_paths": [
+      {"path": "...", "reason": "..."}
+    ],
+    "verification_order": ["...", "...", "..."],
+    "governing_risk_rule": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 不能只选最快路径，必须同时满足恢复目标和风险规则
+  - `ruled_out_paths` 必须覆盖所有未选路径，按 path 字母序
+  - `verification_order` 必须正好 3 条
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/error_recovery_17_recovery_path_disambiguation/fixtures
+tags:
+- error_recovery
+- path-selection
+- disambiguation
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

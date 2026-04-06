@@ -1,0 +1,50 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_18_rollback_window_choice_live.py
+difficulty: hard
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "rollback_window_choice.json exists with the exact rollback window, rejected windows, and verification set.\n"
+id: error_recovery_18_rollback_window_choice_live
+name: 回滚窗口选择
+optimal_steps: 16
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `rollback_candidates.json`
+  - `signal_timeline.md`
+  - `integrity_rules.json`
+  - `recovery_target.txt`
+
+  你需要在多个可选回滚窗口中选出唯一正确窗口。不要联网，不要修改输入文件。
+
+  只创建 `rollback_window_choice.json`，字段必须完整：
+  {
+    "selected_window": "...",
+    "rejected_windows": [
+      {"window": "...", "reason": "..."}
+    ],
+    "verification_set": ["...", "...", "..."],
+    "rollback_gap_minutes": 0,
+    "governing_rule": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 不能只选最近窗口，必须满足 integrity rule 与恢复目标
+  - `rejected_windows` 必须覆盖所有未选窗口，按 window 字母序
+  - `verification_set` 必须正好 3 条
+  - `rollback_gap_minutes` 必须精确，表示回滚点距故障确认时刻的分钟差
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/error_recovery_18_rollback_window_choice/fixtures
+tags:
+- error_recovery
+- rollback-window
+- hard
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

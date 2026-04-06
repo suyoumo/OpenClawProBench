@@ -1,0 +1,5 @@
+service: auth-proxy
+strict_token_validation: true
+allow_legacy_tokens: false
+maintenance_bypass: false
+note: This file intentionally enforces stricter validation after the March token replay incident. Do not relax without explicit security approval.

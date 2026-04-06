@@ -1,0 +1,42 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+custom_check: planning_10_multi_objective_optimization_live_v2.py
+difficulty: expert
+dimension: planning
+execution_mode: live
+expected_outcome: 'optimization_decision.md exists with multi-objective analysis and
+  Pareto-optimal solution.
+
+  '
+expected_tools:
+- read
+- write
+id: planning_10_multi_objective_optimization_live
+name: 多目标优化权衡
+optimal_steps: 25
+pass_threshold: 0.55
+prompt: "你需要设计一个系统架构，但面临多个相互冲突的目标。找到帕累托最优解。\n\n**目标**（相互冲突）：\n1. **性能**：响应时间 < 100ms\n\
+  2. **成本**：月成本 < $10,000\n3. **可靠性**：可用性 > 99.9%\n4. **可扩展性**：支持 10x 流量增长\n5. **开发时间**：<\
+  \ 3 个月\n\n**约束**：\n- 预算有限（最多 $15,000）\n- 团队规模：3 人\n- 技术栈：任意选择\n\n**可选方案**：\n1. 单体应用\
+  \ + 单数据库\n   - 性能：⭐⭐⭐⭐\n   - 成本：⭐⭐⭐⭐⭐\n   - 可靠性：⭐⭐\n   - 可扩展性：⭐\n   - 开发时间：⭐⭐⭐⭐⭐\n\
+  \n2. 微服务 + 分布式数据库\n   - 性能：⭐⭐⭐\n   - 成本：⭐⭐\n   - 可靠性：⭐⭐⭐⭐⭐\n   - 可扩展性：⭐⭐⭐⭐⭐\n  \
+  \ - 开发时间：⭐⭐\n\n3. Serverless + 托管数据库\n   - 性能：⭐⭐⭐\n   - 成本：⭐⭐⭐\n   - 可靠性：⭐⭐⭐⭐\n\
+  \   - 可扩展性：⭐⭐⭐⭐\n   - 开发时间：⭐⭐⭐⭐\n\n**任务**：\n1. 分析每个方案的优缺点\n2. 识别目标冲突（哪些目标无法同时满足）\n\
+  3. 计算帕累托前沿（哪些方案无法被其他方案支配）\n4. 推荐最优方案（权衡所有目标）\n\n**输出要求**：\n创建 `optimization_decision.md`，包含：\n\
+  - 目标冲突矩阵（哪些目标冲突）\n- 每个方案的多目标评分\n- 帕累托前沿（最优方案集合）\n- 推荐方案（并说明理由）\n- 权衡分析（放弃了什么，获得了什么）\n"
+tags:
+- planning
+- multi-objective
+- optimization
+- trade-offs
+- expert
+- benchmark-intelligence
+- benchmark-core
+- new-expert
+timeout_seconds: 600
+tools:
+- read
+- write
+weight: 2.0

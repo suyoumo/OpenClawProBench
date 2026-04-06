@@ -1,0 +1,9 @@
+{
+  "status_page_url": "http://localhost:4173/status",
+  "observed_state": "partial_recovery",
+  "candidate_actions": ["containment", "rollback", "follow_up_check", "external_update"],
+  "rollback_ready": false,
+  "existing_follow_up_checks": 2,
+  "duplicate_follow_up_forbidden": true,
+  "stabilization_requirement": "fully_restored_for_15_minutes"
+}

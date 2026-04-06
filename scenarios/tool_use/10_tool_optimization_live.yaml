@@ -1,0 +1,66 @@
+benchmark_core: false
+custom_check: tool_use_10_tool_optimization_live.py
+difficulty: expert
+dimension: tool_use
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'tool_strategy.json exists with the correct grounded pipeline,
+  estimated cost, and true/false positive split.
+
+  '
+id: tool_use_10_tool_optimization_live
+name: 工具组合优化
+optimal_steps: 14
+pass_threshold: 0.45
+prompt: |
+  当前工作区中已经 seeded 好本题全部输入：
+  - `scan_scope.json`
+  - `tool_steps.json`
+  - `validation_policy.md`
+  - `hit_manifest.json`
+  - `hit_001.summary` 到 `hit_006.summary`
+
+  你要在不联网的情况下，为一次大规模凭证漏洞扫描设计**最优且可解释**的工具组合。
+
+  关键约束：
+  - 必须直接读取这些 seeded 输入文件后再做判断，不能只凭题面假设
+  - 不要重写、复制或修改任何 seeded 输入文件
+  - 必须保持 recall=100%
+  - `peak_memory` 不能超过 `0.8GB`
+  - `hit_manifest.json` 只告诉你有哪些命中摘要；真实/误报判定必须基于 6 个 `hit_*.summary`
+
+  输出要求：
+  创建 `tool_strategy.json`，字段必须完整：
+  {
+    "selected_pipeline": ["...", "...", "...", "..."],
+    "estimated_total_seconds": 0,
+    "estimated_peak_memory_gb": 0.0,
+    "true_positive_files": ["...", "..."],
+    "false_positive_files": ["...", "..."],
+    "why_not_alternatives": {
+      "exec_serial_all_files": "...",
+      "exec_union_all_files": "...",
+      "exec_batched_candidates": "..."
+    },
+    "validation_rule": "..."
+  }
+
+  额外要求：
+  - `selected_pipeline` 必须正好等于 `["glob_py_js", "exec_union_candidates", "read_validate_hits", "write_report"]`
+  - `estimated_total_seconds` 与 `estimated_peak_memory_gb` 必须来自 `tool_steps.json`
+  - `true_positive_files` 和 `false_positive_files` 必须填写 6 个 `hit_*.summary` 内 `path:` 对应的源码路径，并按字母序
+  - `validation_rule` 必须同时说明“硬编码 secret”“日志泄漏 token”以及排除项
+  - `why_not_alternatives` 需要体现为什么其他流程不满足 recall / memory / validation 约束
+tags:
+- tool_use
+- tool-optimization
+- efficiency
+- expert
+- benchmark-intelligence
+- benchmark-extended
+- tool-use-distinctive-pack
+timeout_seconds: 600
+weight: 2.0
+workspace_seed_dir: ../../datasets/frontier/tool_use_10_tool_optimization_live/fixtures

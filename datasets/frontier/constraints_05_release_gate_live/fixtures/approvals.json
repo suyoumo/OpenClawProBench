@@ -1,0 +1,21 @@
+{
+  "request_id": "REL-204",
+  "risk_level": "high",
+  "required_roles": [
+    "product",
+    "oncall",
+    "security"
+  ],
+  "granted": [
+    {
+      "role": "product",
+      "by": "mira",
+      "timestamp": "2026-04-16T09:20:00Z"
+    },
+    {
+      "role": "oncall",
+      "by": "leo",
+      "timestamp": "2026-04-16T09:35:00Z"
+    }
+  ]
+}

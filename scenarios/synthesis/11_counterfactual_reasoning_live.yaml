@@ -1,0 +1,73 @@
+benchmark_core: false
+custom_check: synthesis_11_counterfactual_reasoning_live.py
+difficulty: expert
+dimension: synthesis
+execution_mode: live
+benchmark_group: intelligence
+benchmark_status: incubating
+signal_source: workspace_live
+expected_outcome: 'counterfactual_analysis.json exists with the correct ranked individual
+  reversals, best three-change plan, and combined projection.
+
+  '
+id: synthesis_11_counterfactual_reasoning_live
+name: 反事实推理
+optimal_steps: 18
+pass_threshold: 0.6
+prompt: |
+  你要做一个闭卷反事实推理题，目标是找出“如果当初换决策，会不会更好”。
+
+  当前工作区根目录里已经放好了 4 份只读输入：
+  - `baseline_outcome.json`
+  - `decision_delta_matrix.json`
+  - `scoring_policy.yaml`
+  - `recommendation_catalog.json`
+
+  任务目标：
+  - 先分别独立评估每个单独反转决策
+  - 然后在全部候选决策里选择“恰好 3 个”替代方案做组合
+  - 组合效果按增量线性叠加
+  - 如果组合分数并列，按 `scoring_policy.yaml` 的 tie-break 规则选择唯一方案
+  - `recommendations` 必须严格使用 `recommendation_catalog.json` 中的官方 code，不能自造
+
+  输出要求：
+  创建 `counterfactual_analysis.json`，字段必须完整：
+  {
+    "individual_rank": [
+      {
+        "decision_id": "...",
+        "alternative": "...",
+        "projected_score": 0,
+        "score_improvement": 0
+      }
+    ],
+    "best_three_change_plan": ["...", "...", "..."],
+    "combined_projection": {
+      "performance_multiplier": 0.0,
+      "budget_overrun_pct": 0,
+      "schedule_delay_months": 0,
+      "risk_points": 0,
+      "score": 0
+    },
+    "recommendations": ["...", "..."]
+  }
+
+  要求：
+  - `individual_rank` 只写前三名，按 `score_improvement` 从高到低排序
+  - `best_three_change_plan` 中的 decision_id 按字母序输出
+  - `recommendations` 必须正好 2 条，并按字母序输出
+  - 必须同时读取全部 4 份输入
+  - 不要输出任何额外文本
+tags:
+- synthesis
+- counterfactual
+- reasoning
+- expert
+- workspace
+- codebook
+timeout_seconds: 600
+tools:
+- read
+- write
+workspace_seed_dir: ../../datasets/frontier/synthesis_11_counterfactual_reasoning_live/fixtures
+weight: 2.0

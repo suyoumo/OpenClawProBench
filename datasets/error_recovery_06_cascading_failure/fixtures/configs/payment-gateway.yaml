@@ -1,0 +1,8 @@
+upstreams:
+  user_service_host: user-service
+  user_service_port: 9091
+  connect_timeout_ms: 500
+
+circuit_breaker:
+  failure_threshold: 3
+  reset_after_seconds: 60

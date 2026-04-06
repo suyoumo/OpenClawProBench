@@ -1,0 +1,80 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_07_partial_success_live_v2.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+expected_outcome: 'recovery_plan.md exists with partial success recovery and retry
+  strategy grounded in the seeded workspace evidence.
+
+  '
+expected_tools:
+- read
+- write
+- exec
+id: error_recovery_07_partial_success_live
+name: 部分成功恢复
+optimal_steps: 12
+pass_threshold: 0.6
+prompt: |
+  一个批量数据处理任务在末段出现数据库超时，但并不是所有文件都需要同样的恢复动作。
+
+  工作区根目录里已经放好了只读证据：
+  - `process.log`
+  - `processed_files.csv`：`processed_files` 数据库表导出
+  - `file_list.txt`
+
+  重要约束：
+  - 不要修改这些输入文件
+  - 不要补造或重写缺失数据
+  - 只创建 `recovery_plan.md`
+  - 不需要把 300 个候选文件完整展开到 markdown 里
+
+  任务：
+  1. 找出真实根因
+  2. 交叉核对三份输入，区分：
+     - 已成功且不应重跑的文件
+     - 失败但可直接重跑的文件
+     - 已部分写入、必须先清理再重跑的文件
+  3. 给出一个保守的重试策略和验证步骤
+
+  `recovery_plan.md` 顶部必须先放一个 fenced `json` 代码块，字段必须完整：
+  ```json
+  {
+    "root_cause": "db_connection_pool_exhaustion",
+    "successful_files": 0,
+    "failed_files": 0,
+    "partial_files": 0,
+    "retry_files_total": 0,
+    "cleanup_files_total": 0,
+    "cleanup_examples": ["...", "...", "..."],
+    "retry_examples": ["...", "...", "...", "...", "..."],
+    "batch_size": 0,
+    "max_retries": 0,
+    "backoff_seconds": [0, 0, 0]
+  }
+  ```
+
+  额外要求：
+  - `cleanup_examples` 必须是需要清理文件按字母序排序后的前 3 个
+  - `retry_examples` 必须是需要重试文件按字母序排序后的前 5 个
+  - `backoff_seconds` 必须严格递增
+  - JSON 代码块之后再写简短说明，覆盖 evidence、cleanup、retry strategy、verification
+  - 不要输出额外文件
+tags:
+- error_recovery
+- partial-success
+- retry-strategy
+- expert
+- benchmark-intelligence
+- benchmark-core
+- new-expert
+timeout_seconds: 900
+tools:
+- read
+- write
+- exec
+workspace_seed_dir: ../../datasets/error_recovery_07_partial_success/fixtures
+weight: 2.0

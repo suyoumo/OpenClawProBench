@@ -1,0 +1,52 @@
+id: oib5_t10_data_pipeline
+name: 数据分析管道 — 多源聚合
+execution_mode: live
+dimension: planning
+difficulty: medium
+weight: 1.0
+timeout_seconds: 480
+optimal_steps: 8
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l2
+- data
+- pipeline
+- oib5-dim-planning
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+prompt: "当前目录有三个数据文件：\n\n1. `users.json` — 用户数据（含 id, name, email, signup_date）\n\
+  2. `orders.csv` — 订单数据（含 order_id, user_id, product, amount, date）\n3. `products.json`\
+  \ — 产品数据（含 id, name, category, price）\n\n注意：数据中可能有脏数据（重复行、缺失值、格式不一致），需要先清洗。\n\n\
+  请完成以下任务：\n\n1. 创建 `analysis.py`，读取三个数据源，清洗后计算：\n   - 每个用户的总消费金额（LTV），输出到 `user_ltv.csv`（列：user_id,\
+  \ name, total_amount，按 total_amount 降序）\n   - 每个产品类别的销售总额，输出到 `category_sales.json`（格式：`{\"\
+  category\": amount}`）\n   - 每月订单数量趋势，输出到 `monthly_orders.csv`（列：month, order_count，按月份升序）\n\
+  \n2. 运行 `analysis.py` 确保输出正确\n\n要求：去重时按 order_id 去重；缺失 amount 的订单跳过；日期格式统一为 YYYY-MM。"
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t10_data_pipeline.py
+workspace_seed_dir: ../../datasets/oib5/t10_data_pipeline/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t10_data_pipeline` in category `imported_oib5`.
+objective: Complete scenario `数据分析管道 — 多源聚合` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 480
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: workspace_live
+benchmark_core: false

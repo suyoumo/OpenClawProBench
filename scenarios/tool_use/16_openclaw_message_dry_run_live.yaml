@@ -1,0 +1,46 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: incubating
+signal_source: openclaw_native
+custom_check: tool_use_16_openclaw_message_dry_run_live.py
+difficulty: easy
+dimension: tool_use
+execution_mode: live
+expected_outcome: "message_dry_run_report.json exists and matches the current local OpenClaw Telegram dry-run payload.\n"
+id: tool_use_16_openclaw_message_dry_run_live
+name: OpenClaw Message Dry-Run Payload
+openclaw_surfaces:
+- message
+optimal_steps: 6
+pass_threshold: 0.6
+prompt: |
+  你需要直接检查当前这台机器上的 OpenClaw message dry-run 行为，不要真的发送消息。
+
+  使用这条命令：
+  `openclaw message send --dry-run --json --channel telegram --target @benchmark_target --message 'hello from benchmark'`
+
+  然后创建 `message_dry_run_report.json`，字段必须完整：
+  {
+    "channel": "telegram",
+    "handled_by": "...",
+    "delivery_route": "...",
+    "via": "...",
+    "dry_run": true,
+    "has_media": false
+  }
+
+  要求：
+  - 必须基于真实命令输出填写
+  - `delivery_route` 应该是 dry-run 里实际展示的目标路由
+  - 不要输出额外字段
+tags:
+- tool_use
+- openclaw-native
+- openclaw-message
+- dry-run
+- easy
+timeout_seconds: 300
+tools:
+- exec
+- write
+weight: 1.0

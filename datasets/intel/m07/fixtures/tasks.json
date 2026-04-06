@@ -1,0 +1,10 @@
+{
+  "tasks": [
+    {"id": "t1", "name": "初始化数据库", "depends_on": [], "duration_minutes": 30},
+    {"id": "t2", "name": "部署缓存服务", "depends_on": ["t1"], "duration_minutes": 20},
+    {"id": "t3", "name": "配置消息队列", "depends_on": ["t1"], "duration_minutes": 25},
+    {"id": "t4", "name": "启动 API 网关", "depends_on": ["t2", "t3"], "duration_minutes": 15},
+    {"id": "t5", "name": "运行集成测试", "depends_on": ["t4"], "duration_minutes": 40},
+    {"id": "t6", "name": "部署监控面板", "depends_on": ["t2"], "duration_minutes": 10}
+  ]
+}

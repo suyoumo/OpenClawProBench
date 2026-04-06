@@ -1,0 +1,124 @@
+{
+  "tasks": [
+    {
+      "id": "task_001",
+      "name": "Data Extraction",
+      "required_capabilities": ["data_processing", "network_io"],
+      "duration": 3,
+      "resources": {
+        "cpu": 15,
+        "memory": 20,
+        "bandwidth": 30
+      },
+      "priority": "high"
+    },
+    {
+      "id": "task_002",
+      "name": "Data Validation",
+      "required_capabilities": ["validation"],
+      "duration": 2,
+      "resources": {
+        "cpu": 10,
+        "memory": 15,
+        "bandwidth": 5
+      },
+      "priority": "high"
+    },
+    {
+      "id": "task_003",
+      "name": "Data Transformation",
+      "required_capabilities": ["data_processing"],
+      "duration": 4,
+      "resources": {
+        "cpu": 25,
+        "memory": 30,
+        "bandwidth": 10
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "task_004",
+      "name": "Encryption",
+      "required_capabilities": ["encryption"],
+      "duration": 3,
+      "resources": {
+        "cpu": 30,
+        "memory": 20,
+        "bandwidth": 5
+      },
+      "priority": "high"
+    },
+    {
+      "id": "task_005",
+      "name": "Compression",
+      "required_capabilities": ["compression"],
+      "duration": 2,
+      "resources": {
+        "cpu": 20,
+        "memory": 25,
+        "bandwidth": 5
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "task_006",
+      "name": "Quality Analysis",
+      "required_capabilities": ["analysis"],
+      "duration": 3,
+      "resources": {
+        "cpu": 15,
+        "memory": 20,
+        "bandwidth": 10
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "task_007",
+      "name": "Report Generation",
+      "required_capabilities": ["reporting"],
+      "duration": 2,
+      "resources": {
+        "cpu": 10,
+        "memory": 15,
+        "bandwidth": 5
+      },
+      "priority": "low"
+    },
+    {
+      "id": "task_008",
+      "name": "Archival",
+      "required_capabilities": ["archival", "compression"],
+      "duration": 3,
+      "resources": {
+        "cpu": 15,
+        "memory": 20,
+        "bandwidth": 20
+      },
+      "priority": "low"
+    },
+    {
+      "id": "task_009",
+      "name": "Network Transfer",
+      "required_capabilities": ["network_io"],
+      "duration": 4,
+      "resources": {
+        "cpu": 10,
+        "memory": 10,
+        "bandwidth": 50
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "task_010",
+      "name": "Final Validation",
+      "required_capabilities": ["validation", "analysis"],
+      "duration": 3,
+      "resources": {
+        "cpu": 20,
+        "memory": 25,
+        "bandwidth": 10
+      },
+      "priority": "high"
+    }
+  ]
+}

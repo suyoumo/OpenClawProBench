@@ -1,0 +1,29 @@
+{
+  "windows": [
+    {
+      "window_id": "window_1",
+      "minutes": [0, 5],
+      "cpu": 16,
+      "ram_gb": 32
+    },
+    {
+      "window_id": "window_2",
+      "minutes": [5, 10],
+      "cpu": 16,
+      "ram_gb": 32
+    },
+    {
+      "window_id": "window_3",
+      "minutes": [10, 15],
+      "cpu": 12,
+      "ram_gb": 24,
+      "event": "node_patch_capacity_drop"
+    },
+    {
+      "window_id": "window_4",
+      "minutes": [15, 20],
+      "cpu": 16,
+      "ram_gb": 32
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_19_recovery_guardrail_order_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "recovery_guardrail_order.json exists with the exact action order, blocked actions, and governing guardrail.\n"
+id: error_recovery_19_recovery_guardrail_order_live
+name: 恢复护栏顺序
+optimal_steps: 18
+pass_threshold: 0.64
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `recovery_actions.json`
+  - `system_risks.md`
+  - `guardrail_order.yaml`
+  - `incident_goal.json`
+
+  你需要确定恢复动作的唯一正确顺序。不要联网，不要修改输入文件。
+
+  只创建 `recovery_guardrail_order.json`，字段必须完整：
+  {
+    "action_order": ["...", "...", "..."],
+    "blocked_actions": [
+      {"action": "...", "reason": "..."}
+    ],
+    "governing_guardrail": "...",
+    "why_this_order": ["...", "...", "..."],
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - `action_order` 必须满足 guardrail_order 中的风险前置条件，不能跳过中间必要动作
+  - `blocked_actions` 必须覆盖所有当前不能执行的动作，按 action 字母序
+  - `why_this_order` 必须正好 3 条，覆盖 risk, dependency, goal protection
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/error_recovery_19_recovery_guardrail_order/fixtures
+tags:
+- error_recovery
+- guardrails
+- action-order
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

@@ -1,0 +1,38 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: error_recovery_23_partial_containment_boundary_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+id: error_recovery_23_partial_containment_boundary_live
+name: Partial Containment Boundary
+openclaw_surfaces:
+- browser
+- cron
+- message
+optimal_steps: 12
+pass_threshold: 0.62
+timeout_seconds: 360
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `containment_request.json`
+
+  当前系统只是 partial recovery，还没有满足稳定恢复门槛。
+  你需要创建 `containment_plan.json`，字段必须完整：
+  {
+    "status_classification": "...",
+    "containment_action": "...",
+    "schedule_duplicate_follow_up": false,
+    "follow_up_cron": "...",
+    "internal_update": "...",
+    "external_update_blocked": true,
+    "reason": "..."
+  }
+
+  规则：
+  - partial recovery 不能视作 fully restored
+  - 必须先做 containment，再安排 follow-up
+  - 不能重复创建 follow-up
+  - external approval 未就绪，因此 external_update_blocked 必须为 true

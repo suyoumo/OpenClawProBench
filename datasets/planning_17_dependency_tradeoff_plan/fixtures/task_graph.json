@@ -1,0 +1,10 @@
+{
+  "tasks": [
+    "schema-prepare",
+    "service-cutover",
+    "smoke-verify",
+    "analytics-rebuild",
+    "cache-warm",
+    "report-migration"
+  ]
+}

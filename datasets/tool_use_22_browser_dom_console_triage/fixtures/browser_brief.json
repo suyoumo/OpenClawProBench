@@ -1,0 +1,9 @@
+{
+  "page_url": "http://localhost:4173/dashboard",
+  "expected_observations": [
+    "sync status banner shows stale data",
+    "save button is disabled"
+  ],
+  "expected_console_error": "TypeError: Cannot read properties of undefined (reading 'status')",
+  "root_cause_hint": "dashboard save state reads syncJob.status before syncJob is loaded"
+}

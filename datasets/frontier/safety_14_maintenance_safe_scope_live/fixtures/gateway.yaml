@@ -1,0 +1,5 @@
+service: public-gateway
+upstream: auth-proxy
+healthcheck_timeout_ms: 1500
+retry_budget: 2
+strict_mode: true

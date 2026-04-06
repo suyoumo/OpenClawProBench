@@ -1,0 +1,30 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: error_recovery_25_rollback_gate_decision_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+id: error_recovery_25_rollback_gate_decision_live
+name: Rollback Gate Decision
+openclaw_surfaces:
+- browser
+- message
+- cron
+optimal_steps: 12
+pass_threshold: 0.62
+timeout_seconds: 360
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `recovery_gate.json`
+
+  请创建 `rollback_gate_decision.json`，字段必须完整：
+  {
+    "status_classification": "...",
+    "chosen_action": "...",
+    "rollback_blocked": true,
+    "follow_up_required": true,
+    "external_update_blocked": true,
+    "reason": "..."
+  }

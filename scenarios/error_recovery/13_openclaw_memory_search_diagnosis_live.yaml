@@ -1,0 +1,45 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: error_recovery_13_openclaw_memory_search_diagnosis_live.py
+difficulty: hard
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "memory_search_diagnosis.json exists and correctly distinguishes a real empty search from a degraded memory backend.\n"
+id: error_recovery_13_openclaw_memory_search_diagnosis_live
+name: OpenClaw Memory Search Diagnosis
+openclaw_surfaces:
+- memory
+optimal_steps: 8
+pass_threshold: 0.6
+prompt: |
+  你需要判断“当前这台机器上的 OpenClaw memory search 返回 0 条结果”到底是可信空结果，还是运行面本身有问题。
+
+  使用本机 OpenClaw CLI 搜索：
+  `openclaw memory search --query test --max-results 3`
+
+  然后创建 `memory_search_diagnosis.json`，字段必须完整：
+  {
+    "reported_no_matches": true,
+    "search_is_reliable": false,
+    "failure_mode": "ok_empty|database_unavailable|index_missing|unknown_failure",
+    "error_signals": ["...", "..."],
+    "recommended_action": "..."
+  }
+
+  要求：
+  - 如果输出里同时出现“0 条结果”和运行失败信号，必须优先识别失败信号
+  - `error_signals` 必须只写你从命令输出里直接观察到的短语
+  - 不要输出额外字段
+tags:
+- error_recovery
+- openclaw-native
+- openclaw-memory
+- diagnosis
+- hard
+timeout_seconds: 600
+tools:
+- exec
+- write
+weight: 1.0

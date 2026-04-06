@@ -1,0 +1,11 @@
+{
+  "source": "ops_team",
+  "timestamp": "2026-03-22T10:00:00Z",
+  "services": [
+    {"name": "auth-service", "status": "healthy", "latency_ms": 45, "notes": "正常运行"},
+    {"name": "payment-gateway", "status": "degraded", "latency_ms": 1200, "notes": "延迟偏高"},
+    {"name": "user-db", "status": "healthy", "latency_ms": 12, "notes": "主从同步正常"},
+    {"name": "cache-layer", "status": "down", "latency_ms": null, "notes": "Redis 集群不可达"},
+    {"name": "notification-svc", "status": "healthy", "latency_ms": 80, "notes": "正常"}
+  ]
+}

@@ -1,0 +1,5 @@
+2026-03-21T14:20:05Z WARN order_id=ORD-10017 checkout_stage=payment msg="payment-gateway returned connection refused"
+2026-03-21T14:20:09Z WARN order_id=ORD-10017 retry_scope=full_workflow attempt=2/5 msg="retrying checkout from start"
+2026-03-21T14:20:13Z WARN order_id=ORD-10017 retry_scope=full_workflow attempt=3/5 msg="retrying checkout from start"
+2026-03-21T14:20:18Z ERROR order_id=ORD-10017 dependency=inventory-service status=503 msg="reservation call failed during retry wave"
+2026-03-21T14:20:24Z ERROR order_id=ORD-10017 timeout_s=30 msg="checkout timed out waiting for payment and inventory branches"

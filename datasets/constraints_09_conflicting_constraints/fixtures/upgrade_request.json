@@ -1,0 +1,8 @@
+{
+  "current_version": "v1.4.8",
+  "target_version": "v2.0.0",
+  "availability_slo_percent": 99.9,
+  "max_completion_hours": 48,
+  "minimum_perf_gain_percent": 30,
+  "max_budget_million_cny": 1.0
+}

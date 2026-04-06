@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-03-22T09:18:00Z",
+  "services": {
+    "api-gateway": {
+      "status": "healthy"
+    },
+    "user-service": {
+      "status": "healthy"
+    },
+    "order-service": {
+      "status": "healthy"
+    },
+    "payment-service": {
+      "status": "down",
+      "failure_mode": "provider_timeout",
+      "accepting_new_charges": false,
+      "eta_minutes": 45
+    },
+    "inventory-service": {
+      "status": "readonly",
+      "snapshot_freshness": "stale_by_3m",
+      "can_write_reservations": false
+    },
+    "notification-service": {
+      "status": "degraded",
+      "p95_latency_seconds": 10,
+      "queue_accepts_new_jobs": true
+    }
+  }
+}

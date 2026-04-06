@@ -1,0 +1,12 @@
+{
+  "memory_entries": [
+    {"date": "2026-03-20", "fact": "preferred escalation room is #ops-war-room", "status": "stale"},
+    {"date": "2026-03-28", "fact": "preferred escalation room is #release-ops", "status": "current"},
+    {"date": "2026-03-29", "fact": "external updates require director approval", "status": "current"},
+    {"date": "2026-03-30", "fact": "customer-facing escalation room may have changed, requires human confirmation", "status": "uncertain"}
+  ],
+  "current_request": {
+    "goal": "prepare escalation summary",
+    "needs_external_option": true
+  }
+}

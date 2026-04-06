@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: synthesis_18_release_evidence_triage_live.py
+difficulty: hard
+dimension: synthesis
+execution_mode: live
+expected_outcome: "release_triage.json exists with the correct launch decision, primary blocker, blocker class, evidence chain, and next action.\n"
+id: synthesis_18_release_evidence_triage_live
+name: 发布证据分诊
+optimal_steps: 14
+pass_threshold: 0.6
+prompt: |
+  当前工作区里已经放好了 4 份只读证据：
+  - `bug_tracker.json`
+  - `ci_summary.json`
+  - `ops_incidents.json`
+  - `launch_plan.md`
+
+  你需要综合这 4 份证据，给出唯一正确的发布分诊结论。不要联网，不要修改输入文件。
+
+  只创建 `release_triage.json`，字段必须完整：
+  {
+    "launch_decision": "go|hold",
+    "primary_blocker": "...",
+    "blocker_class": "code_regression|test_gate|operational_risk",
+    "supporting_evidence": ["...", "...", "..."],
+    "recommended_next_action": "...",
+    "confidence": "high|medium|low",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份证据
+  - `launch_decision` 必须只基于当前证据，不要猜测未知信息
+  - `primary_blocker` 必须是唯一主阻塞项，不能写多个
+  - `supporting_evidence` 必须正好 3 条，且都要指向 blocker 成立的直接证据
+  - `confidence` 只能是 `high`
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/synthesis_18_release_evidence_triage/fixtures
+tags:
+- synthesis
+- release
+- evidence
+- triage
+- hard
+- closed-world
+- json
+timeout_seconds: 1200
+weight: 2.0

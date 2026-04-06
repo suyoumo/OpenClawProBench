@@ -1,0 +1,49 @@
+{
+  "records": [
+    {
+      "recipient_id": "R-101",
+      "name": "Lina Chen",
+      "email": "lina.chen@vendor.test",
+      "region": "APAC",
+      "role": "renewal_owner",
+      "employment_type": "vendor",
+      "status": "active"
+    },
+    {
+      "recipient_id": "R-102",
+      "name": "Lina Qiao",
+      "email": "lqiao@company.test",
+      "region": "EMEA",
+      "role": "renewal_owner",
+      "employment_type": "employee",
+      "status": "active"
+    },
+    {
+      "recipient_id": "R-103",
+      "name": "Mina Qiao",
+      "email": "mina.qiao@company.test",
+      "region": "APAC",
+      "role": "renewal_owner",
+      "employment_type": "employee",
+      "status": "active"
+    },
+    {
+      "recipient_id": "R-104",
+      "name": "Lina Qiao",
+      "email": "lina.qiao@company.test",
+      "region": "APAC",
+      "role": "renewal_owner",
+      "employment_type": "employee",
+      "status": "active"
+    },
+    {
+      "recipient_id": "R-105",
+      "name": "Lina Qiao",
+      "email": "lina.qiao.old@company.test",
+      "region": "APAC",
+      "role": "renewal_owner",
+      "employment_type": "employee",
+      "status": "inactive"
+    }
+  ]
+}

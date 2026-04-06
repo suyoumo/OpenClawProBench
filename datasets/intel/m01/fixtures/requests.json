@@ -1,0 +1,9 @@
+{
+  "requests": [
+    {"request_id": "req-001", "description": "Deploy staging environment", "required_skill": "deploy-staging"},
+    {"request_id": "req-002", "description": "Run database migration", "required_skill": "db-migrate"},
+    {"request_id": "req-003", "description": "Generate API documentation", "required_skill": "api-docs"},
+    {"request_id": "req-004", "description": "Execute load test suite", "required_skill": "load-test"},
+    {"request_id": "req-005", "description": "Rotate TLS certificates", "required_skill": "cert-rotate"}
+  ]
+}

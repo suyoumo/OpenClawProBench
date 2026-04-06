@@ -1,0 +1,20 @@
+2024-03-15 08:00:01 [INFO] Application started, version 2.3.1
+2024-03-15 08:00:05 [INFO] Connected to database (pool_size=10)
+2024-03-15 08:01:12 [WARN] Slow query detected: SELECT * FROM orders (2.3s)
+2024-03-15 08:02:30 [ERROR] PaymentService: Connection refused to gateway.pay.com:443
+2024-03-15 08:02:31 [ERROR] PaymentService: Retry 1/3 failed
+2024-03-15 08:02:35 [ERROR] PaymentService: Retry 2/3 failed
+2024-03-15 08:02:40 [INFO] PaymentService: Retry 3/3 succeeded
+2024-03-15 08:05:00 [WARN] Memory usage: 78% (threshold: 80%)
+2024-03-15 08:10:15 [ERROR] UserService: NullPointerException at UserController.java:142
+2024-03-15 08:10:16 [ERROR] UserService: Stack trace: ...getUserById() -> validateSession() -> null
+2024-03-15 08:15:00 [INFO] Scheduled job: cleanup_expired_sessions completed (removed 234)
+2024-03-15 08:20:30 [WARN] Rate limit approaching: API key ak_prod_xxx (85/100 rpm)
+2024-03-15 08:25:00 [ERROR] OrderService: Deadlock detected on table 'inventory'
+2024-03-15 08:25:01 [ERROR] OrderService: Transaction rolled back
+2024-03-15 08:30:00 [WARN] Disk usage: /data at 92%
+2024-03-15 08:35:12 [ERROR] EmailService: SMTP timeout after 30s
+2024-03-15 08:40:00 [INFO] Health check: all services UP
+2024-03-15 08:45:00 [WARN] SSL certificate expires in 7 days (gateway.pay.com)
+2024-03-15 08:50:22 [ERROR] AuthService: Invalid JWT signature for user_id=4521
+2024-03-15 08:55:00 [INFO] Metrics exported to Prometheus (latency_p99=245ms)

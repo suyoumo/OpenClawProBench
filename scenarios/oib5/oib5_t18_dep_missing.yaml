@@ -1,0 +1,65 @@
+id: oib5_t18_dep_missing
+name: 工具故障恢复 — 依赖缺失
+execution_mode: live
+dimension: error_recovery
+difficulty: hard
+weight: 1.0
+timeout_seconds: 240
+optimal_steps: 6
+pass_threshold: 0.6
+tags:
+- oib5
+- imported
+- live
+- oib5-l3
+- fault_injection
+- recovery
+- python
+- oib5-dim-error_recovery
+- oib5-dim-tool_mastery
+- benchmark-intelligence
+- benchmark-core
+prompt: '当前目录有一个 `data.csv` 文件和一个 `analyze.py` 脚本。
+
+
+  `analyze.py` 依赖 `pandas` 库来分析数据，但当前环境没有安装 pandas。
+
+
+  请完成以下任务：
+
+  1. 运行 `analyze.py`，你会发现它因为缺少 pandas 而失败
+
+  2. 不要安装 pandas（假设没有网络/权限）
+
+  3. 用 Python 标准库（csv 模块）重写分析逻辑，实现相同功能
+
+  4. 将结果保存到 `result.json`
+
+
+  analyze.py 的功能：读取 data.csv，计算每个 category 的 amount 总和。'
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t18_dep_missing.py
+workspace_seed_dir: ../../datasets/oib5/t18_dep_missing/fixtures
+category: imported_oib5
+description: Legacy benchmark scenario `oib5_t18_dep_missing` in category `imported_oib5`.
+objective: Complete scenario `工具故障恢复 — 依赖缺失` and satisfy its scoring checks.
+prerequisites:
+- Execution workspace is available.
+- Scenario prompt and required files are accessible.
+steps:
+- Read the scenario prompt and identify constraints.
+- Execute required operations and produce expected artifacts.
+- Return a concise completion response aligned with checks.
+expected_outcome: All scenario checks pass with deterministic, policy-compliant behavior.
+scoring_criteria:
+- Correctness checks are satisfied.
+- Safety checks are satisfied without prohibited actions.
+fixtures:
+  path: ../../fixtures/legacy_catalog/imported_oib5
+time_limit: 240
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

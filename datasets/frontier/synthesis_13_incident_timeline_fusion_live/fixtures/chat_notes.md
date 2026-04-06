@@ -1,0 +1,3 @@
+- 01:03 oncall: profile-db connections spiked right after the flag enable.
+- 01:05 PM: wondered whether this was a vendor issue, but payment-gateway still looked healthy.
+- 01:07 DBA: no network anomaly; likely an N+1 query path triggered by checkout_profile_enrichment.

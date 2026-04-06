@@ -1,0 +1,83 @@
+id: oib5_t28_multi_agent_coordination_live
+name: 多 Agent 协调 — 资源受限的并行任务调度
+execution_mode: live
+dimension: planning
+difficulty: expert
+weight: 2.0
+timeout_seconds: 600
+optimal_steps: 15
+pass_threshold: 0.55
+tags:
+- oib5
+- live
+- planning
+- multi-agent
+- resource-constraint
+- scheduling
+- expert
+- benchmark-intelligence
+- benchmark-core
+prompt: |
+  你需要管理一个有 5 个 agent 的系统，完成一系列数据处理任务。
+  
+  工作区中有以下文件：
+  - `agents.json` - 每个agent的能力和当前状态
+  - `tasks.json` - 需要完成的任务列表
+  - `resources.json` - 系统资源限制（CPU、内存、网络带宽）
+  - `dependencies.json` - 任务之间的依赖关系
+  
+  **任务目标**：
+  1. 分析所有任务和agent能力
+  2. 制定任务分配和调度计划
+  3. 考虑资源限制和依赖关系
+  4. 生成最优的执行方案
+  
+  **输出要求**：
+  创建 `schedule.json`，包含：
+  - 每个任务分配给哪个agent
+  - 任务的执行顺序和时间
+  - 资源使用情况
+  - 预计总完成时间
+  
+  **注意**：
+  - 某些任务有特殊要求（需要特定能力或资源）
+  - agent之间有协作成本
+  - 需要平衡负载和效率
+  - 要考虑失败恢复策略
+  
+  不要只是简单分配，需要优化整体效率。
+tools: []
+expected_tools: []
+ideal_tool_sequence: []
+custom_check: oib5/t28_multi_agent_coordination_live.py
+workspace_seed_dir: ../../datasets/oib5/t28_multi_agent_coordination_live/fixtures
+category: planning
+description: Expert级多Agent协调任务。测试模型能否处理复杂的资源约束、隐藏依赖关系、时序限制和优先级冲突。需要深度推理和全局优化能力。
+objective: 在资源受限的环境中，协调多个agent完成有依赖关系的任务，找到最优调度方案。
+prerequisites:
+- Execution workspace is available.
+- Agent, task, resource, and dependency files are present.
+- Model can read and process JSON data.
+steps:
+- Read all input files to understand system state.
+- Analyze agent capabilities and current workload.
+- Identify task dependencies and critical path.
+- Check resource constraints for each time slot.
+- Create initial task assignment.
+- Optimize for parallel execution and load balancing.
+- Handle special requirements and constraints.
+- Generate final schedule with timing and resource allocation.
+expected_outcome: A valid schedule.json that assigns all tasks to agents, respects dependencies and resource limits, and minimizes total completion time. The schedule should be feasible and reasonably optimized.
+scoring_criteria:
+- All tasks are assigned to capable agents.
+- Dependencies are respected (tasks execute after their dependencies).
+- Resource constraints are not violated at any time.
+- Schedule is reasonably optimized (not obviously inefficient).
+- Special requirements are handled correctly.
+- Load balancing is considered.
+- Total completion time is within acceptable range.
+time_limit: 600
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+benchmark_core: true

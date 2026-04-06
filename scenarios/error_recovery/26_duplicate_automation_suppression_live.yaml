@@ -1,0 +1,28 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: error_recovery_26_duplicate_automation_suppression_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+id: error_recovery_26_duplicate_automation_suppression_live
+name: Duplicate Automation Suppression
+openclaw_surfaces:
+- cron
+- message
+optimal_steps: 10
+pass_threshold: 0.62
+timeout_seconds: 300
+prompt: |
+  当前工作区里已经放好了 1 份只读输入：
+  - `automation_state.json`
+
+  请创建 `automation_suppression_plan.json`，字段必须完整：
+  {
+    "pause_noisy_watch": true,
+    "create_new_follow_up": false,
+    "blocked_duplicate_actions": ["..."],
+    "minimal_next_action": "...",
+    "reason": "..."
+  }

@@ -1,0 +1,51 @@
+benchmark_core: false
+benchmark_group: intelligence
+benchmark_status: active
+signal_source: workspace_live
+custom_check: error_recovery_14_recovery_tradeoff_live.py
+difficulty: expert
+dimension: error_recovery
+execution_mode: live
+expected_outcome: "recovery_tradeoff.json exists with the exact recovery choice, rejected options, staged sequence, and verification focus.\n"
+id: error_recovery_14_recovery_tradeoff_live
+name: 恢复方案权衡
+optimal_steps: 18
+pass_threshold: 0.62
+prompt: |
+  当前工作区里已经放好了 4 份只读输入：
+  - `incident_state.json`
+  - `recovery_options.json`
+  - `business_constraints.md`
+  - `verification_contract.json`
+
+  你需要从候选恢复方案中选出唯一正确方案。不要联网，不要修改输入文件。
+
+  只创建 `recovery_tradeoff.json`，字段必须完整：
+  {
+    "selected_option": "...",
+    "rejected_options": [
+      {"option": "...", "reason": "..."}
+    ],
+    "staged_recovery_sequence": ["...", "...", "...", "..."],
+    "verification_focus": ["...", "...", "..."],
+    "governing_constraint": "...",
+    "evidence_refs": ["...", "...", "...", "..."]
+  }
+
+  强约束：
+  - 必须同时使用全部 4 份输入
+  - 需要综合恢复时间、数据风险、客户影响和验证成本，而不是只选最快方案
+  - `rejected_options` 必须覆盖其余全部候选项，按 option 字母序
+  - `staged_recovery_sequence` 必须正好 4 条
+  - `verification_focus` 必须正好 3 条
+  - 不要输出任何额外文本
+workspace_seed_dir: ../../datasets/error_recovery_14_recovery_tradeoff/fixtures
+tags:
+- error_recovery
+- tradeoff
+- recovery
+- expert
+- closed-world
+- json
+timeout_seconds: 600
+weight: 2.0

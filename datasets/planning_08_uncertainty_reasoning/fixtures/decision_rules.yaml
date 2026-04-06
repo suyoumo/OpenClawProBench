@@ -1,0 +1,34 @@
+uncertainty_level_bands:
+  high_uncertainty_if_below: 0.75
+  medium_uncertainty_if_below: 0.85
+launch_rules:
+  full_launch_min_confidence: 0.80
+  max_parallel_high_risk_launches: 1
+  active_high_risk_projects:
+    - payments-migration
+  q4_release_required: true
+  budget_ceiling_usd: 900000
+  min_pilot_customers: 10
+block_reason_codes:
+  full_launch_q4:
+    - canonical: full_scale_not_ready
+      aliases:
+        - full_scale_not_ready
+    - canonical: market_confidence_below_threshold
+      aliases:
+        - market_confidence_below_threshold
+    - canonical: finance_confidence_below_threshold
+      aliases:
+        - finance_confidence_below_threshold
+    - canonical: parallel_high_risk_limit_reached
+      aliases:
+        - parallel_high_risk_limit_reached
+        - high_risk_capacity_reached
+  defer_to_q1:
+    - canonical: violates_q4_release_requirement
+      aliases:
+        - violates_q4_release_requirement
+next_action_codes:
+  - run_q4_pilot_with_14_beta_customers
+  - finish_support_playbook_before_pilot_enablement
+  - reassess_full_launch_after_payments_migration_and_confidence_refresh

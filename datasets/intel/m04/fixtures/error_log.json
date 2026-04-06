@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {"timestamp": "2026-03-23T10:05:12Z", "service": "auth-service", "error_code": "E5001", "message": "Connection pool exhausted"},
+    {"timestamp": "2026-03-23T10:05:30Z", "service": "payment-service", "error_code": "E5001", "message": "Connection pool exhausted"},
+    {"timestamp": "2026-03-23T10:05:45Z", "service": "user-service", "error_code": "E4003", "message": "Token validation failed"},
+    {"timestamp": "2026-03-23T10:05:55Z", "service": "auth-service", "error_code": "E5001", "message": "Connection pool exhausted"},
+    {"timestamp": "2026-03-23T10:12:00Z", "service": "auth-service", "error_code": "E4003", "message": "Token validation failed"}
+  ]
+}

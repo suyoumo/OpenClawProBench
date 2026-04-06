@@ -1,0 +1,11 @@
+{
+  "full_launch_cost_usd": 820000,
+  "pilot_launch_cost_usd": 280000,
+  "full_launch_best_case_revenue_usd": 1800000,
+  "full_launch_base_case_revenue_usd": 950000,
+  "full_launch_worst_case_revenue_usd": -350000,
+  "pilot_launch_best_case_revenue_usd": 700000,
+  "pilot_launch_base_case_revenue_usd": 320000,
+  "pilot_launch_worst_case_revenue_usd": -90000,
+  "forecast_confidence": 0.74
+}

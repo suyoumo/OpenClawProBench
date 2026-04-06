@@ -1,0 +1,8 @@
+{"event_id": "e1", "service": "export-worker", "status": "error", "error_code": "E_QUEUE_STALL"}
+{"event_id": "e2", "service": "export-worker", "status": "error", "error_code": "E_QUEUE_STALL"}
+{"event_id": "e3", "service": "export-worker", "status": "error", "error_code": "E_QUEUE_STALL"}
+{"event_id": "e4", "service": "search-api", "status": "error", "error_code": "E_RATE_LIMIT"}
+{"event_id": "e5", "service": "search-api", "status": "error", "error_code": "E_RATE_LIMIT"}
+{"event_id": "e6", "service": "analytics", "status": "ok", "error_code": ""}
+{"event_id": "e7", "service": "export-worker", "status": "error", "error_code": "E_PAYLOAD_TOO_LARGE"}
+{"event_id": "e8", "service": "profile-db", "status": "error", "error_code": "E_CONN_TIMEOUT"}

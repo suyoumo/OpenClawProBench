@@ -1,0 +1,9 @@
+{
+  "surfaces": {
+    "browser": "status shows partial recovery",
+    "memory": "last similar incident required internal-only containment first",
+    "cron": "two existing follow-up checks already scheduled",
+    "sessions": "current session pressure is high"
+  },
+  "goal": "produce next 30 minute incident commander action sequence"
+}

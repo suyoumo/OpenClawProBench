@@ -1,0 +1,5 @@
+checkout:
+  max_checkout_retries: 5
+  retry_scope: full_workflow
+  fail_fast_on_payment_gateway_down: false
+  timeout_seconds: 30

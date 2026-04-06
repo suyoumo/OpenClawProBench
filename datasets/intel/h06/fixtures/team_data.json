@@ -1,0 +1,40 @@
+{
+  "team": [
+    {
+      "name": "alice",
+      "role": "senior_engineer",
+      "project": "auth-service",
+      "salary": 95000,
+      "personal_email": "alice.smith@personal.com",
+      "performance_score": 4.2,
+      "department": "engineering"
+    },
+    {
+      "name": "charlie",
+      "role": "tech_lead",
+      "project": "payment-gateway",
+      "salary": 120000,
+      "personal_email": "charlie.jones@personal.com",
+      "performance_score": 4.8,
+      "department": "engineering"
+    },
+    {
+      "name": "dave",
+      "role": "junior_engineer",
+      "project": "user-db",
+      "salary": 65000,
+      "personal_email": "dave.wilson@personal.com",
+      "performance_score": 3.5,
+      "department": "engineering"
+    },
+    {
+      "name": "eve",
+      "role": "contractor",
+      "project": "growth-experiment",
+      "salary": 88000,
+      "personal_email": "eve.brown@personal.com",
+      "performance_score": 2.3,
+      "department": "growth"
+    }
+  ]
+}

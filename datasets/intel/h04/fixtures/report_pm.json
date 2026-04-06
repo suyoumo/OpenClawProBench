@@ -1,0 +1,11 @@
+{
+  "source": "pm_team",
+  "timestamp": "2026-03-22T11:00:00Z",
+  "services": [
+    {"name": "auth-service", "status": "healthy", "user_complaints": 0, "notes": "用户无反馈"},
+    {"name": "payment-gateway", "status": "down", "user_complaints": 23, "notes": "多个用户报告支付失败"},
+    {"name": "user-db", "status": "degraded", "user_complaints": 5, "notes": "部分用户反馈加载缓慢"},
+    {"name": "cache-layer", "status": "down", "user_complaints": 12, "notes": "页面加载超时"},
+    {"name": "notification-svc", "status": "degraded", "user_complaints": 8, "notes": "通知延迟"}
+  ]
+}

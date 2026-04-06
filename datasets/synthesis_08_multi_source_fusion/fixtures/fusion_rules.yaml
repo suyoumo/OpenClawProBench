@@ -1,0 +1,29 @@
+reliability_scoring:
+  base_score: 10
+  deductions:
+    review_campaign_noise: 4
+    seasonal_promo_distortion: 1
+    duplicate_incident_reports: 2
+    marketing_bias_and_outdated_claims: 6
+allowed_issue_codes:
+  - battery_drain_after_firmware_1_4
+  - bluetooth_pairing_failure_android_14
+  - cosmetic_strap_wear
+allowed_claim_codes:
+  - battery_life_is_consistently_three_days
+  - pairing_issues_are_isolated_setup_errors
+allowed_resolution_codes:
+  - reject_using_ticket_cluster_and_return_trend
+  - reject_using_duplicate_verified_reports
+allowed_demand_status:
+  - demand_softened_after_promo_peak
+  - demand_accelerating_post_promo
+allowed_quality_status:
+  - real_quality_regression_present
+  - no_material_quality_signal
+allowed_decision_recommendations:
+  - pause_paid_growth_fix_firmware_and_pairing_before_next_campaign
+  - keep_growth_spend_and_focus_on_brand_marketing
+allowed_uncertainties:
+  - review_sentiment_share_is_distorted_by_incentivized_posts
+  - competitor_price_comparisons_may_be_stale

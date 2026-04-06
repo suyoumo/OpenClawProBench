@@ -1,0 +1,40 @@
+{
+  "logical_dataset_size_mb": 1536,
+  "shards": [
+    {
+      "path": "dataset/shard_a.jsonl",
+      "logical_size_mb": 4,
+      "kind": "payments"
+    },
+    {
+      "path": "dataset/shard_b.jsonl",
+      "logical_size_mb": 5,
+      "kind": "profiles"
+    },
+    {
+      "path": "dataset/shard_c.jsonl",
+      "logical_size_mb": 7,
+      "kind": "auth"
+    },
+    {
+      "path": "dataset/shard_d.jsonl",
+      "logical_size_mb": 8,
+      "kind": "search"
+    },
+    {
+      "path": "dataset/shard_e.jsonl",
+      "logical_size_mb": 9,
+      "kind": "exports"
+    },
+    {
+      "path": "dataset/shard_f.jsonl",
+      "logical_size_mb": 12,
+      "kind": "analytics"
+    },
+    {
+      "path": "dataset/archive_full_export.bin",
+      "logical_size_mb": 1536,
+      "kind": "full_export_placeholder"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "messages": [
+    {
+      "channel": "#payments",
+      "author": "bob",
+      "text": "I can own the blocker, but QA signoff is still pending."
+    }
+  ]
+}

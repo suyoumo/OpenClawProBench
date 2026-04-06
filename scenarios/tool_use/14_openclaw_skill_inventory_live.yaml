@@ -1,0 +1,50 @@
+benchmark_core: false
+benchmark_group: coverage
+benchmark_status: active
+signal_source: openclaw_native
+custom_check: tool_use_14_openclaw_skill_inventory_live.py
+difficulty: easy
+dimension: tool_use
+execution_mode: live
+expected_outcome: "skills_inventory_report.json exists and matches the current local OpenClaw skills inventory.\n"
+id: tool_use_14_openclaw_skill_inventory_live
+name: OpenClaw Skill Inventory Snapshot
+openclaw_surfaces:
+- skills
+optimal_steps: 6
+pass_threshold: 0.6
+prompt: |
+  你需要直接检查当前这台机器上的 OpenClaw skills 状态，不要猜，也不要联网。
+  使用 `openclaw skills list --json` 作为唯一事实来源。
+  不要改用 `openclaw skills check`、目录扫描、配置猜测或其他 CLI 输出来推断结果。
+
+  任务：
+  使用本机 OpenClaw CLI 读取当前 skill inventory，然后创建 `skills_inventory_report.json`。
+
+  JSON 字段必须完整：
+  {
+    "ready_count": 0,
+    "missing_count": 0,
+    "workspace_dir": "...",
+    "managed_skills_dir": "...",
+    "ready_examples": ["...", "...", "..."],
+    "missing_examples": ["...", "...", "..."]
+  }
+
+  要求：
+  - 将 CLI 输出里 `eligible=true` 的 skill 记入 ready 集合
+  - 将 CLI 输出里 `eligible=false` 的 skill 记入 missing 集合
+  - `ready_examples` 必须是当前 ready skill 名称按字母序排序后的前 3 个
+  - `missing_examples` 必须是当前 missing skill 名称按字母序排序后的前 3 个
+  - 不要输出额外字段
+tags:
+- tool_use
+- openclaw-native
+- openclaw-skills
+- inventory
+- easy
+timeout_seconds: 720
+tools:
+- exec
+- write
+weight: 1.0

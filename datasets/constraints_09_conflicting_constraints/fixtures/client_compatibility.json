@@ -1,0 +1,23 @@
+{
+  "clients": [
+    {
+      "client_id": "ios_legacy_app",
+      "traffic_share": 0.38,
+      "migration_ready_in_days": 30,
+      "requires_legacy_api": true
+    },
+    {
+      "client_id": "partner_batch_sdk",
+      "traffic_share": 0.27,
+      "migration_ready_in_days": 14,
+      "requires_legacy_api": true
+    },
+    {
+      "client_id": "ops_console",
+      "traffic_share": 0.05,
+      "migration_ready_in_days": 0,
+      "requires_legacy_api": false
+    }
+  ],
+  "legacy_api_rule": "legacy_api_must_remain_until_all_requires_legacy_api_clients_finish_migration"
+}

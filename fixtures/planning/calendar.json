@@ -1,0 +1,9 @@
+{
+  "events": [
+    {
+      "title": "Design review",
+      "start": "2026-03-19 15:30",
+      "attendees": ["alice", "bob", "qa-lead"]
+    }
+  ]
+}

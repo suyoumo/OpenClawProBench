@@ -1,0 +1,3 @@
+[2026-03-22T09:17:51Z] checkout_id=chk-8837 payment-service timeout after 30s provider=orbitpay
+[2026-03-22T09:17:53Z] checkout_id=chk-8837 inventory-service rejected reserve call mode=readonly
+[2026-03-22T09:18:00Z] degrade-candidate checkout_mode=reject_new_orders reason=payment_down_and_inventory_readonly

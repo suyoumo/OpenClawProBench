@@ -1,0 +1,6 @@
+STATUS_ACTIVE = 'active'
+STATUS_INACTIVE = 'inactive'
+STATUS_PENDING = 'pending'
+MAX_NAME_LENGTH = 100
+MIN_AGE = 1
+MAX_AGE = 150

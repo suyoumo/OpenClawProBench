@@ -1,0 +1,25 @@
+{
+  "tickets": [
+    {
+      "id": "P0_checkout_null_pointer_open",
+      "severity": "P0",
+      "status": "open",
+      "component": "checkout",
+      "summary": "Null pointer after hotfix when address2 is empty"
+    },
+    {
+      "id": "P2_copy_update",
+      "severity": "P2",
+      "status": "open",
+      "component": "ui",
+      "summary": "Billing label wording cleanup"
+    },
+    {
+      "id": "P1_export_latency",
+      "severity": "P1",
+      "status": "mitigated",
+      "component": "exports",
+      "summary": "Latency spike under batch load"
+    }
+  ]
+}

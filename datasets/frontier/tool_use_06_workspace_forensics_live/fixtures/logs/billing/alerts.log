@@ -1,0 +1,3 @@
+2026-03-20T03:15:00Z service=billing customer_id=C203 severity=high status=confirmed error=DB_RETRY_EXHAUSTED
+2026-03-20T03:25:00Z service=billing customer_id=C341 severity=critical status=confirmed error=LEDGER_LOCK
+2026-03-20T04:00:00Z service=billing customer_id=C341 severity=low status=confirmed error=QUEUE_DELAY

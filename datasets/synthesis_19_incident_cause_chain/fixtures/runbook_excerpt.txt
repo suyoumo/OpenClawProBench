@@ -1,0 +1,5 @@
+Runbook excerpt:
+- If tax service errors mention region mismatch immediately after a checkout config deploy, suspect endpoint misrouting.
+- Payment gateway outage would affect both EU and US checkout traffic.
+- Database pool exhaustion presents as pool timeout saturation, not region mismatch.
+- Immediate mitigation: rollback checkout config to the last known good version.
