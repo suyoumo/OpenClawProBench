@@ -134,7 +134,11 @@ We welcome issues, documentation fixes, scenario improvements, grader hardening,
 
 ## Acknowledgements
 
-This benchmark builds on real OpenClaw runtime surfaces and includes imported OIB5-derived task content alongside native OpenClaw evaluation scenarios.
+This project was informed by prior open-source work on agent evaluation, benchmark design, and real-world task assessment.
+
+We drew ideas from projects such as PinchBench, Claw-Eval, AgencyBench, and related agent-benchmark efforts, especially in areas like task design, evaluation methodology, harness structure, and public benchmark presentation.
+
+Some tasks in this repository are adapted and reworked from earlier public benchmark-style task sets into the OpenClaw runtime and grading framework.
 
 ## Contributors
 
