@@ -25,6 +25,11 @@ Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench]
 
 [![OpenClawProBench leaderboard preview](docs/assets/leaderboard-preview.png)](https://suyoumo.github.io/bench/)
 
+## 📢 Updates
+
+- `v1.0.1` - Added `qwen3-coder-next`, `doubao-seed-code`, `qwen3-max-2026-01-23`, and `qwen3.6plus` rerun with `bailiancodingplan`; added model image download and benchmark sharing to Twitter; fixed completed-report resume overwrite, `tool_use_14` graceful fallback on skills inventory load failure, `tool_use_17` invalid JSON and missing-file tolerance, and `audit_scenario_quality.py` compatibility.
+- `v1.0.0` - OpenClawProBench released with 102 tasks across 6 domains, with 3-try runs, checkpoint resume, and cross-environment resume support.
+
 ## Evaluation Logic
 
 - Default ranking path: `core`
@@ -96,11 +101,6 @@ For isolated same-host runs, the harness also supports:
 - `--openclaw-gateway-port`
 - `--openclaw-binary`
 
-## 📢 Updates
-
-- `v1.0.1` - Added `qwen3-coder-next`, `doubao-seed-code`, `qwen3-max-2026-01-23`, and `qwen3.6plus` rerun with `bailiancodingplan`, plus model image download and benchmark sharing to Twitter.
-- `v1.0.0` - OpenClawProBench released with 102 tasks across 6 domains, with 3-try runs, checkpoint resume, and cross-environment resume support.
-
 ## Benchmark Profiles
 
 | Profile | Active scenarios | Purpose |
@@ -161,3 +161,9 @@ Some tasks in this repository are adapted and reworked from earlier public bench
 ## Contributors
 
 Public contributor list: waiting.
+
+## Discussion Group
+
+![OpenClaw WeChat community QR code](docs/assets/openclaw-wechat-group-qr.jpg)
+
+Join our WeChat discussion group to discuss OpenClaw with other users and builders.
