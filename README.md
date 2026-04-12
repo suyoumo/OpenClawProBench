@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/assets/openclawprobench-logo.svg" width="160" alt="OpenClawProBench Logo">
+<img src="docs/assets/openclawprobench-logo.svg" width="160" alt="ClawProBench Logo">
 
-# OpenClawProBench
+# ClawProBench
 
 [![Active Scenarios](https://img.shields.io/badge/active-102-blue)](#benchmark-profiles)
 [![Catalog](https://img.shields.io/badge/catalog-162-green)](#benchmark-profiles)
@@ -15,7 +15,7 @@
 
 </div>
 
-OpenClawProBench focuses on real OpenClaw execution with deterministic grading, structured reports, and benchmark-profile selection. The default ranking path is the `core` profile; broader active coverage remains available through `intelligence`, `coverage`, `native`, and `full`.
+ClawProBench focuses on real OpenClaw execution with deterministic grading, structured reports, and benchmark-profile selection. The default ranking path is the `core` profile; broader active coverage remains available through `intelligence`, `coverage`, `native`, and `full`.
 
 The current worktree inventory reports `102` active scenarios and `162` total catalog scenarios (`60` incubating) via `python3 run.py inventory --json` and `python3 run.py inventory --benchmark-status all --json`.
 
@@ -23,13 +23,13 @@ The current worktree inventory reports `102` active scenarios and `162` total ca
 
 Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench](https://suyoumo.github.io/bench/)**.
 
-[![OpenClawProBench leaderboard preview](docs/assets/leaderboard-preview.png)](https://suyoumo.github.io/bench/)
+[![ClawProBench leaderboard preview](docs/assets/leaderboard-preview.png)](https://suyoumo.github.io/bench/)
 
 ## 📢 Updates
 
 - `v1.0.2` - Added `kimi-for-coding`, `gemma4-31b`, and `kimi-k2-thinking`; improved image download flows for easier mobile-device browsing.
 - `v1.0.1` - Added `qwen3-coder-next`, `doubao-seed-code`, `qwen3-max-2026-01-23`, and `qwen3.6plus` rerun with `bailiancodingplan`; added model image download and benchmark sharing to Twitter; fixed completed-report resume overwrite, `tool_use_14` graceful fallback on skills inventory load failure, `tool_use_17` invalid JSON and missing-file tolerance, and `audit_scenario_quality.py` compatibility.
-- `v1.0.0` - OpenClawProBench released with 102 tasks across 6 domains, with 3-try runs, checkpoint resume, and cross-environment resume support.
+- `v1.0.0` - ClawProBench released with 102 tasks across 6 domains, with 3-try runs, checkpoint resume, and cross-environment resume support.
 
 ## Evaluation Logic
 
@@ -136,11 +136,11 @@ Benchmark reports are written to `results/`. They are generated runtime artifact
 
 ## Citation
 
-If you use OpenClawProBench in your research, please cite:
+If you use ClawProBench in your research, please cite:
 
 ```bibtex
-@misc{openclawprobench2026,
-  title={OpenClawProBench — a transparent benchmark for true intelligence in real-world AI agents.},
+@misc{clawprobench2026,
+  title={ClawProBench — a transparent benchmark for true intelligence in real-world AI agents.},
   author={suyoumo},
   year={2026},
   url={https://github.com/suyoumo/OpenClawProBench}
