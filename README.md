@@ -23,7 +23,7 @@ The current worktree inventory reports `102` active scenarios and `162` total ca
 
 Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench](https://suyoumo.github.io/bench/)**.
 
-[![ClawProBench leaderboard preview](docs/assets/leaderboard-preview.png)](https://suyoumo.github.io/bench/)
+[![ClawProBench leaderboard preview](docs/assets/leaderboard-preview-20260412.png)](https://suyoumo.github.io/bench/)
 
 ## 📢 Updates
 
