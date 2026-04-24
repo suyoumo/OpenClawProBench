@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+import hashlib
 import json
 import os
+import re
 import signal
 import subprocess
 import threading
@@ -71,6 +73,33 @@ class LivePreflightResult:
 
 
 class OpenClawLiveHarness:
+    _DEEPSEEK_V4_MODELS: list[dict[str, Any]] = [
+        {
+            "id": "deepseek-v4-pro",
+            "name": "deepseek-v4-pro",
+            "reasoning": True,
+            "input": ["text"],
+            "contextWindow": 1_048_576,
+            "maxTokens": 262_144,
+            "compat": {
+                "supportsReasoningEffort": True,
+                "supportsUsageInStreaming": True,
+            },
+        },
+        {
+            "id": "deepseek-v4-flash",
+            "name": "deepseek-v4-flash",
+            "reasoning": True,
+            "input": ["text"],
+            "contextWindow": 1_048_576,
+            "maxTokens": 262_144,
+            "compat": {
+                "supportsReasoningEffort": True,
+                "supportsUsageInStreaming": True,
+            },
+        },
+    ]
+
     def __init__(
         self,
         openclaw_bin: str = "openclaw",
@@ -92,6 +121,7 @@ class OpenClawLiveHarness:
         self.openclaw_gateway_port = int(openclaw_gateway_port) if openclaw_gateway_port else None
         self.progress_callback = progress_callback
         self.progress_interval_seconds = max(progress_interval_seconds, 1)
+        self._derived_openclaw_profile = self._derive_isolated_profile()
         self.command_env = self._build_command_env()
         self._gateway_process: subprocess.Popen[str] | None = None
         self._state_seed_lock = threading.Lock()
@@ -507,6 +537,9 @@ class OpenClawLiveHarness:
 
     def _home_dir(self, env: dict[str, str] | None = None) -> Path:
         source_env = env or getattr(self, "command_env", os.environ)
+        configured = str(source_env.get("OPENCLAW_HOME", "")).strip()
+        if configured:
+            return Path(configured).expanduser()
         configured = str(source_env.get("HOME", "")).strip()
         if configured:
             return Path(configured).expanduser()
@@ -527,6 +560,9 @@ class OpenClawLiveHarness:
         configured_state_dir = str(source_env.get("OPENCLAW_STATE_DIR", "")).strip()
         if configured_state_dir:
             return self._expand_configured_path(configured_state_dir, env=source_env)
+        configured_config_path = str(source_env.get("OPENCLAW_CONFIG_PATH", "")).strip()
+        if configured_config_path:
+            return self._expand_configured_path(configured_config_path, env=source_env).parent
         profile = str(source_env.get("OPENCLAW_PROFILE", "")).strip()
         suffix = ""
         if profile and profile.lower() != "default":
@@ -559,6 +595,20 @@ class OpenClawLiveHarness:
 
     def _default_main_auth_profiles_path(self) -> Path:
         return self._default_state_dir_path() / "agents" / "main" / "agent" / "auth-profiles.json"
+
+    def _derive_isolated_profile(self) -> str | None:
+        if self.openclaw_profile:
+            return self.openclaw_profile
+        if not (self.openclaw_state_dir or self.openclaw_config_path):
+            return None
+        source = self.openclaw_state_dir or str(Path(self.openclaw_config_path).expanduser().resolve(strict=False).parent)
+        normalized_source = str(source).strip()
+        if not normalized_source:
+            return None
+        base_name = Path(normalized_source).name.strip().lower() or "isolated"
+        slug = re.sub(r"[^a-z0-9]+", "-", base_name).strip("-") or "isolated"
+        digest = hashlib.sha1(normalized_source.encode("utf-8")).hexdigest()[:10]
+        return f"bench-{slug}-{digest}"
 
     def _uses_isolated_state(self) -> bool:
         target_state = self._state_dir_path()
@@ -638,6 +688,16 @@ class OpenClawLiveHarness:
                 next_feishu["enabled"] = False
                 channels["feishu"] = next_feishu
                 changed = True
+
+        messages = payload.get("messages")
+        if isinstance(messages, dict) and "logging" in messages:
+            next_messages = dict(messages)
+            next_messages.pop("logging", None)
+            if next_messages:
+                payload["messages"] = next_messages
+            else:
+                payload.pop("messages", None)
+            changed = True
 
         gateway = payload.get("gateway")
         if isinstance(gateway, dict):
@@ -794,6 +854,30 @@ class OpenClawLiveHarness:
             return "token"
         return "api_key"
 
+    def _resolve_provider_api_key_value(self, raw_api_key: Any) -> str:
+        if not isinstance(raw_api_key, str):
+            return ""
+        candidate = raw_api_key.strip()
+        if not candidate:
+            return ""
+        if re.fullmatch(r"[A-Z][A-Z0-9_]*", candidate):
+            env_value = str(self.command_env.get(candidate, "")).strip()
+            if env_value:
+                return env_value
+        return candidate
+
+    def _bootstrap_missing_provider_config(self, provider: str, model: str) -> dict[str, Any] | None:
+        normalized_provider = provider.strip().lower()
+        normalized_model = model.strip().lower()
+        if normalized_provider != "deepseek" or not normalized_model.startswith("deepseek/"):
+            return None
+        return {
+            "baseUrl": "https://api.deepseek.com",
+            "apiKey": "DEEPSEEK_API_KEY",
+            "api": "openai-completions",
+            "models": json.loads(json.dumps(self._DEEPSEEK_V4_MODELS)),
+        }
+
     def _sync_isolated_model_runtime(self, model: str) -> None:
         if not self._uses_isolated_state():
             return
@@ -840,13 +924,28 @@ class OpenClawLiveHarness:
                 changed = True
 
             provider = model.split("/", 1)[0].strip()
+            models_block = config_payload.get("models")
+            if not isinstance(models_block, dict):
+                models_block = {}
+                config_payload["models"] = models_block
+                changed = True
+            providers_block = models_block.get("providers")
+            if not isinstance(providers_block, dict):
+                providers_block = {}
+                models_block["providers"] = providers_block
+                changed = True
             auth_providers = sorted(self._auth_profile_providers_for_model(model))
             auth_provider = auth_providers[0] if auth_providers else provider
             provider_match = self._resolve_provider_config(config_payload, provider)
+            if provider_match is None:
+                bootstrap_provider_config = self._bootstrap_missing_provider_config(provider, model)
+                if bootstrap_provider_config is not None:
+                    providers_block[provider] = bootstrap_provider_config
+                    provider_match = (provider, bootstrap_provider_config)
+                    changed = True
             if provider_match is not None:
                 provider_key, provider_config = provider_match
-                raw_api_key = provider_config.get("apiKey")
-                provider_api_key = raw_api_key.strip() if isinstance(raw_api_key, str) else ""
+                provider_api_key = self._resolve_provider_api_key_value(provider_config.get("apiKey"))
                 if provider_api_key:
                     auth_store_path = self._global_main_auth_profiles_path()
                     auth_store = self._read_json_file(auth_store_path) or {"version": 1, "profiles": {}}
@@ -1056,19 +1155,24 @@ class OpenClawLiveHarness:
 
     def _build_command_env(self) -> dict[str, str]:
         env = os.environ.copy()
-        if self.openclaw_profile:
-            env["OPENCLAW_PROFILE"] = self.openclaw_profile
-        if self.openclaw_state_dir:
-            env["OPENCLAW_STATE_DIR"] = self.openclaw_state_dir
-        elif self.openclaw_profile and not str(env.get("OPENCLAW_STATE_DIR", "")).strip():
-            env["OPENCLAW_STATE_DIR"] = str(self._state_dir_path(env))
+        effective_profile = self._derived_openclaw_profile
+        if effective_profile:
+            env["OPENCLAW_PROFILE"] = effective_profile
+        if (effective_profile or self.openclaw_state_dir or self.openclaw_config_path) and not str(env.get("OPENCLAW_HOME", "")).strip():
+            env["OPENCLAW_HOME"] = str(self._home_dir(env))
         if self.openclaw_config_path:
             env["OPENCLAW_CONFIG_PATH"] = self.openclaw_config_path
-        elif (self.openclaw_profile or self.openclaw_state_dir) and not str(env.get("OPENCLAW_CONFIG_PATH", "")).strip():
+        if self.openclaw_state_dir:
+            env["OPENCLAW_STATE_DIR"] = self.openclaw_state_dir
+        elif effective_profile and not str(env.get("OPENCLAW_STATE_DIR", "")).strip():
+            env["OPENCLAW_STATE_DIR"] = str(self._state_dir_path(env))
+        if not str(env.get("OPENCLAW_CONFIG_PATH", "")).strip() and (
+            effective_profile or self.openclaw_state_dir or self.openclaw_config_path
+        ):
             env["OPENCLAW_CONFIG_PATH"] = str((self._state_dir_path(env) / "openclaw.json").resolve(strict=False))
         if self.openclaw_gateway_port is not None:
             env["OPENCLAW_GATEWAY_PORT"] = str(self.openclaw_gateway_port)
-        elif self.openclaw_profile and self.openclaw_profile.lower() == "dev" and not str(env.get("OPENCLAW_GATEWAY_PORT", "")).strip():
+        elif effective_profile and effective_profile.lower() == "dev" and not str(env.get("OPENCLAW_GATEWAY_PORT", "")).strip():
             env["OPENCLAW_GATEWAY_PORT"] = "19001"
         candidates: list[str] = []
         if env.get("NVM_BIN"):

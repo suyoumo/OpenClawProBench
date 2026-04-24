@@ -180,6 +180,71 @@ class CliTests(unittest.TestCase):
         self.assertTrue(args.continue_run)
         self.assertTrue(args.rerun_execution_failures)
 
+    def test_run_command_accepts_exclude_scenario_flag(self) -> None:
+        args = run.build_parser().parse_args(
+            ["run", "--model", "glm/GLM-5", "--exclude-scenario", "case_a", "--exclude-scenario", "case_b"]
+        )
+
+        self.assertEqual(args.exclude_scenario, ["case_a", "case_b"])
+
+    def test_inventory_command_excludes_requested_scenarios(self) -> None:
+        scenario_a = mock.Mock(
+            scenario_id="case_a",
+            dimension=mock.Mock(value="constraints"),
+            difficulty=mock.Mock(value="hard"),
+            execution_mode="live",
+            benchmark_group=mock.Mock(value="intelligence"),
+            benchmark_core=True,
+            benchmark_status=mock.Mock(value="active"),
+            signal_source=mock.Mock(value="workspace_live"),
+            openclaw_surfaces=[],
+            tags=[],
+            effective_weight=1.0,
+        )
+        scenario_b = mock.Mock(
+            scenario_id="case_b",
+            dimension=mock.Mock(value="constraints"),
+            difficulty=mock.Mock(value="hard"),
+            execution_mode="live",
+            benchmark_group=mock.Mock(value="intelligence"),
+            benchmark_core=True,
+            benchmark_status=mock.Mock(value="active"),
+            signal_source=mock.Mock(value="workspace_live"),
+            openclaw_surfaces=[],
+            tags=[],
+            effective_weight=1.0,
+        )
+
+        with mock.patch.object(run, "load_scenarios", return_value=[scenario_a, scenario_b]):
+            payload = run._inventory_payload(
+                run.build_parser().parse_args(["inventory", "--exclude-scenario", "case_a"])
+            )
+
+        self.assertEqual(payload["count"], 1)
+
+    def test_run_common_excludes_requested_scenarios_before_runner(self) -> None:
+        args = run.build_parser().parse_args(
+            ["run", "--model", "glm/GLM-5", "--exclude-scenario", "drop_me", "--trials", "1"]
+        )
+        keep = mock.Mock(scenario_id="keep_me")
+        drop = mock.Mock(scenario_id="drop_me")
+        fake_result = mock.Mock()
+        fake_result.summary = {"report_path": ""}
+
+        with (
+            mock.patch.object(run, "load_scenarios", return_value=[keep, drop]),
+            mock.patch.object(run, "reserve_report_path", return_value=Path("results/fake.json")),
+            mock.patch.object(run, "write_report", return_value=Path("results/fake.json")),
+            mock.patch.object(run, "print_summary"),
+            mock.patch.object(run, "BenchmarkRunner") as runner_cls,
+        ):
+            runner_cls.return_value.run_with_resume.return_value = fake_result
+            exit_code = args.func(args)
+
+        self.assertEqual(exit_code, 0)
+        passed = runner_cls.return_value.run_with_resume.call_args.kwargs["scenarios"]
+        self.assertEqual([scenario.scenario_id for scenario in passed], ["keep_me"])
+
     def test_apply_timeout_multiplier_clones_scenarios_with_adjusted_timeout(self) -> None:
         scenario = load_scenarios(scenario_id="intel_h03_temporal_constraint_scheduling")[0]
         original_timeout = scenario.timeout_seconds

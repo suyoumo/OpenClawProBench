@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .custom_checks import run_custom_checks
+from .custom_checks import normalize_trace_file_args, run_custom_checks
 from .efficiency import compute_efficiency_penalty, efficiency_score_from_penalty
 from .models import CheckCategory, CheckResult, Scenario, ScoreBreakdown
 from .process_scorer import compute_process_score
@@ -366,9 +366,10 @@ def _evaluate_check(check, trace: dict, workspace_path: Path, audit_state: dict)
 
 
 def grade_scenario(scenario: Scenario, workspace_path: Path, trace: dict) -> ScoreBreakdown:
-    audit_state = dict(trace.get("audit_state", {}))
-    tool_calls = _tool_calls(trace)
-    custom = run_custom_checks(scenario, workspace_path, trace, tool_calls)
+    normalized_trace = normalize_trace_file_args(trace)
+    audit_state = dict(normalized_trace.get("audit_state", {}))
+    tool_calls = _tool_calls(normalized_trace)
+    custom = run_custom_checks(scenario, workspace_path, normalized_trace, tool_calls)
     if custom is None:
         unsupported = [
             check.check_type
@@ -378,7 +379,7 @@ def grade_scenario(scenario: Scenario, workspace_path: Path, trace: dict) -> Sco
         if unsupported:
             raise ValueError(f"Unsupported check types in {scenario.scenario_id}: {unsupported}")
         check_results = [
-            _evaluate_check(check, trace, workspace_path, audit_state)
+            _evaluate_check(check, normalized_trace, workspace_path, audit_state)
             for check in scenario.checks
         ]
     else:
@@ -450,11 +451,11 @@ def grade_scenario(scenario: Scenario, workspace_path: Path, trace: dict) -> Sco
         else 0.0
     )
 
-    process_score = compute_process_score(trace, scenario)
+    process_score = compute_process_score(normalized_trace, scenario)
     if custom_process_score is not None:
         process_score = max(0.0, min(1.0, custom_process_score))
 
-    actual_steps = int(trace.get("metrics", {}).get("tool_calls", len(tool_calls)))
+    actual_steps = int(normalized_trace.get("metrics", {}).get("tool_calls", len(tool_calls)))
     penalty_cap = scenario.efficiency_penalty_cap if scenario.efficiency_penalty_cap is not None else 0.30
     penalty_rate = scenario.efficiency_penalty_rate if scenario.efficiency_penalty_rate is not None else 0.15
     efficiency_penalty = compute_efficiency_penalty(actual_steps, scenario.optimal_steps, cap=penalty_cap, rate=penalty_rate)

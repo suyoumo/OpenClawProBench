@@ -59,6 +59,13 @@ def _scenario_filters(args: argparse.Namespace) -> dict[str, str | bool | None]:
     }
 
 
+def _exclude_scenarios(scenarios, exclude_ids: list[str] | None):
+    excluded = {str(item).strip() for item in (exclude_ids or []) if str(item).strip()}
+    if not excluded:
+        return scenarios
+    return [scenario for scenario in scenarios if scenario.scenario_id not in excluded]
+
+
 def _model_slug(model: str) -> str:
     return model.replace("/", "_").replace(":", "_")
 
@@ -104,6 +111,7 @@ def _report_is_complete(result: BenchmarkResult) -> bool:
 def _inventory_payload(args: argparse.Namespace) -> dict[str, object]:
     selection = _benchmark_selection(args)
     scenarios = load_scenarios(**_scenario_filters(args))
+    scenarios = _exclude_scenarios(scenarios, getattr(args, "exclude_scenario", None))
     summary = summarize_scenarios(scenarios)
     tag_counts = Counter(tag for scenario in scenarios for tag in scenario.tags)
     difficulty_weight_mass = Counter()
@@ -184,6 +192,7 @@ def cmd_inventory(args: argparse.Namespace) -> int:
 def cmd_dry(args: argparse.Namespace) -> int:
     selection = _benchmark_selection(args)
     scenarios = load_scenarios(**_scenario_filters(args))
+    scenarios = _exclude_scenarios(scenarios, getattr(args, "exclude_scenario", None))
     summary = summarize_scenarios(scenarios)
     print(f"benchmark_profile: {selection['benchmark_profile']}")
     print(
@@ -222,6 +231,7 @@ def _run_common(args: argparse.Namespace) -> int:
     if getattr(args, "continue_run", False) and getattr(args, "resume_from", None):
         raise ValueError("Use only one of --continue or --resume-from.")
     scenarios = load_scenarios(**_scenario_filters(args))
+    scenarios = _exclude_scenarios(scenarios, getattr(args, "exclude_scenario", None))
     if not scenarios:
         raise ValueError("No scenarios matched the current filters.")
     timeout_multiplier = float(getattr(args, "timeout_multiplier", 1.0) or 1.0)
@@ -362,6 +372,7 @@ def build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--benchmark-status", choices=benchmark_status_choices, default=None, help=argparse.SUPPRESS)
     inventory.add_argument("--signal-source", choices=signal_source_choices, default=None, help=argparse.SUPPRESS)
     inventory.add_argument("--tag", default=None)
+    inventory.add_argument("--exclude-scenario", action="append", default=[])
     inventory.add_argument("--execution-mode", choices=["auto", "live"], default="auto")
     inventory.add_argument("--list", action="store_true")
     inventory.add_argument("--json", action="store_true")
@@ -382,6 +393,7 @@ def build_parser() -> argparse.ArgumentParser:
     dry.add_argument("--benchmark-status", choices=benchmark_status_choices, default=None, help=argparse.SUPPRESS)
     dry.add_argument("--signal-source", choices=signal_source_choices, default=None, help=argparse.SUPPRESS)
     dry.add_argument("--tag", default=None)
+    dry.add_argument("--exclude-scenario", action="append", default=[])
     dry.add_argument("--execution-mode", choices=["auto", "live"], default="auto")
     dry.set_defaults(func=cmd_dry)
 
@@ -401,6 +413,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--benchmark-status", choices=benchmark_status_choices, default=None, help=argparse.SUPPRESS)
     run.add_argument("--signal-source", choices=signal_source_choices, default=None, help=argparse.SUPPRESS)
     run.add_argument("--tag", default=None)
+    run.add_argument("--exclude-scenario", action="append", default=[])
     run.add_argument("--trials", type=int, default=3)
     run.add_argument("--execution-mode", choices=["auto", "live"], default="live")
     run.add_argument("--results-dir", default=str(results_root()))

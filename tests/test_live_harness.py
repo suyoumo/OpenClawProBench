@@ -22,6 +22,37 @@ class LiveHarnessTests(unittest.TestCase):
         self.assertEqual(harness.command_env["OPENCLAW_CONFIG_PATH"], str(expected_config_path))
         self.assertEqual(harness.command_env["OPENCLAW_GATEWAY_PORT"], "19001")
 
+    def test_state_dir_isolation_keeps_explicit_state_dir(self) -> None:
+        harness = OpenClawLiveHarness(openclaw_state_dir="/tmp/openclaw-bench-a")
+
+        self.assertEqual(harness.command_env["OPENCLAW_STATE_DIR"], "/tmp/openclaw-bench-a")
+        self.assertRegex(harness.command_env["OPENCLAW_PROFILE"], r"^bench-openclaw-bench-a-[0-9a-f]{10}$")
+
+    def test_state_dir_isolation_derives_stable_profile_when_profile_not_explicit(self) -> None:
+        harness_a = OpenClawLiveHarness(openclaw_state_dir="/tmp/openclaw-bench-a")
+        harness_b = OpenClawLiveHarness(openclaw_state_dir="/tmp/openclaw-bench-a")
+        expected_root = Path("/tmp/openclaw-bench-a").resolve(strict=False)
+
+        self.assertEqual(harness_a.command_env["OPENCLAW_PROFILE"], harness_b.command_env["OPENCLAW_PROFILE"])
+        self.assertEqual(harness_a.command_env["OPENCLAW_STATE_DIR"], "/tmp/openclaw-bench-a")
+        self.assertEqual(harness_a.command_env["OPENCLAW_CONFIG_PATH"], str(expected_root / "openclaw.json"))
+
+    def test_explicit_profile_wins_over_derived_isolation_profile(self) -> None:
+        harness = OpenClawLiveHarness(
+            openclaw_profile="bench-a",
+            openclaw_state_dir="/tmp/openclaw-bench-a",
+        )
+
+        self.assertEqual(harness.command_env["OPENCLAW_PROFILE"], "bench-a")
+
+    def test_config_path_isolation_derives_matching_state_dir_and_profile(self) -> None:
+        harness = OpenClawLiveHarness(openclaw_config_path="/tmp/openclaw-bench-c/openclaw.json")
+        expected_root = Path("/tmp/openclaw-bench-c").resolve(strict=False)
+
+        self.assertEqual(harness.command_env["OPENCLAW_CONFIG_PATH"], "/tmp/openclaw-bench-c/openclaw.json")
+        self.assertEqual(harness.command_env["OPENCLAW_STATE_DIR"], str(expected_root))
+        self.assertRegex(harness.command_env["OPENCLAW_PROFILE"], r"^bench-openclaw-bench-c-[0-9a-f]{10}$")
+
     def test_auth_and_session_paths_use_configured_state_dir(self) -> None:
         harness = OpenClawLiveHarness(openclaw_state_dir="/tmp/openclaw-bench-a")
         expected_root = Path("/tmp/openclaw-bench-a").resolve(strict=False)
@@ -96,6 +127,7 @@ class LiveHarnessTests(unittest.TestCase):
 
             harness = OpenClawLiveHarness(openclaw_state_dir=str(target_state_dir))
             harness.command_env["HOME"] = str(home_path)
+            harness.command_env["OPENCLAW_HOME"] = str(home_path)
 
             harness._ensure_isolated_state_seeded()
 
@@ -165,6 +197,10 @@ class LiveHarnessTests(unittest.TestCase):
                             "telegram": {"enabled": True},
                             "feishu": {"enabled": True},
                         },
+                        "messages": {
+                            "ackReactionScope": "group-mentions",
+                            "logging": {},
+                        },
                         "gateway": {"tailscale": {"mode": "serve", "resetOnExit": True}},
                         "hooks": {"internal": {"entries": {"command-logger": {"enabled": True}}}},
                         "plugins": {
@@ -193,6 +229,7 @@ class LiveHarnessTests(unittest.TestCase):
             self.assertNotIn("openclaw-lark", updated_config["plugins"]["entries"])
             self.assertNotIn("openclaw-lark", updated_config["plugins"]["installs"])
             self.assertFalse(updated_config["channels"]["feishu"]["enabled"])
+            self.assertEqual(updated_config["messages"], {"ackReactionScope": "group-mentions"})
             self.assertEqual(updated_config["gateway"]["tailscale"]["mode"], "off")
             self.assertFalse(updated_config["hooks"]["internal"]["entries"]["command-logger"]["enabled"])
             self.assertFalse((target_state_dir / "cron" / "jobs.json").exists())
@@ -256,6 +293,7 @@ class LiveHarnessTests(unittest.TestCase):
 
             harness = OpenClawLiveHarness(openclaw_state_dir=str(target_state_dir))
             harness.command_env["HOME"] = str(home_path)
+            harness.command_env["OPENCLAW_HOME"] = str(home_path)
 
             harness._sync_isolated_model_runtime("tencent-token-plan/hunyuan-2.0-thinking")
 
@@ -330,6 +368,7 @@ class LiveHarnessTests(unittest.TestCase):
 
             harness = OpenClawLiveHarness(openclaw_state_dir=str(target_state_dir))
             harness.command_env["HOME"] = str(home_path)
+            harness.command_env["OPENCLAW_HOME"] = str(home_path)
 
             harness._sync_isolated_model_runtime("glm/GLM-5")
 
@@ -344,6 +383,119 @@ class LiveHarnessTests(unittest.TestCase):
             updated_auth = json.loads(target_auth_path.read_text(encoding="utf-8"))
             self.assertEqual(updated_auth["profiles"]["zai:default"]["provider"], "zai")
             self.assertEqual(updated_auth["profiles"]["zai:default"]["key"], "glm-new-key")
+
+    def test_sync_isolated_model_runtime_resolves_env_named_api_key_before_writing_auth_profile(self) -> None:
+        with tempfile.TemporaryDirectory() as home_dir, tempfile.TemporaryDirectory() as target_dir:
+            home_path = Path(home_dir)
+            target_state_dir = Path(target_dir)
+            target_config_path = target_state_dir / "openclaw.json"
+            target_auth_path = target_state_dir / "agents" / "main" / "agent" / "auth-profiles.json"
+            target_auth_path.parent.mkdir(parents=True, exist_ok=True)
+            target_config_path.write_text(
+                json.dumps(
+                    {
+                        "auth": {"profiles": {}},
+                        "models": {
+                            "providers": {
+                                "deepseek": {
+                                    "apiKey": "DEEPSEEK_API_KEY",
+                                    "models": [{"id": "deepseek-v4-pro"}],
+                                }
+                            }
+                        },
+                        "agents": {
+                            "defaults": {
+                                "model": {"primary": "deepseek/deepseek-chat", "fallbacks": []},
+                                "models": {},
+                            },
+                            "list": [{"id": "main"}],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            target_auth_path.write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "profiles": {},
+                        "lastGood": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            harness = OpenClawLiveHarness(openclaw_state_dir=str(target_state_dir))
+            harness.command_env["HOME"] = str(home_path)
+            harness.command_env["OPENCLAW_HOME"] = str(home_path)
+            harness.command_env["DEEPSEEK_API_KEY"] = "sk-deepseek-live"
+
+            harness._sync_isolated_model_runtime("deepseek/deepseek-v4-pro")
+
+            updated_auth = json.loads(target_auth_path.read_text(encoding="utf-8"))
+            self.assertEqual(updated_auth["profiles"]["deepseek:manual"]["provider"], "deepseek")
+            self.assertEqual(updated_auth["profiles"]["deepseek:manual"]["key"], "sk-deepseek-live")
+
+    def test_sync_isolated_model_runtime_bootstraps_missing_deepseek_provider_for_flash(self) -> None:
+        with tempfile.TemporaryDirectory() as home_dir, tempfile.TemporaryDirectory() as target_dir:
+            home_path = Path(home_dir)
+            target_state_dir = Path(target_dir)
+            target_config_path = target_state_dir / "openclaw.json"
+            target_auth_path = target_state_dir / "agents" / "main" / "agent" / "auth-profiles.json"
+            target_auth_path.parent.mkdir(parents=True, exist_ok=True)
+            target_config_path.write_text(
+                json.dumps(
+                    {
+                        "auth": {"profiles": {}},
+                        "models": {
+                            "providers": {
+                                "glm": {
+                                    "apiKey": "glm-test-key",
+                                    "models": [{"id": "GLM-5"}],
+                                }
+                            }
+                        },
+                        "agents": {
+                            "defaults": {
+                                "model": {"primary": "glm/GLM-5", "fallbacks": []},
+                                "models": {},
+                            },
+                            "list": [{"id": "main"}],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            target_auth_path.write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "profiles": {},
+                        "lastGood": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            harness = OpenClawLiveHarness(openclaw_state_dir=str(target_state_dir))
+            harness.command_env["HOME"] = str(home_path)
+            harness.command_env["OPENCLAW_HOME"] = str(home_path)
+            harness.command_env["DEEPSEEK_API_KEY"] = "sk-deepseek-live"
+
+            harness._sync_isolated_model_runtime("deepseek/deepseek-v4-flash")
+
+            updated_config = json.loads(target_config_path.read_text(encoding="utf-8"))
+            deepseek_provider = updated_config["models"]["providers"]["deepseek"]
+            self.assertEqual(deepseek_provider["baseUrl"], "https://api.deepseek.com")
+            self.assertEqual(deepseek_provider["apiKey"], "DEEPSEEK_API_KEY")
+            self.assertEqual(
+                [model["id"] for model in deepseek_provider["models"]],
+                ["deepseek-v4-pro", "deepseek-v4-flash"],
+            )
+
+            updated_auth = json.loads(target_auth_path.read_text(encoding="utf-8"))
+            self.assertEqual(updated_auth["profiles"]["deepseek:manual"]["provider"], "deepseek")
+            self.assertEqual(updated_auth["profiles"]["deepseek:manual"]["key"], "sk-deepseek-live")
 
     def test_sync_isolated_agent_runtime_pins_agent_model_and_disables_fallbacks(self) -> None:
         with tempfile.TemporaryDirectory() as target_dir:
