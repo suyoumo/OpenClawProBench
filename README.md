@@ -27,6 +27,7 @@ Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench]
 
 ## 📢 Updates
 
+- `v1.0.7` - Synced benchmark bug fixes from the latest harness line, including `--exclude-scenario` filtering, isolated live-run runtime hardening, and trace-argument compatibility fixes for custom scoring.
 - `v1.0.6` - Fixed the leaderboard sticky-header sync bug that could appear when dragging the horizontal scrollbar with a mouse. Added the `qwen3.6-plus` Token Plan result to the leaderboard.
 - `v1.0.5` - Fixed the `qwen3.6-plus` model detail bug where the Bailian and Qwen Coding Plan entries incorrectly showed duplicated per-task scores.
 - `v1.0.4` - Fixed isolated live-run log pollution that could cause false execution failures. Added `kimi-k2.6-code-preview`; the leaderboard now includes `43` model results.
