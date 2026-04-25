@@ -27,7 +27,7 @@ Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench]
 
 ## 📢 Updates
 
-- `v1.0.9` - Verified model-detail data across the leaderboard and fixed several data errors. Added `DeepSeeK-V4-Pro`, `DeepSeek-V4-Flash`, `LongCat-2.0-Preview`, and `Ling-2.6-1T`.
+- `v1.0.9` - Verified model-detail data across the leaderboard, fixed several data errors, added `DeepSeeK-V4-Pro`, `DeepSeek-V4-Flash`, `LongCat-2.0-Preview`, and `Ling-2.6-1T`, and introduced the new `FinalScore` metric based on `pass^3`, `pass@3`, and `average_score`.
 - `v1.0.8` - Added 6 new leaderboard models: `qwen3.6-max-preview`, `mimo-v2.5`, `mimo-v2.5-pro`, `hunyuan-t1`, `hy3-preview`, and `Ling-2.6-Flash`.
 - `v1.0.7` - Synced benchmark bug fixes from the latest harness line, including `--exclude-scenario` filtering, isolated live-run runtime hardening, and trace-argument compatibility fixes for custom scoring.
 - `v1.0.6` - Fixed the leaderboard sticky-header sync bug that could appear when dragging the horizontal scrollbar with a mouse. Added the `qwen3.6-plus` Token Plan result to the leaderboard.
@@ -44,6 +44,9 @@ Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench]
 - Extended active capability suite: `intelligence`
 - Native-only slice: `native`
 - Multi-trial runs are supported via `--trials N`
+- Key leaderboard metrics now include `pass^3`, `pass@3`, `average_score`, and `FinalScore`
+- `FinalScore = 100 × S^0.40 × r_all^0.45 × r_any^0.15`, where `S = average_score`, `r_all = (pass^3)^(1/3)`, and `r_any = 1 - (1 - pass@3)^(1/3)`
+- This is intended to weight stable repeated success most heavily, while still preserving overall quality and upside from best-of-3 performance
 - Reports expose `avg_score`, `max_score`, coverage-aware summaries, cost, latency, and resume metadata
 - Interrupted runs can continue with `--continue` or `--resume-from`, and execution failures can be re-queued with `--rerun-execution-failures`
 
