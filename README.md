@@ -27,6 +27,7 @@ Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench]
 
 ## 📢 Updates
 
+- `v1.0.9` - Verified model-detail data across the leaderboard and fixed several data errors. Added `DeepSeeK-V4-Pro`, `DeepSeek-V4-Flash`, `LongCat-2.0-Preview`, and `Ling-2.6-1T`.
 - `v1.0.8` - Added 7 new leaderboard models: `qwen3.6-max-preview`, `mimo-v2.5`, `mimo-v2.5-pro`, `Sphynx`, `hunyuan-t1`, `hy3-preview`, and `Ling-2.6-Flash`.
 - `v1.0.7` - Synced benchmark bug fixes from the latest harness line, including `--exclude-scenario` filtering, isolated live-run runtime hardening, and trace-argument compatibility fixes for custom scoring.
 - `v1.0.6` - Fixed the leaderboard sticky-header sync bug that could appear when dragging the horizontal scrollbar with a mouse. Added the `qwen3.6-plus` Token Plan result to the leaderboard.
