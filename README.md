@@ -43,6 +43,11 @@ Browse the public leaderboard and benchmark cases at **[suyoumo.github.io/bench]
 - `v1.0.1` - Added `qwen3-coder-next`, `doubao-seed-code`, `qwen3-max-2026-01-23`, and `qwen3.6plus` rerun with `bailiancodingplan`; added model image download and benchmark sharing to Twitter; fixed completed-report resume overwrite, `tool_use_14` graceful fallback on skills inventory load failure, `tool_use_17` invalid JSON and missing-file tolerance, and `audit_scenario_quality.py` compatibility.
 - `v1.0.0` - ClawProBench released with 102 tasks across 6 domains, with 3-try runs, checkpoint resume, and cross-environment resume support.
 
+## Blog
+
+- [My Feelings During the Development of ClawProBench](https://suyoumo.github.io/bench/blog/2026-04-02-why-pass3-matters/)
+- [Open-sourcing ClawProBench: Bringing Agent Benchmarks Back to the Real Runtime](https://suyoumo.github.io/bench/blog/2026-04-02-openclawprobench-launch/)
+
 ## Evaluation Logic
 
 - Default ranking path: `core`
