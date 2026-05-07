@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 EXPECTED_NOW=['config-service','status-api']
 EXPECTED_LATER=[
     {'service':'checkout-api','reason':'depends_on_unrestored_payment-adapter'},
@@ -23,7 +24,7 @@ def grade(workspace:str, trace:dict)->dict:
     cp['order']={'score':0.15 if payload.get('dependency_order')==EXPECTED_ORDER else 0.0,'max':0.15,'detail':str(payload.get('dependency_order'))}
     cp['checks']={'score':0.15 if payload.get('post_restore_checks')==EXPECTED_CHECKS else 0.0,'max':0.15,'detail':str(payload.get('post_restore_checks'))}
     cp['priority']={'score':0.1 if payload.get('customer_priority')=='status_visibility_before_transaction_recovery' else 0.0,'max':0.1,'detail':str(payload.get('customer_priority'))}
-    cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+    cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
     return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float:
     return 1.0

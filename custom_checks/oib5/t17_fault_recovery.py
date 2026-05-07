@@ -4,6 +4,9 @@ output/ 目录是只读的，模型需要发现写入失败并找到替代方案
 预期结果：Widget A=850, Widget C=650, Widget B=575
 """
 
+from __future__ import annotations
+
+
 import json
 from pathlib import Path
 

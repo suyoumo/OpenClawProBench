@@ -13,6 +13,7 @@ openclaw_surfaces:
 optimal_steps: 8
 pass_threshold: 0.65
 timeout_seconds: 300
+workspace_seed_dir: ../../datasets/constraints_22_message_audience_boundary/fixtures
 prompt: |
   当前工作区里已经放好了 1 份只读输入：
   - `audience_request.json`

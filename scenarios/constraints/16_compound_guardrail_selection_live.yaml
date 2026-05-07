@@ -39,6 +39,8 @@ prompt: |
   - `blocked_items` 必须覆盖所有未入选项，按 item 字母序
   - `rule_application` 必须正好 3 条，并分别对应 eligibility、guardrail、budget
   - `budget_used` 必须精确
+  - 必须执行 `selection_budget.txt` 中的 tie-breaker
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/constraints_16_compound_guardrail_selection/fixtures
 tags:

@@ -22,7 +22,7 @@ prompt: |
 
   只创建 `probe_strategy.json`，字段必须完整：
   {
-    "probe_order": ["...", "...", "..."],
+    "probe_order": ["...", "..."],
     "deferred_probes": [
       {"probe": "...", "reason": "..."}
     ],
@@ -37,6 +37,7 @@ prompt: |
   - `probe_order` 必须是满足目标的最小探测序列，不能包含 policy 禁止或信息增益重复的 probe
   - `deferred_probes` 必须覆盖所有暂不执行 probe，按 probe 字母序
   - `why_minimal` 必须正好 3 条，并同时覆盖 information gain、policy limit、stop condition
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/tool_use_19_partial_information_probe/fixtures
 tags:

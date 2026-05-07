@@ -31,6 +31,13 @@ class ScenarioDefinitionLintTests(unittest.TestCase):
         self.assertNotIn("prompt_input_not_declared", rows["tool_use_06_workspace_forensics_live"]["flags"])
         self.assertNotIn("custom_check_output_mismatch", rows["oib5_t25_etl_pipeline"]["flags"])
 
+    def test_lint_finds_no_prompt_input_mismatches_in_full_profile(self) -> None:
+        summary = lint_scenario_definitions(benchmark_profile="full")
+
+        self.assertEqual(summary["candidate_views"]["prompt_input_mismatch"], [])
+        for row in summary["scenarios"]:
+            self.assertNotIn("prompt_input_not_declared", row["flags"], row["scenario_id"])
+
     def test_lint_clears_constraints_03_prompt_input_mismatch(self) -> None:
         summary = lint_scenario_definitions(benchmark_status="all")
         rows = {row["scenario_id"]: row for row in summary["scenarios"]}

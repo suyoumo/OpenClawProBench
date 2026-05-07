@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 EXPECTED_REJECTED=[{'action':'full_rebuild','reason':'too_slow_for_sla_window'},{'action':'manual_row_repair','reason':'data_risk_remains_high_under_time_limit'},{'action':'traffic_drain_then_investigate','reason':'does_not_restore_critical_path_in_time'}]
 EXPECTED_VERIFY=['checkout_smoke_test','order_write_guard','tax_response_validation']
 EXPECTED_REFS=['incident_snapshot.json','candidate_actions.json','sla_constraints.md','validation_rules.json']
@@ -15,6 +16,6 @@ def grade(workspace:str, trace:dict)->dict:
  cp['verify']={'score':0.2 if payload.get('verification_steps')==EXPECTED_VERIFY else 0.0,'max':0.2,'detail':str(payload.get('verification_steps'))}
  cp['constraint']={'score':0.1 if payload.get('governing_constraint')=='restore_checkout_under_15_minutes_without_expanding_data_risk' else 0.0,'max':0.1,'detail':str(payload.get('governing_constraint'))}
  cp['minutes']={'score':0.1 if payload.get('expected_restore_minutes')==12 else 0.0,'max':0.1,'detail':str(payload.get('expected_restore_minutes'))}
- cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+ cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
  return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float: return 1.0

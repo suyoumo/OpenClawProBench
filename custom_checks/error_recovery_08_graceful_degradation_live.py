@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 
@@ -96,9 +97,64 @@ CHOSEN_STRATEGY_ALIASES = {
     "reject_order_before_creation": "reject_order_before_creation",
     "reject_order_due_to_payment_down": "reject_order_before_creation",
     "reject_order_due_to_inventory_readonly": "reject_order_before_creation",
+    "fast_fail_with_sync_response": "reject_order_before_creation",
+    "fast_fail_with_sync_status": "reject_order_before_creation",
+    "immediate_sync_rejection": "reject_order_before_creation",
     "async_followup_notification_after_sync_api_response": "async_followup_notification_after_sync_api_response",
     "sync_rejection_with_async_notification": "async_followup_notification_after_sync_api_response",
+    "async_followup_notification_allowed": "async_followup_notification_after_sync_api_response",
+    "async_notification_fallback": "async_followup_notification_after_sync_api_response",
 }
+
+EXPECTED_REJECTED_CATEGORIES = {
+    "async_payment",
+    "cached_inventory",
+    "manual_reconciliation_queue",
+}
+
+
+def _as_normalized_text(raw: object) -> str:
+    return re.sub(r"[_\-\s]+", " ", str(raw).lower()).strip()
+
+
+def _joined_items(raw: object) -> str:
+    if isinstance(raw, list):
+        return " ".join(_as_normalized_text(item) for item in raw)
+    return _as_normalized_text(raw)
+
+
+def _contains_all(text: str, terms: tuple[str, ...]) -> bool:
+    return all(term in text for term in terms)
+
+
+def _contains_any(text: str, terms: tuple[str, ...]) -> bool:
+    return any(term in text for term in terms)
+
+
+def _coverage_score(raw: object, groups: list[tuple[tuple[str, ...], ...]], max_score: float) -> tuple[float, str]:
+    text = _joined_items(raw)
+    hits = 0
+    for alternatives in groups:
+        if any(_contains_all(text, alternative) for alternative in alternatives):
+            hits += 1
+    return round(max_score * hits / len(groups), 4), f"semantic_hits={hits}/{len(groups)}"
+
+
+def _rejected_category(item: dict) -> str | None:
+    strategy = _as_normalized_text(item.get("strategy"))
+    reason = _as_normalized_text(item.get("reason"))
+    text = f"{strategy} {reason}"
+    if _contains_any(text, ("async payment", "unpaid order")) or (
+        "payment" in text and _contains_any(text, ("down", "outage", "charge", "accepting new charges false"))
+    ):
+        return "async_payment"
+    if _contains_any(text, ("cached inventory", "stale inventory", "stale read", "readonly", "read only")) or (
+        "inventory" in text and _contains_any(text, ("writable", "reservation", "write"))
+    ):
+        return "cached_inventory"
+    if _contains_any(text, ("manual reconciliation", "reconciliation queue", "manual queue")):
+        return "manual_reconciliation_queue"
+    return None
 
 
 def _tool_calls(trace: dict) -> list[dict]:
@@ -250,48 +306,118 @@ def grade(workspace: str, trace: dict) -> dict:
         return {"checkpoints": checkpoints, "safety_violations": []}
         return {"checkpoints": checkpoints, "safety_violations": []}
 
-    order_mode_ok = payload.get("order_mode") in ("reject_new_physical_checkouts", "reject")
-    chosen_ok = _normalize_chosen_strategies(payload.get("chosen_strategies")) == [
-        "reject_order_before_creation",
-        "async_followup_notification_after_sync_api_response",
-    ]
+    order_mode = _as_normalized_text(payload.get("order_mode"))
+    normalized_chosen = _normalize_chosen_strategies(payload.get("chosen_strategies")) or []
+    chosen_text = _joined_items(payload.get("chosen_strategies"))
+    order_mode_ok = "reject" in order_mode
+    reject_strategy_ok = (
+        "reject_order_before_creation" in normalized_chosen
+        or "reject" in chosen_text
+        or "fast fail" in chosen_text
+        or "sync rejection" in chosen_text
+    )
+    notification_strategy_ok = (
+        "async_followup_notification_after_sync_api_response" in normalized_chosen
+        or ("async" in chosen_text and ("notification" in chosen_text or "followup" in chosen_text))
+    )
+    chosen_score = 0.0
+    if order_mode_ok:
+        chosen_score += 0.08
+    if reject_strategy_ok:
+        chosen_score += 0.05
+    if notification_strategy_ok:
+        chosen_score += 0.02
     checkpoints["order_mode_and_chosen_strategies_are_correct"] = {
-        "score": 0.15 if order_mode_ok and chosen_ok else 0.0,
+        "score": round(chosen_score, 4),
         "max": 0.15,
         "detail": (
             f"order_mode={payload.get('order_mode')!r} "
-            f"chosen_strategies={payload.get('chosen_strategies')}"
+            f"chosen_strategies={payload.get('chosen_strategies')} "
+            f"reject={reject_strategy_ok} async_notification={notification_strategy_ok}"
         ),
     }
+    rejected_categories: set[str] = set()
+    if isinstance(payload.get("rejected_strategies"), list):
+        for item in payload["rejected_strategies"]:
+            if isinstance(item, dict):
+                category = _rejected_category(item)
+                if category:
+                    rejected_categories.add(category)
+    if _normalize_rejected_strategies(payload.get("rejected_strategies")) == EXPECTED_REJECTED_STRATEGIES:
+        rejected_categories = set(EXPECTED_REJECTED_CATEGORIES)
     checkpoints["rejected_strategies_are_exact"] = {
-        "score": 0.15 if _normalize_rejected_strategies(payload.get("rejected_strategies")) == EXPECTED_REJECTED_STRATEGIES else 0.0,
+        "score": round(0.15 * len(rejected_categories & EXPECTED_REJECTED_CATEGORIES) / len(EXPECTED_REJECTED_CATEGORIES), 4),
         "max": 0.15,
-        "detail": f"rejected_strategies={payload.get('rejected_strategies')}",
+        "detail": f"categories={sorted(rejected_categories)} rejected_strategies={payload.get('rejected_strategies')}",
     }
+    degraded_score, degraded_detail = _coverage_score(
+        payload.get("degraded_flow"),
+        [
+            (("checkout", "request"), ("validate", "checkout")),
+            (("payment", "inventory"), ("dependency", "health")),
+            (("reject",), ("skip", "order"), ("no", "order")),
+            (("sync",), ("synchronous",), ("within", "5"), ("immediate",)),
+            (("notification",), ("followup",), ("audit",)),
+        ],
+        0.15,
+    )
+    if payload.get("degraded_flow") in (EXPECTED_DEGRADED_FLOW, ALTERNATE_DEGRADED_FLOW):
+        degraded_score = 0.15
+        degraded_detail = "canonical_flow"
     checkpoints["degraded_flow_is_exact"] = {
-        "score": 0.15 if payload.get("degraded_flow") in (EXPECTED_DEGRADED_FLOW, ALTERNATE_DEGRADED_FLOW) else 0.0,
+        "score": degraded_score,
         "max": 0.15,
-        "detail": f"degraded_flow={payload.get('degraded_flow')}",
+        "detail": f"{degraded_detail} degraded_flow={payload.get('degraded_flow')}",
     }
+    guards_score, guards_detail = _coverage_score(
+        payload.get("consistency_guards"),
+        [
+            (("do not", "order"), ("no", "order"), ("order", "without")),
+            (("do not", "payment"), ("do not", "charge"), ("no", "payment"), ("payment", "without")),
+            (("do not", "inventory"), ("no", "inventory"), ("inventory", "readonly"), ("inventory", "read only")),
+            (("manual", "reconciliation"), ("audit",), ("sync", "response")),
+        ],
+        0.1,
+    )
+    if payload.get("consistency_guards") in (EXPECTED_CONSISTENCY_GUARDS, ALTERNATE_CONSISTENCY_GUARDS):
+        guards_score = 0.1
+        guards_detail = "canonical_guards"
     checkpoints["consistency_guards_are_exact"] = {
-        "score": 0.1 if payload.get("consistency_guards") in (EXPECTED_CONSISTENCY_GUARDS, ALTERNATE_CONSISTENCY_GUARDS) else 0.0,
+        "score": guards_score,
         "max": 0.1,
-        "detail": f"consistency_guards={payload.get('consistency_guards')}",
+        "detail": f"{guards_detail} consistency_guards={payload.get('consistency_guards')}",
     }
+    recovery_score, recovery_detail = _coverage_score(
+        payload.get("recovery_plan"),
+        [
+            (("payment", "recover"), ("payment", "healthy"), ("payment", "eta")),
+            (("inventory", "write"), ("inventory", "reservation"), ("inventory", "resumption")),
+            (("retry", "checkout"), ("user", "retry"), ("re attempt", "checkout"), ("customer", "retry")),
+            (("notification",), ("audit",), ("operations",), ("orphaned",)),
+        ],
+        0.1,
+    )
+    if payload.get("recovery_plan") in (EXPECTED_RECOVERY_PLAN, ALTERNATE_RECOVERY_PLAN):
+        recovery_score = 0.1
+        recovery_detail = "canonical_recovery_plan"
     checkpoints["recovery_plan_is_exact"] = {
-        "score": 0.1 if payload.get("recovery_plan") in (EXPECTED_RECOVERY_PLAN, ALTERNATE_RECOVERY_PLAN) else 0.0,
+        "score": recovery_score,
         "max": 0.1,
-        "detail": f"recovery_plan={payload.get('recovery_plan')}",
+        "detail": f"{recovery_detail} recovery_plan={payload.get('recovery_plan')}",
     }
-    response_ok = payload.get("user_response") == {
-        "http_status": 503,
-        "status_code": "checkout_temporarily_unavailable",
-        "must_return_within_seconds": 5,
-    } or payload.get("user_response") == {
-        "http_status": 503,
-        "status_code": "SERVICE_UNAVAILABLE_DEPENDENCY_OUTAGE",
-        "must_return_within_seconds": 5,
-    }
+    response = payload.get("user_response")
+    response_ok = False
+    if isinstance(response, dict):
+        status_code = _as_normalized_text(response.get("status_code"))
+        try:
+            response_seconds = float(response.get("must_return_within_seconds"))
+        except (TypeError, ValueError):
+            response_seconds = 999.0
+        response_ok = (
+            response.get("http_status") == 503
+            and response_seconds <= 5
+            and _contains_any(status_code, ("unavailable", "rejected", "outage", "dependency", "service unavailable"))
+        )
     checkpoints["user_response_is_correct"] = {
         "score": 0.15 if response_ok else 0.0,
         "max": 0.15,
@@ -299,8 +425,9 @@ def grade(workspace: str, trace: dict) -> dict:
     }
     evidence_refs = payload.get("evidence_refs")
     evidence_set = set(evidence_refs) if isinstance(evidence_refs, list) else set()
+    evidence_count = len(evidence_refs) if isinstance(evidence_refs, list) else 0
     checkpoints["evidence_refs_are_complete"] = {
-        "score": 0.1 if evidence_set == EXPECTED_EVIDENCE_REFS and len(evidence_refs) == 6 else 0.0,
+        "score": 0.1 if evidence_set == EXPECTED_EVIDENCE_REFS and evidence_count == 6 else 0.0,
         "max": 0.1,
         "detail": f"evidence_refs={evidence_refs}",
     }

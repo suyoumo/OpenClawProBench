@@ -107,6 +107,35 @@ def _binary_sha256(path: Path) -> str:
     return hasher.hexdigest()
 
 
+def _safe_binary_metadata(path: Path | None, *, binary_exists: bool) -> dict[str, Any]:
+    if not binary_exists or path is None or not path.is_file():
+        return {
+            "binary_sha256": "",
+            "binary_size_bytes": 0,
+            "binary_read_error": "",
+        }
+
+    metadata: dict[str, Any] = {
+        "binary_sha256": "",
+        "binary_size_bytes": 0,
+        "binary_read_error": "",
+    }
+    errors: list[str] = []
+
+    try:
+        metadata["binary_sha256"] = _binary_sha256(path)
+    except OSError as exc:
+        errors.append(f"sha256: {exc.__class__.__name__}: {exc}")
+
+    try:
+        metadata["binary_size_bytes"] = int(path.stat().st_size)
+    except OSError as exc:
+        errors.append(f"stat: {exc.__class__.__name__}: {exc}")
+
+    metadata["binary_read_error"] = "; ".join(errors)
+    return metadata
+
+
 def _find_git_repo_root(path: Path | None) -> Path | None:
     if path is None:
         return None
@@ -171,14 +200,16 @@ def _collect_openclaw_runtime_provenance(binary: str, *, env: dict[str, str] | N
     binary_exists = bool(realpath and realpath.exists())
     repo_root = _find_git_repo_root(realpath)
     version_probe = _run_version_probe(binary, env=env)
+    binary_metadata = _safe_binary_metadata(realpath, binary_exists=binary_exists)
 
     provenance: dict[str, Any] = {
         "configured_binary": binary,
         "resolved_binary": str(resolved_path) if resolved_path is not None else "",
         "binary_realpath": str(realpath) if realpath is not None else "",
         "binary_exists": binary_exists,
-        "binary_sha256": _binary_sha256(realpath) if binary_exists and realpath and realpath.is_file() else "",
-        "binary_size_bytes": int(realpath.stat().st_size) if binary_exists and realpath and realpath.is_file() else 0,
+        "binary_sha256": binary_metadata["binary_sha256"],
+        "binary_size_bytes": binary_metadata["binary_size_bytes"],
+        "binary_read_error": binary_metadata["binary_read_error"],
         "version_command": version_probe["command"],
         "version_exit_code": version_probe["exit_code"],
         "version_text": version_probe["text"],
@@ -766,6 +797,7 @@ class BenchmarkRunner:
             openclaw_gateway_port=self.openclaw_gateway_port,
             progress_callback=self._progress,
             progress_interval_seconds=self.progress_interval_seconds,
+            agent_pool_size=parallelism if allow_live_parallelism and parallelism > 1 else 0,
         )
         self._active_live_preflight: LivePreflightResult | None = None
 

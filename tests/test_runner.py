@@ -26,6 +26,7 @@ from harness.models import (
     TrialResult,
 )
 from harness.reporter import save_report
+from harness import runner as runner_module
 from harness.runner import BenchmarkRunner
 
 
@@ -1140,6 +1141,19 @@ class RunnerTests(unittest.TestCase):
 
         self.assertEqual(benchmark.summary["openclaw_runtime"], provenance)
         self.assertEqual(benchmark.summary["openclaw_isolation"], runner.live_harness.isolation_metadata())
+
+    def test_openclaw_runtime_provenance_tolerates_binary_hash_permission_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            binary = Path(tmpdir) / "openclaw.mjs"
+            binary.write_text("console.log('openclaw')\n", encoding="utf-8")
+
+            with mock.patch("harness.runner._binary_sha256", side_effect=PermissionError("blocked")):
+                provenance = runner_module._collect_openclaw_runtime_provenance(str(binary))
+
+        self.assertTrue(provenance["binary_exists"])
+        self.assertEqual(provenance["binary_sha256"], "")
+        self.assertGreater(provenance["binary_size_bytes"], 0)
+        self.assertIn("PermissionError", provenance["binary_read_error"])
 
     def test_scenario_result_from_dict_falls_back_to_avg_score_when_max_score_missing(self) -> None:
         parsed = ScenarioResult.from_dict(

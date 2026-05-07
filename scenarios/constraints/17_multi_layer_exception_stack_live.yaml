@@ -36,6 +36,7 @@ prompt: |
   - 只有完整满足 base rule 与例外链前提的路径才能生效
   - `denied_paths` 必须覆盖所有未生效路径，按 path 字母序
   - `rule_stack` 必须正好 3 条，按实际生效顺序
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/constraints_17_multi_layer_exception_stack/fixtures
 tags:

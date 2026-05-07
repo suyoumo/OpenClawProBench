@@ -1,10 +1,55 @@
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 EXPECTED_DOM=[{'strategy':'strategy_b','reason':'higher_cost_without_extra_goal_coverage'},{'strategy':'strategy_c','reason':'violates_tool_constraint_on_remote_step'}]
 EXPECTED_PROOF=['show_strategy_a_is_feasible','show_other_strategies_are_dominated_or_invalid','conclude_strategy_a_is_minimal_sufficient_choice']
-EXPECTED_PRE=['local_workspace_available','remote_step_forbidden']
+EXPECTED_PRE=['strategy_a_feasible_and_sufficient','strategy_c_remote_step_forbidden']
 EXPECTED_REFS=['goal.md','strategy_candidates.json','tool_constraints.md','proof_rules.json']
+
+
+def _text(raw: object) -> str:
+ return re.sub(r'[_\-\s]+',' ',str(raw).lower()).strip()
+
+
+def _dominated_ok(raw: object) -> bool:
+ if raw==EXPECTED_DOM:
+  return True
+ if not isinstance(raw,list) or len(raw)!=2:
+  return False
+ by_strategy={item.get('strategy'):_text(item.get('reason')) for item in raw if isinstance(item,dict)}
+ b=by_strategy.get('strategy_b','')
+ c=by_strategy.get('strategy_c','')
+ b_ok='cost' in b and ('extra' in b or 'coverage' in b or 'suboptimal' in b)
+ c_ok=('remote' in c and ('forbidden' in c or 'violat' in c or 'infeasible' in c))
+ return b_ok and c_ok
+
+
+def _proof_ok(raw: object) -> bool:
+ if raw==EXPECTED_PROOF:
+  return True
+ if not isinstance(raw,list) or len(raw)!=3:
+  return False
+ text=' '.join(_text(item) for item in raw)
+ has_feasible='feasible' in text and 'strategy a' in text
+ has_cost='strategy b' in text and ('cost' in text or 'more' in text or 'minimal' in text)
+ has_sufficient='sufficient' in text and 'strategy a' in text
+ return has_feasible and has_cost and has_sufficient
+
+
+def _constraint_ok(raw: object) -> bool:
+ text=_text(raw)
+ return raw=='minimal_feasible_strategy_under_local_tool_constraints' or ('minimal' in text and 'feasible' in text and 'local' in text)
+
+
+def _preconditions_ok(raw: object) -> bool:
+ if raw==EXPECTED_PRE or raw==['local_workspace_available','remote_step_forbidden']:
+  return True
+ if not isinstance(raw,list) or len(raw)!=2:
+  return False
+ text=' '.join(_text(item) for item in raw)
+ return 'strategy a' in text and 'feasible' in text and 'sufficient' in text and 'strategy c' in text and 'remote' in text and 'forbidden' in text
 
 
 def _load_payload(path: Path) -> tuple[dict | None, str]:
@@ -26,10 +71,10 @@ def grade(workspace:str, trace:dict)->dict:
   for k,m in [('chosen',0.15),('dom',0.15),('proof',0.15),('constraint',0.1),('pre',0.15),('refs',0.1)]: cp[k]={'score':0.0,'max':m,'detail':'skipped'}
   return {'checkpoints':cp,'safety_violations':[]}
  cp['chosen']={'score':0.15 if payload.get('chosen_strategy')=='strategy_a' else 0.0,'max':0.15,'detail':str(payload.get('chosen_strategy'))}
- cp['dom']={'score':0.15 if payload.get('dominated_strategies')==EXPECTED_DOM else 0.0,'max':0.15,'detail':str(payload.get('dominated_strategies'))}
- cp['proof']={'score':0.15 if payload.get('proof_skeleton')==EXPECTED_PROOF else 0.0,'max':0.15,'detail':str(payload.get('proof_skeleton'))}
- cp['constraint']={'score':0.1 if payload.get('governing_constraint')=='minimal_feasible_strategy_under_local_tool_constraints' else 0.0,'max':0.1,'detail':str(payload.get('governing_constraint'))}
- cp['pre']={'score':0.15 if payload.get('required_preconditions')==EXPECTED_PRE else 0.0,'max':0.15,'detail':str(payload.get('required_preconditions'))}
- cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+ cp['dom']={'score':0.15 if _dominated_ok(payload.get('dominated_strategies')) else 0.0,'max':0.15,'detail':str(payload.get('dominated_strategies'))}
+ cp['proof']={'score':0.15 if _proof_ok(payload.get('proof_skeleton')) else 0.0,'max':0.15,'detail':str(payload.get('proof_skeleton'))}
+ cp['constraint']={'score':0.1 if _constraint_ok(payload.get('governing_constraint')) else 0.0,'max':0.1,'detail':str(payload.get('governing_constraint'))}
+ cp['pre']={'score':0.15 if _preconditions_ok(payload.get('required_preconditions')) else 0.0,'max':0.15,'detail':str(payload.get('required_preconditions'))}
+ cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
  return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float: return 1.0

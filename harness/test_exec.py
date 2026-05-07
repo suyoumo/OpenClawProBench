@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 import re
 import subprocess
 import sys
@@ -57,6 +58,7 @@ def run_test_file(workspace: Path, test_file: Path, timeout_seconds: int = 30) -
         [sys.executable, str(test_file)],
     )
     best: tuple[int, int] = (0, 0)
+    pytest_env = {**os.environ, "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1"}
     for command in commands:
         try:
             result = subprocess.run(
@@ -65,6 +67,7 @@ def run_test_file(workspace: Path, test_file: Path, timeout_seconds: int = 30) -
                 text=True,
                 cwd=str(workspace),
                 timeout=timeout_seconds,
+                env=pytest_env if len(command) >= 3 and command[2] == "pytest" else None,
             )
         except (FileNotFoundError, subprocess.TimeoutExpired):
             continue

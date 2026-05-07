@@ -22,7 +22,7 @@ prompt: |
 
   只创建 `budgeted_evidence_plan.json`，字段必须完整：
   {
-    "selected_actions": ["...", "...", "..."],
+    "selected_actions": ["...", "..."],
     "skipped_actions": [
       {"action": "...", "reason": "..."}
     ],
@@ -38,6 +38,7 @@ prompt: |
   - `skipped_actions` 必须覆盖所有未选动作，按 action 字母序
   - `expected_signal_coverage` 只能包含真正被 selected_actions 覆盖到的必需信号
   - `budget_used` 必须精确
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/tool_use_18_budgeted_evidence_plan/fixtures
 tags:

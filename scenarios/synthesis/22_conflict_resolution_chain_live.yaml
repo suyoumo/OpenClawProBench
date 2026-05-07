@@ -36,6 +36,7 @@ prompt: |
   - `winning_claim` 必须是唯一与 observations 和 resolution_policy 同时一致的 claim
   - `invalidated_claims` 必须覆盖所有未选 claim，按 claim 字母序
   - `conflict_chain` 必须正好 3 条
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/synthesis_22_conflict_resolution_chain/fixtures
 tags:

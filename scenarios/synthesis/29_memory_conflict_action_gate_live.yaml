@@ -14,6 +14,7 @@ openclaw_surfaces:
 optimal_steps: 10
 pass_threshold: 0.62
 timeout_seconds: 300
+workspace_seed_dir: ../../datasets/synthesis_29_memory_conflict_action_gate/fixtures
 prompt: |
   当前工作区里已经放好了 1 份只读输入：
   - `memory_gate.json`

@@ -13,6 +13,7 @@ openclaw_surfaces:
 optimal_steps: 9
 pass_threshold: 0.62
 timeout_seconds: 300
+workspace_seed_dir: ../../datasets/constraints_23_external_approval_boundary/fixtures
 prompt: |
   当前工作区里已经放好了 1 份只读输入：
   - `approval_request.json`

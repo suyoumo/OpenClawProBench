@@ -6,7 +6,9 @@ from collections.abc import Callable
 import hashlib
 import json
 import os
+from queue import Queue
 import re
+import shutil
 import signal
 import subprocess
 import threading
@@ -77,6 +79,13 @@ class LivePreflightResult:
         }
 
 
+@dataclass
+class AgentPoolSlot:
+    slot_id: str
+    workspace_path: Path
+    harness: Any = None
+
+
 class OpenClawLiveHarness:
     _DEEPSEEK_V4_MODELS: list[dict[str, Any]] = [
         {
@@ -116,6 +125,7 @@ class OpenClawLiveHarness:
         openclaw_gateway_port: int | None = None,
         progress_callback: Callable[[str], None] | None = None,
         progress_interval_seconds: int = 60,
+        agent_pool_size: int = 0,
     ) -> None:
         self.openclaw_bin = openclaw_bin
         self.cleanup_agents = cleanup_agents
@@ -126,10 +136,17 @@ class OpenClawLiveHarness:
         self.openclaw_gateway_port = int(openclaw_gateway_port) if openclaw_gateway_port else None
         self.progress_callback = progress_callback
         self.progress_interval_seconds = max(progress_interval_seconds, 1)
+        self.agent_pool_size = max(int(agent_pool_size or 0), 0)
         self._derived_openclaw_profile = self._derive_isolated_profile()
         self.command_env = self._build_command_env()
         self._gateway_process: subprocess.Popen[str] | None = None
         self._state_seed_lock = threading.Lock()
+        self._agent_registry_lock = threading.RLock()
+        self._agent_pool_lock = threading.Lock()
+        self._agent_pool_queue: Queue = Queue()
+        self._agent_pool_model: str | None = None
+        self._agent_pool_slots: list[AgentPoolSlot] = []
+        self._pooled_runtime_agent_ids: set[str] = set()
 
     def preflight(
         self,
@@ -332,6 +349,7 @@ class OpenClawLiveHarness:
         return str(value)
 
     def close(self) -> None:
+        self._close_agent_pool()
         if self._gateway_process is None:
             return
         proc = self._gateway_process
@@ -351,6 +369,9 @@ class OpenClawLiveHarness:
         use_local_agent: bool | None = None,
     ) -> LiveRunResult:
         agent_id = self._make_agent_id(model)
+        execution_workspace = workspace_path
+        pool_slot: AgentPoolSlot | None = None
+        runtime_harness: OpenClawLiveHarness = self
         requested_session_id = f"ocb6-{uuid4().hex[:12]}"
         resolved_session_id = requested_session_id
         effective_local_agent = self.use_local_agent if use_local_agent is None else use_local_agent
@@ -367,6 +388,7 @@ class OpenClawLiveHarness:
         command_started = False
         auth_copy_result = AuthProfileCopyResult(source_exists=False, requested_providers=set(), reason="not_started")
         lifecycle_state: dict[str, Any] = {"ensure_ready_phase": "not_started"}
+        pooled_runtime_agent_created = False
         workspace_guard: dict[str, Any] = {
             "expected_file_count": len(expected_workspace_files or []),
             "expected_files_sample": list((expected_workspace_files or [])[:10]),
@@ -375,20 +397,43 @@ class OpenClawLiveHarness:
         }
 
         try:
-            auth_copy_result = self._create_agent(agent_id, model, workspace_path)
-            lifecycle_state = self._ensure_agent_ready(agent_id)
+            pool_slot = self._acquire_agent_pool_slot(model)
+            if pool_slot is not None:
+                execution_workspace = pool_slot.workspace_path
+                runtime_harness = pool_slot.harness or self
+                self._replace_workspace_contents(workspace_path, execution_workspace)
+                agent_id = runtime_harness._make_agent_id(model)
+                with self._agent_pool_lock:
+                    self._pooled_runtime_agent_ids.add(agent_id)
+                with runtime_harness._agent_registry_lock:
+                    auth_copy_result = runtime_harness._create_agent(agent_id, model, execution_workspace)
+                    pooled_runtime_agent_created = True
+                    lifecycle_state = runtime_harness._ensure_agent_ready(agent_id)
+                lifecycle_state.update(
+                    {
+                        "ready_signal": "fresh_pool_agent",
+                        "agent_pool_size": self.agent_pool_size,
+                        "pool_slot_id": pool_slot.slot_id,
+                        "pool_workspace": str(execution_workspace),
+                        "pool_state_dir": str(runtime_harness._state_dir_path()),
+                    }
+                )
+            else:
+                with self._agent_registry_lock:
+                    auth_copy_result = self._create_agent(agent_id, model, workspace_path)
+                    lifecycle_state = self._ensure_agent_ready(agent_id)
             workspace_guard["repair_attempts"].append(
                 self._guard_workspace_visibility(
-                    workspace_path,
+                    execution_workspace,
                     expected_workspace_files or [],
                     repair_workspace=repair_workspace,
                     phase="post_create",
                 )
             )
             self._emit_progress(
-                f"live-start agent={agent_id} timeout={timeout}s workspace={workspace_path}"
+                f"live-start agent={agent_id} timeout={timeout}s workspace={execution_workspace}"
             )
-            command = self._agent_command(agent_id, prompt, timeout)
+            command = self._agent_command(agent_id, prompt, timeout, requested_session_id)
             if effective_local_agent:
                 command.append("--local")
 
@@ -396,21 +441,23 @@ class OpenClawLiveHarness:
                 command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                cwd=str(workspace_path),
+                cwd=str(execution_workspace),
                 text=True,
                 preexec_fn=os.setsid,
-                env=self.command_env,
+                env=runtime_harness.command_env,
             )
             command_started = True
             stdout, stderr = self._communicate_with_heartbeat(proc, timeout=timeout, agent_id=agent_id)
             stdout, stderr = self._clean_openclaw_command_streams(stdout, stderr)
-            payload = self._parse_json_payload(stdout)
+            payload = self._parse_command_payload(stdout, stderr)
             if self._is_unknown_agent_error(stderr, stdout, payload):
-                auth_copy_result = self._create_agent(agent_id, model, workspace_path)
-                lifecycle_state = self._ensure_agent_ready(agent_id)
+                with runtime_harness._agent_registry_lock:
+                    auth_copy_result = runtime_harness._create_agent(agent_id, model, execution_workspace)
+                    pooled_runtime_agent_created = pooled_runtime_agent_created or pool_slot is not None
+                    lifecycle_state = runtime_harness._ensure_agent_ready(agent_id)
                 workspace_guard["repair_attempts"].append(
                     self._guard_workspace_visibility(
-                        workspace_path,
+                        execution_workspace,
                         expected_workspace_files or [],
                         repair_workspace=repair_workspace,
                         phase="post_recreate",
@@ -420,14 +467,14 @@ class OpenClawLiveHarness:
                     command,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
-                    cwd=str(workspace_path),
+                    cwd=str(execution_workspace),
                     text=True,
                     preexec_fn=os.setsid,
-                    env=self.command_env,
+                    env=runtime_harness.command_env,
                 )
                 stdout, stderr = self._communicate_with_heartbeat(proc, timeout=timeout, agent_id=agent_id)
                 stdout, stderr = self._clean_openclaw_command_streams(stdout, stderr)
-                payload = self._parse_json_payload(stdout)
+                payload = self._parse_command_payload(stdout, stderr)
             resolved_session_id = self._payload_session_id(payload) or requested_session_id
             exit_code = int(proc.returncode or 0)
             status = "success" if exit_code in (0, 255, -1) else "error"
@@ -452,18 +499,18 @@ class OpenClawLiveHarness:
         finally:
             duration = time.monotonic() - start
             if command_started:
-                raw_transcript = self._wait_and_load_transcript(agent_id, resolved_session_id)
+                raw_transcript = runtime_harness._wait_and_load_transcript(agent_id, resolved_session_id)
             if raw_transcript:
                 trace = normalize_trace(
                     raw_transcript,
-                    session_metadata=self._load_session_metadata(agent_id, resolved_session_id),
+                    session_metadata=runtime_harness._load_session_metadata(agent_id, resolved_session_id),
                 )
             else:
                 trace = {"events": [], "metrics": {}, "audit_state": {}}
             metrics = trace.setdefault("metrics", {})
             metrics.setdefault("duration_seconds", round(duration, 2))
             metrics.setdefault("wall_time_s", round(duration, 2))
-            self._merge_stdout_payload(trace, payload or self._parse_json_payload(stdout))
+            self._merge_stdout_payload(trace, payload or self._parse_command_payload(stdout, stderr))
             audit_state = trace.setdefault("audit_state", {})
             audit_state.setdefault("live_runtime", {})
             audit_state["live_runtime"].update(
@@ -477,6 +524,13 @@ class OpenClawLiveHarness:
                         "effective": effective_local_agent,
                     },
                     "workspace_guard": workspace_guard,
+                    "agent_pool": {
+                        "enabled": pool_slot is not None,
+                        "pool_size": self.agent_pool_size,
+                        "slot_id": pool_slot.slot_id if pool_slot is not None else "",
+                        "workspace": str(execution_workspace) if pool_slot is not None else "",
+                        "fresh_agent_per_turn": pool_slot is not None,
+                    },
                 }
             )
             audit_state["agent_lifecycle"] = dict(lifecycle_state)
@@ -508,6 +562,18 @@ class OpenClawLiveHarness:
                 self._emit_progress(
                     f"live-finish agent={agent_id} status={status} elapsed={duration:.1f}s"
                 )
+            if pool_slot is not None:
+                try:
+                    self._replace_workspace_contents(execution_workspace, workspace_path)
+                except Exception as exc:
+                    status = "error"
+                    if exit_code in (0, 255, -1):
+                        exit_code = 1
+                    error_detail = f"failed to copy pooled workspace back: {exc}"
+                finally:
+                    if pooled_runtime_agent_created and self.cleanup_agents:
+                        runtime_harness._delete_agent(agent_id)
+                    self._release_agent_pool_slot(pool_slot)
 
         return LiveRunResult(
             status=status,
@@ -531,6 +597,94 @@ class OpenClawLiveHarness:
             for path in workspace_path.rglob("*")
             if path.is_file()
         )
+
+    def _acquire_agent_pool_slot(self, model: str) -> AgentPoolSlot | None:
+        if self.agent_pool_size <= 0:
+            return None
+        self._ensure_agent_pool(model)
+        return self._agent_pool_queue.get()
+
+    def _release_agent_pool_slot(self, slot: AgentPoolSlot) -> None:
+        self._agent_pool_queue.put(slot)
+
+    def _ensure_agent_pool(self, model: str) -> None:
+        with self._agent_pool_lock:
+            if self._agent_pool_slots:
+                if self._agent_pool_model != model:
+                    raise RuntimeError(
+                        f"OpenClaw agent pool already initialized for {self._agent_pool_model}, not {model}"
+                    )
+                return
+
+            state_root = self._state_dir_path()
+            pool_root = state_root / "agent-pool-workspaces"
+            worker_state_root = state_root / "agent-pool-states"
+            pool_root.mkdir(parents=True, exist_ok=True)
+            worker_state_root.mkdir(parents=True, exist_ok=True)
+            base_port_raw = str(self.command_env.get("OPENCLAW_GATEWAY_PORT", "")).strip()
+            base_port = int(base_port_raw) if base_port_raw.isdigit() else 0
+            slots: list[AgentPoolSlot] = []
+            for index in range(1, self.agent_pool_size + 1):
+                workspace_path = pool_root / f"worker-{index}"
+                workspace_path.mkdir(parents=True, exist_ok=True)
+                worker_state_dir = worker_state_root / f"worker-{index}"
+                worker_port = base_port + index if base_port else None
+                worker_harness = OpenClawLiveHarness(
+                    openclaw_bin=self.openclaw_bin,
+                    cleanup_agents=self.cleanup_agents,
+                    use_local_agent=self.use_local_agent,
+                    openclaw_state_dir=str(worker_state_dir),
+                    openclaw_config_path=str(worker_state_dir / "openclaw.json"),
+                    openclaw_gateway_port=worker_port,
+                    progress_callback=self.progress_callback,
+                    progress_interval_seconds=self.progress_interval_seconds,
+                    agent_pool_size=0,
+                )
+                worker_harness._ensure_isolated_state_seeded()
+                worker_harness._sync_isolated_model_runtime(model)
+                worker_harness._ensure_gateway_ready(startup_timeout=15)
+                slots.append(
+                    AgentPoolSlot(
+                        slot_id=f"worker-{index}",
+                        workspace_path=workspace_path,
+                        harness=worker_harness,
+                    )
+                )
+
+            for slot in slots:
+                self._agent_pool_queue.put(slot)
+            self._agent_pool_slots = slots
+            self._agent_pool_model = model
+
+    def _close_agent_pool(self) -> None:
+        with self._agent_pool_lock:
+            for slot in self._agent_pool_slots:
+                if slot.harness is not None:
+                    slot.harness.close()
+            self._agent_pool_slots = []
+            self._agent_pool_model = None
+            self._agent_pool_queue = Queue()
+            self._pooled_runtime_agent_ids = set()
+
+    def _make_pool_agent_id(self, model: str, index: int) -> str:
+        slug = model.replace("/", "-").replace(":", "-").replace("_", "-").replace(".", "-").lower()
+        state_token = hashlib.sha1(str(self._state_dir_path()).encode("utf-8")).hexdigest()[:8]
+        return f"ocb6-{slug}-pool-{state_token}-{index}"
+
+    def _replace_workspace_contents(self, source: Path, target: Path) -> None:
+        source = source.resolve(strict=False)
+        target = target.resolve(strict=False)
+        if source == target:
+            return
+        if not source.exists():
+            raise FileNotFoundError(source)
+        target.mkdir(parents=True, exist_ok=True)
+        for child in target.iterdir():
+            if child.is_dir() and not child.is_symlink():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
+        shutil.copytree(source, target, dirs_exist_ok=True)
 
     def _guard_workspace_visibility(
         self,
@@ -576,6 +730,9 @@ class OpenClawLiveHarness:
     def delete_agent(self, agent_id: str) -> None:
         if not agent_id:
             return
+        with self._agent_pool_lock:
+            if agent_id in self._pooled_runtime_agent_ids:
+                return
         self._delete_agent(agent_id)
 
     def probe_agent_lifecycle(self, model: str, workspace_path: Path) -> tuple[bool, str]:
@@ -959,6 +1116,66 @@ class OpenClawLiveHarness:
             "models": json.loads(json.dumps(self._DEEPSEEK_V4_MODELS)),
         }
 
+    def _cli_backend_config_for_model(self, model: str) -> tuple[str, dict[str, Any]] | None:
+        provider = model.split("/", 1)[0].strip().lower()
+        if provider != "codex-cli":
+            return None
+        command = shutil.which("codex", path=self.command_env.get("PATH")) or "codex"
+        return (
+            provider,
+            {
+                "command": command,
+                "args": [
+                    "exec",
+                    "--json",
+                    "--config",
+                    'model_reasoning_effort="xhigh"',
+                    "--color",
+                    "never",
+                    "--sandbox",
+                    "workspace-write",
+                    "--skip-git-repo-check",
+                ],
+                "output": "jsonl",
+                "input": "arg",
+                "env": {"CODEX_HOME": str(self._home_dir(self.command_env) / ".codex")},
+                "modelArg": "--model",
+                "sessionMode": "none",
+                "sessionIdFields": ["thread_id"],
+                "imageArg": "--image",
+                "imageMode": "repeat",
+                "serialize": False,
+            },
+        )
+
+    def _ensure_cli_backend_config(self, defaults: dict[str, Any], model: str) -> bool:
+        backend = self._cli_backend_config_for_model(model)
+        if backend is None:
+            return False
+        provider, backend_config = backend
+        cli_backends = defaults.get("cliBackends")
+        changed = False
+        if not isinstance(cli_backends, dict):
+            cli_backends = {}
+            defaults["cliBackends"] = cli_backends
+            changed = True
+        existing = cli_backends.get(provider)
+        if not isinstance(existing, dict):
+            cli_backends[provider] = backend_config
+            return True
+        for key, value in backend_config.items():
+            if key == "env" and isinstance(existing.get("env"), dict):
+                existing_env = existing["env"]
+                for env_key, env_value in value.items():
+                    if env_key not in existing_env:
+                        existing_env[env_key] = env_value
+                        changed = True
+                continue
+            if key not in existing:
+                existing[key] = value
+                changed = True
+        return changed
+
     def _sync_isolated_model_runtime(self, model: str) -> None:
         if not self._uses_isolated_state():
             return
@@ -1004,6 +1221,9 @@ class OpenClawLiveHarness:
                 configured_models[model] = {}
                 changed = True
 
+            if self._ensure_cli_backend_config(defaults, model):
+                changed = True
+
             provider = model.split("/", 1)[0].strip()
             models_block = config_payload.get("models")
             if not isinstance(models_block, dict):
@@ -1015,6 +1235,7 @@ class OpenClawLiveHarness:
                 providers_block = {}
                 models_block["providers"] = providers_block
                 changed = True
+
             auth_providers = sorted(self._auth_profile_providers_for_model(model))
             auth_provider = auth_providers[0] if auth_providers else provider
             provider_match = self._resolve_provider_config(config_payload, provider)
@@ -1152,6 +1373,8 @@ class OpenClawLiveHarness:
         provider = model.split("/", 1)[0].strip().lower()
         if not provider:
             return set()
+        if provider.endswith("-cli"):
+            return set()
         aliases = {
             "glm": {"zai"},
         }
@@ -1276,7 +1499,7 @@ class OpenClawLiveHarness:
         return env
 
     def _make_agent_id(self, model: str, *, suffix: str = "") -> str:
-        slug = model.replace("/", "-").replace(":", "-").replace("_", "-").lower()
+        slug = model.replace("/", "-").replace(":", "-").replace("_", "-").replace(".", "-").lower()
         token = uuid4().hex[:12]
         suffix_part = f"-{suffix}" if suffix else ""
         return f"ocb6-{slug}-{token}{suffix_part}"
@@ -1321,20 +1544,23 @@ class OpenClawLiveHarness:
         return copy_result
 
     def _delete_agent(self, agent_id: str) -> None:
-        subprocess.run(
-            [self.openclaw_bin, "agents", "delete", agent_id, "--force"],
-            capture_output=True,
-            text=True,
-            check=False,
-            env=self.command_env,
-        )
+        with self._agent_registry_lock:
+            subprocess.run(
+                [self.openclaw_bin, "agents", "delete", agent_id, "--force"],
+                capture_output=True,
+                text=True,
+                check=False,
+                env=self.command_env,
+            )
 
-    def _agent_command(self, agent_id: str, prompt: str, timeout: int) -> list[str]:
+    def _agent_command(self, agent_id: str, prompt: str, timeout: int, session_id: str) -> list[str]:
         return [
             self.openclaw_bin,
             "agent",
             "--agent",
             agent_id,
+            "--session-id",
+            session_id,
             "--message",
             prompt,
             "--json",
@@ -1410,18 +1636,6 @@ class OpenClawLiveHarness:
                         "state_dir_exists": state_dir_exists,
                         "workspace_exists": workspace_exists,
                     }
-            if state_dir_exists or workspace_exists:
-                return {
-                    "requested_agent_id": agent_id,
-                    "agent_id_candidates": sorted(candidate_ids),
-                    "agents_list_exit_code": exit_code,
-                    "agents_list_count": len(payload),
-                    "agents_list_ids_sample": observed_ids[:10],
-                    "ensure_ready_phase": "ready",
-                    "ready_signal": "sessions_dir" if state_dir_exists else "workspace_dir",
-                    "state_dir_exists": state_dir_exists,
-                    "workspace_exists": workspace_exists,
-                }
             last_observation = {
                 "requested_agent_id": agent_id,
                 "agent_id_candidates": sorted(candidate_ids),
@@ -1766,6 +1980,17 @@ class OpenClawLiveHarness:
         payload = extract_json_payload(stdout)
         return payload if isinstance(payload, dict) else None
 
+    def _parse_command_payload(self, stdout: str, stderr: str) -> dict[str, Any] | None:
+        return (
+            self._parse_json_payload(stdout)
+            or self._parse_json_payload(stderr)
+            or self._parse_json_payload(f"{stdout}\n{stderr}")
+        )
+
+    def _payload_result(self, payload: dict[str, Any]) -> dict[str, Any]:
+        result = payload.get("result")
+        return result if isinstance(result, dict) else payload
+
     def _strip_known_openclaw_log_pollution(self, text: str) -> str:
         cleaned_lines = [
             line
@@ -1780,14 +2005,18 @@ class OpenClawLiveHarness:
     def _payload_session_id(self, payload: dict[str, Any] | None) -> str | None:
         if payload is None:
             return None
+        result = self._payload_result(payload)
+        meta = result.get("meta", {}) if isinstance(result.get("meta"), dict) else {}
         return (
-            payload.get("result", {}).get("meta", {}).get("agentMeta", {}).get("sessionId")
-            or payload.get("result", {}).get("meta", {}).get("systemPromptReport", {}).get("sessionId")
-            or payload.get("result", {}).get("meta", {}).get("sessionId")
+            meta.get("agentMeta", {}).get("sessionId") if isinstance(meta.get("agentMeta"), dict) else None
+        ) or (
+            meta.get("systemPromptReport", {}).get("sessionId") if isinstance(meta.get("systemPromptReport"), dict) else None
+        ) or (
+            meta.get("sessionId")
         )
 
     def _payload_usage(self, payload: dict[str, Any]) -> dict[str, Any]:
-        result = payload.get("result", {}) if isinstance(payload.get("result", {}), dict) else {}
+        result = self._payload_result(payload)
         meta = result.get("meta", {}) if isinstance(result, dict) else {}
         agent_meta = meta.get("agentMeta", {}) if isinstance(meta, dict) else {}
         payloads = result.get("payloads", []) if isinstance(result, dict) else []
@@ -1824,13 +2053,14 @@ class OpenClawLiveHarness:
         return merged
 
     def _payload_duration_ms(self, payload: dict[str, Any]) -> float:
-        meta = payload.get("result", {}).get("meta", {})
+        result = self._payload_result(payload)
+        meta = result.get("meta", {}) if isinstance(result, dict) else {}
         if isinstance(meta, dict):
             return float(meta.get("durationMs", 0.0) or 0.0)
         return 0.0
 
     def _payload_text(self, payload: dict[str, Any]) -> str:
-        result = payload.get("result", {}) if isinstance(payload.get("result", {}), dict) else {}
+        result = self._payload_result(payload)
         payloads = result.get("payloads", []) if isinstance(result, dict) else []
         for item in payloads:
             if isinstance(item, dict):
@@ -1847,7 +2077,7 @@ class OpenClawLiveHarness:
         if payload is None:
             return ""
 
-        result = payload.get("result", {}) if isinstance(payload.get("result", {}), dict) else {}
+        result = self._payload_result(payload)
         meta = result.get("meta", {}) if isinstance(result, dict) else {}
         candidates = [
             payload.get("error"),
@@ -1875,7 +2105,7 @@ class OpenClawLiveHarness:
                 return error_message
         if payload is None:
             return ""
-        result = payload.get("result", {}) if isinstance(payload.get("result", {}), dict) else {}
+        result = self._payload_result(payload)
         message = result.get("message") if isinstance(result.get("message"), dict) else payload.get("message")
         if isinstance(message, dict):
             stop_reason = str(message.get("stopReason", "")).strip().lower()

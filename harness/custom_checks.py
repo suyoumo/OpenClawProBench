@@ -4,31 +4,91 @@ from __future__ import annotations
 
 import importlib.util
 import inspect
+import os
+import sys
+import threading
 import time
 from copy import deepcopy
 from pathlib import Path
+from types import ModuleType
 from typing import Any
 
 from .models import Scenario
 
+_LOAD_ATTEMPTS = int(os.environ.get("OPENCLAW_CUSTOM_CHECK_LOAD_ATTEMPTS", "10"))
+_LOAD_BASE_DELAY_SECONDS = float(os.environ.get("OPENCLAW_CUSTOM_CHECK_LOAD_BASE_DELAY_SECONDS", "0.2"))
+_MODULE_CACHE: dict[str, tuple[tuple[int, int] | None, ModuleType]] = {}
+_MODULE_CACHE_LOCK = threading.Lock()
+
+
+def _module_cache_key(path: Path) -> str:
+    return str(path.resolve(strict=False))
+
+
+def _module_fingerprint(path: Path) -> tuple[int, int] | None:
+    try:
+        stat = path.stat()
+    except OSError:
+        return None
+    return (stat.st_mtime_ns, stat.st_size)
+
+
+def _load_module_from_source(path: Path, module_name: str, spec) -> ModuleType:
+    source = path.read_text(encoding="utf-8")
+    module = ModuleType(module_name)
+    module.__file__ = str(path)
+    module.__loader__ = spec.loader if spec is not None else None
+    module.__package__ = ""
+    module.__spec__ = spec
+    exec(compile(source, str(path), "exec"), module.__dict__)
+    return module
+
 
 def _load_module(path: Path):
-    last_error: Exception | None = None
-    for attempt in range(3):
-        spec = importlib.util.spec_from_file_location(path.stem, path)
-        if spec is None or spec.loader is None:
-            raise RuntimeError(f"Could not load custom check module from {path}")
-        module = importlib.util.module_from_spec(spec)
-        try:
-            spec.loader.exec_module(module)
-            return module
-        except PermissionError as exc:
-            last_error = exc
-            if attempt == 2:
-                break
-            time.sleep(0.1 * (attempt + 1))
-    assert last_error is not None
-    raise PermissionError(f"Could not load custom check module from {path}: {last_error}") from last_error
+    cache_key = _module_cache_key(path)
+    fingerprint = _module_fingerprint(path)
+    with _MODULE_CACHE_LOCK:
+        cached = _MODULE_CACHE.get(cache_key)
+        if cached and cached[0] == fingerprint:
+            return cached[1]
+
+        last_error: Exception | None = None
+        for attempt in range(max(_LOAD_ATTEMPTS, 1)):
+            importlib.invalidate_caches()
+            spec = importlib.util.spec_from_file_location(path.stem, path)
+            if spec is None or spec.loader is None:
+                raise RuntimeError(f"Could not load custom check module from {path}")
+            module = importlib.util.module_from_spec(spec)
+            previous_module = sys.modules.get(spec.name)
+            try:
+                sys.modules[spec.name] = module
+                spec.loader.exec_module(module)
+                _MODULE_CACHE[cache_key] = (fingerprint, module)
+                return module
+            except PermissionError as exc:
+                last_error = exc
+                try:
+                    module = _load_module_from_source(path, spec.name, spec)
+                    _MODULE_CACHE[cache_key] = (fingerprint, module)
+                    return module
+                except PermissionError as fallback_exc:
+                    last_error = fallback_exc
+                finally:
+                    if previous_module is None:
+                        sys.modules.pop(spec.name, None)
+                    else:
+                        sys.modules[spec.name] = previous_module
+                if attempt == _LOAD_ATTEMPTS - 1:
+                    break
+                time.sleep(_LOAD_BASE_DELAY_SECONDS * (attempt + 1))
+            except Exception:
+                if previous_module is None:
+                    sys.modules.pop(spec.name, None)
+                else:
+                    sys.modules[spec.name] = previous_module
+                raise
+        assert last_error is not None
+        raise PermissionError(f"Could not load custom check module from {path}: {last_error}") from last_error
 
 
 def _call_with_supported_arity(func, *args):

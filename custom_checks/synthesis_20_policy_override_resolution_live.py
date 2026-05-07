@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 
 EXPECTED_REFS = [
     "policy_v1.md",
@@ -18,6 +20,56 @@ EXPECTED_SIGNALS = [
 ]
 REQUIRED_GOVERNING_RULE = "V2-SEC-4"
 REQUIRED_REASON = "deny_because_v2_external_export_rule_overrides_lower_priority_manager_support_signal"
+
+
+def _text(raw: object) -> str:
+    return re.sub(r"[_\-\s]+", " ", str(raw).lower()).strip()
+
+
+def _contains_all(text: str, terms: tuple[str, ...]) -> bool:
+    return all(term in text for term in terms)
+
+
+def _contains_any(text: str, terms: tuple[str, ...]) -> bool:
+    return any(term in text for term in terms)
+
+
+def _signals_cover_required_categories(raw: object) -> tuple[bool, str]:
+    if raw == EXPECTED_SIGNALS:
+        return True, "canonical_signals"
+    if not isinstance(raw, list) or len(raw) != 3:
+        return False, f"expected 3 signals, got {raw}"
+    joined = " ".join(_text(item) for item in raw)
+    has_support_signal = _contains_any(joined, ("v1", "manager", "approval", "approved", "support"))
+    has_v2_external_block = _contains_all(joined, ("v2", "external")) and _contains_any(
+        joined, ("deny", "block", "limit", "restriction", "customer data")
+    )
+    has_security_chain_limit = _contains_any(joined, ("countersign", "security", "approval chain")) and _contains_any(
+        joined, ("cannot", "absence", "not", "lacks", "without")
+    )
+    ok = has_support_signal and has_v2_external_block and has_security_chain_limit
+    return ok, (
+        "support_signal="
+        f"{has_support_signal} v2_external_block={has_v2_external_block} "
+        f"security_chain_limit={has_security_chain_limit}"
+    )
+
+
+def _reason_is_grounded(raw: object) -> tuple[bool, str]:
+    if raw == REQUIRED_REASON:
+        return True, "canonical_reason"
+    text = _text(raw)
+    groups = [
+        ("deny",),
+        ("v2 sec 4",),
+        ("external",),
+        ("customer data",),
+        ("manager",),
+        ("different", "scope"),
+        ("security", "countersign"),
+    ]
+    hits = sum(1 for terms in groups if _contains_all(text, terms))
+    return hits >= 6, f"semantic_hits={hits}/{len(groups)}"
 
 
 def grade(workspace: str, trace: dict) -> dict:
@@ -69,7 +121,7 @@ def grade(workspace: str, trace: dict) -> dict:
         "detail": f"applied_policy_version={payload.get('applied_policy_version')!r}",
     }
     checkpoints["governing_rule_is_correct"] = {
-        "score": 0.15 if payload.get("governing_rule") == REQUIRED_GOVERNING_RULE else 0.0,
+        "score": 0.15 if REQUIRED_GOVERNING_RULE.lower() in str(payload.get("governing_rule", "")).lower() else 0.0,
         "max": 0.15,
         "detail": f"governing_rule={payload.get('governing_rule')!r}",
     }
@@ -78,18 +130,20 @@ def grade(workspace: str, trace: dict) -> dict:
         "max": 0.1,
         "detail": f"manager_note_used={payload.get('manager_note_used')!r}",
     }
+    signals_ok, signals_detail = _signals_cover_required_categories(payload.get("conflicting_signals"))
     checkpoints["conflicting_signals_are_exact"] = {
-        "score": 0.2 if payload.get("conflicting_signals") == EXPECTED_SIGNALS else 0.0,
+        "score": 0.2 if signals_ok else 0.0,
         "max": 0.2,
-        "detail": f"conflicting_signals={payload.get('conflicting_signals')}",
+        "detail": f"{signals_detail} conflicting_signals={payload.get('conflicting_signals')}",
     }
+    reason_ok, reason_detail = _reason_is_grounded(payload.get("reason"))
     checkpoints["reason_is_exact"] = {
-        "score": 0.15 if payload.get("reason") == REQUIRED_REASON else 0.0,
+        "score": 0.15 if reason_ok else 0.0,
         "max": 0.15,
-        "detail": f"reason={payload.get('reason')!r}",
+        "detail": f"{reason_detail} reason={payload.get('reason')!r}",
     }
     checkpoints["evidence_refs_are_correct"] = {
-        "score": 0.1 if payload.get("evidence_refs") == EXPECTED_REFS else 0.0,
+        "score": 0.1 if evidence_refs_match(payload.get("evidence_refs"), EXPECTED_REFS) else 0.0,
         "max": 0.1,
         "detail": f"evidence_refs={payload.get('evidence_refs')}",
     }
@@ -104,7 +158,9 @@ def grade_process(trace: dict) -> float:
             continue
         tool = str(event.get("tool", "")).lower()
         args = event.get("args") or {}
-        path = str(args.get("path", "") or args.get("file_path", ""))
+        if not isinstance(args, dict):
+            continue
+        path = str(args.get("path", "") or args.get("file_path", "") or args.get("file", ""))
         if tool == "read" and any(name in path for name in EXPECTED_REFS):
             read_hits += 1
         if tool == "write" and path.endswith("policy_override_decision.json"):

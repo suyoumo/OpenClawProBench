@@ -39,6 +39,7 @@ prompt: |
   - `dominated_strategies` 必须覆盖所有未选策略，按 strategy 字母序
   - `proof_skeleton` 必须正好 3 条，覆盖 feasibility、cost、sufficiency
   - `required_preconditions` 必须正好 2 条，且都来自 tool_constraints 中实际约束
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/tool_use_20_strategy_proof/fixtures
 tags:

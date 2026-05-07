@@ -40,6 +40,7 @@ prompt: |
   - `ruled_out_hypotheses` 必须正好 2 条
   - `confidence` 只能是 `high`
   - `root_cause`、`why_it_happened`、`ruled_out_hypotheses`、`immediate_mitigation` 允许语义等价表达，但必须保持与证据和 runbook 一致
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/synthesis_19_incident_cause_chain/fixtures
 tags:

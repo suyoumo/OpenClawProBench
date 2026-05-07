@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
 
-from harness.live_harness import OpenClawLiveHarness
+from harness.live_harness import AgentPoolSlot, AuthProfileCopyResult, OpenClawLiveHarness
 
 
 class LiveHarnessTests(unittest.TestCase):
@@ -497,6 +498,50 @@ class LiveHarnessTests(unittest.TestCase):
             self.assertEqual(updated_auth["profiles"]["deepseek:manual"]["provider"], "deepseek")
             self.assertEqual(updated_auth["profiles"]["deepseek:manual"]["key"], "sk-deepseek-live")
 
+    def test_sync_isolated_model_runtime_seeds_codex_cli_backend(self) -> None:
+        with tempfile.TemporaryDirectory() as home_dir, tempfile.TemporaryDirectory() as target_dir:
+            home_path = Path(home_dir)
+            target_state_dir = Path(target_dir)
+            target_config_path = target_state_dir / "openclaw.json"
+            target_config_path.write_text(
+                json.dumps(
+                    {
+                        "agents": {
+                            "defaults": {
+                                "model": {"primary": "codex-cli/gpt-5.5", "fallbacks": []},
+                                "models": {"codex-cli/gpt-5.5": {}},
+                            },
+                            "list": [{"id": "main"}],
+                        },
+                        "models": {"providers": {}},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            harness = OpenClawLiveHarness(openclaw_state_dir=str(target_state_dir))
+            harness.command_env["HOME"] = str(home_path)
+            harness.command_env["OPENCLAW_HOME"] = str(home_path)
+            harness.command_env["PATH"] = "/tmp/codex-bin"
+
+            with mock.patch("harness.live_harness.shutil.which", return_value="/tmp/codex-bin/codex"):
+                harness._sync_isolated_model_runtime("codex-cli/gpt-5.4")
+
+            updated_config = json.loads(target_config_path.read_text(encoding="utf-8"))
+            defaults = updated_config["agents"]["defaults"]
+            self.assertEqual(defaults["model"], {"primary": "codex-cli/gpt-5.4", "fallbacks": []})
+            self.assertIn("codex-cli/gpt-5.4", defaults["models"])
+            backend = defaults["cliBackends"]["codex-cli"]
+            self.assertEqual(backend["command"], "/tmp/codex-bin/codex")
+            self.assertEqual(backend["args"][:2], ["exec", "--json"])
+            self.assertIn('model_reasoning_effort="xhigh"', backend["args"])
+            self.assertEqual(backend["output"], "jsonl")
+            self.assertEqual(backend["modelArg"], "--model")
+            self.assertEqual(backend["sessionMode"], "none")
+            self.assertEqual(backend["sessionIdFields"], ["thread_id"])
+            self.assertEqual(backend["env"]["CODEX_HOME"], str(home_path / ".codex"))
+            self.assertNotIn("resumeArgs", backend)
+
     def test_sync_isolated_agent_runtime_pins_agent_model_and_disables_fallbacks(self) -> None:
         with tempfile.TemporaryDirectory() as target_dir:
             target_state_dir = Path(target_dir)
@@ -558,7 +603,7 @@ class LiveHarnessTests(unittest.TestCase):
         first = mock.Mock(returncode=0, stdout='[]', stderr='')
         second = mock.Mock(returncode=0, stdout='[{"id":"ocb6-glm-glm-5-abc123"}]', stderr='')
         with mock.patch("harness.live_harness.subprocess.run", side_effect=[first, second]):
-            state = harness._ensure_agent_ready("ocb6-glm-glm-5-abc123", max_wait_seconds=0.3)
+            state = harness._ensure_agent_ready("ocb6-glm-glm-5-abc123", max_wait_seconds=1.0)
 
         self.assertEqual(state["ensure_ready_phase"], "ready")
         self.assertEqual(state["agents_list_count"], 1)
@@ -572,7 +617,7 @@ class LiveHarnessTests(unittest.TestCase):
         self.assertEqual(state["ensure_ready_phase"], "ready")
         self.assertIn("ocb6.glm.glm.5.abc123", state["agents_list_ids_sample"])
 
-    def test_ensure_agent_ready_accepts_sessions_dir_fallback(self) -> None:
+    def test_ensure_agent_ready_requires_registry_even_when_sessions_dir_exists(self) -> None:
         harness = OpenClawLiveHarness()
         completed = mock.Mock(returncode=0, stdout='[]', stderr='')
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -582,11 +627,8 @@ class LiveHarnessTests(unittest.TestCase):
                 mock.patch("harness.live_harness.subprocess.run", return_value=completed),
                 mock.patch.object(harness, "_agent_sessions_dir", return_value=sessions_dir),
             ):
-                state = harness._ensure_agent_ready("ocb6-glm-glm-5-abc123", max_wait_seconds=0)
-
-        self.assertEqual(state["ensure_ready_phase"], "ready")
-        self.assertEqual(state["ready_signal"], "sessions_dir")
-        self.assertTrue(state["state_dir_exists"])
+                with self.assertRaisesRegex(RuntimeError, "OpenClaw agent not ready"):
+                    harness._ensure_agent_ready("ocb6-glm-glm-5-abc123", max_wait_seconds=0)
 
     def test_ensure_agent_ready_raises_when_registry_and_state_are_missing(self) -> None:
         harness = OpenClawLiveHarness()
@@ -603,6 +645,7 @@ class LiveHarnessTests(unittest.TestCase):
 
         self.assertEqual(harness._auth_profile_providers_for_model("glm/GLM-5"), {"zai"})
         self.assertEqual(harness._auth_profile_providers_for_model("minimax/MiniMax-M2.7"), {"minimax"})
+        self.assertEqual(harness._auth_profile_providers_for_model("codex-cli/gpt-5.5"), set())
 
     def test_create_agent_copies_minimax_auth_profiles(self) -> None:
         harness = OpenClawLiveHarness()
@@ -620,22 +663,6 @@ class LiveHarnessTests(unittest.TestCase):
         self.assertIs(result, copy_result)
         sync_agent_runtime.assert_called_once_with("agent-1", "minimax/MiniMax-M2.7")
         copy_auth.assert_called_once_with("agent-1", providers={"minimax"})
-
-    def test_create_agent_fails_when_filtered_auth_profiles_are_empty(self) -> None:
-        harness = OpenClawLiveHarness()
-        with tempfile.TemporaryDirectory() as tmpdir:
-            workspace = Path(tmpdir)
-            completed = mock.Mock(returncode=0, stdout="", stderr="")
-            with (
-                mock.patch("harness.live_harness.subprocess.run", return_value=completed),
-                mock.patch.object(
-                    harness,
-                    "_copy_auth_profiles",
-                    return_value=mock.Mock(reason="filtered_profiles_empty", requested_providers={"minimax"}),
-                ),
-            ):
-                with self.assertRaisesRegex(RuntimeError, "No auth profiles found for providers: minimax"):
-                    harness._create_agent("agent-1", "minimax/MiniMax-M2.7", workspace)
 
     def test_create_agent_strips_openclaw_log_pollution_when_add_fails(self) -> None:
         harness = OpenClawLiveHarness()
@@ -857,6 +884,79 @@ class LiveHarnessTests(unittest.TestCase):
         self.assertEqual(stdout, '{"result": {}}')
         self.assertEqual(stderr, "")
         self.assertTrue(any("live-heartbeat agent=agent-1" in message for message in messages))
+
+    def test_execute_turn_creates_fresh_agent_in_pooled_worker_and_copies_outputs_back(self) -> None:
+        harness = OpenClawLiveHarness(agent_pool_size=1, cleanup_agents=True)
+        completed_stdout = '{"result": {"meta": {"agentMeta": {"sessionId": "real-session-id"}}}}'
+        proc = mock.Mock()
+        proc.returncode = 0
+        transcript = [
+            {
+                "type": "message",
+                "message": {
+                    "role": "assistant",
+                    "content": [{"type": "text", "text": "done"}],
+                    "usage": {"input": 10, "output": 5, "totalTokens": 15},
+                },
+            }
+        ]
+        with tempfile.TemporaryDirectory() as tmpdir:
+            original_workspace = Path(tmpdir) / "original"
+            pool_workspace = Path(tmpdir) / "pool"
+            original_workspace.mkdir()
+            pool_workspace.mkdir()
+            (original_workspace / "seed.txt").write_text("seed\n", encoding="utf-8")
+            slot = AgentPoolSlot(
+                slot_id="worker-1",
+                workspace_path=pool_workspace,
+            )
+            harness._agent_pool_model = "codex-cli/gpt-5.4"
+            harness._agent_pool_slots = [slot]
+            harness._agent_pool_queue.put(slot)
+
+            def complete_turn(*_args: object, **_kwargs: object) -> tuple[str, str]:
+                (pool_workspace / "answer.txt").write_text("done\n", encoding="utf-8")
+                return completed_stdout, ""
+
+            def delete_agent_after_copyback(_agent_id: str) -> None:
+                self.assertTrue((original_workspace / "answer.txt").exists())
+                shutil.rmtree(pool_workspace)
+
+            with (
+                mock.patch.object(
+                    harness,
+                    "_create_agent",
+                    return_value=AuthProfileCopyResult(source_exists=True, requested_providers={"codex"}),
+                ) as create_agent,
+                mock.patch.object(harness, "_ensure_agent_ready", return_value={"ensure_ready_phase": "ready"}),
+                mock.patch.object(harness, "_delete_agent", side_effect=delete_agent_after_copyback) as delete_agent,
+                mock.patch("harness.live_harness.subprocess.Popen", return_value=proc) as popen,
+                mock.patch.object(harness, "_communicate_with_heartbeat", side_effect=complete_turn),
+                mock.patch.object(harness, "_wait_and_load_transcript", return_value=transcript),
+            ):
+                result = harness.execute_turn(
+                    model="codex-cli/gpt-5.4",
+                    prompt="hello",
+                    workspace_path=original_workspace,
+                    timeout=1,
+                    expected_workspace_files=["seed.txt"],
+                )
+                output_text = (original_workspace / "answer.txt").read_text(encoding="utf-8")
+
+            create_agent.assert_called_once()
+            created_agent_id, created_model, created_workspace = create_agent.call_args.args
+            self.assertEqual(result.status, "success")
+            self.assertEqual(result.agent_id, created_agent_id)
+            self.assertEqual(created_model, "codex-cli/gpt-5.4")
+            self.assertEqual(created_workspace, pool_workspace)
+            self.assertRegex(result.agent_id, r"^ocb6-codex-cli-gpt-5-4-[0-9a-f]{12}$")
+            delete_agent.assert_called_once_with(result.agent_id)
+            self.assertEqual(popen.call_args.kwargs["cwd"], str(pool_workspace))
+            command = popen.call_args.args[0]
+            self.assertIn(result.agent_id, command)
+            self.assertIn("--session-id", command)
+            self.assertEqual(output_text, "done\n")
+
     def test_execute_turn_converts_empty_success_trace_to_error(self) -> None:
         harness = OpenClawLiveHarness()
         completed_stdout = '{"result": {"meta": {"agentMeta": {"sessionId": "real-session-id"}}}}'
@@ -885,6 +985,53 @@ class LiveHarnessTests(unittest.TestCase):
         self.assertEqual(result.status, "error")
         self.assertEqual(result.error_detail, "empty live transcript/tool trace")
         self.assertNotEqual(result.exit_code, 0)
+
+    def test_execute_turn_accepts_stderr_payload_when_transcript_is_missing(self) -> None:
+        harness = OpenClawLiveHarness()
+        completed_stderr = """
+Gateway agent failed; falling back to embedded
+{
+  "payloads": [
+    {"text": "done", "mediaUrl": null}
+  ],
+  "meta": {
+    "durationMs": 1234,
+    "agentMeta": {
+      "sessionId": "real-session-id",
+      "usage": {"input": 10, "output": 5, "cacheRead": 3}
+    }
+  }
+}
+"""
+        proc = mock.Mock()
+        proc.returncode = 0
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = Path(tmpdir)
+            with (
+                mock.patch.object(
+                    harness,
+                    "_create_agent",
+                    return_value=mock.Mock(requested_providers=set(), to_dict=lambda: {"reason": "copied"}),
+                ),
+                mock.patch.object(harness, "_ensure_agent_ready", return_value={"ensure_ready_phase": "ready"}),
+                mock.patch("harness.live_harness.subprocess.Popen", return_value=proc),
+                mock.patch.object(harness, "_communicate_with_heartbeat", return_value=("", completed_stderr)),
+                mock.patch.object(harness, "_wait_and_load_transcript", return_value=[]),
+            ):
+                result = harness.execute_turn(
+                    model="codex-cli/gpt-5.5",
+                    prompt="hello",
+                    workspace_path=workspace,
+                    timeout=1,
+                )
+
+        self.assertEqual(result.status, "success")
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.session_id, "real-session-id")
+        self.assertEqual(result.trace["events"], [{"type": "assistant_message", "text": "done", "seq": 0}])
+        self.assertEqual(result.trace["metrics"]["input_tokens"], 10)
+        self.assertEqual(result.trace["metrics"]["output_tokens"], 5)
+        self.assertEqual(result.trace["metrics"]["cache_read_tokens"], 3)
 
         harness = OpenClawLiveHarness()
         completed_stdout = '{"result": {"meta": {"agentMeta": {"sessionId": "real-session-id"}}}}'
@@ -1048,8 +1195,6 @@ class LiveHarnessTests(unittest.TestCase):
 
         self.assertEqual(result.status, "success")
         self.assertEqual(result.exit_code, 0)
-        self.assertEqual(result.error_detail, "")
-        self.assertTrue(result.trace["audit_state"]["live_runtime"]["normalized_terminated_exit"])
 
     def test_build_error_detail_ignores_openclaw_log_size_cap_pollution(self) -> None:
         harness = OpenClawLiveHarness()

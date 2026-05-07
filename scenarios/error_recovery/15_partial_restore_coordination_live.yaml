@@ -39,6 +39,7 @@ prompt: |
   - `restore_later` 必须覆盖所有当前不能恢复的服务，按 service 字母序
   - `dependency_order` 必须正好 3 条
   - `post_restore_checks` 必须正好 3 条
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/error_recovery_15_partial_restore_coordination/fixtures
 tags:

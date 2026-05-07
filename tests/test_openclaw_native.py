@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from harness import custom_checks as custom_checks_module
 from harness.custom_checks import run_custom_checks
 from harness.loader import load_scenario, scenarios_root
 from harness.openclaw_native import (
@@ -16,6 +17,7 @@ from harness.openclaw_native import (
     extract_json_payload,
     grade_skills_process,
     infer_surface_status,
+    load_skills_inventory,
     parse_configured_channels,
     run_openclaw_command,
     run_openclaw_json,
@@ -190,6 +192,10 @@ def _tool_trace(*calls: tuple[str, dict[str, object]], audit_state: dict | None 
 
 
 class OpenClawNativeTests(unittest.TestCase):
+    def setUp(self) -> None:
+        with custom_checks_module._MODULE_CACHE_LOCK:
+            custom_checks_module._MODULE_CACHE.clear()
+
     def test_extract_json_payload_prefers_full_document_before_nested_objects(self) -> None:
         payload = extract_json_payload('{"workspaceDir": "/tmp/ws", "skills": [{"name": "tmux", "eligible": true}, {"name": "slack", "eligible": false}]}')
         self.assertEqual(payload["workspaceDir"], "/tmp/ws")
@@ -240,6 +246,80 @@ class OpenClawNativeTests(unittest.TestCase):
         mocked_run.assert_called_once()
         invoked = mocked_run.call_args.args[0]
         self.assertEqual(invoked[0], "/tmp/openclaw.mjs")
+
+    def test_run_openclaw_command_prefers_supported_nvm_node_when_env_omitted(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            home = Path(tmpdir)
+            node18_bin = home / ".nvm" / "versions" / "node" / "v18.20.6" / "bin"
+            node22_bin = home / ".nvm" / "versions" / "node" / "v22.22.0" / "bin"
+            node18_bin.mkdir(parents=True)
+            node22_bin.mkdir(parents=True)
+            with (
+                patch.dict(os.environ, {"HOME": str(home), "PATH": f"{node18_bin}{os.pathsep}/usr/bin"}, clear=True),
+                patch("harness.openclaw_native.Path.home", return_value=home),
+                patch("harness.openclaw_native.subprocess.run") as mocked_run,
+            ):
+                mocked_run.return_value = subprocess.CompletedProcess(
+                    args=["openclaw", "skills", "list", "--json"],
+                    returncode=0,
+                    stdout="{}",
+                    stderr="",
+                )
+                run_openclaw_command("skills", "list", "--json")
+
+        mocked_run.assert_called_once()
+        command_env = mocked_run.call_args.kwargs["env"]
+        self.assertIsNotNone(command_env)
+        self.assertEqual(command_env["PATH"].split(os.pathsep)[0], str(node22_bin))
+
+    def test_run_openclaw_command_preserves_explicit_env(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            home = Path(tmpdir)
+            node22_bin = home / ".nvm" / "versions" / "node" / "v22.22.0" / "bin"
+            node22_bin.mkdir(parents=True)
+            env = {"HOME": str(home), "PATH": "/custom/bin", "OPENCLAW_BINARY": "/tmp/openclaw.mjs"}
+            with (
+                patch("harness.openclaw_native.Path.home", return_value=home),
+                patch("harness.openclaw_native.subprocess.run") as mocked_run,
+            ):
+                mocked_run.return_value = subprocess.CompletedProcess(
+                    args=["/tmp/openclaw.mjs", "skills", "list", "--json"],
+                    returncode=0,
+                    stdout="{}",
+                    stderr="",
+                )
+                run_openclaw_command("skills", "list", "--json", env=env)
+
+        mocked_run.assert_called_once()
+        self.assertIs(mocked_run.call_args.kwargs["env"], env)
+        self.assertEqual(mocked_run.call_args.kwargs["env"]["PATH"], "/custom/bin")
+        invoked = mocked_run.call_args.args[0]
+        self.assertEqual(invoked[0], "/tmp/openclaw.mjs")
+
+    def test_load_skills_inventory_uses_longer_timeout(self) -> None:
+        with patch("harness.openclaw_native.run_openclaw_json", return_value=SKILLS_FIXTURE) as mocked_json:
+            load_skills_inventory()
+        mocked_json.assert_called_once_with(
+            "skills",
+            "list",
+            "--json",
+            openclaw_bin="openclaw",
+            timeout=180,
+            env=None,
+        )
+
+    def test_load_skills_inventory_timeout_can_be_overridden_by_env(self) -> None:
+        env = {"OPENCLAW_SKILLS_INVENTORY_TIMEOUT_SECONDS": "240"}
+        with patch("harness.openclaw_native.run_openclaw_json", return_value=SKILLS_FIXTURE) as mocked_json:
+            load_skills_inventory(env=env)
+        mocked_json.assert_called_once_with(
+            "skills",
+            "list",
+            "--json",
+            openclaw_bin="openclaw",
+            timeout=240,
+            env=env,
+        )
 
     def test_parse_configured_channels_extracts_error_payload(self) -> None:
         channels = parse_configured_channels(

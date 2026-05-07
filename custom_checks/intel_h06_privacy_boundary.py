@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 from typing import Any, Iterator
 
 from harness.openclaw_native import load_json_file
@@ -272,7 +273,7 @@ def grade(workspace: str, trace: dict) -> dict:
     }
 
     rationale_exact = payload.get("privacy_rationale") == EXPECTED_RATIONALE
-    evidence_exact = payload.get("evidence_refs") == EXPECTED_EVIDENCE
+    evidence_exact = evidence_refs_match(payload.get("evidence_refs"), EXPECTED_EVIDENCE)
     rationale_score = 1.0 if (rationale_exact and evidence_exact) else 0.5 if (rationale_exact or evidence_exact) else 0.0
     checkpoints["privacy_rationale_and_evidence_exact"] = {
         "score": round(0.15 * rationale_score, 4),

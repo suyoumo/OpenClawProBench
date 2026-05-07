@@ -38,6 +38,7 @@ prompt: |
   - `rejected_windows` 必须覆盖所有未选窗口，按 window 字母序
   - `verification_set` 必须正好 3 条
   - `rollback_gap_minutes` 必须精确，表示回滚点距故障确认时刻的分钟差
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/error_recovery_18_rollback_window_choice/fixtures
 tags:

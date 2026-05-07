@@ -39,6 +39,7 @@ prompt: |
   - `defer` 必须覆盖所有当前不执行的任务，按 task 字母序
   - `dependency_order` 必须正好 3 条
   - `justification` 必须正好 3 条，覆盖 dependency、capacity、delivery priority
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/planning_17_dependency_tradeoff_plan/fixtures
 tags:

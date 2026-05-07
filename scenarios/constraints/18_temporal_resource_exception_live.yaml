@@ -42,6 +42,7 @@ prompt: |
   - `rejected_requests` 必须覆盖所有未接受请求，按 request 字母序
   - `constraint_chain` 必须正好 3 条
   - `unused_capacity` 必须精确反映每个窗口在最终接受方案后的剩余容量
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/constraints_18_temporal_resource_exception/fixtures
 tags:

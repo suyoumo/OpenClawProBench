@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 EXPECTED_INV=[{'claim':'claim_b','reason':'contradicted_by_observation_o2'},{'claim':'claim_c','reason':'fails_resolution_priority_rule'}]
 EXPECTED_CHAIN=['apply_observation_consistency','remove_contradicted_claims','select_highest_priority_remaining_claim']
 EXPECTED_REFS=['claims.json','observations.md','resolution_policy.md','output_spec.json']
@@ -14,6 +15,6 @@ def grade(workspace:str, trace:dict)->dict:
  cp['invalid']={'score':0.2 if payload.get('invalidated_claims')==EXPECTED_INV else 0.0,'max':0.2,'detail':str(payload.get('invalidated_claims'))}
  cp['chain']={'score':0.2 if payload.get('conflict_chain')==EXPECTED_CHAIN else 0.0,'max':0.2,'detail':str(payload.get('conflict_chain'))}
  cp['rule']={'score':0.1 if payload.get('governing_resolution_rule')=='consistency_then_priority' else 0.0,'max':0.1,'detail':str(payload.get('governing_resolution_rule'))}
- cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+ cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
  return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float: return 1.0

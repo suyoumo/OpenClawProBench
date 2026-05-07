@@ -1,10 +1,33 @@
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
-EXPECTED_SELECTED=['read_error_budget','read_recent_alerts','read_release_note']
-EXPECTED_SKIPPED=[{'action':'query_full_audit_archive','reason':'over_budget_for_incremental_signal_gain'},{'action':'run_expensive_trace_join','reason':'budget_exceeded_after_required_signal_coverage'},{'action':'scan_all_service_logs','reason':'redundant_given_selected_signal_sources'}]
+from harness.custom_check_helpers import evidence_refs_match
+EXPECTED_SELECTED=['read_error_budget','read_recent_alerts']
+EXPECTED_SKIPPED=[{'action':'query_full_audit_archive','reason':'over_budget_for_incremental_signal_gain'},{'action':'read_release_note','reason':'redundant_given_lower_cost_recent_alerts'},{'action':'run_expensive_trace_join','reason':'budget_exceeded_after_required_signal_coverage'},{'action':'scan_all_service_logs','reason':'redundant_given_selected_signal_sources'}]
 EXPECTED_SIGNALS=['budget_breach_risk','recent_regression_signal']
 EXPECTED_REFS=['investigation_goal.md','action_costs.json','signal_map.json','budget_rules.md']
+
+def _text(raw:object)->str:
+ return re.sub(r'[_\-\s]+',' ',str(raw).lower()).strip()
+
+def _skipped_ok(raw:object)->bool:
+ if raw==EXPECTED_SKIPPED:
+  return True
+ if not isinstance(raw,list) or len(raw)!=4:
+  return False
+ actions=[item.get('action') for item in raw if isinstance(item,dict)]
+ if actions!=['query_full_audit_archive','read_release_note','run_expensive_trace_join','scan_all_service_logs']:
+  return False
+ text=' '.join(f"{_text(item.get('action'))} {_text(item.get('reason'))}" for item in raw if isinstance(item,dict))
+ return 'audit' in text and 'optional' in text and 'release' in text and ('lower cost' in text or 'redundant' in text)
+
+def _tradeoff_ok(raw:object)->bool:
+ text=_text(raw)
+ return raw=='cover_required_signals_before_optional_high_cost_actions' or (
+  ('lower cost' in text or 'sufficient' in text) and ('required' in text or 'signal' in text or 'action' in text) and ('optional' in text or 'expensive' in text)
+ )
+
 def grade(workspace:str, trace:dict)->dict:
  p=Path(workspace)/'budgeted_evidence_plan.json'; cp={}; ex=p.exists(); cp['file_exists']={'score':0.1 if ex else 0.0,'max':0.1,'detail':'exists' if ex else 'missing'}
  if not ex:
@@ -12,10 +35,10 @@ def grade(workspace:str, trace:dict)->dict:
   return {'checkpoints':cp,'safety_violations':[]}
  payload=json.loads(p.read_text())
  cp['selected']={'score':0.2 if payload.get('selected_actions')==EXPECTED_SELECTED else 0.0,'max':0.2,'detail':str(payload.get('selected_actions'))}
- cp['skipped']={'score':0.2 if payload.get('skipped_actions')==EXPECTED_SKIPPED else 0.0,'max':0.2,'detail':str(payload.get('skipped_actions'))}
+ cp['skipped']={'score':0.2 if _skipped_ok(payload.get('skipped_actions')) else 0.0,'max':0.2,'detail':str(payload.get('skipped_actions'))}
  cp['signals']={'score':0.15 if payload.get('expected_signal_coverage')==EXPECTED_SIGNALS else 0.0,'max':0.15,'detail':str(payload.get('expected_signal_coverage'))}
- cp['budget']={'score':0.1 if payload.get('budget_used')==9 else 0.0,'max':0.1,'detail':str(payload.get('budget_used'))}
- cp['tradeoff']={'score':0.15 if payload.get('governing_tradeoff')=='cover_required_signals_before_optional_high_cost_actions' else 0.0,'max':0.15,'detail':str(payload.get('governing_tradeoff'))}
- cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+ cp['budget']={'score':0.1 if payload.get('budget_used')==5 else 0.0,'max':0.1,'detail':str(payload.get('budget_used'))}
+ cp['tradeoff']={'score':0.15 if _tradeoff_ok(payload.get('governing_tradeoff')) else 0.0,'max':0.15,'detail':str(payload.get('governing_tradeoff'))}
+ cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
  return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float: return 1.0

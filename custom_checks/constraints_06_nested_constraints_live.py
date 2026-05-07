@@ -8,6 +8,9 @@ Expected violations based on fixture data:
   3. dependency_degraded: notification-service status is "degraded".
 """
 
+from __future__ import annotations
+
+
 from pathlib import Path
 import json
 

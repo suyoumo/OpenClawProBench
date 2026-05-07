@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 EXPECTED_REJ=[{'window':'w1','reason':'too_old_causes_unnecessary_recovery_gap'},{'window':'w3','reason':'contains_integrity_violation_after_corruption_start'},{'window':'w4','reason':'too_recent_to_remove_faulty_change_set'}]
 EXPECTED_VERIFY=['checkout_readiness','order_integrity','post_rollback_queue_health']
 EXPECTED_REFS=['rollback_candidates.json','signal_timeline.md','integrity_rules.json','recovery_target.txt']
@@ -15,6 +16,6 @@ def grade(workspace:str, trace:dict)->dict:
  cp['verify']={'score':0.15 if payload.get('verification_set')==EXPECTED_VERIFY else 0.0,'max':0.15,'detail':str(payload.get('verification_set'))}
  cp['gap']={'score':0.15 if payload.get('rollback_gap_minutes')==12 else 0.0,'max':0.15,'detail':str(payload.get('rollback_gap_minutes'))}
  cp['rule']={'score':0.1 if payload.get('governing_rule')=='choose_latest_clean_window_before_corruption' else 0.0,'max':0.1,'detail':str(payload.get('governing_rule'))}
- cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+ cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
  return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float: return 1.0

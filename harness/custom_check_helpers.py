@@ -228,3 +228,19 @@ def seeded_inputs_unchanged(
         if current.read_text(encoding="utf-8") != seeded.read_text(encoding="utf-8"):
             return False, f"{relative_name} drifted from the seeded fixture"
     return True, "seeded inputs are present and unchanged"
+
+
+def evidence_refs_match(actual: Any, expected: Iterable[str]) -> bool:
+    """Match exact evidence refs without making order significant."""
+    expected_refs = [str(item) for item in expected]
+    if not isinstance(actual, list) or len(actual) != len(expected_refs):
+        return False
+    actual_refs: list[str] = []
+    for item in actual:
+        if not isinstance(item, str):
+            return False
+        text = item.strip()
+        if text != Path(text).name:
+            return False
+        actual_refs.append(text)
+    return len(set(actual_refs)) == len(actual_refs) and set(actual_refs) == set(expected_refs)

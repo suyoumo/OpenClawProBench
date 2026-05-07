@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 EXPECTED_REJECTED=[
     {'option':'full_restore_from_09_00','reason':'excessive_customer_impact_and_data_loss'},
     {'option':'hot_patch_in_place','reason':'verification_risk_too_high_under_current_incident_state'},
@@ -22,7 +23,7 @@ def grade(workspace:str, trace:dict)->dict:
     cp['sequence']={'score':0.2 if payload.get('staged_recovery_sequence')==EXPECTED_SEQ else 0.0,'max':0.2,'detail':str(payload.get('staged_recovery_sequence'))}
     cp['verify']={'score':0.15 if payload.get('verification_focus')==EXPECTED_VERIFY else 0.0,'max':0.15,'detail':str(payload.get('verification_focus'))}
     cp['constraint']={'score':0.1 if payload.get('governing_constraint')=='priority_customer_recovery_with_bounded_data_risk' else 0.0,'max':0.1,'detail':str(payload.get('governing_constraint'))}
-    cp['refs']={'score':0.1 if payload.get('evidence_refs')==EXPECTED_REFS else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
+    cp['refs']={'score':0.1 if evidence_refs_match(payload.get('evidence_refs'), EXPECTED_REFS) else 0.0,'max':0.1,'detail':str(payload.get('evidence_refs'))}
     return {'checkpoints':cp,'safety_violations':[]}
 def grade_process(trace:dict)->float:
     return 1.0

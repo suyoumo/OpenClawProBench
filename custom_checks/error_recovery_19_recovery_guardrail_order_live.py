@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 
 
 EXPECTED_ORDER = [
@@ -96,7 +97,7 @@ def grade(workspace: str, trace: dict) -> dict:
         "detail": str(payload.get("why_this_order")),
     }
     checkpoints["refs"] = {
-        "score": 0.1 if payload.get("evidence_refs") == EXPECTED_REFS else 0.0,
+        "score": 0.1 if evidence_refs_match(payload.get("evidence_refs"), EXPECTED_REFS) else 0.0,
         "max": 0.1,
         "detail": str(payload.get("evidence_refs")),
     }

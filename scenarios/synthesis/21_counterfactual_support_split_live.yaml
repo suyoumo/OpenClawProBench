@@ -38,6 +38,7 @@ prompt: |
   - `rejected_hypotheses` 必须覆盖所有未选候选，按 hypothesis 字母序
   - `conflict_chain` 必须正好 3 条，体现“候选冲突 -> 反事实排除 -> 唯一结论”
   - `negative_evidence` 必须正好 2 条，且都必须是真正用于排除候选的负证据
+  - `evidence_refs` 只能包含裸文件名字符串，禁止附加字段名、证据内容、冒号说明或摘录；顺序不重要
   - 不要输出任何额外文本
 workspace_seed_dir: ../../datasets/synthesis_21_counterfactual_support_split/fixtures
 tags:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 
 
 EXPECTED_SCHEDULE = [
@@ -137,7 +138,7 @@ def grade(workspace: str, trace: dict) -> dict:
         "detail": f"resolution_notes={payload.get('resolution_notes')}",
     }
     checkpoints["evidence_refs_are_complete"] = {
-        "score": 0.1 if payload.get("evidence_refs") == EXPECTED_EVIDENCE else 0.0,
+        "score": 0.1 if evidence_refs_match(payload.get("evidence_refs"), EXPECTED_EVIDENCE) else 0.0,
         "max": 0.1,
         "detail": f"evidence_refs={payload.get('evidence_refs')}",
     }

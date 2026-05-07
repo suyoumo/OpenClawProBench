@@ -13,6 +13,7 @@ openclaw_surfaces:
 - message
 optimal_steps: 9
 pass_threshold: 0.62
+workspace_seed_dir: ../../datasets/planning_19_agent_delegation_boundary/fixtures
 prompt: |
   当前工作区里已经放好了 1 份只读输入：
   - `delegation_request.json`

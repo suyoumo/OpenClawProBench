@@ -32,6 +32,7 @@ prompt: |
   - 只能依据 seeded 文本中的明确字段筛选，不能根据相似名字、常识或猜测补全
   - `EVIDENCE` 必须是 selection_rules 中定义的唯一证据 code
   - 不要输出任何额外文本、空行或 markdown
+  - 文件末尾可以有或没有一个换行，但不能增加第 5 行
 workspace_seed_dir: ../../datasets/constraints_13_exact_extract_no_inference/fixtures
 tags:
 - constraints

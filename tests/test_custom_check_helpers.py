@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 from harness.custom_check_helpers import (
+    evidence_refs_match,
     file_exists_checkpoint,
     load_json_output,
     seeded_inputs_unchanged,
@@ -90,6 +91,16 @@ class CustomCheckHelpersTests(unittest.TestCase):
         self.assertEqual(detail, "seeded inputs are present and unchanged")
         self.assertFalse(drift_ok)
         self.assertIn("input.txt drifted from the seeded fixture", drift_detail)
+
+    def test_evidence_refs_match_ignores_order_but_rejects_descriptions(self) -> None:
+        expected = ["request.json", "policy.md", "contract.txt"]
+
+        self.assertTrue(evidence_refs_match(["contract.txt", "request.json", "policy.md"], expected))
+        self.assertFalse(evidence_refs_match(["request.json", "policy.md", "request.json"], expected))
+        self.assertFalse(evidence_refs_match(["request.json: contains approval", "policy.md", "contract.txt"], expected))
+        self.assertFalse(evidence_refs_match(["data/request.json", "policy.md", "contract.txt"], expected))
+        self.assertFalse(evidence_refs_match(["request.json", "policy.md", 3], expected))
+        self.assertTrue(evidence_refs_match(["events.log:E2", "rules.md#scope"], ["rules.md#scope", "events.log:E2"]))
 
 
 if __name__ == "__main__":

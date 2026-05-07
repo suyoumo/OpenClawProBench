@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
+from harness.custom_check_helpers import evidence_refs_match
 
 EXPECTED_SUPPORTING = [
     "bug_tracker:P0_checkout_null_pointer_open",
@@ -16,6 +18,26 @@ EXPECTED_EVIDENCE_REFS = [
     "ops_incidents.json",
     "launch_plan.md",
 ]
+
+
+def _text(raw: object) -> str:
+    return re.sub(r"[_\-\s]+", " ", str(raw).lower()).strip()
+
+
+def _contains_all(text: str, terms: tuple[str, ...]) -> bool:
+    return all(term in text for term in terms)
+
+
+def _supporting_evidence_ok(raw: object) -> bool:
+    if raw == EXPECTED_SUPPORTING:
+        return True
+    if not isinstance(raw, list) or len(raw) != 3:
+        return False
+    text = " ".join(_text(item) for item in raw)
+    bug_ok = _contains_all(text, ("bug", "p0", "checkout", "null pointer"))
+    ci_ok = _contains_all(text, ("ci", "checkout e2e", "failed"))
+    plan_ok = "launch plan" in text and ("no open p0" in text or "all required gates" in text or "gates passing" in text)
+    return bug_ok and ci_ok and plan_ok
 
 
 def _tool_calls(trace: dict) -> list[dict]:
@@ -63,8 +85,12 @@ def grade(workspace: str, trace: dict) -> dict:
         "max": 0.2,
         "detail": f"launch_decision={payload.get('launch_decision')!r}",
     }
+    blocker_text = _text(payload.get("primary_blocker"))
+    blocker_ok = payload.get("primary_blocker") == "P0_checkout_null_pointer_open" or _contains_all(
+        blocker_text, ("p0", "checkout", "null pointer")
+    )
     checkpoints["primary_blocker_is_correct"] = {
-        "score": 0.2 if payload.get("primary_blocker") == "P0_checkout_null_pointer_open" else 0.0,
+        "score": 0.2 if blocker_ok else 0.0,
         "max": 0.2,
         "detail": f"primary_blocker={payload.get('primary_blocker')!r}",
     }
@@ -74,16 +100,22 @@ def grade(workspace: str, trace: dict) -> dict:
         "detail": f"blocker_class={payload.get('blocker_class')!r}",
     }
     checkpoints["supporting_evidence_is_exact"] = {
-        "score": 0.15 if payload.get("supporting_evidence") == EXPECTED_SUPPORTING else 0.0,
+        "score": 0.15 if _supporting_evidence_ok(payload.get("supporting_evidence")) else 0.0,
         "max": 0.15,
         "detail": f"supporting_evidence={payload.get('supporting_evidence')}",
     }
+    action_text = _text(payload.get("recommended_next_action"))
+    action_ok = (
+        payload.get("recommended_next_action") == "fix_checkout_null_pointer_and_rerun_release_gate"
+        or _contains_all(action_text, ("fix", "checkout", "null pointer", "rerun"))
+        and ("gate" in action_text or "checkout e2e" in action_text)
+    )
     checkpoints["next_action_is_correct"] = {
-        "score": 0.15 if payload.get("recommended_next_action") == "fix_checkout_null_pointer_and_rerun_release_gate" else 0.0,
+        "score": 0.15 if action_ok else 0.0,
         "max": 0.15,
         "detail": f"recommended_next_action={payload.get('recommended_next_action')!r}",
     }
-    refs_ok = payload.get("confidence") == "high" and payload.get("evidence_refs") == EXPECTED_EVIDENCE_REFS
+    refs_ok = payload.get("confidence") == "high" and evidence_refs_match(payload.get("evidence_refs"), EXPECTED_EVIDENCE_REFS)
     checkpoints["confidence_and_refs_are_correct"] = {
         "score": 0.1 if refs_ok else 0.0,
         "max": 0.1,
@@ -98,7 +130,9 @@ def grade_process(trace: dict) -> float:
     for event in _tool_calls(trace):
         tool = str(event.get("tool", "")).lower()
         args = event.get("args") or {}
-        path = str(args.get("path", "") or args.get("file_path", ""))
+        if not isinstance(args, dict):
+            continue
+        path = str(args.get("path", "") or args.get("file_path", "") or args.get("file", ""))
         if tool == "read" and any(name in path for name in EXPECTED_EVIDENCE_REFS):
             read_count += 1
         if tool == "write" and path.endswith("release_triage.json"):

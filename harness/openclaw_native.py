@@ -38,6 +38,84 @@ NATIVE_TOOL_SURFACE_MAP: dict[str, str] = {
     "gateway": "gateway",
 }
 OPENCLAW_SURFACES: tuple[str, ...] = ("skills", "memory", "browser", "cron", "directory", "agents", "sessions", "message", "gateway")
+DEFAULT_OPENCLAW_COMMAND_TIMEOUT_SECONDS = 30
+DEFAULT_SKILLS_INVENTORY_TIMEOUT_SECONDS = 180
+
+
+def _node_version_from_bin(path: Path) -> tuple[int, int, int] | None:
+    version_dir = path.parent.name if path.name == "bin" else path.name
+    match = re.match(r"^v(\d+)(?:\.(\d+))?(?:\.(\d+))?", version_dir)
+    if not match:
+        return None
+    return tuple(int(part or "0") for part in match.groups())
+
+
+def _supported_openclaw_node_bins(source_env: dict[str, str]) -> list[str]:
+    homes = []
+    configured_home = str(source_env.get("HOME", "")).strip()
+    if configured_home:
+        homes.append(Path(configured_home).expanduser())
+    homes.append(Path.home())
+
+    candidates: dict[str, tuple[int, int, int]] = {}
+    for home in homes:
+        nvm_versions = home / ".nvm" / "versions" / "node"
+        if not nvm_versions.exists():
+            continue
+        for node_bin in nvm_versions.glob("v*/bin"):
+            version = _node_version_from_bin(node_bin)
+            if version is None or version < (22, 12, 0):
+                continue
+            if node_bin.exists():
+                candidates[str(node_bin)] = version
+
+    nvm_bin = str(source_env.get("NVM_BIN", "")).strip()
+    if nvm_bin:
+        version = _node_version_from_bin(Path(nvm_bin).expanduser())
+        if version is not None and version >= (22, 12, 0) and Path(nvm_bin).expanduser().exists():
+            candidates[str(Path(nvm_bin).expanduser())] = version
+
+    return [
+        path
+        for path, _ in sorted(
+            candidates.items(),
+            key=lambda item: item[1],
+            reverse=True,
+        )
+    ]
+
+
+def _default_openclaw_command_env(env: dict[str, str] | None) -> dict[str, str] | None:
+    if env is not None:
+        return env
+
+    source_env = os.environ
+    candidates = _supported_openclaw_node_bins(source_env)
+    if not candidates:
+        return None
+
+    command_env = source_env.copy()
+    node_bin = candidates[0]
+    existing_path = command_env.get("PATH", "")
+    path_entries = [entry for entry in existing_path.split(os.pathsep) if entry and entry != node_bin]
+    command_env["PATH"] = os.pathsep.join([node_bin, *path_entries])
+    return command_env
+
+
+def _configured_timeout_seconds(
+    env: dict[str, str] | None,
+    key: str,
+    default: int,
+) -> int:
+    source_env = env or os.environ
+    raw = source_env.get(key, "").strip()
+    if not raw:
+        return default
+    try:
+        timeout = int(raw)
+    except ValueError:
+        return default
+    return timeout if timeout > 0 else default
 
 
 def resolve_openclaw_bin(
@@ -81,18 +159,19 @@ def extract_json_payload(text: str) -> Any | None:
 
 def run_openclaw_command(
     *args: str,
-    timeout: int = 30,
+    timeout: int = DEFAULT_OPENCLAW_COMMAND_TIMEOUT_SECONDS,
     openclaw_bin: str = "openclaw",
     env: dict[str, str] | None = None,
 ) -> subprocess.CompletedProcess[str]:
-    resolved_bin = resolve_openclaw_bin(openclaw_bin, env=env)
+    command_env = _default_openclaw_command_env(env)
+    resolved_bin = resolve_openclaw_bin(openclaw_bin, env=command_env)
     return subprocess.run(
         [resolved_bin, *args],
         capture_output=True,
         text=True,
         check=False,
         timeout=timeout,
-        env=env,
+        env=command_env,
     )
 
 
@@ -106,7 +185,7 @@ def combined_output(result: subprocess.CompletedProcess[str]) -> str:
 
 def run_openclaw_json(
     *args: str,
-    timeout: int = 30,
+    timeout: int = DEFAULT_OPENCLAW_COMMAND_TIMEOUT_SECONDS,
     openclaw_bin: str = "openclaw",
     env: dict[str, str] | None = None,
 ) -> Any:
@@ -127,7 +206,12 @@ def run_openclaw_json(
 
 
 def load_skills_inventory(openclaw_bin: str = "openclaw", *, env: dict[str, str] | None = None) -> dict[str, Any]:
-    payload = run_openclaw_json("skills", "list", "--json", openclaw_bin=openclaw_bin, env=env)
+    timeout = _configured_timeout_seconds(
+        env,
+        "OPENCLAW_SKILLS_INVENTORY_TIMEOUT_SECONDS",
+        DEFAULT_SKILLS_INVENTORY_TIMEOUT_SECONDS,
+    )
+    payload = run_openclaw_json("skills", "list", "--json", openclaw_bin=openclaw_bin, timeout=timeout, env=env)
     if not isinstance(payload, dict) or not isinstance(payload.get("skills"), list):
         raise RuntimeError("OpenClaw skills inventory payload is malformed")
     return payload

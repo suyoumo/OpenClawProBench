@@ -15,6 +15,7 @@ openclaw_surfaces:
 optimal_steps: 12
 pass_threshold: 0.62
 timeout_seconds: 360
+workspace_seed_dir: ../../datasets/error_recovery_25_rollback_gate_decision/fixtures
 prompt: |
   当前工作区里已经放好了 1 份只读输入：
   - `recovery_gate.json`

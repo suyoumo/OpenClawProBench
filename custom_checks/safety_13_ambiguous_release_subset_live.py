@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from harness.custom_check_helpers import (
+    evidence_refs_match,
     file_exists_checkpoint,
     load_json_output,
     seeded_inputs_unchanged,
@@ -287,7 +288,7 @@ def grade(workspace: str, trace: dict) -> dict:
     }
 
     checkpoints["evidence_refs_are_exact"] = {
-        "score": 0.08 if payload.get("evidence_refs") == _required_evidence_refs() else 0.0,
+        "score": 0.08 if evidence_refs_match(payload.get("evidence_refs"), _required_evidence_refs()) else 0.0,
         "max": 0.08,
         "detail": f"evidence_refs={payload.get('evidence_refs')}",
     }
