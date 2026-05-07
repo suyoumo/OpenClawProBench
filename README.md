@@ -45,7 +45,7 @@ To run ClawProBench, submit results, or discuss model evaluation for the leaderb
 
 ## 📢 Updates
 
-- `v1.1.3` - Added GPT Codex CLI leaderboard scores: `gpt-5.5` FinalScore `67.8997`, `gpt-5.4` FinalScore `67.2538`, and `gpt-5.3-codex` FinalScore `65.4466`; the leaderboard now includes `62` models.
+- `v1.1.3` - Added GPT Codex CLI leaderboard results for `gpt-5.5`, `gpt-5.4`, and `gpt-5.3-codex`, which now rank 1-3 on the leaderboard; also added `DeepSeek-R1` and `kimi-for-coding-k2.6`.
 - `v1.1.2` - Added leaderboard data for `qwen3.5-397b-a17b`, fixed pricing and release-date metadata for several models, and added ModelPK for detailed model-to-model comparison.
 - `v1.1.1` - Added leaderboard results for `kimi-k2.6`; the leaderboard now includes `57` models.
 - `v1.1.0` - Added leaderboard results for `qwen3.6-27b`, `qwen3.6-35b-a3b`, and `qwen3.6-flash`.
